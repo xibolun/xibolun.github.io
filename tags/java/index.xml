@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/java/</link>
+    <description>Recent content in java on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 13 Oct 2017 23:36:24 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java8函数式编程笔记第5章</title>
+      <link>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC5%E7%AB%A0--%E9%AB%98%E7%BA%A7%E9%9B%86%E5%90%88%E7%B1%BB%E5%92%8C%E6%94%B6%E9%9B%86%E5%99%A8/</link>
+      <pubDate>Fri, 13 Oct 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC5%E7%AB%A0--%E9%AB%98%E7%BA%A7%E9%9B%86%E5%90%88%E7%B1%BB%E5%92%8C%E6%94%B6%E9%9B%86%E5%99%A8/</guid>
+      <description>第5章 方法引用</description>
+    </item>
+    
+    <item>
+      <title>Java8函数式编程笔记1~2</title>
+      <link>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01~2%E7%AB%A0/</link>
+      <pubDate>Tue, 10 Oct 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01~2%E7%AB%A0/</guid>
+      <description>前言 为什么要阅读本书 如何编写简单、干净、易读的代码，尤其是对于集合的操作 如何简单地使用并行计算提高性能 如何准确地为问题建模 如果写出更简单的并</description>
+    </item>
+    
+    <item>
+      <title>Java8函数式编程笔记第3章</title>
+      <link>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC3%E7%AB%A0/</link>
+      <pubDate>Tue, 10 Oct 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC3%E7%AB%A0/</guid>
+      <description>第3章 流 外部迭代与内部迭代 public static void innerLoop() { /** * 运算结果为：50005000共计耗时：3 * 运算结果为：50005000共计耗时：119 */ int sum = 0; Set&amp;lt;Integer&amp;gt; set</description>
+    </item>
+    
+    <item>
+      <title>Java8函数式编程笔记第4章</title>
+      <link>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC4%E7%AB%A0--%E7%B1%BB%E5%BA%93/</link>
+      <pubDate>Tue, 10 Oct 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC4%E7%AB%A0--%E7%B1%BB%E5%BA%93/</guid>
+      <description>第4章 类库 数据类型 int占用4字节，Integer占用16字节;Integer为整形对象 在最坏的情况下，Integer[]要比int[]多占</description>
+    </item>
+    
+    <item>
+      <title>Java基础</title>
+      <link>https://xibolun.github.io/post/java/basicjava/</link>
+      <pubDate>Thu, 22 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/basicjava/</guid>
+      <description>一些颠覆认知的问题 Java的String地址是相等的 System.out.println(&amp;#34;a&amp;#34; == &amp;#34;a&amp;#34;); //true System.out.println(&amp;#34;a&amp;#34;.equals(&amp;#34;a&amp;#34;)); //true Integer的valueOf存在默认值-127~127的区间 Integer f1 = 100, f2 = 100,</description>
+    </item>
+    
+    <item>
+      <title>Java核心技术卷二</title>
+      <link>https://xibolun.github.io/post/java/corejavaii/</link>
+      <pubDate>Sat, 03 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/corejavaii/</guid>
+      <description>Java核心技术卷二 第3章 网络编程 socket socket(String host,String port):获取一个套接字 socket.getInputStream(): 获取流的数据信息 socket.setTimeout(1000): 设置socket连接超时时间 socket.isConnect(): socket.shutdownOutPut(): 半关闭，客户端向服务器</description>
+    </item>
+    
+    <item>
+      <title>Java核心技术卷一</title>
+      <link>https://xibolun.github.io/post/java/corejavai/</link>
+      <pubDate>Tue, 23 May 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/corejavai/</guid>
+      <description>Java核心技术&amp;ndash;卷I 第1章 Java程序设计概述 java发展史 1996年sun公司发布java 1.0版本 1998年在JavaOn</description>
+    </item>
+    
+    <item>
+      <title>Java多线程学习</title>
+      <link>https://xibolun.github.io/post/java/mulithread/</link>
+      <pubDate>Sat, 22 Apr 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/mulithread/</guid>
+      <description>Java多线程 第一章 多线程技能 线程与进程的区别 一个进程的启动是由多个线程所支持的；windows进程管理器当中的第一项都一个进程，每一个进程</description>
+    </item>
+    
+  </channel>
+</rss>

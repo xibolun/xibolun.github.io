@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%83/" />
+    <link rel="next" href="https://xibolun.github.io/post/tools/ansible/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/tools/tmux/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Tmux | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Tmux | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Tmux",
+    "headline" : "Tmux",
+    "description" : "有一些tmux的使用技巧，有时候会经常忘记，写一篇blog记录下来 什么是Tmux tmux Tmux Features 多屏展示 多tab展示 ，一个tab里面可以开多个tab；",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-07-25 11:53:51 \u002b0800 CST",
+    "dateModified" : "2019-07-25 11:53:51 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/tools\/tmux\/",
+    "wordCount" : "836",
+    "keywords" : [ "tool", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Tmux</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-07-25 itemprop="datePublished">July 25, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/tool/"> tool, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">836 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <p>有一些tmux的使用技巧，有时候会经常忘记，写一篇blog记录下来</p>
+<h3 id="什么是tmux">什么是Tmux</h3>
+<p><a href="https://github.com/tmux/tmux">tmux</a></p>
+<h3 id="tmux-features">Tmux Features</h3>
+<ul>
+<li>
+<p>多屏展示</p>
+</li>
+<li>
+<p>多tab展示 ，一个tab里面可以开多个tab；以下是<code>iterm</code> 里面一个窗口下tmux进程的多个tab</p>
+<pre tabindex="0"><code>[0] 0:node# 1:zsh* 2:hugo# 3:go  4:tmp- 5:zsh 
+</code></pre></li>
+<li>
+<p>session保持；当不小心关闭当前窗口，tmux可以attach上一个会话；就此可以在跳板机上面开一个tmux，然后只要跳板机不关，tmux的进程一直会在，那样就不用每次ssh上去了</p>
+<pre tabindex="0"><code>➜  ~ ps -ef | grep tmux
+  501  6351     1   0 Thu09AM ??         0:26.70 tmux
+  501  6349  6108   0 Thu09AM ttys003    0:00.02 tmux
+  501 78663  7642   0  8:37PM ttys006    0:00.00 grep --color=auto --exclude-dir=.bzr --exclude-dir=CVS --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn tmux
+</code></pre></li>
+</ul>
+<h3 id="配置文件">配置文件</h3>
+<p>默认是在<code>~/.tmux.conf</code>下面，所有的配置项见 <a href="https://github.com/tmux/tmux/blob/master/example_tmux.conf">example_tmu.conf</a></p>
+<h3 id="hot-key">Hot key</h3>
+<p>Tmux所有的快捷键都是一个前缀来控制；前缀快捷键可以修改配置文件里面的<code>set-option -g prefix C-x</code> 我设置的是<code>Ctrl+x</code>，默认的是<code>Ctrl+a</code></p>
+<h4 id="session操作">session操作</h4>
+<ul>
+<li>
+<p><code>? </code> 打开帮助文档</p>
+</li>
+<li>
+<p><code>$</code> 重命名会话</p>
+</li>
+<li>
+<p><code>d</code> 断开当前连接，或者<code>Ctrl+d</code></p>
+</li>
+</ul>
+<pre tabindex="0"><code>tmux #新建一个默认的会话
+tmux new -s foo # 新建名称为 foo 的会话
+tmux ls # 列出所有 tmux 会话
+tmux a # 恢复至上一次的会话
+tmux a -t foo # 恢复名称为 foo 的会话，会话默认名称为数字
+tmux kill-session -t foo # 删除名称为 foo 的会话
+tmux kill-server # 删除所有的会话
+</code></pre><h4 id="panel操作">panel操作</h4>
+<ul>
+<li><code>c</code> 新建Panel，此时当前Panel会切换至新Panel，不影响原有Panel的状态</li>
+<li><code>,</code> 重命名panel</li>
+<li><code>p</code> 切换至上一Panel</li>
+<li><code>n</code> 切换至下一Panel</li>
+<li><code>w</code> Panel列表选择，注意 macOS 下使用 <code>⌃p</code> 和 <code>⌃n</code> 进行上下选择</li>
+<li><code>&amp;</code> 关闭当前Panel</li>
+<li><code>,</code> 重命名Panel，可以使用中文，重命名后能在 tmux 状态栏更快速的识别Panel id</li>
+<li><code>.</code> 设置Panel的序号</li>
+<li><code>0</code> 切换至 0 号Panel，使用其他数字 id 切换至对应Panel</li>
+<li><code>f</code> 根据Panel名搜索选择Panel，可模糊匹配</li>
+</ul>
+<h4 id="窗格操作">窗格操作</h4>
+<ul>
+<li><code>w</code> 显示panel列表</li>
+<li><code>%</code> 左右平分出两个窗格</li>
+<li><code>&quot;</code> 上下平分出两个窗格</li>
+<li><code>o</code> 选择下一个窗格，也可以使用上下左右方向键来选择</li>
+<li><code>space</code> 切换窗格布局，tmux 内置了五种窗格布局，也可以通过 <code>⌥1</code> 至 <code>⌥5</code>来切换</li>
+<li><code>x</code> 关闭当前窗格</li>
+<li><code>{</code> 当前窗格前移</li>
+<li><code>}</code> 当前窗格后移</li>
+<li><code>;</code> 选择上次使用的窗格</li>
+<li><code>z</code> 最大化当前窗格，再次执行可恢复原来大小</li>
+</ul>
+<h4 id="heading"></h4>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/tools/tmux/>https://xibolun.github.io/post/tools/tmux/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/tool/">
+                    #tool</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%83/" class="prev" rel="prev" title="Go语言实战(七)并发模式"><i class="iconfont icon-left"></i>&nbsp;Go语言实战(七)并发模式</a>
+        
+        
+        <a href="https://xibolun.github.io/post/tools/ansible/" class="next" rel="next" title="Ansbile学习">Ansbile学习&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

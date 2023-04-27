@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/redis/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster/" />
+    <link rel="next" href="https://xibolun.github.io/post/tools/imagemagic/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/redis/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Redis(三)––分布式锁 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Redis(三)––分布式锁 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Redis(三)––分布式锁",
+    "headline" : "Redis(三)––分布式锁",
+    "description" : "分布式锁演进 可以使用redis的NX来做处理，需要考虑以下事情 set key value EX expiration NX 锁用完了需要删除 代码需要做锁的释放，否则其他线程的不能获取到锁，导",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-02-27 19:49:47 \u002b0800 CST",
+    "dateModified" : "2020-02-27 19:49:47 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/redis\/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81\/",
+    "wordCount" : "1069",
+    "keywords" : [ "redis", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Redis(三)––分布式锁</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-02-27 itemprop="datePublished">February 27, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1069 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="分布式锁演进">分布式锁演进</h3>
+<p>可以使用redis的NX来做处理，需要考虑以下事情</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>set key value EX expiration NX
+</span></span></code></pre></div><h4 id="锁用完了需要删除">锁用完了需要删除</h4>
+<p>代码需要做锁的释放，否则其他线程的不能获取到锁，导致死锁的情况发生；</p>
+<h4 id="若释放锁之前程序已经异常">若释放锁之前程序已经异常</h4>
+<p>刚锁上，开始执行业务代码，但是程序需要做捕获异常处理，像Java的try catch，golang的defer</p>
+<h4 id="应用宕机">应用宕机？</h4>
+<p>刚锁上，然后应用发布或者应用直接重启了，此时锁就不会再释放掉；这时可以设置锁的超时时间来解决此问题，当到了一定的时间，锁会自动过期，不会影响其他线程的使用；</p>
+<h4 id="多线程之间空锁">多线程之间空锁？</h4>
+<p>此种情况比较复杂，设置超时时间为10s，A线程拿到锁，执行可能假如是15s；此时B线程可以拿到锁，B线程执行时间为3s，这时B就有可能将A的锁给释放掉了；若多个线程在操作的时候，就可能出现一直锁不住的情况，因为大家拿到锁后会互相删除；可以对每个线程添加一个名称(随机值或者其他的标识位)，删除之间校验一下自己是否是自己的锁；</p>
+<h4 id="超时时间如何指定">超时时间如何指定？</h4>
+<p>如何把握设置长了可能会一直等待，设置短了，直接释放掉了，会导致其他的线程进入；设置长了，程序运行完了还没有释放掉；其他的线程还在等着，性能会受到影响，不过影响不算非常的大；</p>
+<p>看一下<code>Redisson</code>是如何实现的</p>
+<p><a href="https://github.com/redisson/redisson/blob/master/redisson/src/main/java/org/redisson/RedissonLock.java">RedissonLock.java</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> RFuture<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">tryLockInnerAsync</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> leaseTime<span style="color:#f92672">,</span> TimeUnit unit<span style="color:#f92672">,</span> <span style="color:#66d9ef">long</span> threadId<span style="color:#f92672">,</span> RedisStrictCommand<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> command<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        internalLockLeaseTime <span style="color:#f92672">=</span> unit<span style="color:#f92672">.</span><span style="color:#a6e22e">toMillis</span><span style="color:#f92672">(</span>leaseTime<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> commandExecutor<span style="color:#f92672">.</span><span style="color:#a6e22e">evalWriteAsync</span><span style="color:#f92672">(</span>getName<span style="color:#f92672">(),</span> LongCodec<span style="color:#f92672">.</span><span style="color:#a6e22e">INSTANCE</span><span style="color:#f92672">,</span> command<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;if (redis.call(&#39;exists&#39;, KEYS[1]) == 0) then &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#e6db74">&#34;redis.call(&#39;hincrby&#39;, KEYS[1], ARGV[2], 1); &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#e6db74">&#34;redis.call(&#39;pexpire&#39;, KEYS[1], ARGV[1]); &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#e6db74">&#34;return nil; &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;end; &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;if (redis.call(&#39;hexists&#39;, KEYS[1], ARGV[2]) == 1) then &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#e6db74">&#34;redis.call(&#39;hincrby&#39;, KEYS[1], ARGV[2], 1); &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#e6db74">&#34;redis.call(&#39;pexpire&#39;, KEYS[1], ARGV[1]); &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#e6db74">&#34;return nil; &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;end; &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#e6db74">&#34;return redis.call(&#39;pttl&#39;, KEYS[1]);&#34;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                    Collections<span style="color:#f92672">.&lt;</span>Object<span style="color:#f92672">&gt;</span>singletonList<span style="color:#f92672">(</span>getName<span style="color:#f92672">()),</span> internalLockLeaseTime<span style="color:#f92672">,</span> getLockName<span style="color:#f92672">(</span>threadId<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>使用<code>luna</code>脚本对redis底层直接操作；那是如何处理时间的呢？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">renewExpiration</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        ExpirationEntry ee <span style="color:#f92672">=</span> EXPIRATION_RENEWAL_MAP<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>getEntryName<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>ee <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        Timeout task <span style="color:#f92672">=</span> commandExecutor<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnectionManager</span><span style="color:#f92672">().</span><span style="color:#a6e22e">newTimeout</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> TimerTask<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">(</span>Timeout timeout<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                ExpirationEntry ent <span style="color:#f92672">=</span> EXPIRATION_RENEWAL_MAP<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>getEntryName<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>ent <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>                Long threadId <span style="color:#f92672">=</span> ent<span style="color:#f92672">.</span><span style="color:#a6e22e">getFirstThreadId</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>threadId <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                RFuture<span style="color:#f92672">&lt;</span>Boolean<span style="color:#f92672">&gt;</span> future <span style="color:#f92672">=</span> renewExpirationAsync<span style="color:#f92672">(</span>threadId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                future<span style="color:#f92672">.</span><span style="color:#a6e22e">onComplete</span><span style="color:#f92672">((</span>res<span style="color:#f92672">,</span> e<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>e <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        log<span style="color:#f92672">.</span><span style="color:#a6e22e">error</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Can&#39;t update lock &#34;</span> <span style="color:#f92672">+</span> getName<span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; expiration&#34;</span><span style="color:#f92672">,</span> e<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>                    
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>res<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#75715e">// reschedule itself
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                        renewExpiration<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">});</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">},</span> internalLockLeaseTime <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">,</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">MILLISECONDS</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        ee<span style="color:#f92672">.</span><span style="color:#a6e22e">setTimeout</span><span style="color:#f92672">(</span>task<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>对超时时间/3，然后去起一个<code>Timer</code>做定期<code>check</code>，看看是否此线程持有的锁已经过期；若过期了，线程未执行完，则自动续租时间 ；</p>
+<p>所以思路就是，从当前持有锁的线程A当中分出一个线程B，A继续跑自己的业务代码，B代码定时去检查线程的状态和过期时间的平衡；</p>
+<h4 id="集群模式节点宕机">集群模式节点宕机</h4>
+<p>此种情形是，线程T拿到了锁，在clusterA上面，若此时clusterA宕机了，则需要分两种情况看待，一种情况A是否进行了replica操作，若操作成功，那就不影响业务，因为其他的线程也不会执行；</p>
+<p>若未操作成功，就会有一个线程P进行了锁的操作，所以当前会有两次的业务执行，这样就需要业务方的额外处理；在双11的时候，大家可能会经常遇到，钱扣了两次，然后后续会有客服给你打电话退款就是这种的情况，本人就遇到了一次；</p>
+<h3 id="基于redis实现一个分布式锁">基于redis实现一个分布式锁</h3>
+<p>//TODO</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/redis/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/>https://xibolun.github.io/post/redis/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/redis/">
+                    #redis</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/redis/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster/" class="prev" rel="prev" title="Redis(二)––集群cluster"><i class="iconfont icon-left"></i>&nbsp;Redis(二)––集群cluster</a>
+        
+        
+        <a href="https://xibolun.github.io/post/tools/imagemagic/" class="next" rel="next" title="Imagemagick使用">Imagemagick使用&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

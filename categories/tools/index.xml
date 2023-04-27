@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tools on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/categories/tools/</link>
+    <description>Recent content in tools on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 27 Apr 2023 10:24:20 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/categories/tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Alfred snippets日期格式化</title>
+      <link>https://xibolun.github.io/post/tools/aflred/</link>
+      <pubDate>Thu, 27 Apr 2023 10:24:20 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/aflred/</guid>
+      <description>Alfred snippets PlaceHolder snippets是一个快捷定制化短语的功能，我一般会将常用的一些命令、文本信息放在其内；它有一些动态的输入方式，像python的jin</description>
+    </item>
+    
+  </channel>
+</rss>

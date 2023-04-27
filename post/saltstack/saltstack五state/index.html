@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/saltstack/saltstack%E5%9B%9Bgrainspillar/" />
+    <link rel="next" href="https://xibolun.github.io/post/saltstack/saltstack%E5%85%AD%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/saltstack/saltstack%E4%BA%94state/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            SaltStack(五)State | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="SaltStack(五)State | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "SaltStack(五)State",
+    "headline" : "SaltStack(五)State",
+    "description" : "State state是一个描述性文件，类似puppet的脚本，ansible的playbook，描述着需要配置\/文件\/软件\/服务等的最终状态 格式 target_a: #",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-10-15 14:34:29 \u002b0800 CST",
+    "dateModified" : "2019-10-15 14:34:29 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/saltstack\/saltstack%E4%BA%94state\/",
+    "wordCount" : "618",
+    "keywords" : [ "saltstack", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">SaltStack(五)State</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-10-15 itemprop="datePublished">October 15, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">618 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="statehttpsdocssaltstackcomenlatestrefstatesindexhtml"><a href="https://docs.saltstack.com/en/latest/ref/states/index.html">State</a></h3>
+<p>state是一个描述性文件，类似puppet的脚本，ansible的playbook，描述着需要配置/文件/软件/服务等的最终状态</p>
+<h4 id="格式">格式</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">target_a</span>:                         <span style="color:#75715e"># ID declaration</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">state_a</span>:                        <span style="color:#75715e"># State declaration</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">state_func_a</span>: <span style="color:#ae81ff">some_value   </span> <span style="color:#75715e"># function declaration</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">state_func_b</span>: <span style="color:#ae81ff">some_value   </span> <span style="color:#75715e"># ...</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">state_func_c</span>: <span style="color:#ae81ff">some_value</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">require</span>:                    <span style="color:#75715e"># requisite declaration</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">pkg</span>: <span style="color:#ae81ff">xxx                 </span> <span style="color:#75715e"># requisite reference</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">file</span>: <span style="color:#ae81ff">xxx/xxx.xx</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">state_b</span>:                        <span style="color:#75715e"># Support multiple states</span>
+</span></span></code></pre></div><ul>
+<li><a href="https://docs.saltstack.com/en/latest/ref/states/all/index.html">all_state</a></li>
+<li><a href="http://docs.saltstack.cn/ref/states/highstate.html#state-declaration">声明state</a></li>
+</ul>
+<h4 id="实战安装vim">实战安装vim</h4>
+<p>创建<code>/srv/salt/top.sls</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># /srv/salt/top.sls</span>
+</span></span><span style="display:flex;"><span>base:
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;*&#39;</span>:
+</span></span><span style="display:flex;"><span>    - tool
+</span></span></code></pre></div><p>创建<code>/srv/salt/tool.sls</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># /srv/salt/tool.sls</span>
+</span></span><span style="display:flex;"><span>tool:
+</span></span><span style="display:flex;"><span>  pkg.installed:
+</span></span><span style="display:flex;"><span>   - name: vim-common
+</span></span></code></pre></div><p>执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  salt sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> state.highstate 
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>----------
+</span></span><span style="display:flex;"><span>          ID: tool
+</span></span><span style="display:flex;"><span>    Function: pkg.installed
+</span></span><span style="display:flex;"><span>        Name: vim-common
+</span></span><span style="display:flex;"><span>      Result: True
+</span></span><span style="display:flex;"><span>     Comment: All specified packages are already installed
+</span></span><span style="display:flex;"><span>     Started: 09:02:43.874748
+</span></span><span style="display:flex;"><span>    Duration: 283.067 ms
+</span></span><span style="display:flex;"><span>     Changes:   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Summary <span style="color:#66d9ef">for</span> AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6
+</span></span><span style="display:flex;"><span>------------
+</span></span><span style="display:flex;"><span>Succeeded: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Failed:    <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>------------
+</span></span><span style="display:flex;"><span>Total states run:     <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Total run time: 283.067 ms
+</span></span></code></pre></div><p>查看结果</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  salt sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> cmd.run <span style="color:#e6db74">&#39;rpm -qa | grep vim&#39;</span>
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>    vim-minimal-7.4.160-5.el7.x86_64
+</span></span><span style="display:flex;"><span>    vim-filesystem-7.4.629-6.el7.x86_64
+</span></span><span style="display:flex;"><span>    vim-common-7.4.629-6.el7.x86_64
+</span></span></code></pre></div><p>或者在minion端执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@minion2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># salt-call state.highstate </span>
+</span></span></code></pre></div><h4 id="jinjia2httpjinjapocooorgdocs"><a href="http://jinja.pocoo.org/docs">Jinjia2</a></h4>
+<p>实际在执行过程当中，不同的操作系统安装的包也不尽相同，需要在state文件里面加入相应的判断逻辑；</p>
+<p>比如Fedora系统当中是 <code>httpd</code> ，但是在Debian/Ubuntu 却是 <code>apache2</code>；</p>
+<p>所以需要使用jinjia模板进行一些简单判断，如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># /srv/salt/webserver.sls</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">webserver</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pkg.installed</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: {<span style="color:#ae81ff">% if grains[&#39;os_family&#39;] ==&#39;RedHat&#39; %} httpd {% elif grains[&#39;os_family&#39;]==&#39;Arch&#39; %} apache2 {% endif %}</span>
+</span></span></code></pre></div><p>也可以借助<code>grains</code>和<code>pillar</code>里面的变量数据，因为本质上就是数据存储结构；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apache</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pkg.installed</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: {{ <span style="color:#ae81ff">pillar[&#39;pkgs&#39;][&#39;apache&#39;] }}</span>
+</span></span></code></pre></div><h4 id="实战部署httpd服务">实战部署httpd服务</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># /srv/salt/webserver.sls</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">webserver</span>:         
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pkg.installed</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: {<span style="color:#ae81ff">% if grains[&#39;os_family&#39;] ==&#39;RedHat&#39; %} httpd {% elif grains[&#39;os_family&#39;]==&#39;Arch&#39; %} apache {% endif %}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#f92672">httpd.service</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">service.running</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">require</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">pkg</span>: <span style="color:#ae81ff">httpd</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">/var/www/index.html</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">file</span>: 
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">managed</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">source</span>: <span style="color:#ae81ff">salt://webserver/index.html</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">require</span>: 
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">pkg</span>: <span style="color:#ae81ff">httpd</span>
+</span></span></code></pre></div><blockquote>
+<ol>
+<li>
+<p>managed的source当中的全路径为： /srv/salt/webserver/index.html，使用了salt协议，所以需要去掉前缀路径</p>
+</li>
+<li>
+<p>怎么知道哪个state下面有哪些function的参数</p>
+<ul>
+<li><a href="https://docs.saltstack.com/en/latest/ref/states/all/index.html">https://docs.saltstack.com/en/latest/ref/states/all/index.html</a></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h3 id="其他用法">其他用法</h3>
+<ul>
+<li><a href="http://docs.saltstack.cn/topics/tutorials/states_pt3.html">模板、继承、包含、watch、多环境等</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/saltstack/saltstack%E4%BA%94state/>https://xibolun.github.io/post/saltstack/saltstack%E4%BA%94state/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/saltstack/">
+                    #saltstack</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E5%9B%9Bgrainspillar/" class="prev" rel="prev" title="SaltStack(四)Grains&amp;Pillar"><i class="iconfont icon-left"></i>&nbsp;SaltStack(四)Grains&amp;Pillar</a>
+        
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E5%85%AD%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86/" class="next" rel="next" title="SaltStack(六)任务管理">SaltStack(六)任务管理&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

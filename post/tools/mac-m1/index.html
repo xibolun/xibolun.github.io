@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/k8s/k8sadmission-controllers/" />
+    <link rel="next" href="https://xibolun.github.io/post/golang/%E5%85%B3%E4%BA%8Egoland%E6%97%A0%E6%B3%95debug%E7%9A%84%E9%97%AE%E9%A2%98/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/tools/mac-m1/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            M1的艰辛使用之旅 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="M1的艰辛使用之旅 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "M1的艰辛使用之旅",
+    "headline" : "M1的艰辛使用之旅",
+    "description" : "mac m1 rosetta",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2021",
+    "datePublished": "2021-01-12 22:39:52 \u002b0800 CST",
+    "dateModified" : "2021-01-12 22:39:52 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/tools\/mac-m1\/",
+    "wordCount" : "1188",
+    "keywords" : [ "tool", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">M1的艰辛使用之旅</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2021-01-12 itemprop="datePublished">January 12, 2021</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/tool/"> tool, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1188 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="m1的艰辛使用之旅">M1的艰辛使用之旅</h2>
+<p>公司给每个同学置换了mac，由于docker已经支持了M1版本，所以我也入手了一台，想体验一把传说中的神器，不想自己掉坑里了；花了两天的时间才把东西弄全；</p>
+<h3 id="迁移">迁移</h3>
+<p>迁移比较简单，打开迁移助手即可。虽然很简单，但是仍然遇到了问题，因为老电脑上面的数据太多了，256G几乎满了的状态，导致迁移的时候，新电脑上面的文件没有迁移完，直接就报错了；最后打开一看，里面许多的命令都没有，那只有重新迁移了；但是已经迁移了一部分，所以需要抹掉，重新安装再进行迁移；</p>
+<p>想想迁移过程当中的漫长等待，我有苦说不出来；</p>
+<h3 id="重装">重装</h3>
+<p>重装的过程也比较艰辛；因为mac开启了<a href="https://discussionschinese.apple.com/thread/250833364">【自动启动】功能</a>，所以我按【cmd+R】想进入恢复模式，无法进入；于是我就按着上面的说法修改了一个参数，直接就启动不起来了；</p>
+<p>启动后报错样子大概如下：</p>
+<pre tabindex="0"><code>support.apple.com/mac/restore 
+</code></pre><p><a href="https://support.apple.com/zh-cn/HT211868?cid=mc-ols-mac-article_ht211868-macos_ui-09292020">Mac启动异常</a>，链接当中也给出了解决方案，就是拿另外一台电脑，使用<code>apple configuration</code>把它弄起来，我尝试了，没有瓜；最后还是使用了【shift+cmd+option+R】快捷键最终进入了恢复安装的界面；</p>
+<h3 id="安装过程">安装过程</h3>
+<p>在两个盘【Macintosh HD】还有一个【Data】，这两个盘我都给抹掉了，因为我已经迁移过一次了，里面有一些文件，虽然我已经抹掉了，但是仍然存在，所以安装到应用程序的时候又报错了；</p>
+<p>报错信息如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>failed to personalize the software update. please try again
+</span></span></code></pre></div><p>解决方式 <a href="https://support.apple.com/en-us/HT211983">resetpassword</a>，然后再重新抹盘，再重新安装，最后终于装好了；</p>
+<h3 id="软件无法更新">软件无法更新</h3>
+<p>安装好了之后，我发现有一些软件可以运行，qq\wps等，但像weixin\dingding都无法使用；原因乃是缺少<code>rosetta</code>，需要进行安装，但是我死活安装不了，提示如下：</p>
+<pre tabindex="0"><code>请确定您已经连接互联网
+</code></pre><p>但是我明明在连接互联网，什么情况？</p>
+<p>我使用命令行工具更新的时候，发现请求的域名乃是<code>apple.xxxx</code></p>
+<pre tabindex="0"><code>sudo /usr/sbin/softwareupdate --install-rosetta --agree-to-license
+</code></pre><p>最后我看了一下我的配置文件，发现域名解析出错了，将<code>apple</code>相关的域名解析给去掉，得以成功安装<code>rosetta</code></p>
+<h3 id="必需的软件">必需的软件</h3>
+<ul>
+<li>Jetbrains家族： Goland\DataGrip\Pycharm</li>
+<li>Alfred：注意使用4.2.1 1183版本</li>
+<li>Postman：所有存储的API请求设置都会进行同步</li>
+<li>Docker M1版本：<a href="https://docs.docker.com/docker-for-mac/apple-m1/">download</a></li>
+<li>工具类： <a href="https://code.visualstudio.com/docs/?dv=darwinarm64&amp;build=insiders">vscode Arm版本</a>、Mindnode、网易邮箱、Reeder、wps、iterm2、emacs</li>
+<li>通讯类：钉钉、微信、QQ</li>
+<li>笔记类：有道、语雀、Typora、</li>
+<li>其他：<a href="https://justgetflux.com/mac/Flux.zip">Flux</a>一个护眼的工具、百度网盘</li>
+<li>命令行工具：git、trash、wrk、go、hugo、tmux、brew、ag、pandoc、swag、swagger、swagger-markdown</li>
+</ul>
+<h3 id="目前遇到的问题">目前遇到的问题</h3>
+<ul>
+<li>Goland闪退</li>
+<li>Teamviewer无法使用</li>
+<li><a href="https://forums.virtualbox.org/viewtopic.php?f=8&amp;t=98742">Virtualbox不支持ARM</a></li>
+<li><a href="https://github.com/go-delve/delve/issues/2246">delve无法支持arm，导致goland debug无法运行</a></li>
+</ul>
+<pre tabindex="0"><code>rosetta error: failed to allocate vm space for aot
+</code></pre><h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://mrmacintosh.com/reinstalling-big-sur-on-apple-silicon-macs-with-11-0-20a2411-error/">Error! If trying to Reinstall macOS Big Sur On Apple Silicon Macs</a></li>
+<li><a href="https://support.apple.com/en-us/HT211983">If you get a personalization error when reinstalling macOS on your Mac with Apple M1 chip</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/tools/mac-m1/>https://xibolun.github.io/post/tools/mac-m1/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/tool/">
+                    #tool</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/k8s/k8sadmission-controllers/" class="prev" rel="prev" title="k8s—admission controllers"><i class="iconfont icon-left"></i>&nbsp;k8s—admission controllers</a>
+        
+        
+        <a href="https://xibolun.github.io/post/golang/%E5%85%B3%E4%BA%8Egoland%E6%97%A0%E6%B3%95debug%E7%9A%84%E9%97%AE%E9%A2%98/" class="next" rel="next" title="M1 Goland无法debug">M1 Goland无法debug&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

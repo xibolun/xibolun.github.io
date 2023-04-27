@@ -1,0 +1,1685 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/post/</link>
+    <description>Recent content in Posts on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 27 Apr 2023 10:24:20 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Alfred snippets日期格式化</title>
+      <link>https://xibolun.github.io/post/tools/aflred/</link>
+      <pubDate>Thu, 27 Apr 2023 10:24:20 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/aflred/</guid>
+      <description>Alfred snippets PlaceHolder snippets是一个快捷定制化短语的功能，我一般会将常用的一些命令、文本信息放在其内；它有一些动态的输入方式，像python的jin</description>
+    </item>
+    
+    <item>
+      <title>xmlsec安装报错</title>
+      <link>https://xibolun.github.io/post/python/xmlsec%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 26 Apr 2023 11:21:07 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/python/xmlsec%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/</guid>
+      <description>xmlsec安装报错 主机环境：macos M2 ✗ uname -a Darwin pgy.local 22.3.0 Darwin Kernel Version 22.3.0: Mon Jan 30 20:38:43 PST 2023; root:xnu-8792.81.3~2/RELEASE_ARM64_T8112 arm64 python版本： ✗ pyenv --version &amp;amp;&amp;amp; python -V pyenv 2.3.17 Python 3.9.1 安装依赖 官方安装文档为：</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M04W03</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w03/</link>
+      <pubDate>Fri, 21 Apr 2023 11:21:07 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w03/</guid>
+      <description>利器 https://affine.pro/ ： 新的协作工具 coderradio：一个适合在写代码的时候听歌的网站 工程 ky：一个前端http组件新秀 sd-face-editor：一</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M04W02</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w02/</link>
+      <pubDate>Fri, 14 Apr 2023 09:25:36 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w02/</guid>
+      <description>利器 anthrpoic：另一个AI Aivesa 智聊：国内可用，基于gpt3.5 AIGC工具列表 工程 tremor：一个dashboard快速迭代的rea</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M04W01</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w01/</link>
+      <pubDate>Fri, 07 Apr 2023 15:44:20 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w01/</guid>
+      <description>利器 trello：一个团队协作的task管理工具 scrcpy：一个无需root，用鼠标就可以远程控制手机的app 微信键盘：除除linux平台</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M03W05</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w05/</link>
+      <pubDate>Thu, 30 Mar 2023 23:25:37 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w05/</guid>
+      <description>利器 excalidraw：一款手绘画图工具 orbstack：mac上面docker-desktop的替换工具，同时支持虚拟化 umm-mayb</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M03W04</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w04/</link>
+      <pubDate>Wed, 22 Mar 2023 11:21:07 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w04/</guid>
+      <description>利器 warp：mac上面的terminal工具，集成了AI iconpark：字节的图标库，这种事情大厂出品是最好的，个人维护能力非常有限 ic</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M03W03</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w03/</link>
+      <pubDate>Mon, 20 Mar 2023 14:54:52 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w03/</guid>
+      <description>利器 doodleboard：一个画图工具，里面内置有许多模板 fq：一个format工具，类似jq，有提供比对的视频 工程 sohutv-cach</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M03W02</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w02/</link>
+      <pubDate>Thu, 16 Mar 2023 11:21:07 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w02/</guid>
+      <description>利器 三款效率工具利器 Alfred：帽子，从《MacTalk》里面听闻一直在使用，搜索、粘贴版、password、workflow功能都非常强</description>
+    </item>
+    
+    <item>
+      <title>2022年度总结</title>
+      <link>https://xibolun.github.io/post/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/2022/</link>
+      <pubDate>Sat, 24 Dec 2022 04:04:02 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/2022/</guid>
+      <description>2022年度总结 今年主要还是以店面、工作、教会为准来打转； 生活 我们今年把店面扩大了一些，放到了小和山新苑里面，而不是躲在UN的小房间里面，还</description>
+    </item>
+    
+    <item>
+      <title>Joplin环境搭建</title>
+      <link>https://xibolun.github.io/post/tools/joplin/</link>
+      <pubDate>Thu, 08 Dec 2022 15:01:40 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/joplin/</guid>
+      <description>Joplin使用 Joplin是一个私有部署的笔记软件，它的几个特点： 针对于markdown友好， 有桌面客户端，移动端，使用起来也非常的方便；</description>
+    </item>
+    
+    <item>
+      <title>谈一下远程办公</title>
+      <link>https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E8%B0%88%E4%B8%80%E4%B8%8B%E8%BF%9C%E7%A8%8B%E5%8A%9E%E5%85%AC/</link>
+      <pubDate>Mon, 23 May 2022 15:22:38 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E8%B0%88%E4%B8%80%E4%B8%8B%E8%BF%9C%E7%A8%8B%E5%8A%9E%E5%85%AC/</guid>
+      <description>谈一下远程办公 为何会有远程办公 先说一上我自己的情况；入职七牛后，就非常的渴望远程办公，因为上班路程太远了；早上7点30分出门，晚上到家已经1</description>
+    </item>
+    
+    <item>
+      <title>2021年度总结</title>
+      <link>https://xibolun.github.io/post/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/2021/</link>
+      <pubDate>Sat, 15 Jan 2022 18:19:09 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/2021/</guid>
+      <description>2021年度总结 生活 生活上改变挺大的；今年胡老师在小和山开店了，所以我不得不放下自己的房子，来到留下这边跟她一起租，一起住；有时候下班、周末</description>
+    </item>
+    
+    <item>
+      <title>Go os.exec</title>
+      <link>https://xibolun.github.io/post/golang/go--os.exec/</link>
+      <pubDate>Wed, 29 Dec 2021 10:11:23 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go--os.exec/</guid>
+      <description>Go os.exec golang基础的执行命令操作如下 基础命令执行 func TestSingleCommand(t *testing.T) { stdout, err := exec.Command(&amp;#34;uname&amp;#34;, &amp;#34;-a&amp;#34;).CombinedOutput() if err != nil { t.Error(err) return } t.Log(stdout) } 基础超时操作 func TestSingleTimeoutCommand(t *testing.T) { ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second) defer cancel() stdout, err := exec.CommandContext(ctx, &amp;#34;ping&amp;#34;, &amp;#34;-c 2&amp;#34;, &amp;#34;-i 1&amp;#34;,</description>
+    </item>
+    
+    <item>
+      <title>一次关于etcd故障处理</title>
+      <link>https://xibolun.github.io/post/etcd/%E4%B8%80%E6%AC%A1%E5%85%B3%E4%BA%8Eetcd%E7%9A%84%E7%94%9F%E4%BA%A7%E6%8E%92%E9%9A%9C/</link>
+      <pubDate>Thu, 16 Dec 2021 12:50:35 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/%E4%B8%80%E6%AC%A1%E5%85%B3%E4%BA%8Eetcd%E7%9A%84%E7%94%9F%E4%BA%A7%E6%8E%92%E9%9A%9C/</guid>
+      <description>一次关于etcd故障处理 现象 任务下发配置不成功 链路整理 web -&amp;gt; 服务端放参数至 -&amp;gt; etcdserver -&amp;gt; 远程机接收参数信息 -&amp;gt; 远程机执行命令 问题解决 第一波观察日志未果 怀</description>
+    </item>
+    
+    <item>
+      <title>k8s——无法创建Deployment</title>
+      <link>https://xibolun.github.io/post/k8s/k8s%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Sun, 05 Dec 2021 17:46:15 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8s%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E8%B5%84%E6%BA%90/</guid>
+      <description>现象 写了一个CRD文件，里面有一个deployment+service，但是service可以创建成功，deployment无法创建成功 # kubectl</description>
+    </item>
+    
+    <item>
+      <title>youtube-dl使用</title>
+      <link>https://xibolun.github.io/post/tools/youtube-dl/</link>
+      <pubDate>Fri, 23 Jul 2021 17:57:33 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/youtube-dl/</guid>
+      <description>youtube-dl使用 列出所有的格式 youtube-dl -F https://www.youtube.com/watch\?v\=THw7uNkHppM 下载指定格式的url youtube-dl -f best https://www.youtube.com/watch\?v\=THw7uNkHppM ## +意味着使用ffmeg合并成一个文件 youtube-dl -f bestvideo+bestaudio https://www.youtube.com/watch\?v\=THw7uNkHppM youtube-dl -f mp4 https://www.youtube.com/watch\?v\=THw7uNkHppM 下载多个 youtube-dl -f mp4</description>
+    </item>
+    
+    <item>
+      <title>Istio—从源码看Sidecar注入原理</title>
+      <link>https://xibolun.github.io/post/istio/%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bsidecar%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Fri, 29 Jan 2021 16:44:02 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/istio/%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bsidecar%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86/</guid>
+      <description>Sidecar 问题：当创建一个Pod的时候，Istio需要对其进行观察，服务治理、信息采集等，这些操作都是通过Envoy处理的；那Envoy什么时候创建</description>
+    </item>
+    
+    <item>
+      <title>Istio 1.8—环境搭建</title>
+      <link>https://xibolun.github.io/post/istio/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Tue, 26 Jan 2021 14:06:50 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/istio/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>Istio 1.8—环境搭建 Istio是一个服务治理的开放平台，1.8与前版本的命令不太一样；官网给了一个安装流程Getting Started， 安装过</description>
+    </item>
+    
+    <item>
+      <title>M1 Goland无法debug</title>
+      <link>https://xibolun.github.io/post/golang/%E5%85%B3%E4%BA%8Egoland%E6%97%A0%E6%B3%95debug%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 18 Jan 2021 14:50:13 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/%E5%85%B3%E4%BA%8Egoland%E6%97%A0%E6%B3%95debug%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <description>起因 新版本的m1是ARM架构，在安装完2020.03版本的Goland后，非debug启动正常，但debug启动的时候报错如下： rosetta error: failed to allocate vm</description>
+    </item>
+    
+    <item>
+      <title>M1的艰辛使用之旅</title>
+      <link>https://xibolun.github.io/post/tools/mac-m1/</link>
+      <pubDate>Tue, 12 Jan 2021 22:39:52 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/mac-m1/</guid>
+      <description>M1的艰辛使用之旅 公司给每个同学置换了mac，由于docker已经支持了M1版本，所以我也入手了一台，想体验一把传说中的神器，不想自己掉坑里</description>
+    </item>
+    
+    <item>
+      <title>k8s—admission controllers</title>
+      <link>https://xibolun.github.io/post/k8s/k8sadmission-controllers/</link>
+      <pubDate>Sun, 20 Dec 2020 09:17:54 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8sadmission-controllers/</guid>
+      <description>什么是K8s admission controller admission controllers可以对api请求进行校验和变更；整个API请求的流程如下： k8s里面有许多的 admission controllers</description>
+    </item>
+    
+    <item>
+      <title>k8s—强制删除namespace</title>
+      <link>https://xibolun.github.io/post/k8s/k8s%E5%88%A0%E9%99%A4namespace/</link>
+      <pubDate>Thu, 03 Dec 2020 14:21:20 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8s%E5%88%A0%E9%99%A4namespace/</guid>
+      <description>在学习Operator的时候，使用kubectl创建了一个namespace，但是删除的时候无法被删除，状态一直是Terminating； ➜</description>
+    </item>
+    
+    <item>
+      <title>GitBook使用Dockerfile</title>
+      <link>https://xibolun.github.io/post/docker/gitbook%E4%BD%BF%E7%94%A8dockerfile/</link>
+      <pubDate>Mon, 16 Nov 2020 14:13:01 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/docker/gitbook%E4%BD%BF%E7%94%A8dockerfile/</guid>
+      <description>GitBook使用Dockerfile 初始化目录 gitbook init 添加文件，编译启动 gitbook serve 编译完成后会生成_book目录 ➜ ll _book total 264 -rw-r--r-- 1 admin staff 22K Nov 16 13:51 Act2A</description>
+    </item>
+    
+    <item>
+      <title>CodeQL</title>
+      <link>https://xibolun.github.io/post/tools/codeql/</link>
+      <pubDate>Thu, 05 Nov 2020 10:01:27 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/codeql/</guid>
+      <description>给你的代码加上CodeQL github推出了code scanning的功能，今天在给github提PR的时候才学习着使用； 在.git/wor</description>
+    </item>
+    
+    <item>
+      <title>Git对象</title>
+      <link>https://xibolun.github.io/post/tools/git%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Sat, 10 Oct 2020 16:58:14 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/git%E5%AF%B9%E8%B1%A1/</guid>
+      <description>一个常规操作 先看一个常规的操作； mkdir /tmp/common cd /tmp/common git init echo &amp;#34;text content&amp;#34; &amp;gt; test.txt git add . 上述几个命令就是创建一个目录，并将其初始化为git工程，添加一个文件，然后使用g</description>
+    </item>
+    
+    <item>
+      <title>windows激活</title>
+      <link>https://xibolun.github.io/post/tools/win%E6%BF%80%E6%B4%BB/</link>
+      <pubDate>Fri, 02 Oct 2020 23:37:59 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/win%E6%BF%80%E6%B4%BB/</guid>
+      <description>windows激活 slmgr -skms kms.03k.org slmgr -ato</description>
+    </item>
+    
+    <item>
+      <title>prometheus(一)环境搭建</title>
+      <link>https://xibolun.github.io/post/prometheus/prometheus%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Thu, 06 Aug 2020 18:00:55 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/prometheus/prometheus%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>需求了解的几个概念 基础架构逻辑 Discovery Alert Rule Exporter Target Rule 关于RuleFile的解析 以下是一个rule file的定义内容 groups: - name: hostStatsAlert rules: - alert: hostCpuUsageAlert expr: sum(avg without (cpu)(irate(node_cpu{mode!=&amp;#39;idle&amp;#39;}[5m]))) by (instance) &amp;gt; 0.85 for: 1m</description>
+    </item>
+    
+    <item>
+      <title>prometheus(七)总结</title>
+      <link>https://xibolun.github.io/post/prometheus/prometheus%E4%B8%83%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Thu, 06 Aug 2020 18:00:55 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/prometheus/prometheus%E4%B8%83%E6%80%BB%E7%BB%93/</guid>
+      <description>使用的库 命令行解析 goroutine管理</description>
+    </item>
+    
+    <item>
+      <title>etcd––从源码看lease机制</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Blease%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Wed, 08 Jul 2020 17:44:23 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Blease%E6%9C%BA%E5%88%B6/</guid>
+      <description>Lease使用 先声明一个指定过期时间ttl的lease，再将lease绑定到一个key上面，ttl到期后将key移除，这中间有哪些操作呢？ L</description>
+    </item>
+    
+    <item>
+      <title>etcd––从源码看watch机制</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bwatch%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Tue, 07 Jul 2020 10:13:54 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bwatch%E6%9C%BA%E5%88%B6/</guid>
+      <description>Watch使用 watch有两种操作，一种是key，一种是range，即监听一段的key，从一个测试用例里面看看，主要包括几个操作 初始化一个w</description>
+    </item>
+    
+    <item>
+      <title>etcd––从源码看Storage</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage/</link>
+      <pubDate>Sun, 05 Jul 2020 14:32:00 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage/</guid>
+      <description>当启动了一个etcd server的时候，会生成一些数据文件，这些文件便是etcd storage，主要分析wal和snapshot ➜ tree . └──</description>
+    </item>
+    
+    <item>
+      <title>etcd––从源码看日志复制</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8B%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6/</link>
+      <pubDate>Sat, 04 Jul 2020 09:45:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8B%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6/</guid>
+      <description>日志复制 日志对象 etcd把一条日志做为一个entry，每一个里面都会有几个属性： Term：leader的任期，这个属性的目的乃是follow</description>
+    </item>
+    
+    <item>
+      <title>etcd––从源码看raft选举</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Braft%E9%80%89%E4%B8%BE/</link>
+      <pubDate>Fri, 03 Jul 2020 15:48:17 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Braft%E9%80%89%E4%B8%BE/</guid>
+      <description>Raft算法 分布式一致性算法最出名的是paxos，但是因为其非常难以理解，所以便有了简单可理解的raft算法；Raft将分布式问题归为几个模</description>
+    </item>
+    
+    <item>
+      <title>etcd––入门</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Wed, 01 Jul 2020 14:17:18 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E5%85%A5%E9%97%A8/</guid>
+      <description>环境搭建 现在有了docker，环境搭建就非常的简单了 /usr/bin/docker run --restart=on-failure:5 --env-file=/etc/etcd.env --net=host -v /etc/ssl/certs:/etc/ssl/certs:ro -v /etc/ssl/etcd/ssl:/etc/ssl/etcd/ssl:ro -v /var/lib/et cd:/var/lib/etcd:rw --memory=512M --blkio-weight=1000 --name=etcd1 kubesphere/etcd:v3.3.12 /usr/local/bin/etcd 使用 连接 export ETCDCTL_API=3 etcdctl --endpoints=10.0.4.175:2379,10.0.4.175:2380 --cacert=/etc/ssl/etcd/ssl/ca.pem --cert=/etc/ssl/etcd/ssl/node-Ops-pre-4-175.pem --key=/etc/ssl/etcd/ssl/node-Ops-pre-4-175-key.pem member list alias一下会比较方便 alias etcdctl=&amp;#39;etcdctl</description>
+    </item>
+    
+    <item>
+      <title>Docker守护进程</title>
+      <link>https://xibolun.github.io/post/docker/docker%E8%BF%9B%E7%A8%8B/</link>
+      <pubDate>Wed, 03 Jun 2020 09:37:06 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/docker/docker%E8%BF%9B%E7%A8%8B/</guid>
+      <description>Docker进程 当前Docker版本 Client: Version: 1.13.1 API version: 1.26 Package version: docker-1.13.1-203.git0be3e21.el7.centos.x86_64 Go version: go1.10.3 Git commit: 0be3e21/1.13.1 Built: Thu Nov 12 15:11:46 2020 OS/Arch: linux/amd64 Server: Version: 1.13.1 API version: 1.26 (minimum version 1.12) Package version: docker-1.13.1-203.git0be3e21.el7.centos.x86_64 Go version: go1.10.3 Git commit: 0be3e21/1.13.1 Built: Thu Nov 12 15:11:46 2020 OS/Arch: linux/amd64 Experimental: false D</description>
+    </item>
+    
+    <item>
+      <title>Docker容器与容器云读书笔记（三）–Network</title>
+      <link>https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%89network/</link>
+      <pubDate>Fri, 29 May 2020 09:13:38 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%89network/</guid>
+      <description>网络基础 当启动docker的时候会默认创建一个docker0，这个便是和其他docker进行网络传输的网桥； docker0: flags=4099&amp;lt;UP,BROADCAST,MULTICAST&amp;gt; mtu 1500 inet 172.17.0.1 netmask 255.255.0.0 broadcast 0.0.0.0 ether 02:42:59:bf:40:e7 txqueuelen 0 (Ethernet) RX</description>
+    </item>
+    
+    <item>
+      <title>Docker容器与容器云读书笔记（二）–CGroup</title>
+      <link>https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8Ccgroup/</link>
+      <pubDate>Wed, 27 May 2020 09:13:38 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8Ccgroup/</guid>
+      <description>Docker容器与容器云读书笔记（二）–CGroup 术语 需要先知道几个术语 task 任务：即进程或者线程，tasks里面有许多的进程号码 [root@docker-ns 41986]# ll /sys/fs/cgroup/cpu/tasks -rw-r--r-- 1</description>
+    </item>
+    
+    <item>
+      <title>Docker容器与容器云读书笔记（一）–Namespace</title>
+      <link>https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80namespace/</link>
+      <pubDate>Tue, 26 May 2020 17:59:21 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80namespace/</guid>
+      <description>Docker容器与容器云读书笔记（一）–Namespace Linux提供了一系列隔离的API Mount: 隔离文件系统挂载点，CLONE_NEWNS UTS: 隔</description>
+    </item>
+    
+    <item>
+      <title>如何刷机ipad、iphone</title>
+      <link>https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E5%A6%82%E4%BD%95%E4%B8%BAipad%E5%88%B7%E6%9C%BA/</link>
+      <pubDate>Sun, 26 Apr 2020 18:04:35 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E5%A6%82%E4%BD%95%E4%B8%BAipad%E5%88%B7%E6%9C%BA/</guid>
+      <description>如何刷机ipad、iphone 准备 安装有itune的mac电脑一台 网络 步骤 查看设备的序列号 【Serial】后面的数字和字母即是 确定型号：进入</description>
+    </item>
+    
+    <item>
+      <title>k8s—Operator开发</title>
+      <link>https://xibolun.github.io/post/k8s/k8soperator%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Tue, 17 Mar 2020 17:58:41 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8soperator%E5%BC%80%E5%8F%91/</guid>
+      <description>Operator 关于Operator的作用就略过，官方介绍有，下面是自己实战的一个过程； 实战过程 下载安装 ✗ brew install operator-sdk 初始化项目 固定在某一个gopath下面，这</description>
+    </item>
+    
+    <item>
+      <title>k8s—informer机制</title>
+      <link>https://xibolun.github.io/post/k8s/k8sinformer%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Mon, 16 Mar 2020 17:50:01 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8sinformer%E6%9C%BA%E5%88%B6/</guid>
+      <description>K8s Informer机制 informer是k8s里面的重要通讯机制，理解了它，有助于我们对k8s进行二次开发，像operator等；看一下简单</description>
+    </item>
+    
+    <item>
+      <title>k8s––schedule</title>
+      <link>https://xibolun.github.io/post/k8s/k8sschedule/</link>
+      <pubDate>Thu, 12 Mar 2020 20:41:03 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8sschedule/</guid>
+      <description>源码根据k8s : v1.18.12版本 创建一个Pod的时候到底归属到哪个Node上面呢？这在k8s里面是有非常精细的一套调度逻辑； 调度原理 通过</description>
+    </item>
+    
+    <item>
+      <title>k8s––证书修改</title>
+      <link>https://xibolun.github.io/post/k8s/k8s%E8%AF%81%E4%B9%A6/</link>
+      <pubDate>Wed, 11 Mar 2020 10:31:51 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8s%E8%AF%81%E4%B9%A6/</guid>
+      <description>证书列表 校验一下证书过期属性即可得到以下的证书列表，可以看到默认是一年的有效期； [root@ops-pre-4-175 pod]# kubeadm alpha certs check-expiration [check-expiration] Reading configuration from the cluster... [check-expiration] FYI: You can look at this config file with &amp;#39;kubectl -n kube-system get cm kubeadm-config -oyaml&amp;#39; W1209</description>
+    </item>
+    
+    <item>
+      <title>k8s––ServiceAccount</title>
+      <link>https://xibolun.github.io/post/k8s/k8sserviceaccount/</link>
+      <pubDate>Mon, 09 Mar 2020 21:50:12 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8sserviceaccount/</guid>
+      <description>ServiceAccount ServiceAccount也是一种资源，可以使用kubectl进行生命周期的管理，同时也是做为API认证的的一种方式；在每个namesp</description>
+    </item>
+    
+    <item>
+      <title>k8s—JMX监控</title>
+      <link>https://xibolun.github.io/post/k8s/k8sjmx%E7%9B%91%E6%8E%A7/</link>
+      <pubDate>Sat, 07 Mar 2020 20:45:32 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8sjmx%E7%9B%91%E6%8E%A7/</guid>
+      <description>Jmx-Exporter Jmx Exporter是一个开源的jvm监控组件；原理是做为一个java agent去采集jvm运行状态的一些数据信息，并做为http服务暴露出</description>
+    </item>
+    
+    <item>
+      <title>k8s--API</title>
+      <link>https://xibolun.github.io/post/k8s/k8sapi/</link>
+      <pubDate>Thu, 05 Mar 2020 21:43:03 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8sapi/</guid>
+      <description>今天想使用postman使用一下k8s的API，看看k8s的API机制是怎么样的； API启动 查看pod列表你会发现有一个api-server</description>
+    </item>
+    
+    <item>
+      <title>Imagemagick使用</title>
+      <link>https://xibolun.github.io/post/tools/imagemagic/</link>
+      <pubDate>Mon, 02 Mar 2020 10:37:27 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/imagemagic/</guid>
+      <description>ImageMagick 最近有一批图片需要上传至阿里云，但是图片size太大了，超过了3M的要求；如果一个一个地转换比较麻烦，所以去搜索了一下，发现一个强大的批量</description>
+    </item>
+    
+    <item>
+      <title>Redis(三)––分布式锁</title>
+      <link>https://xibolun.github.io/post/redis/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</link>
+      <pubDate>Thu, 27 Feb 2020 19:49:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/redis/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</guid>
+      <description>分布式锁演进 可以使用redis的NX来做处理，需要考虑以下事情 set key value EX expiration NX 锁用完了需要删除 代码需要做锁的释放，否则其他线程的不能获取到锁，导</description>
+    </item>
+    
+    <item>
+      <title>Redis(二)––集群cluster</title>
+      <link>https://xibolun.github.io/post/redis/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster/</link>
+      <pubDate>Thu, 27 Feb 2020 19:49:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/redis/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster/</guid>
+      <description>Failover验证 在Redis官网里面有一个有意思的验证方式，使用 redis-rb-cluster git clone git@github.com:antirez/redis-rb-cluster.git 安装一下ruby环境，若ruby版本过低，可能需要升级一下 yum install ruby</description>
+    </item>
+    
+    <item>
+      <title>Redis(一)––入门及环境搭建</title>
+      <link>https://xibolun.github.io/post/redis/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Tue, 25 Feb 2020 19:49:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/redis/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>Redis remote dictionary server，基于内存的一个Key-Value类型的数据库； 基础了解 淘汰策略 在redis.conf里面有如下的描述： # MAXMEMORY POLICY: how Redis will select what to</description>
+    </item>
+    
+    <item>
+      <title>Lxc使用笔记</title>
+      <link>https://xibolun.github.io/post/container/lxc/</link>
+      <pubDate>Thu, 20 Feb 2020 22:11:21 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/container/lxc/</guid>
+      <description>什么是LXC？ LXC（Linux Container）的缩写，Linux操作系统级别的虚拟化技术，利用命名空间保证进程的隔离，及cgroup技</description>
+    </item>
+    
+    <item>
+      <title>k8s(七)––Dashboard</title>
+      <link>https://xibolun.github.io/post/k8s/k8s%E4%B8%83dashboard/</link>
+      <pubDate>Tue, 18 Feb 2020 16:31:49 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8s%E4%B8%83dashboard/</guid>
+      <description>K8s(七)—Dashboard Dashboard是K8s的管理界面，发行版本列表为：dashbaord/releases；主要是安装完成之</description>
+    </item>
+    
+    <item>
+      <title>k8s(六)––Secret</title>
+      <link>https://xibolun.github.io/post/k8s/k8s%E5%85%ADsecret/</link>
+      <pubDate>Sun, 16 Feb 2020 10:53:23 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8s%E5%85%ADsecret/</guid>
+      <description>基本了解 secret是为了存储一些安全、敏感的数据信息，比如说认证信息，帐号、sshkey等；它有很多的类型 secret-types； doc</description>
+    </item>
+    
+    <item>
+      <title>k8s(五)––Storage</title>
+      <link>https://xibolun.github.io/post/k8s/k8s%E4%BA%94storage/</link>
+      <pubDate>Fri, 14 Feb 2020 13:44:57 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8s%E4%BA%94storage/</guid>
+      <description>K8s数据卷 docker里面使用Volume进行挂载； k8s里面的数据卷集成了各种的存储系统&amp;ndash; Types of Volumes；主要看一下Ho</description>
+    </item>
+    
+    <item>
+      <title>k8s(四)––Pod</title>
+      <link>https://xibolun.github.io/post/k8s/k8s%E5%9B%9Bpod/</link>
+      <pubDate>Wed, 12 Feb 2020 14:27:40 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8s%E5%9B%9Bpod/</guid>
+      <description>Pod的生命周期 Pending：创建的时候 Running：正常运行 Succeeded：重启成功 Failed：重启失败 Unknown：未知 探索</description>
+    </item>
+    
+    <item>
+      <title>k8s(三)––Service</title>
+      <link>https://xibolun.github.io/post/k8s/k8s%E4%B8%89-service/</link>
+      <pubDate>Thu, 06 Feb 2020 21:43:03 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8s%E4%B8%89-service/</guid>
+      <description>Service的作用 为什么要使用service 首先需要理解一下集群里面的一些IP分类： nodeIP: 集群当中会有许多的node，每一个node都会有自己</description>
+    </item>
+    
+    <item>
+      <title>k8s(二)––基础概念</title>
+      <link>https://xibolun.github.io/post/k8s/k8s%E4%BA%8C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Wed, 05 Feb 2020 21:43:03 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8s%E4%BA%8C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</guid>
+      <description>部署第一个应用 首先创建一个deployment [root@k8s-master ~]# kubectl create deploy nginx --image=nginx 查看一下deployment和pod的信息 [root@k8s-master ~]# kubectl get deploy -o wide NAME READY UP-TO-DATE AVAILABLE AGE CONTAINERS IMAGES SELECTOR nginx 0/1 1 0</description>
+    </item>
+    
+    <item>
+      <title>k8s(一)––环境搭建</title>
+      <link>https://xibolun.github.io/post/k8s/k8s%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Tue, 28 Jan 2020 13:36:27 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/k8s/k8s%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>K8S环境搭建 其他搭建方式 学习环境，可以安装 minikube ，同时还有一个在线的 minikube terminal，也可以使用k8s kind 来搭建环境 生产环境，使用 kubead</description>
+    </item>
+    
+    <item>
+      <title>2019年度总结</title>
+      <link>https://xibolun.github.io/post/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/2019/</link>
+      <pubDate>Wed, 22 Jan 2020 10:50:45 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/2019/</guid>
+      <description>2019年总结 学习 读书 很小的时候就记住高尔基的一句话书是人类进步的阶梯，大学实习的时候在机场或者地铁、公交看到那些看书的人总觉得他们是在装逼</description>
+    </item>
+    
+    <item>
+      <title>go的一些博客学习资源列表</title>
+      <link>https://xibolun.github.io/post/golang/go--blogs/</link>
+      <pubDate>Wed, 15 Jan 2020 22:54:35 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go--blogs/</guid>
+      <description>关于GO的一些blog 以下为自己在阅读过程当中积累的一些关于go的文章 关于go性能提升的一些建议 如何在生产环境进行debug 语言特性 10个常</description>
+    </item>
+    
+    <item>
+      <title>SaltStack(附)自己遇到的一些问题</title>
+      <link>https://xibolun.github.io/post/saltstack/saltstack%E9%99%84%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 01 Jan 2020 22:26:59 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/saltstack/saltstack%E9%99%84%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</guid>
+      <description>Saltstack的问题 执行节点重复 场景: salt-key只有一个，执行结果却有三个 # salt-key -L | grep xmdb xmdb 执行结果 salt xmdb test.ping xmdb: True xmdb: True xmdb: True 能Ping通，却</description>
+    </item>
+    
+    <item>
+      <title>IPMI&amp;Tool</title>
+      <link>https://xibolun.github.io/post/linux/ipmitool/</link>
+      <pubDate>Wed, 18 Dec 2019 17:41:06 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/linux/ipmitool/</guid>
+      <description>IPMI IPMI(Intelligent Platform Management Interface)，智能平台管理接口，1998年由Intel、Dell等各大服务厂商提出，成为了一种开放的规范标准，可以通过网络控</description>
+    </item>
+    
+    <item>
+      <title>SaltStack(十)salt-event</title>
+      <link>https://xibolun.github.io/post/saltstack/saltstack%E5%8D%81salt-event/</link>
+      <pubDate>Thu, 07 Nov 2019 16:37:18 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/saltstack/saltstack%E5%8D%81salt-event/</guid>
+      <description>SaltEvent 在salt的架构里面有一个叫sal-event的东西，可以记录着master与 minion通讯时的一些事件信息； 如何监听 监听有两种方式；一</description>
+    </item>
+    
+    <item>
+      <title>SaltStack(九)salt-returner</title>
+      <link>https://xibolun.github.io/post/saltstack/saltstack%E4%B9%9Dreturner/</link>
+      <pubDate>Tue, 05 Nov 2019 16:37:18 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/saltstack/saltstack%E4%B9%9Dreturner/</guid>
+      <description>Returner salt支持的returners列表 查看当前salt-minion上面支持多少returner，有的环境可以没有装太多的returner salt</description>
+    </item>
+    
+    <item>
+      <title>SaltStack(八)salt-api</title>
+      <link>https://xibolun.github.io/post/saltstack/saltstack%E5%85%ABsalt-api/</link>
+      <pubDate>Wed, 30 Oct 2019 16:37:18 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/saltstack/saltstack%E5%85%ABsalt-api/</guid>
+      <description>salt-api 环境搭建 salt-api使用 rest_chrrypy 来提供restful服务，同时支持http和https两种模式 安装salt-api yum install salt-api ## 安装时会将 Cher</description>
+    </item>
+    
+    <item>
+      <title>关于创业的反思</title>
+      <link>https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E5%85%B3%E4%BA%8E%E5%88%9B%E4%B8%9A%E7%9A%84%E5%8F%8D%E6%80%9D/</link>
+      <pubDate>Fri, 25 Oct 2019 22:44:44 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E5%85%B3%E4%BA%8E%E5%88%9B%E4%B8%9A%E7%9A%84%E5%8F%8D%E6%80%9D/</guid>
+      <description>关于创业的反思 写一写自己两次创业的经历。 第一次创业 第一次创业是在大学12年的时候，和IT没有什么太大的关系，只是开店卖电脑，外设等；现在想想</description>
+    </item>
+    
+    <item>
+      <title>SaltStack(七)salt-ssh</title>
+      <link>https://xibolun.github.io/post/saltstack/saltstack%E4%B8%83salt-ssh/</link>
+      <pubDate>Sun, 20 Oct 2019 23:01:23 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/saltstack/saltstack%E4%B8%83salt-ssh/</guid>
+      <description>Salt-ssh 创建一个roster，类似ansible的/etc/ansible/hosts配置文件 # /etc/salt/roster 10.0.2.7: host: 10.0.2.7 user: root passwd: Yunjikeji#123 执行密码后第一次连接还需要输入确认</description>
+    </item>
+    
+    <item>
+      <title>SaltStack(六)任务管理</title>
+      <link>https://xibolun.github.io/post/saltstack/saltstack%E5%85%AD%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Wed, 16 Oct 2019 09:07:03 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/saltstack/saltstack%E5%85%AD%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86/</guid>
+      <description>Job管理 salt在执行命令的时候会生成一个JobID，存放在/var/cache/salt/{master|minion}/proc下面 ➜</description>
+    </item>
+    
+    <item>
+      <title>SaltStack(五)State</title>
+      <link>https://xibolun.github.io/post/saltstack/saltstack%E4%BA%94state/</link>
+      <pubDate>Tue, 15 Oct 2019 14:34:29 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/saltstack/saltstack%E4%BA%94state/</guid>
+      <description>State state是一个描述性文件，类似puppet的脚本，ansible的playbook，描述着需要配置/文件/软件/服务等的最终状态 格式 target_a: #</description>
+    </item>
+    
+    <item>
+      <title>SaltStack(四)Grains&amp;Pillar</title>
+      <link>https://xibolun.github.io/post/saltstack/saltstack%E5%9B%9Bgrainspillar/</link>
+      <pubDate>Tue, 08 Oct 2019 10:21:40 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/saltstack/saltstack%E5%9B%9Bgrainspillar/</guid>
+      <description>Grains minion的静态属性信息，分为core grains和custom grains core grains 查看grains列表 ➜ ~ sudo salt &amp;#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&amp;#39; grains.items ➜ ~ sudo salt &amp;#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&amp;#39; grains.ls 获取某个属性 ➜ ~ sudo salt &amp;#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&amp;#39;</description>
+    </item>
+    
+    <item>
+      <title>Go源码分析(六)GC</title>
+      <link>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%85%ADgc/</link>
+      <pubDate>Tue, 01 Oct 2019 22:52:32 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%85%ADgc/</guid>
+      <description>GC的方式 理解垃圾回收算法 一文里面有gif的形式，直观地描述了常用的gc算法 引用计数 不足的地方，每次都要对对象进行计数，开销比较大 会导致循环</description>
+    </item>
+    
+    <item>
+      <title>SaltStack(三)建立连接</title>
+      <link>https://xibolun.github.io/post/saltstack/saltstack%E4%B8%89%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5/</link>
+      <pubDate>Tue, 01 Oct 2019 10:21:13 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/saltstack/saltstack%E4%B8%89%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5/</guid>
+      <description>建立通讯 Minion日志 [DEBUG ] Process Manager starting! [68/256] [DEBUG ] Connecting to master. Attempt 1 of 1 ### 获取到master的zmq的地址 [DEBUG ] Master URI: tcp://192.168.1.253:4506 ### 向zmq发送认证信息 [DEBUG ] Initializing new AsyncAuth for (u&amp;#39;/etc/salt/pki/minion&amp;#39;, u&amp;#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&amp;#39;, u&amp;#39;tcp://192.168.1.253:4506&amp;#39;) [DEBUG</description>
+    </item>
+    
+    <item>
+      <title>SaltStack(二)Mac环境搭建</title>
+      <link>https://xibolun.github.io/post/saltstack/saltstack%E4%BA%8Cmac%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Sun, 29 Sep 2019 22:52:49 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/saltstack/saltstack%E4%BA%8Cmac%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>其他环境 Mac OS本机SaltStack环境搭建 在mac os下部署一个master，并利用两个salt-minion的docker容器搭建一个本</description>
+    </item>
+    
+    <item>
+      <title>SaltStack(一)初探</title>
+      <link>https://xibolun.github.io/post/saltstack/saltstack%E4%B8%80%E5%88%9D%E6%8E%A2/</link>
+      <pubDate>Fri, 27 Sep 2019 16:37:18 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/saltstack/saltstack%E4%B8%80%E5%88%9D%E6%8E%A2/</guid>
+      <description>SaltStack初探 Docker环境搭建 参考github上面的salt-docker-demo master配置的log修改为Info，重启</description>
+    </item>
+    
+    <item>
+      <title>Go源码分析(五)内存分配</title>
+      <link>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%BA%94%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/</link>
+      <pubDate>Fri, 20 Sep 2019 22:52:32 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%BA%94%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/</guid>
+      <description>内存模型 分配逻辑 入口在 // src/runtime/malloc.go // implementation of new builtin // compiler (both frontend and SSA backend) knows the signature // of this function func newobject(typ *_type) unsafe.Pointer { return mallocgc(typ.size, typ, true) } mgallocgc里面主要看三个判断 c := gomcache() var x unsafe.Pointer noscan := typ ==</description>
+    </item>
+    
+    <item>
+      <title>Kafka(二)操作</title>
+      <link>https://xibolun.github.io/post/kafka/kafka%E4%BA%8C%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Wed, 18 Sep 2019 14:37:41 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/kafka/kafka%E4%BA%8C%E6%93%8D%E4%BD%9C/</guid>
+      <description>Topic 创建；topic 拥有一个分区，一个备份 bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test 创建多个分区，多个备份 bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic zstack --partitions 2 --replication-factor 1 创建好的分区与备份体现在log里面 # ls</description>
+    </item>
+    
+    <item>
+      <title>sql注入--sqlmap</title>
+      <link>https://xibolun.github.io/post/linux/sqlmap%E6%B3%A8%E5%85%A5/</link>
+      <pubDate>Wed, 11 Sep 2019 15:56:01 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/linux/sqlmap%E6%B3%A8%E5%85%A5/</guid>
+      <description>sql注入&amp;ndash;sqlmap 介绍 sqlmap是一个sql注入的测试工具，用于测试接口或者数据库的安全性，是否存在sql注入的情形，功</description>
+    </item>
+    
+    <item>
+      <title>Go源码分析(四)调度器</title>
+      <link>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%9B%9B%E8%B0%83%E5%BA%A6%E5%99%A8/</link>
+      <pubDate>Tue, 10 Sep 2019 22:52:32 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%9B%9B%E8%B0%83%E5%BA%A6%E5%99%A8/</guid>
+      <description>调度器 在高并发场景当中，一般会起很多的协程(goroutine)，这样一来，就会导致阻塞操作；为了解决这些问题，go语言自己实现了一套 调度器</description>
+    </item>
+    
+    <item>
+      <title>Go源码分析(三)从main.go开始</title>
+      <link>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%89%E4%BB%8Emain.go%E5%BC%80%E5%A7%8B/</link>
+      <pubDate>Sun, 08 Sep 2019 22:52:32 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%89%E4%BB%8Emain.go%E5%BC%80%E5%A7%8B/</guid>
+      <description>准备开始从main.go开始分析源码</description>
+    </item>
+    
+    <item>
+      <title>Go源码分析(二)Debug工具</title>
+      <link>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%BA%8Cdebug%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Fri, 06 Sep 2019 07:59:20 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%BA%8Cdebug%E5%B7%A5%E5%85%B7/</guid>
+      <description>Go源码分析(二)Debug工具 gdb 什么是GDB，GDB官网给出了详细的介绍，下载，以及bug，git地址等 为什么要用它？当你想debug，不</description>
+    </item>
+    
+    <item>
+      <title>Go源码分析(一)环境搭建</title>
+      <link>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Mon, 02 Sep 2019 20:19:12 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>Go源码分析(一) 环境搭建 安装依赖 gcc : 可以使用gcc -v查看 bzip2 [root@bootos src]# ./all.bash # Building C bootstrap tool. cmd/dist ./make.bash: line 132: gcc: command not found [root@bootos src]# yum insatll gcc 下载go1.4 若想要使用go自己编译</description>
+    </item>
+    
+    <item>
+      <title>Go pprof</title>
+      <link>https://xibolun.github.io/post/golang/go-pprof/</link>
+      <pubDate>Thu, 29 Aug 2019 19:08:49 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go-pprof/</guid>
+      <description>什么是pprof pprof是一个收集profiling数据样本，用于可视化展示和分析程序性能的工具，有cpu、内存、trace、Gorout</description>
+    </item>
+    
+    <item>
+      <title>关于Go并发的测验</title>
+      <link>https://xibolun.github.io/post/golang/go%E5%B9%B6%E5%8F%91%E7%9A%84%E6%B5%8B%E9%AA%8C/</link>
+      <pubDate>Wed, 28 Aug 2019 09:53:42 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E5%B9%B6%E5%8F%91%E7%9A%84%E6%B5%8B%E9%AA%8C/</guid>
+      <description>原由： 今天早上看到鸟窝的一篇blog Go并发编程小测验： 你能答对几道题？ 尝试着做了一下，觉得里面有一些还是比较有意思，所以拿出来分析一下。 1</description>
+    </item>
+    
+    <item>
+      <title>关于gorm的问题</title>
+      <link>https://xibolun.github.io/post/golang/%E5%85%B3%E4%BA%8Egorm%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 13 Aug 2019 15:04:36 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/%E5%85%B3%E4%BA%8Egorm%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</guid>
+      <description>关于gorm的问题 DB的search无法置空 下面是一个有问题的代码；大体逻辑是locatino表里面有PID，一级一级向上找父节点；第二次f</description>
+    </item>
+    
+    <item>
+      <title>我的A9</title>
+      <link>https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E6%88%91%E7%9A%84a9/</link>
+      <pubDate>Sun, 11 Aug 2019 12:09:38 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E6%88%91%E7%9A%84a9/</guid>
+      <description>我的A9 ​ A9不是奥迪的那个A9，我也没有那样的财富买一辆A9开开。 ​ 小时候学骑车的时候没有太多的条件，就骑着家里的二八杠，然后在麦场上面玩</description>
+    </item>
+    
+    <item>
+      <title>MySQL Trigger</title>
+      <link>https://xibolun.github.io/post/mysql/mysqltrigger/</link>
+      <pubDate>Thu, 01 Aug 2019 11:15:04 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mysql/mysqltrigger/</guid>
+      <description>MySQL Trigger trigger 是一个触发器，用于在新增、修改和删除数据的时候做一些额外的操作。 全局惟一，所有建的trigger不能重名 不能对TEMPORARY表进行</description>
+    </item>
+    
+    <item>
+      <title>再学Linux笔记(二)文件与目录</title>
+      <link>https://xibolun.github.io/post/linux/%E5%86%8D%E5%AD%A6linux%E7%AC%94%E8%AE%B0%E4%BA%8C/</link>
+      <pubDate>Tue, 30 Jul 2019 22:38:08 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/linux/%E5%86%8D%E5%AD%A6linux%E7%AC%94%E8%AE%B0%E4%BA%8C/</guid>
+      <description>root目录下的两个特殊的目录 [root@7e02d7cc602a /]# ls -al total 64 drwxr-xr-x 1 root root 4096 Jul 10 13:08 . drwxr-xr-x 1 root root 4096 Jul 10 13:08 .. 这两个目录其实是一个目录 目录创建 ## 创建指定权限的目录 mkdir -m 777 /tmp/aa ##</description>
+    </item>
+    
+    <item>
+      <title>Go template</title>
+      <link>https://xibolun.github.io/post/golang/go--template/</link>
+      <pubDate>Tue, 30 Jul 2019 00:21:32 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go--template/</guid>
+      <description>Go Template 最近需要写一个代码生成工具，研究了一下template；golang有两个包， html/template 和 text/template 区别在于前者使用了一些转义 作用域 运算符 循环 map循环</description>
+    </item>
+    
+    <item>
+      <title>Kafka(一)环境搭建及问题整理</title>
+      <link>https://xibolun.github.io/post/kafka/kafka%E4%B8%80%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Tue, 30 Jul 2019 00:20:07 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/kafka/kafka%E4%B8%80%E5%85%A5%E9%97%A8/</guid>
+      <description>环境搭建 集群 Topic:cloudboot PartitionCount:1 ReplicationFactor:3 Configs: Topic: cloudboot Partition: 0 Leader: 1 Replicas: 1,2,0 Isr: 1,2,0 问题 Kafka的消费流转模型是怎么样的？ 新连接上来的消费者的offset是怎么样的呢？难道将每一个p</description>
+    </item>
+    
+    <item>
+      <title>NMAP使用</title>
+      <link>https://xibolun.github.io/post/linux/snmp-snmptrap/</link>
+      <pubDate>Tue, 30 Jul 2019 00:19:41 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/linux/snmp-snmptrap/</guid>
+      <description>Nmap nmap （Network Mapper）是一个网络工具，用于网络发现和安全审计 使用详解 仅列出需要发现的目标 [root@10-0-2-7 ~]# nmap -sL 10.0.1.1-3 Starting Nmap 6.40 ( http://nmap.org ) at 2019-11-20 21:25 CST Nmap scan report for 10.0.1.1</description>
+    </item>
+    
+    <item>
+      <title>再学Linux笔记(一)文件及权限</title>
+      <link>https://xibolun.github.io/post/linux/%E5%86%8D%E5%AD%A6linux%E7%AC%94%E8%AE%B0%E4%B8%80/</link>
+      <pubDate>Tue, 30 Jul 2019 00:19:16 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/linux/%E5%86%8D%E5%AD%A6linux%E7%AC%94%E8%AE%B0%E4%B8%80/</guid>
+      <description>文件及权限 权限 /etc/password：密码 /etc/shadow ：个人密码 /etc/group：群组 文件 rwx的含义 [root@e60e84b8f06d /]# ll total 56 -rw-r--r-- 1 root root 12082 Mar 5 17:36 anaconda-post.log lrwxrwxrwx 1 root root 7 Mar</description>
+    </item>
+    
+    <item>
+      <title>Ansbile学习</title>
+      <link>https://xibolun.github.io/post/tools/ansible/</link>
+      <pubDate>Tue, 30 Jul 2019 00:15:33 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/ansible/</guid>
+      <description>学无止境，不定期更新&amp;hellip;&amp;hellip; 牛刀小试 将ansible的ssh-pub添加至远程的服务器当中，建立ssh连接 建立/et</description>
+    </item>
+    
+    <item>
+      <title>Tmux</title>
+      <link>https://xibolun.github.io/post/tools/tmux/</link>
+      <pubDate>Thu, 25 Jul 2019 11:53:51 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/tmux/</guid>
+      <description>有一些tmux的使用技巧，有时候会经常忘记，写一篇blog记录下来 什么是Tmux tmux Tmux Features 多屏展示 多tab展示 ，一个tab里面可以开多个tab；</description>
+    </item>
+    
+    <item>
+      <title>Go语言实战(七)并发模式</title>
+      <link>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%83/</link>
+      <pubDate>Thu, 23 May 2019 11:41:46 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%83/</guid>
+      <description>Go语言实战(七)并发模式 runner type Runner struct { interrupt chan os.Signal // 任务中断 timeout &amp;lt;-chan time.Time // 单向通道，只能接收，不能写入 complete chan error // 任务结束，有可能返回error tasks []func(int) // 需要执行</description>
+    </item>
+    
+    <item>
+      <title>Go语言实战(六)并发</title>
+      <link>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E5%85%AD/</link>
+      <pubDate>Mon, 20 May 2019 09:03:50 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E5%85%AD/</guid>
+      <description>Go语言实战(六)并发 线程与进程 应用启动的时候就会有一个进程(Process)，像linux里面的PID；一个进程可以起多个Thread(线</description>
+    </item>
+    
+    <item>
+      <title>Go语言实战(五)Go语言的类型系统</title>
+      <link>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%BA%94/</link>
+      <pubDate>Tue, 14 May 2019 11:09:22 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%BA%94/</guid>
+      <description>接口 interface demo 一个很入门的demo 嵌套类型 内部类型的方法可以提升到外部类型来调用 type user struct { name string email string } func (u *user) EchoHello() { fmt.Println(&amp;#34;hello &amp;#34;) } type admin struct { user level string } func TestPolymorphic(t *testing.T) { ad := admin{ user:</description>
+    </item>
+    
+    <item>
+      <title>Go语言实战(四)数组、切片、映射</title>
+      <link>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E5%9B%9B/</link>
+      <pubDate>Sat, 11 May 2019 22:35:59 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E5%9B%9B/</guid>
+      <description>第4章 数组、切片、映射 数组 长度固定，内存连续 声明一个数组 var arr [5]int arr :=[...]int{10,20,30,40,50} arr :=[5]int{10,20,30,40,50} 指针数组 sp := [3]*string{new(string), new(string), new(string)} //使用new(type)的方式来初始化对象 *sp[0] = &amp;#34;red&amp;#34; //</description>
+    </item>
+    
+    <item>
+      <title>Go语言实战(三)工具包</title>
+      <link>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%89/</link>
+      <pubDate>Thu, 09 May 2019 22:35:59 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%89/</guid>
+      <description>Init函数 在操作mysql数据库的时候需要引入 _ &amp;#34;github.com/go-sql-driver/mysql&amp;#34; 具体是引入了什么呢？引入的是github.com/go-sql-driver/mysql</description>
+    </item>
+    
+    <item>
+      <title>Go语言实战(一/二)基础</title>
+      <link>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%80%E4%BA%8C/</link>
+      <pubDate>Sun, 05 May 2019 07:39:43 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%80%E4%BA%8C/</guid>
+      <description>GO语言基础 顺序编程 执行 必须在main package下面的main方法才可以运行 运算符 &amp;amp; 返回内存地址 * 返回指针变量 func addRessFunc() { a := 1 c := a b := &amp;amp;a *b</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ-Websocket</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq-websocket/</link>
+      <pubDate>Thu, 25 Apr 2019 10:43:27 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq-websocket/</guid>
+      <description>Demo &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34; /&amp;gt; &amp;lt;meta http-equiv=&amp;#34;X-UA-Compatible&amp;#34; content=&amp;#34;IE=edge&amp;#34;&amp;gt; &amp;lt;title&amp;gt;Page Title&amp;lt;/title&amp;gt; &amp;lt;meta name=&amp;#34;viewport&amp;#34; content=&amp;#34;width=device-width, initial-scale=1&amp;#34;&amp;gt; &amp;lt;script src=&amp;#34;http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;http://cdn.jsdelivr.net/sockjs/1.0.1/sockjs.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;stomp.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; WebSocketStompMock = SockJS; var client = Stomp.client(&amp;#39;ws://localhost:15674/ws&amp;#39;); function on_connect() { client.subscribe(&amp;#34;/queue/default&amp;#34;, function(data) { var msg = data.body; alert(&amp;#34;收到数据：&amp;#34; + msg); }) }; function on_error() { console.log(&amp;#39;error&amp;#39;)</description>
+    </item>
+    
+    <item>
+      <title>关于杭州小伙逆行被抓崩溃的思考</title>
+      <link>https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E5%85%B3%E4%BA%8E%E6%9D%AD%E5%B7%9E%E5%B0%8F%E4%BC%99%E5%B4%A9%E6%BA%83%E7%9A%84%E6%84%9F%E6%83%B3/</link>
+      <pubDate>Wed, 10 Apr 2019 12:10:06 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E5%85%B3%E4%BA%8E%E6%9D%AD%E5%B7%9E%E5%B0%8F%E4%BC%99%E5%B4%A9%E6%BA%83%E7%9A%84%E6%84%9F%E6%83%B3/</guid>
+      <description>关于杭州小伙逆行被抓崩溃的思考 视频在这里：杭州小伙骑车逆行被拦爆发崩溃，交警叔叔当知心哥哥 小哥哥自己的回答在这里：如何看待杭州小伙单车逆行被</description>
+    </item>
+    
+    <item>
+      <title>深入浅出MySQL(一)</title>
+      <link>https://xibolun.github.io/post/mysql/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p1%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Thu, 28 Mar 2019 09:56:53 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mysql/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p1%E5%9F%BA%E7%A1%80/</guid>
+      <description>DDL、DML、DCL Data Definition Languages: 数据定义语句，drop、create、alter、change、modify等 Data Manipulation Languages: 数据操纵语句，insert，</description>
+    </item>
+    
+    <item>
+      <title>玩摩托车花了多少钱</title>
+      <link>https://xibolun.github.io/post/%E6%9C%BA%E8%BD%A6/%E7%8E%A9%E6%91%A9%E6%89%98%E8%BD%A6%E8%8A%B1%E4%BA%86%E5%A4%9A%E5%B0%91%E9%92%B1/</link>
+      <pubDate>Mon, 25 Mar 2019 10:12:58 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/%E6%9C%BA%E8%BD%A6/%E7%8E%A9%E6%91%A9%E6%89%98%E8%BD%A6%E8%8A%B1%E4%BA%86%E5%A4%9A%E5%B0%91%E9%92%B1/</guid>
+      <description>简介 坐标：杭州 用途：通勤 条件：不是很有钱 图片 驾照 报名费：1350 保险：50 科目一体检：30 科目一报名：240 科目一驾考：150 摩托车 CB190x 猛鸷：</description>
+    </item>
+    
+    <item>
+      <title>深入浅出MySQL(二)</title>
+      <link>https://xibolun.github.io/post/mysql/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p2%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Mon, 25 Mar 2019 09:57:31 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mysql/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p2%E5%BC%80%E5%8F%91/</guid>
+      <description>MySQL存储引擎 各引擎之间的区别 特点 MyISAM InnoDB MEMORY MERGE NDB 存储限制 有 64TB 有 没有 有 事务安全 支持 锁机制 表 行 表 表 行 B树索引 支持 支持 支持 支持 支持 哈希索引 支持 支持</description>
+    </item>
+    
+    <item>
+      <title>Go—RPC</title>
+      <link>https://xibolun.github.io/post/golang/go--rpc/</link>
+      <pubDate>Mon, 18 Mar 2019 17:26:28 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go--rpc/</guid>
+      <description>什么是RPC Remote Procedure Call，远程调用另外一台服务器上面的一个函数； 是一种协议，Rest API，Web Service都属于RPC RPC架构 sev</description>
+    </item>
+    
+    <item>
+      <title>使用Hugo&amp;GitPage写博客</title>
+      <link>https://xibolun.github.io/post/tools/hugo/</link>
+      <pubDate>Fri, 22 Feb 2019 18:47:21 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/hugo/</guid>
+      <description>本文主要是介绍一下我是怎么写博客，并且发布的。 最早方式 早期入了emacs的坑，喜欢上了 Org-mode(org-mode十分强大，尤其它的A</description>
+    </item>
+    
+    <item>
+      <title>Bootstrap</title>
+      <link>https://xibolun.github.io/post/css/bootstrap/</link>
+      <pubDate>Sun, 10 Feb 2019 09:56:08 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/css/bootstrap/</guid>
+      <description>滚动 data-slide-to 每个滚动的图片的序号 data-interval 设置默认循环滚动的间隔 data-pause=&amp;ldquo;hover&amp;rdquo; 当鼠标悬停的时候滚动停止 class=&amp;lsquo;active&amp;rsquo; 默认行路的carousel &amp;lt;div id=&amp;#34;carousel-example-generic&amp;#34; class=&amp;#34;carousel slide&amp;#34; data-ride=&amp;#34;carousel&amp;#34;&amp;gt; &amp;lt;!-- Indicators --&amp;gt; &amp;lt;ol class=&amp;#34;carousel-indicators&amp;#34;&amp;gt; &amp;lt;li data-target=&amp;#34;#carousel-example-generic&amp;#34; data-slide-to=&amp;#34;0&amp;#34; class=&amp;#34;active&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li data-target=&amp;#34;#carousel-example-generic&amp;#34; data-slide-to=&amp;#34;1&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li</description>
+    </item>
+    
+    <item>
+      <title>利器</title>
+      <link>https://xibolun.github.io/post/tools/%E5%88%A9%E5%99%A8/</link>
+      <pubDate>Tue, 01 Jan 2019 22:07:16 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/%E5%88%A9%E5%99%A8/</guid>
+      <description>利器 工欲善其事，必先利其器 &amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;《论语·卫灵公》 个人是一个比较喜欢高效的东西，此篇记录一下</description>
+    </item>
+    
+    <item>
+      <title>GO—reflect</title>
+      <link>https://xibolun.github.io/post/golang/go--reflect/</link>
+      <pubDate>Mon, 10 Dec 2018 09:58:34 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go--reflect/</guid>
+      <description>如何通过go的实现类去拿到上级接口的所有method列表？ go的基础数据类型，ptr是什么类型；运行时的类型 有了指针对象，怎么获取指针对象所</description>
+    </item>
+    
+    <item>
+      <title>GO stack</title>
+      <link>https://xibolun.github.io/post/golang/go--stack/</link>
+      <pubDate>Fri, 07 Dec 2018 22:20:49 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go--stack/</guid>
+      <description>将http panic日志打印至文件当中 创建文件 panicFile, err := os.OpenFile(conf.Logger.PanicLogFile, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644) if err != nil { return nil, err } 注入文件 r.Use(mw.InjectFile(panicFile)) // InjectFile 注入Panic File func InjectFile(panic *os.File) func(next http.Handler) http.Handler { return func(next http.Handler) http.Handler { fn := func(w http.ResponseWriter, r</description>
+    </item>
+    
+    <item>
+      <title>Go File学习</title>
+      <link>https://xibolun.github.io/post/golang/go--file/</link>
+      <pubDate>Fri, 07 Dec 2018 22:20:32 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go--file/</guid>
+      <description>Go File学习 就写一个test方法 func TestFile(t *testing.T) { dir := &amp;#34;/tmp/hello&amp;#34; path := &amp;#34;/tmp/hello.txt&amp;#34; // create dir os.Mkdir(dir, 0755) // create file file, _ := os.OpenFile(path, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644) // filePath fmt.Printf(&amp;#34;File.name(file full path): %v \n&amp;#34;, file.Name()) fmt.Println(filepath.Dir(file.Name())) fmt.Println(filepath.Abs(filepath.Dir(os.Args[0]))) // current pwd pwd, err := os.Getwd() fmt.Printf(&amp;#34;current pwd: %s\n&amp;#34;, pwd) pwd, err = filepath.Abs(&amp;#34;./&amp;#34;) fmt.Printf(&amp;#34;current pwd: %s\n&amp;#34;, pwd)</description>
+    </item>
+    
+    <item>
+      <title>Go--time</title>
+      <link>https://xibolun.github.io/post/golang/go--time/</link>
+      <pubDate>Sat, 20 Oct 2018 22:12:01 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go--time/</guid>
+      <description>Go time学习 func Test_time(t *testing.T) { // current time fmt.Printf(&amp;#34;current time : %s\n&amp;#34;, time.Now()) // format fmt.Printf(&amp;#34;current time (ANSIC): %s\n&amp;#34;, time.Now().Format(time.ANSIC)) fmt.Printf(&amp;#34;current time (Stamp): %s\n&amp;#34;, time.Now().Format(time.Stamp)) fmt.Printf(&amp;#34;current time (RFC1123): %s\n&amp;#34;, time.Now().Format(time.RFC1123)) fmt.Printf(&amp;#34;current time (UnixDate): %s\n&amp;#34;, time.Now().Format(time.UnixDate)) fmt.Printf(&amp;#34;current time (YYYY-MM-DD): %s\n&amp;#34;, time.Now().Format(&amp;#34;2006-01-02&amp;#34;)) fmt.Printf(&amp;#34;current time (YYYY-MM-DD HH:mm:ss): %s\n&amp;#34;, time.Now().Format(&amp;#34;2006-01-02 15:04:05&amp;#34;)) fmt.Printf(&amp;#34;current time (YYYY-MM-DD HH:mm): %s\n&amp;#34;, time.Now().Format(&amp;#34;2006-01-02 15:04&amp;#34;)) // year month day weekday fmt.Printf(&amp;#34;yearday: %d\n&amp;#34;, time.Now().YearDay()) fmt.Printf(&amp;#34;current Year:</description>
+    </item>
+    
+    <item>
+      <title>Spacemacs</title>
+      <link>https://xibolun.github.io/post/tools/spacemacs/</link>
+      <pubDate>Tue, 04 Sep 2018 10:30:23 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/spacemacs/</guid>
+      <description>Spacemacs 配置evil中英文输入法切换 此操作只针对于mac mac安装 fcitx-remote-for-osx git clone https://github.com/xcodebuild/fcitx-remote-for-osx.git cd fcitx-remote-for-osx ./build.py build all 编译完成后，你会得到很多种输入法 ll | grep fcit drwxr-xr-x 3 pgy staff 96B 7 29 14:29 fcitx-remote -rwxr-xr-x 1</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ队列控制</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E5%85%AD-%E9%98%9F%E5%88%97%E6%8E%A7%E5%88%B6/</link>
+      <pubDate>Mon, 23 Jul 2018 10:01:44 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E5%85%AD-%E9%98%9F%E5%88%97%E6%8E%A7%E5%88%B6/</guid>
+      <description>RabbitMQ队列控制 队列控制功能列表 延迟队列 删除队列 优先队列 重入队列 切换队列 定时队列 优先队列 queue参数配置上面绑定x-max-pri</description>
+    </item>
+    
+    <item>
+      <title>go规范及组件</title>
+      <link>https://xibolun.github.io/post/golang/go%E7%BB%84%E4%BB%B6/</link>
+      <pubDate>Thu, 19 Jul 2018 20:39:43 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/golang/go%E7%BB%84%E4%BB%B6/</guid>
+      <description>规范 命名规范 包名是小写单词，不应该有下划线或混合大小写，保持简洁，不要过早考虑包名冲突 使用驼峰而非下划线来命名函数或者变量 接口名称必须是er</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ(三) Exchange Modes</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%89-exchange-modes/</link>
+      <pubDate>Mon, 25 Jun 2018 17:30:28 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%89-exchange-modes/</guid>
+      <description>Exchange Modes Direct direct 按着指定的路由发送至对应的queue，若routingKey不指定，则使用默认的&amp;quot;&amp;quot; 可以使用相同的routing</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ(三) Rabbitmqadmin</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%94-rabbitmqadmin/</link>
+      <pubDate>Mon, 25 Jun 2018 17:30:28 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%94-rabbitmqadmin/</guid>
+      <description>什么是STOMP http://stomp.github.io/ 一个demo 为什么是ws</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ(三) Web STOMP</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E5%9B%9B-web-stomp/</link>
+      <pubDate>Mon, 25 Jun 2018 17:30:28 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E5%9B%9B-web-stomp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Neo4j HTTP API</title>
+      <link>https://xibolun.github.io/post/neo4j/neo4j-http-api/</link>
+      <pubDate>Wed, 20 Jun 2018 10:41:32 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/neo4j/neo4j-http-api/</guid>
+      <description>HTTP API http endpoint支持单条和多条语句；超时时间默认是60s，可设置dbms.rest.transaction.idle_timeout；</description>
+    </item>
+    
+    <item>
+      <title>Neo4j-官网开发手册（三）--cypher</title>
+      <link>https://xibolun.github.io/post/neo4j/neo4j-cypher/</link>
+      <pubDate>Sat, 16 Jun 2018 21:10:32 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/neo4j/neo4j-cypher/</guid>
+      <description>3.2 语法 命名与建议 节点建议使用驼峰，关系使用大写，下划线分隔 查询语句当中的空格会被替换掉 查询语句当中若有数字，数字不能放在第一个 节点区分大小写</description>
+    </item>
+    
+    <item>
+      <title>Neo4j控制台</title>
+      <link>https://xibolun.github.io/post/neo4j/neo4j-console/</link>
+      <pubDate>Sat, 09 Jun 2018 11:29:18 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/neo4j/neo4j-console/</guid>
+      <description>console内经 指令 :play sysinfo：查看系统信息 :help ——查看帮助 :help commands——查看指令 :help server——查看服务器相关指令 :help query plan —</description>
+    </item>
+    
+    <item>
+      <title>Neo4j环境搭建</title>
+      <link>https://xibolun.github.io/post/neo4j/neo4j-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Thu, 07 Jun 2018 14:47:52 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/neo4j/neo4j-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>Neo4j环境搭建 安装启动 neo4j分为community和enterprise两种版本，后者属于企业版本，为付费版本；当前只针对commu</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ(一) 入门及基础概念</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%80-%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Wed, 30 May 2018 10:35:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%80-%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</guid>
+      <description>什么是Exchange，为什么要用Exchange，四种模式有什么区别 channel如何生成Queue，为什么会用Declare 什么是Rou</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ(二) HelloWorld</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%8C-helloworld/</link>
+      <pubDate>Wed, 30 May 2018 10:35:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%8C-helloworld/</guid>
+      <description>HelloWorld Producer Consumer 说明 TODO queue的设置需要非常注意 channel.queueDeclare(QUEUE_NAME, true, false, false, null); channel.queueDeclare(QUEUE_NAME, false, false, false, null); channel.queueDeclare(QUEUE_NAME, true, true, false, null); channel.queueDeclare(QUEUE_NAME, true, false, true, null); 发布的时候的routingKey channel.basicPublish(&amp;#34;&amp;#34;, QUEUE_NAME, null, &amp;#34;yunjikeji&amp;#34;.getBytes()); 不管producer</description>
+    </item>
+    
+    <item>
+      <title>MongoDB-Sharding</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb-sharding/</link>
+      <pubDate>Thu, 24 May 2018 14:25:20 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb-sharding/</guid>
+      <description>Sharding sh 命令 rs0:PRIMARY&amp;gt; sh.help() sh.addShard( host ) server:port OR setname/server:port sh.enableSharding(dbname) enables sharding on the database dbname sh.shardCollection(fullName,key,unique) shards the collection sh.splitFind(fullName,find) splits the chunk that find is in at the median sh.splitAt(fullName,middle) splits the chunk that middle is in at middle sh.moveChunk(fullName,find,to) move the chunk where &amp;#39;find&amp;#39; is to &amp;#39;to&amp;#39; (name of shard) sh.setBalancerState( &amp;lt;bool on or not&amp;gt; ) turns the balancer on or off true=on, false=off</description>
+    </item>
+    
+    <item>
+      <title>RESTful与HTTP</title>
+      <link>https://xibolun.github.io/post/restful/</link>
+      <pubDate>Wed, 16 May 2018 21:08:01 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/restful/</guid>
+      <description>RESTful与HTTP RESTful wiki 命名 名词而非动词，uri做为resource存在，做查询、修改、删除、新增操作；所以uri一般为名词，而非动词；</description>
+    </item>
+    
+    <item>
+      <title>12306接口分析</title>
+      <link>https://xibolun.github.io/post/python/12306%E6%8E%A5%E5%8F%A3%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sat, 14 Apr 2018 14:26:21 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/python/12306%E6%8E%A5%E5%8F%A3%E5%88%86%E6%9E%90/</guid>
+      <description>前言 今天看到一位朋友发了朋友圈，只有出发站和票价，以及车次的前三位K11，没有终点站，问我们这是去哪里的；我就去网上查了一下出发站上面以K1</description>
+    </item>
+    
+    <item>
+      <title>React--Redux学习</title>
+      <link>https://xibolun.github.io/post/react--redux/</link>
+      <pubDate>Fri, 02 Feb 2018 10:13:59 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/react--redux/</guid>
+      <description>为什么要使用Redux 某个组件要共享 某个组件要改变全局的状态 某个组件状态发生变化了，另外的组件也要变化 某个组件的状态要在各个地方拿到 短小精悍</description>
+    </item>
+    
+    <item>
+      <title>AMQ Topic Subsriber Model</title>
+      <link>https://xibolun.github.io/post/activqmq/activemq--topicsubscriber/</link>
+      <pubDate>Wed, 27 Dec 2017 16:38:18 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/activqmq/activemq--topicsubscriber/</guid>
+      <description>Topic Subsriber模式 订阅模式分为非持久订阅(Non-Durable Topic Subscribers)和持久订阅模式（Durable Topic Subscr</description>
+    </item>
+    
+    <item>
+      <title>Neo4j JavaReference</title>
+      <link>https://xibolun.github.io/post/neo4j/neo4j-javareference/</link>
+      <pubDate>Tue, 26 Dec 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/neo4j/neo4j-javareference/</guid>
+      <description>Neo4j JavaReference Extending Neo4j 自定义程序 neo4j里面有一套程序模板，可以让用户进行使用并调用 neo4j-procedure-template 内置程序列表 db.constraints db.indexes db.labels db.propertyKeys db.relationshipTypes dbms.changePassword dbms.components dbms.procedures dbms.queryJmx 远程debugger 在neo4j.c</description>
+    </item>
+    
+    <item>
+      <title>MongoDB高级学习</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb-%E9%AB%98%E7%BA%A7/</link>
+      <pubDate>Thu, 14 Dec 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb-%E9%AB%98%E7%BA%A7/</guid>
+      <description>execute JS 创建test.js文件，录入以下文字 printjson(db.adminCommand(&amp;#39;listDatabases&amp;#39;)); printjson(db.getCollectionNames()); printjson(pwd()); 执行js mongo --quiet test.js mongo test.js mongo localhost:27017/test test.js 可以指定数据库连接和库名执行 quiet的作用是执行的时候不输出相关的执</description>
+    </item>
+    
+    <item>
+      <title>Neo4j-OGM源码分析</title>
+      <link>https://xibolun.github.io/post/neo4j/neo4j-ogm%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Mon, 04 Dec 2017 22:37:52 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/neo4j/neo4j-ogm%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <description>判断NODE是否发生变化 /** * Creates a new node or updates an existing one in the graph, if it has changed. * * @param entity the domain object to be persisted * @param context the current {@link CompileContext} * @param nodeBuilder a {@link NodeBuilder} that knows how to compile node create/update cypher phrases */ private void updateNode(Object entity, CompileContext context, NodeBuilder</description>
+    </item>
+    
+    <item>
+      <title>MongoDB ReplSet Replication</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb-replset-replication/</link>
+      <pubDate>Wed, 15 Nov 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb-replset-replication/</guid>
+      <description>ReplSet Replicatin master的IP： 10.0.1.9 slave IP: 10.0.106.2、10.0.106.6 以replSet形式启动master，replSet名称设置为rs0</description>
+    </item>
+    
+    <item>
+      <title>MongoDB Master Slave Replication</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb-master-slave-replication/</link>
+      <pubDate>Tue, 14 Nov 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb-master-slave-replication/</guid>
+      <description>Replication&amp;ndash;Master Slave Replication Mongod命令列表 dbpath: 指定数据库文件目录，若不存在，则提示异常 port: 端口号指定 master:指定主节点 slaver:指定从节点 source: 指定主节点</description>
+    </item>
+    
+    <item>
+      <title>Java8函数式编程笔记第5章</title>
+      <link>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC5%E7%AB%A0--%E9%AB%98%E7%BA%A7%E9%9B%86%E5%90%88%E7%B1%BB%E5%92%8C%E6%94%B6%E9%9B%86%E5%99%A8/</link>
+      <pubDate>Fri, 13 Oct 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC5%E7%AB%A0--%E9%AB%98%E7%BA%A7%E9%9B%86%E5%90%88%E7%B1%BB%E5%92%8C%E6%94%B6%E9%9B%86%E5%99%A8/</guid>
+      <description>第5章 方法引用</description>
+    </item>
+    
+    <item>
+      <title>Java8函数式编程笔记1~2</title>
+      <link>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01~2%E7%AB%A0/</link>
+      <pubDate>Tue, 10 Oct 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01~2%E7%AB%A0/</guid>
+      <description>前言 为什么要阅读本书 如何编写简单、干净、易读的代码，尤其是对于集合的操作 如何简单地使用并行计算提高性能 如何准确地为问题建模 如果写出更简单的并</description>
+    </item>
+    
+    <item>
+      <title>Java8函数式编程笔记第3章</title>
+      <link>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC3%E7%AB%A0/</link>
+      <pubDate>Tue, 10 Oct 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC3%E7%AB%A0/</guid>
+      <description>第3章 流 外部迭代与内部迭代 public static void innerLoop() { /** * 运算结果为：50005000共计耗时：3 * 运算结果为：50005000共计耗时：119 */ int sum = 0; Set&amp;lt;Integer&amp;gt; set</description>
+    </item>
+    
+    <item>
+      <title>Java8函数式编程笔记第4章</title>
+      <link>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC4%E7%AB%A0--%E7%B1%BB%E5%BA%93/</link>
+      <pubDate>Tue, 10 Oct 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC4%E7%AB%A0--%E7%B1%BB%E5%BA%93/</guid>
+      <description>第4章 类库 数据类型 int占用4字节，Integer占用16字节;Integer为整形对象 在最坏的情况下，Integer[]要比int[]多占</description>
+    </item>
+    
+    <item>
+      <title>MongoDB基础学习</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb--%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Wed, 27 Sep 2017 13:07:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb--%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</guid>
+      <description>启动 mongodump -h localhost --username dbuser --password dbuser -o /tmp/mongodb-directory -d directory\_db\_dev mongorestore -d hf-cmdb0622-1 --drop --dir=/root/mongodb\_production-backup-file.201701192300/hf-cmdb/ mongo --username dbuser --password dbuser 基本命令 启动mongodb ： mongod &amp;ndash;dbpath /Users/admin/projects/mongodb/data/db\ 连接mongodb : mongo 数据类型 String Integer Boolean Double keys Arrays Timestamp Object Null Symbol Date Object ID Binary Data</description>
+    </item>
+    
+    <item>
+      <title>SpringBoot实战第7章--Actuator</title>
+      <link>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC7%E7%AB%A0--actuator/</link>
+      <pubDate>Thu, 21 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC7%E7%AB%A0--actuator/</guid>
+      <description>说明 SpringBoot实战第4章讲测试 SpringBoot实战第5章讲Groovy SpringBoot实战第6章讲Grails 由于在工作当</description>
+    </item>
+    
+    <item>
+      <title>SpringBoot实战第1章--入门</title>
+      <link>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC1%E7%AB%A0--%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Wed, 20 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC1%E7%AB%A0--%E5%85%A5%E9%97%A8/</guid>
+      <description>前言 SpringBoot可以让Spring不再成为开发的绊脚石，轻量配置或者完全不需要配置 内容 Spring精要 自动配置：若配置了dataso</description>
+    </item>
+    
+    <item>
+      <title>SpringBoot实战第2章--自定义配置</title>
+      <link>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC2%E7%AB%A0--%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 20 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC2%E7%AB%A0--%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/</guid>
+      <description>注解 属性文件外置配置 要想使用属性文件外置配置，根据 Generating your own meta-data using the annotation processor 需要配置spring-boot-configuration-process</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第12章--远程服务</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC12%E7%AB%A0--%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Wed, 20 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC12%E7%AB%A0--%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1/</guid>
+      <description>目前调用远程接口可以使用一些RPC框架，或者使用Spring Template；或Web Service等</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第13章--Spring消息</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC13%E7%AB%A0--spring%E6%B6%88%E6%81%AF/</link>
+      <pubDate>Wed, 20 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC13%E7%AB%A0--spring%E6%B6%88%E6%81%AF/</guid>
+      <description>Spring与ActiveMQ的集成：ActiveMQ</description>
+    </item>
+    
+    <item>
+      <title>MongoDB基础学习</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Wed, 20 Sep 2017 13:07:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>安装 各系统安装文档入口 Linux平台，添加mongo.repo touch /etc/yum.repos.d/mongodb-org-4.2.repo [mongodb-org] name=MongoDB Repository baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/7Server/mongodb-org/4.2/x86_64/ gpgcheck=0 enabled=1 安装 yum install mongodb-org .... Loading mirror speeds from cached hostfile Resolving Dependencies --&amp;gt; Running transaction check ---&amp;gt; Package mongodb-org.x86_64 0:4.2.2-1.el7 will be installed --&amp;gt; Processing Dependency: mongodb-org-tools = 4.2.2</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第10章--事务</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC10%E7%AB%A0--%E4%BA%8B%E5%8A%A1/</link>
+      <pubDate>Mon, 18 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC10%E7%AB%A0--%E4%BA%8B%E5%8A%A1/</guid>
+      <description>前言 以JDBC的形式操作数据库，需要控制获得连接、关闭连接、事务提交、回滚等操作，而Spring的声明式事务处理可以从复杂的事务处理中脱离出</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第11章--Spring MVC</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC11%E7%AB%A0--spring-mvc/</link>
+      <pubDate>Mon, 18 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC11%E7%AB%A0--spring-mvc/</guid>
+      <description>说明，由于目前使用SpringBoot，并且使用Restful对API进行管理；所以Spring MVC的思想继续保持延续，但代码一般不怎么写</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第8章--数据库连接JDBC</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC8%E7%AB%A0--%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5jdbc/</link>
+      <pubDate>Tue, 12 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC8%E7%AB%A0--%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5jdbc/</guid>
+      <description>前言 什么是JDBC（Java DataBase Connectivity Java数据库连接） 怎么使用JDBC？ 引入数据库驱动jar包 Java在程序当中加载驱动Class.forNa</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第9章--MyBatis整合</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC9%E7%AB%A0--mybatis%E6%95%B4%E5%90%88/</link>
+      <pubDate>Tue, 12 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC9%E7%AB%A0--mybatis%E6%95%B4%E5%90%88/</guid>
+      <description>前言 MyBatis 之前叫iBatis，是Apache的一个开源项目，后来迁移到了Google Code当中，改名为MyBatis 官网介绍如下：MyBati</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第7章--AOP</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC7%E7%AB%A0--aop/</link>
+      <pubDate>Mon, 04 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC7%E7%AB%A0--aop/</guid>
+      <description>前言 什么是AOP？为什么要玩AOP AOP是Aspect Oriented Programming，意即面向切面编程 面向对向编程是竖向的方式；无法对多个对象进行</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第6章--容器的功能扩展</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC6%E7%AB%A0--%E5%AE%B9%E5%99%A8%E7%9A%84%E5%8A%9F%E8%83%BD%E6%89%A9%E5%B1%95/</link>
+      <pubDate>Tue, 29 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC6%E7%AB%A0--%E5%AE%B9%E5%99%A8%E7%9A%84%E5%8A%9F%E8%83%BD%E6%89%A9%E5%B1%95/</guid>
+      <description>概述 spring不仅仅提供了xmlBeanFactory，还提供了ApplictionContext用于扩展BeanFactory当中的功能</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第4章--自定义标签解析</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC4%E7%AB%A0--%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Mon, 21 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC4%E7%AB%A0--%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E8%A7%A3%E6%9E%90/</guid>
+      <description>4.1 自定义标签的使用 为了方便非标准的spring bean配置，spring提供了自定义标签的功能 原理为使用spring提供AbstractBe</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第5章--bean的加载</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC5%E7%AB%A0--bean%E7%9A%84%E5%8A%A0%E8%BD%BD/</link>
+      <pubDate>Mon, 21 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC5%E7%AB%A0--bean%E7%9A%84%E5%8A%A0%E8%BD%BD/</guid>
+      <description>5.1 FactoryBean的使用 /*** AbstractBeanFactory.doGetBean方法加载bean **/ protected &amp;lt;T&amp;gt; T doGetBean(final String name, @Nullable final Class&amp;lt;T&amp;gt; requiredType, @Nullable final Object[] args, boolean typeCheckOnly)</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第3章--默认标签的解析</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC3%E7%AB%A0-%E9%BB%98%E8%AE%A4%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Tue, 15 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC3%E7%AB%A0-%E9%BB%98%E8%AE%A4%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/</guid>
+      <description>3.1 bean标签的解析及注册 DefaultBeanDefinitionDocumentReader.parseDefaultElement:解</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第1章--整体架构和环境搭建</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC1%E7%AB%A0--%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Thu, 03 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC1%E7%AB%A0--%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>学习说明 在看到第五章的时候有以下心得 看源码是一个枯燥的过程，因为你并没有参与到实际的开发和设计当中，所以有一些命名和思路不会非常明确，并且写</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第2章--容器的基本实现</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC2%E7%AB%A0--%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Thu, 03 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC2%E7%AB%A0--%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/</guid>
+      <description>2.3 最简单的例子 public class MyTestBean { private String testStr = &amp;#34;testStr&amp;#34;; public String getTestStr() { return this.testStr; } public void setTestStr(String str) { this.testStr = str; } } &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; ?&amp;gt; &amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&amp;#34;&amp;gt; &amp;lt;bean id=&amp;#34;myTestBean&amp;#34; class=&amp;#34;com.spring.MyTestBean&amp;#34;/&amp;gt; &amp;lt;/beans&amp;gt; public class TestClass { @Test public void test() throws IOException { // ClassPathResource Resource res = new ClassPathResource(&amp;#34;beanFactory.xml&amp;#34;); BeanFactory beanFactory = new XBeanXmlBeanFactory(res); MyTestBean</description>
+    </item>
+    
+    <item>
+      <title>ActiveMQ Queue Model</title>
+      <link>https://xibolun.github.io/post/activqmq/activemq--queue/</link>
+      <pubDate>Tue, 01 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/activqmq/activemq--queue/</guid>
+      <description>ActiveMQ是干什么的？ Apache ActiveMQ 是一个开源的消息集成服务 支持多语言，支持JMS1.1 J2EE1.4 首先需要了解什么是JMS和JMS相关的API：Java</description>
+    </item>
+    
+    <item>
+      <title>Python学习</title>
+      <link>https://xibolun.github.io/post/python/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Thu, 20 Jul 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/python/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>基础 语法 and : &amp;amp;&amp;amp; or : || elif : if else if、for后面是: if ~name~_ == &amp;lsquo;~main~_&amp;rsquo;: main方法，方法的入口 str(10) : 将int转换为str int(&amp;lsquo;1&amp;rsquo;): 将str转换为int 2 Using the Python Interpreter py</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机--第7章 虚拟机类加载机制</title>
+      <link>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC7%E7%AB%A0-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Mon, 10 Jul 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC7%E7%AB%A0-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</guid>
+      <description>第7章 虚拟机类加载机制 7.1 概述 jvm是怎么加载这些Class文件信息的？ Class文件进入jvm会发生什么变化？ jvm把类的数据从Class文</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机--第5章 调优案例分析与实战</title>
+      <link>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC5%E7%AB%A0-%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/</link>
+      <pubDate>Fri, 07 Jul 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC5%E7%AB%A0-%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/</guid>
+      <description>第5章 调优案例分析与实战 5.1 概述 5.2 案例分析 5.2.1 高性能硬件上的程序部署策略 如何解决老年代太大? 重启或者定时触发Full GC 64位的JDK消耗的内存一</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机--第6章 类文件结构</title>
+      <link>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC6%E7%AB%A0-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Fri, 07 Jul 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC6%E7%AB%A0-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/</guid>
+      <description>第6章 类文件结构 6.1 概述 代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步 二进制本地机器码不再是唯一的选</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机--第4章 虚拟机性能监控与故障处理</title>
+      <link>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC4%E7%AB%A0-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Wed, 05 Jul 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC4%E7%AB%A0-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
+      <description>第4章 虚拟机性能监控与故障处理 4.1 概述 工具永远都是知识技能的一层包装 我的mac的jdk PATH为/Library/Java/JavaVirtu</description>
+    </item>
+    
+    <item>
+      <title>dubbo学习--环境搭建遇到的一些坑</title>
+      <link>https://xibolun.github.io/post/dubbo%E5%AD%A6%E4%B9%A0--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</link>
+      <pubDate>Tue, 04 Jul 2017 22:43:54 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/dubbo%E5%AD%A6%E4%B9%A0--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</guid>
+      <description>前言 最近比较寂寞，想学dubbo，又不想按照官网那种方式进行配置，想集成于spring boot；所以上网找了一下有没有spring boot dubb</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机--第2章 Java内存区域与内存溢出异常</title>
+      <link>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC2%E7%AB%A0-java%E5%86%85%E5%AD%98%E5%8C%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/</link>
+      <pubDate>Wed, 28 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC2%E7%AB%A0-java%E5%86%85%E5%AD%98%E5%8C%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/</guid>
+      <description>第2章 Java内存区域与内存溢出异常 2.1 概述 C语言的内存管理是由开发者自行操作的，所以当开发者经验不足的时候就会写出内存溢出的代码；而java</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机--第3章 垃圾收集器与内存分配策略</title>
+      <link>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC3%E7%AB%A0-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5/</link>
+      <pubDate>Wed, 28 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC3%E7%AB%A0-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5/</guid>
+      <description>第3章 垃圾收集器与内存分配策略 3.1 概述 Lisp语言是最早使用内存分配并GC的语言 因为垃圾收集成为了高并发的瓶颈，并且需要排查内存溢出等复杂问题</description>
+    </item>
+    
+    <item>
+      <title>Java基础</title>
+      <link>https://xibolun.github.io/post/java/basicjava/</link>
+      <pubDate>Thu, 22 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/basicjava/</guid>
+      <description>一些颠覆认知的问题 Java的String地址是相等的 System.out.println(&amp;#34;a&amp;#34; == &amp;#34;a&amp;#34;); //true System.out.println(&amp;#34;a&amp;#34;.equals(&amp;#34;a&amp;#34;)); //true Integer的valueOf存在默认值-127~127的区间 Integer f1 = 100, f2 = 100,</description>
+    </item>
+    
+    <item>
+      <title>Docker学习</title>
+      <link>https://xibolun.github.io/post/docker/docker/</link>
+      <pubDate>Tue, 20 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/docker/docker/</guid>
+      <description>Get Started command docker &amp;ndash;version : docker版本 docker command &amp;ndash;help : 查看某个命令的帮助 docker-compose &amp;ndash;version : docker compose版本 docker-machine &amp;ndash;version: docker machine版本 docker version: 查看docker client和s</description>
+    </item>
+    
+    <item>
+      <title>Nginx学习</title>
+      <link>https://xibolun.github.io/post/tools/nginx/</link>
+      <pubDate>Thu, 15 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/nginx/</guid>
+      <description>Mac下nginx命令 sudo brew install nginx: brew安装nginx /usr/local/etc/nginx/nginx.conf: nginx配置文件路径 sudo nginx：启动nginx sudo nginx -s stop: 停止nginx sudo nginx -s reload: 重启n</description>
+    </item>
+    
+    <item>
+      <title>Java核心技术卷二</title>
+      <link>https://xibolun.github.io/post/java/corejavaii/</link>
+      <pubDate>Sat, 03 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/corejavaii/</guid>
+      <description>Java核心技术卷二 第3章 网络编程 socket socket(String host,String port):获取一个套接字 socket.getInputStream(): 获取流的数据信息 socket.setTimeout(1000): 设置socket连接超时时间 socket.isConnect(): socket.shutdownOutPut(): 半关闭，客户端向服务器</description>
+    </item>
+    
+    <item>
+      <title>curl学习</title>
+      <link>https://xibolun.github.io/post/tools/curl/</link>
+      <pubDate>Fri, 02 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/curl/</guid>
+      <description>CURL概述 CURL(command line url viewer),是命令行工具，发出网络请求，得到并提取数据，显示在标准输出里面，支持多种协议 CURL命令 curl -o file url: 保存url</description>
+    </item>
+    
+    <item>
+      <title>Java核心技术卷一</title>
+      <link>https://xibolun.github.io/post/java/corejavai/</link>
+      <pubDate>Tue, 23 May 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/corejavai/</guid>
+      <description>Java核心技术&amp;ndash;卷I 第1章 Java程序设计概述 java发展史 1996年sun公司发布java 1.0版本 1998年在JavaOn</description>
+    </item>
+    
+    <item>
+      <title>linux命令学习</title>
+      <link>https://xibolun.github.io/post/linux/linux-command/</link>
+      <pubDate>Mon, 22 May 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/linux/linux-command/</guid>
+      <description>每天一个linux命令 会有不定期的更新，汇总&amp;hellip;&amp;hellip;.. 文件及目录操作 ls ls -l:列表显示当前目录下的文件 ls -lu:根</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机--第1章 走近java</title>
+      <link>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E7%AC%AC1%E7%AB%A0-%E8%B5%B0%E8%BF%91java/</link>
+      <pubDate>Sun, 21 May 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E7%AC%AC1%E7%AB%A0-%E8%B5%B0%E8%BF%91java/</guid>
+      <description>第1部分 走近Java 第1章 走近java JDK(java development kit)java开发工具，包括java程序设计语言，api类库，Java虚拟机 JRE(java runtime environm</description>
+    </item>
+    
+    <item>
+      <title>mac避免rm -rf悲剧</title>
+      <link>https://xibolun.github.io/post/tools/trash/</link>
+      <pubDate>Tue, 09 May 2017 10:42:16 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/trash/</guid>
+      <description>安装Trash Trash是一个命令行工具，将文件或者目录移除至Trash当中 brew install trash 添加alias 添加alias至~/.zshrc当中 alias rm=trash alias r=trash</description>
+    </item>
+    
+    <item>
+      <title>MySql日常杂学</title>
+      <link>https://xibolun.github.io/post/mysql/mysql/</link>
+      <pubDate>Thu, 27 Apr 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mysql/mysql/</guid>
+      <description>MySql日常杂学 安装 wget -i -c http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm yum -y install mysql57-community-release-el7-10.noarch.rpm yum -y install mysql-community-server 启动相关 /etc/init.d/mysqld start /etc/init.d/mysqld stop /etc/init.d/mysqld restart service mysqld restart service mysqld stop service mysqld start 其他命令 mysql -uroot -pP@ssw0rd -h55.6.8.142 hf-csa --default-character-set=utf8 mysql -uoot -pP@ssw0rd hf-csa -default-character-set=utf8 &amp;lt; db_qdn672.sql mysqldump --opt --protocol=TCP --user=&amp;#39;root&amp;#39; --password=&amp;#39;P@ssw0rd&amp;#39; --host=&amp;#39;55.6.8.142&amp;#39; -all-databases --result-file=&amp;#39;20170619.sql&amp;#39; mysqldump --opt --protocol=TCP</description>
+    </item>
+    
+    <item>
+      <title>Spring-RestTemplate</title>
+      <link>https://xibolun.github.io/post/spring/spring-resttemplate/</link>
+      <pubDate>Thu, 27 Apr 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring-resttemplate/</guid>
+      <description>解决中文乱码的问题和Delete无法传入body的问题 问题说明：RestTemplate中文乱码问题； 回复里面有我的评论，以下为解决方法 package com.idcos.cloudres.biz.common.util;</description>
+    </item>
+    
+    <item>
+      <title>Spring-SpringBoot</title>
+      <link>https://xibolun.github.io/post/spring/spring-springboot/</link>
+      <pubDate>Thu, 27 Apr 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring-springboot/</guid>
+      <description>Spring 1.5.x当中的hibrenate名称转换策略 今天将Spring从1.3.2升级到1.5.x当中，发现所有的查询都会有异常信息，异常信息为</description>
+    </item>
+    
+    <item>
+      <title>Java多线程学习</title>
+      <link>https://xibolun.github.io/post/java/mulithread/</link>
+      <pubDate>Sat, 22 Apr 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/java/mulithread/</guid>
+      <description>Java多线程 第一章 多线程技能 线程与进程的区别 一个进程的启动是由多个线程所支持的；windows进程管理器当中的第一项都一个进程，每一个进程</description>
+    </item>
+    
+    <item>
+      <title>JWT学习</title>
+      <link>https://xibolun.github.io/post/jwt/</link>
+      <pubDate>Sat, 22 Apr 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/jwt/</guid>
+      <description>什么是JWT? jwt的全称是JSON Web Token；JSON Web Token是一个开源标准(rfc7519) ，是一个轻量，携带着用户信息的json</description>
+    </item>
+    
+    <item>
+      <title>Linux-awk</title>
+      <link>https://xibolun.github.io/post/linux/linux-awk/</link>
+      <pubDate>Sat, 22 Apr 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/linux/linux-awk/</guid>
+      <description>关于awk awk是一门语言，而非单纯的一个小工具，其经典书 The AWK Programming Language 于1988年出处，至此无再版；而国内的翻译版本为 awk_zh-cn； 语法 usage:</description>
+    </item>
+    
+    <item>
+      <title>Linux-Vim</title>
+      <link>https://xibolun.github.io/post/linux/linux-vim/</link>
+      <pubDate>Fri, 07 Apr 2017 15:02:17 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/linux/linux-vim/</guid>
+      <description>删除 :3,5d : 删除3~5行 :.,+2d: 删除当前行及后面两行 :1,.-1d ：删除当前行之前 :.+1,$d: 删除当前行之后 :g /word/d: 删除包括word的所有行 :%g! /word/d: 删除不包括word的所有行; :v /word/d</description>
+    </item>
+    
+    <item>
+      <title>Maven学习</title>
+      <link>https://xibolun.github.io/post/tools/maven/</link>
+      <pubDate>Sat, 04 Mar 2017 22:39:39 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/maven/</guid>
+      <description>简介 Maven Document 概念讲述 什么是SNAPSHOT 有的版本号当中以SNAPSHOT为后缀，说明此版本为开发状态，不稳定； POM Profile 用户自己的设置: (%USER~HOME~%/.m2/settings.xml) 全局设置:</description>
+    </item>
+    
+    <item>
+      <title>Git学习</title>
+      <link>https://xibolun.github.io/post/tools/git/</link>
+      <pubDate>Wed, 27 Apr 2016 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/git/</guid>
+      <description>GIT命令 git clone: git clone -b develop &amp;ndash;single-branch &amp;lt;git-address&amp;gt; :从git地址当中clone 指定的develop分支/或者在git repository当中指定此项目的默认bran</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xibolun.github.io/post/docker/docker%E4%B8%8Evm%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xibolun.github.io/post/docker/docker%E4%B8%8Evm%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>docker与vm的区别 image原理 UnionFS 加载原理 bootfs、rootfs dockerfile 关键字列表 CMD与entrypoint的区别 docker run 的参数会将CMD</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</guid>
+      <description>大纲 etcd分布式锁演示：使用etcdctl etcd分布式的过期时间 etcdctl当中无法设置ttl，因为lock会默认续租：https:/</description>
+    </item>
+    
+  </channel>
+</rss>

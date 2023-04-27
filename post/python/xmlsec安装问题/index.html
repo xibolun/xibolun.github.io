@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w03/" />
+    <link rel="next" href="https://xibolun.github.io/post/tools/aflred/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/python/xmlsec%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            xmlsec安装报错 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="xmlsec安装报错 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "xmlsec安装报错",
+    "headline" : "xmlsec安装报错",
+    "description" : "Could not build wheels for xmlsec Failed to build xmlsec",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2023",
+    "datePublished": "2023-04-26 11:21:07 \u002b0800 CST",
+    "dateModified" : "2023-04-26 11:21:07 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/python\/xmlsec%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98\/",
+    "wordCount" : "526",
+    "keywords" : [ "排障", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">xmlsec安装报错</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2023-04-26 itemprop="datePublished">April 26, 2023</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/python/"> python, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">526 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="xmlsec安装报错">xmlsec安装报错</h2>
+<p>主机环境：macos M2</p>
+<pre tabindex="0"><code>✗ uname -a
+Darwin pgy.local 22.3.0 Darwin Kernel Version 22.3.0: Mon Jan 30 20:38:43 PST 2023; root:xnu-8792.81.3~2/RELEASE_ARM64_T8112 arm64
+</code></pre><p>python版本：</p>
+<pre tabindex="0"><code> ✗ pyenv --version &amp;&amp; python -V
+pyenv 2.3.17
+Python 3.9.1
+</code></pre><h3 id="安装依赖">安装依赖</h3>
+<p>官方安装文档为：<a href="https://pypi.org/project/xmlsec/">xmlsec 1.3.13</a>，安装步骤为</p>
+<pre tabindex="0"><code>xcode-select --install
+brew install libxml2 libxmlsec1 pkg-config
+</code></pre><p>安装完成后查看libxml、libxmlsec1的版本号如下：</p>
+<pre tabindex="0"><code>brew info libxml2 libxmlsec1
+==&gt; libxml2: stable 2.10.4 (bottled), HEAD [keg-only]
+==&gt; libxmlsec1: stable 1.3.0 (bottled)
+</code></pre><p>官方要求版本为：</p>
+<pre tabindex="0"><code>libxml2 &gt;= 2.9.1
+libxmlsec1 &gt;= 1.2.1
+</code></pre><h3 id="安装报错">安装报错</h3>
+<p>依赖环境已经安装完成，但是安装xmlsec会有如下报错：</p>
+<pre tabindex="0"><code> ✗ pip install xmlsec
+ ......
+      /private/var/folders/k1/yj7yrdw10dl0cxxmn367p3fh0000gn/T/pip-install-ex8ixgt1/xmlsec_3a2a32a5f68a419094c99329d69797d7/src/constants.c:320:5: error: use of undeclared identifier &#39;xmlSecSoap12Ns&#39;; did you mean &#39;xmlSecXPath2Ns&#39;?
+          PYXMLSEC_ADD_NS_CONSTANT(Soap12Ns, &#34;SOAP12&#34;);
+          ^
+      /private/var/folders/k1/yj7yrdw10dl0cxxmn367p3fh0000gn/T/pip-install-ex8ixgt1/xmlsec_3a2a32a5f68a419094c99329d69797d7/src/constants.c:304:46: note: expanded from macro &#39;PYXMLSEC_ADD_NS_CONSTANT&#39;
+          tmp = PyUnicode_FromString((const char*)(JOIN(xmlSec, name))); \
+                                                   ^
+      /private/var/folders/k1/yj7yrdw10dl0cxxmn367p3fh0000gn/T/pip-install-ex8ixgt1/xmlsec_3a2a32a5f68a419094c99329d69797d7/src/common.h:19:19: note: expanded from macro &#39;JOIN&#39;
+      #define JOIN(X,Y) DO_JOIN1(X,Y)
+                        ^
+      /private/var/folders/k1/yj7yrdw10dl0cxxmn367p3fh0000gn/T/pip-install-ex8ixgt1/xmlsec_3a2a32a5f68a419094c99329d69797d7/src/common.h:20:23: note: expanded from macro &#39;DO_JOIN1&#39;
+      #define DO_JOIN1(X,Y) DO_JOIN2(X,Y)
+                            ^
+      /private/var/folders/k1/yj7yrdw10dl0cxxmn367p3fh0000gn/T/pip-install-ex8ixgt1/xmlsec_3a2a32a5f68a419094c99329d69797d7/src/common.h:21:23: note: expanded from macro &#39;DO_JOIN2&#39;
+      #define DO_JOIN2(X,Y) X##Y
+                            ^
+      &lt;scratch space&gt;:139:1: note: expanded from here
+      xmlSecSoap12Ns
+      ^
+      /opt/homebrew/Cellar/libxmlsec1/1.3.0/include/xmlsec1/xmlsec/strings.h:34:33: note: &#39;xmlSecXPath2Ns&#39; declared here                                                                                                                                                            XMLSEC_EXPORT_VAR const xmlChar xmlSecXPath2Ns[];                                                                                                                                                                                                                                                             ^                                                                                                                                                                                                                                             197 warnings and 2 errors generated.                                                                                                                                                                                                                                          error: command &#39;/usr/bin/clang&#39; failed with exit code 1                                                                                                                                                                                                                       [end of output]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         note: This error originates from a subprocess, and is likely not a problem with pip.                                                                                                                                                                                          ERROR: Failed building wheel for xmlsec
+Failed to build xmlsec                                                                                                                                                                                                                                                        ERROR: Could not build wheels for xmlsec, which is required to install pyproject.toml-based projects
+</code></pre><h3 id="报错分析与解决">报错分析与解决</h3>
+<p>从报错信息可以看出： brew已经成功安装了libxmlsec1，但xmlsec依旧报错，报错原因是brew安装的libxmlsec1的库有问题，导致存在一些语法的错误；</p>
+<p>从官方的一个issues当中可以看到，libxml的包确实在M2上面有一些问题，按照issues当中的方式，替换libxmlsec1.rb文件即可</p>
+<p><a href="https://github.com/xmlsec/python-xmlsec/issues/254">https://github.com/xmlsec/python-xmlsec/issues/254</a></p>
+<p>对比一下两个文件的差异，只是将新版本1.3.0替换为了1.2.37</p>
+<pre tabindex="0"><code>url &#34;https://www.aleksey.com/xmlsec/download/xmlsec1-1.3.0.tar.gz&#34;                                                                 url &#34;https://www.aleksey.com/xmlsec/download/xmlsec1-1.2.37.tar.gz&#34;
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/python/xmlsec%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/>https://xibolun.github.io/post/python/xmlsec%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/%E6%8E%92%E9%9A%9C/">
+                    #排障</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w03/" class="prev" rel="prev" title="SRE Weekly-2023M04W03"><i class="iconfont icon-left"></i>&nbsp;SRE Weekly-2023M04W03</a>
+        
+        
+        <a href="https://xibolun.github.io/post/tools/aflred/" class="next" rel="next" title="Alfred snippets日期格式化">Alfred snippets日期格式化&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

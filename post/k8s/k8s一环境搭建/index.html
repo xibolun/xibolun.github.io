@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/2019/" />
+    <link rel="next" href="https://xibolun.github.io/post/k8s/k8s%E4%BA%8C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/k8s/k8s%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            k8s(一)––环境搭建 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="k8s(一)––环境搭建 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "k8s(一)––环境搭建",
+    "headline" : "k8s(一)––环境搭建",
+    "description" : "k8s 环境搭建",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-01-28 13:36:27 \u002b0800 CST",
+    "dateModified" : "2020-01-28 13:36:27 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/k8s\/k8s%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA\/",
+    "wordCount" : "2324",
+    "keywords" : [ "k8s", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">k8s(一)––环境搭建</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-01-28 itemprop="datePublished">January 28, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/k8s/"> k8s, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">2324 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="k8s环境搭建">K8S环境搭建</h2>
+<h3 id="其他搭建方式">其他搭建方式</h3>
+<ul>
+<li>学习环境，可以安装 <a href="https://kubernetes.io/docs/setup/learning-environment/minikube/#installation">minikube</a> ，同时还有一个在线的 <a href="https://kubernetes.io/docs/tutorials/hello-minikube/#create-a-minikube-cluster">minikube terminal</a>，也可以使用<a href="https://kind.sigs.k8s.io/">k8s kind</a> 来搭建环境</li>
+<li>生产环境，使用 <a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/">kubeadm</a>，本次搭建使用kubeadm来搭建，更多 <a href="https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/">kubeadm command</a>。</li>
+</ul>
+<h3 id="centos7环境搭建">Centos7环境搭建</h3>
+<table>
+<thead>
+<tr>
+<th>IP</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.128.220</td>
+<td>master</td>
+</tr>
+<tr>
+<td>192.168.128.221</td>
+<td>node1</td>
+</tr>
+<tr>
+<td>192.168.128.222</td>
+<td>node2</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>配置要求：&gt;2C4G50G</p>
+</blockquote>
+<h3 id="操作系统设置">操作系统设置</h3>
+<p>设置静态IP</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vi /etc/sysconfig/network-scripts/ifcfg-ens33
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>....
+</span></span><span style="display:flex;"><span>BOOTPROTO<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;static&#34;</span>
+</span></span><span style="display:flex;"><span>ONBOOT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yes&#34;</span>
+</span></span><span style="display:flex;"><span>.....
+</span></span><span style="display:flex;"><span>IPADDR<span style="color:#f92672">=</span>192.168.128.220
+</span></span><span style="display:flex;"><span>NETMASK<span style="color:#f92672">=</span>255.255.255.0
+</span></span><span style="display:flex;"><span>GATEWAY<span style="color:#f92672">=</span>192.168.128.2
+</span></span></code></pre></div><p>重启</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>systemctl restart network
+</span></span></code></pre></div><p>设置主机名</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hostnamectl set-hostname k8s-master
+</span></span></code></pre></div><p>设置域名，配置/ect/hosts</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> cat &gt;&gt; /etc/hosts <span style="color:#e6db74">&lt;&lt; EOF
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">192.168.128.220    k8s-master
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">192.168.128.221    k8s-node01
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">192.168.128.222    k8s-node02
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span></code></pre></div><p>关闭防火墙</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>systemctl status firewalld &amp;  systemctl stop firewalld &amp; systemctl status firewalld 
+</span></span><span style="display:flex;"><span>systemctl status iptables &amp;  systemctl stop iptables &amp; systemctl status iptables
+</span></span></code></pre></div><p>关闭selinux</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>setenforce <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>getenforce
+</span></span><span style="display:flex;"><span>vi /etc/selinux/config
+</span></span></code></pre></div><p>关闭swap</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vi /etc/fstab
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 注释</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># /dev/mapper/centos-swap swap                    swap    defaults        0 0</span>
+</span></span></code></pre></div><p>开启透明网桥</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;net.bridge.bridge-nf-call-iptables=1&#34;</span> &gt;&gt; /etc/sysctl.d/k8s.conf
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;net.bridge.bridge-nf-call-ip6tables=1&#34;</span> &gt;&gt; /etc/sysctl.d/k8s.conf
+</span></span><span style="display:flex;"><span>sysctl -p
+</span></span></code></pre></div><p>开启ipvs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cat &gt; /etc/sysconfig/modules/ipvs.modules <span style="color:#e6db74">&lt;&lt;EOF
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">modprobe -- ip_vs
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">modprobe -- ip_vs_rr
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">modprobe -- ip_vs_wrr
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">modprobe -- ip_vs_sh
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">modprobe -- nf_conntrack_ipv4
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#执行脚本</span>
+</span></span><span style="display:flex;"><span>chmod <span style="color:#ae81ff">755</span> /etc/sysconfig/modules/ipvs.modules <span style="color:#f92672">&amp;&amp;</span> bash /etc/sysconfig/modules/ipvs.modules <span style="color:#f92672">&amp;&amp;</span> lsmod | grep -e ip_vs -e nf_conntrack_ipv4
+</span></span></code></pre></div><h3 id="安装docker-ce">安装docker-ce</h3>
+<pre tabindex="0"><code>yum remove docker-client docker-common docker -y
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># step 1: 安装必要的一些系统工具</span>
+</span></span><span style="display:flex;"><span>sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Step 2: 添加软件源信息</span>
+</span></span><span style="display:flex;"><span>sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Step 3: 更新并安装Docker-CE</span>
+</span></span><span style="display:flex;"><span>sudo yum makecache fast
+</span></span><span style="display:flex;"><span>sudo yum -y install docker-ce
+</span></span></code></pre></div><p>配置cgroup</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cat &gt; /etc/docker/daemon.json <span style="color:#e6db74">&lt;&lt;EOF
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span></code></pre></div><p>设置FORWARD ACCEPT</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vi /usr/lib/systemd/system/docker.service
+</span></span><span style="display:flex;"><span>ExecStartPost<span style="color:#f92672">=</span>/usr/sbin/iptables -P FORWARD ACCEPT
+</span></span></code></pre></div><p>重置并设置开机启动</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> systemctl daemon-reload <span style="color:#f92672">&amp;&amp;</span> systemctl restart docker.service <span style="color:#f92672">&amp;&amp;</span> systemctl enable docker.service
+</span></span></code></pre></div><h3 id="安装k8s">安装k8s</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cat <span style="color:#e6db74">&lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[kubernetes]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">name=Kubernetes
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">enabled=1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">gpgcheck=1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">repo_gpgcheck=1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span><span style="display:flex;"><span>yum install -y kubelet kubeadm kubectl
+</span></span></code></pre></div><p>启动</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>systemctl enable kubelet <span style="color:#f92672">&amp;&amp;</span> systemctl start kubelet
+</span></span></code></pre></div><p>通过aliyun仓库拉取gc.src.io的镜像的一个脚本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vi /tmp/image.sh
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash</span>
+</span></span><span style="display:flex;"><span>url<span style="color:#f92672">=</span>registry.cn-hangzhou.aliyuncs.com/google_containers
+</span></span><span style="display:flex;"><span>version<span style="color:#f92672">=</span>v1.17.2
+</span></span><span style="display:flex;"><span>images<span style="color:#f92672">=(</span><span style="color:#e6db74">`</span>kubeadm config images list --kubernetes-version<span style="color:#f92672">=</span>$version|awk -F <span style="color:#e6db74">&#39;/&#39;</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span><span style="color:#e6db74">`</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> imagename in <span style="color:#e6db74">${</span>images[@]<span style="color:#e6db74">}</span> ; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>  docker pull $url/$imagename
+</span></span><span style="display:flex;"><span>  docker tag $url/$imagename k8s.gcr.io/$imagename
+</span></span><span style="display:flex;"><span>  docker rmi -f $url/$imagename
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sh /tmp/image.sh
+</span></span><span style="display:flex;"><span>docker image
+</span></span></code></pre></div><blockquote>
+<p>version获取：kubelet &ndash;version</p>
+</blockquote>
+<h4 id="初始化master">初始化master</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubeadm init --image-repository registry.aliyuncs.com/google_containers  --kubernetes-version v1.17.0 --pod-network-cidr<span style="color:#f92672">=</span>10.244.0.0/16  --apiserver-advertise-address<span style="color:#f92672">=</span>192.168.128.220 
+</span></span></code></pre></div><p>输出信息</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubeadm init --image-repository registry.aliyuncs.com/google_containers  --kubernetes-version v1.17.0 --pod-network-cidr<span style="color:#f92672">=</span>10.244.0.0/16  --apiserver-advertise-address<span style="color:#f92672">=</span>192.168.128.220 
+</span></span><span style="display:flex;"><span>W0203 12:06:56.185377    <span style="color:#ae81ff">4249</span> validation.go:28<span style="color:#f92672">]</span> Cannot validate kube-proxy config - no validator is available
+</span></span><span style="display:flex;"><span>W0203 12:06:56.185442    <span style="color:#ae81ff">4249</span> validation.go:28<span style="color:#f92672">]</span> Cannot validate kubelet config - no validator is available
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>init<span style="color:#f92672">]</span> Using Kubernetes version: v1.17.0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Running pre-flight checks
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Pulling images required <span style="color:#66d9ef">for</span> setting up a Kubernetes cluster
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> This might take a minute or two, depending on the speed of your internet connection
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> You can also perform this action in beforehand using <span style="color:#e6db74">&#39;kubeadm config images pull&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>kubelet-start<span style="color:#f92672">]</span> Writing kubelet environment file with flags to file <span style="color:#e6db74">&#34;/var/lib/kubelet/kubeadm-flags.env&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>kubelet-start<span style="color:#f92672">]</span> Writing kubelet configuration to file <span style="color:#e6db74">&#34;/var/lib/kubelet/config.yaml&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>kubelet-start<span style="color:#f92672">]</span> Starting the kubelet
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Using certificateDir folder <span style="color:#e6db74">&#34;/etc/kubernetes/pki&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;ca&#34;</span> certificate and key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;apiserver&#34;</span> certificate and key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> apiserver serving cert is signed <span style="color:#66d9ef">for</span> DNS names <span style="color:#f92672">[</span>k8s-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local<span style="color:#f92672">]</span> and IPs <span style="color:#f92672">[</span>10.96.0.1 192.168.128.220<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;apiserver-kubelet-client&#34;</span> certificate and key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;front-proxy-ca&#34;</span> certificate and key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;front-proxy-client&#34;</span> certificate and key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;etcd/ca&#34;</span> certificate and key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;etcd/server&#34;</span> certificate and key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> etcd/server serving cert is signed <span style="color:#66d9ef">for</span> DNS names <span style="color:#f92672">[</span>k8s-master localhost<span style="color:#f92672">]</span> and IPs <span style="color:#f92672">[</span>192.168.128.220 127.0.0.1 ::1<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;etcd/peer&#34;</span> certificate and key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> etcd/peer serving cert is signed <span style="color:#66d9ef">for</span> DNS names <span style="color:#f92672">[</span>k8s-master localhost<span style="color:#f92672">]</span> and IPs <span style="color:#f92672">[</span>192.168.128.220 127.0.0.1 ::1<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;etcd/healthcheck-client&#34;</span> certificate and key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;apiserver-etcd-client&#34;</span> certificate and key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;sa&#34;</span> key and public key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>kubeconfig<span style="color:#f92672">]</span> Using kubeconfig folder <span style="color:#e6db74">&#34;/etc/kubernetes&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>kubeconfig<span style="color:#f92672">]</span> Writing <span style="color:#e6db74">&#34;admin.conf&#34;</span> kubeconfig file
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>kubeconfig<span style="color:#f92672">]</span> Writing <span style="color:#e6db74">&#34;kubelet.conf&#34;</span> kubeconfig file
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>kubeconfig<span style="color:#f92672">]</span> Writing <span style="color:#e6db74">&#34;controller-manager.conf&#34;</span> kubeconfig file
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>kubeconfig<span style="color:#f92672">]</span> Writing <span style="color:#e6db74">&#34;scheduler.conf&#34;</span> kubeconfig file
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>control-plane<span style="color:#f92672">]</span> Using manifest folder <span style="color:#e6db74">&#34;/etc/kubernetes/manifests&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>control-plane<span style="color:#f92672">]</span> Creating static Pod manifest <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;kube-apiserver&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>control-plane<span style="color:#f92672">]</span> Creating static Pod manifest <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;kube-controller-manager&#34;</span>
+</span></span><span style="display:flex;"><span>W0203 12:07:53.278042    <span style="color:#ae81ff">4249</span> manifests.go:214<span style="color:#f92672">]</span> the default kube-apiserver authorization-mode is <span style="color:#e6db74">&#34;Node,RBAC&#34;</span>; using <span style="color:#e6db74">&#34;Node,RBAC&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>control-plane<span style="color:#f92672">]</span> Creating static Pod manifest <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;kube-scheduler&#34;</span>
+</span></span><span style="display:flex;"><span>W0203 12:07:53.279114    <span style="color:#ae81ff">4249</span> manifests.go:214<span style="color:#f92672">]</span> the default kube-apiserver authorization-mode is <span style="color:#e6db74">&#34;Node,RBAC&#34;</span>; using <span style="color:#e6db74">&#34;Node,RBAC&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>etcd<span style="color:#f92672">]</span> Creating static Pod manifest <span style="color:#66d9ef">for</span> local etcd in <span style="color:#e6db74">&#34;/etc/kubernetes/manifests&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wait-control-plane<span style="color:#f92672">]</span> Waiting <span style="color:#66d9ef">for</span> the kubelet to boot up the control plane as static Pods from directory <span style="color:#e6db74">&#34;/etc/kubernetes/manifests&#34;</span>. This can take up to 4m0s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>apiclient<span style="color:#f92672">]</span> All control plane components are healthy after 20.032332 seconds
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>upload-config<span style="color:#f92672">]</span> Storing the configuration used in ConfigMap <span style="color:#e6db74">&#34;kubeadm-config&#34;</span> in the <span style="color:#e6db74">&#34;kube-system&#34;</span> Namespace
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>kubelet<span style="color:#f92672">]</span> Creating a ConfigMap <span style="color:#e6db74">&#34;kubelet-config-1.17&#34;</span> in namespace kube-system with the configuration <span style="color:#66d9ef">for</span> the kubelets in the cluster
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>upload-certs<span style="color:#f92672">]</span> Skipping phase. Please see --upload-certs
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>mark-control-plane<span style="color:#f92672">]</span> Marking the node k8s-master as control-plane by adding the label <span style="color:#e6db74">&#34;node-role.kubernetes.io/master=&#39;&#39;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>mark-control-plane<span style="color:#f92672">]</span> Marking the node k8s-master as control-plane by adding the taints <span style="color:#f92672">[</span>node-role.kubernetes.io/master:NoSchedule<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> Using token: j6crlr.k2eh15nkxw4ear9y
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order <span style="color:#66d9ef">for</span> nodes to get long term certificate credentials
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> configured RBAC rules to allow certificate rotation <span style="color:#66d9ef">for</span> all node client certificates in the cluster
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> Creating the <span style="color:#e6db74">&#34;cluster-info&#34;</span> ConfigMap in the <span style="color:#e6db74">&#34;kube-public&#34;</span> namespace
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>kubelet-finalize<span style="color:#f92672">]</span> Updating <span style="color:#e6db74">&#34;/etc/kubernetes/kubelet.conf&#34;</span> to point to a rotatable kubelet client certificate and key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>addons<span style="color:#f92672">]</span> Applied essential addon: CoreDNS
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>addons<span style="color:#f92672">]</span> Applied essential addon: kube-proxy
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Your Kubernetes control-plane has initialized successfully!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>To start using your cluster, you need to run the following as a regular user:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  mkdir -p $HOME/.kube
+</span></span><span style="display:flex;"><span>  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+</span></span><span style="display:flex;"><span>  sudo chown <span style="color:#66d9ef">$(</span>id -u<span style="color:#66d9ef">)</span>:<span style="color:#66d9ef">$(</span>id -g<span style="color:#66d9ef">)</span> $HOME/.kube/config
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>You should now deploy a pod network to the cluster.
+</span></span><span style="display:flex;"><span>Run <span style="color:#e6db74">&#34;kubectl apply -f [podnetwork].yaml&#34;</span> with one of the options listed at:
+</span></span><span style="display:flex;"><span>  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Then you can join any number of worker nodes by running the following on each as root:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kubeadm join 192.168.128.220:6443 --token j6crlr.k2eh15nkxw4ear9y <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --discovery-token-ca-cert-hash sha256:b79e738df3cafd3d303707f877242cfb634429566c84e78818e86798be85f705
+</span></span></code></pre></div><p>设置<code>kubectl</code>命令行环境</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkdir -p $HOME/.kube
+</span></span><span style="display:flex;"><span>sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+</span></span></code></pre></div><p>查看状态</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@k8s-master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get nodes</span>
+</span></span><span style="display:flex;"><span>NAME         STATUS     ROLES    AGE   VERSION
+</span></span><span style="display:flex;"><span>k8s-master   NotReady   master   36m   v1.17.2
+</span></span></code></pre></div><p>状态未成功的原因未安装网络插件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl describe node k8s-master | grep Ready
+</span></span><span style="display:flex;"><span>  Ready            False   Mon, <span style="color:#ae81ff">03</span> Feb <span style="color:#ae81ff">2020</span> 12:48:44 +0800   Mon, <span style="color:#ae81ff">03</span> Feb <span style="color:#ae81ff">2020</span> 12:08:03 +0800   KubeletNotReady              runtime network not ready: NetworkReady<span style="color:#f92672">=</span>false reason:NetworkPluginNotReady message:docker: network plugin is not ready: cni config uninitialized
+</span></span></code></pre></div><p>安装flannel</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+</span></span></code></pre></div><p>离线安装</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>curl -O https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel-aliyun.yml
+</span></span><span style="display:flex;"><span>kubectl apply -f kube-flannel-aliyun.yml
+</span></span></code></pre></div><p>查看状态</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@k8s-master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get nodes</span>
+</span></span><span style="display:flex;"><span>NAME         STATUS   ROLES    AGE   VERSION
+</span></span><span style="display:flex;"><span>k8s-master   Ready    master   78m   v1.17.2
+</span></span></code></pre></div><h4 id="添加node">添加Node</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubeadm join 192.168.128.220:6443 --token j6crlr.k2eh15nkxw4ear9y --discovery-token-ca-cert-hash sha256:b79e738df3cafd3d303707f877242cfb634429566c84e78818e86798be85f705
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@k8s-node1 ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get nodes</span>
+</span></span><span style="display:flex;"><span>NAME         STATUS   ROLES    AGE     VERSION
+</span></span><span style="display:flex;"><span>k8s-master   Ready    master   4h29m   v1.17.2
+</span></span><span style="display:flex;"><span>k8s-node1    Ready    &lt;none&gt;   2m10s   v1.17.2
+</span></span><span style="display:flex;"><span>k8s-node2    Ready    &lt;none&gt;   14m     v1.17.2
+</span></span></code></pre></div><h3 id="卸载">卸载</h3>
+<ul>
+<li>重置</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubeadm reset
+</span></span></code></pre></div><ul>
+<li>删除目录</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rm -rf /etc/cni/
+</span></span><span style="display:flex;"><span>rm -rf /var/lib/etcd/
+</span></span><span style="display:flex;"><span>rm -rf /var/lib/kubelet/
+</span></span><span style="display:flex;"><span>rm -rf /var/lib/dockershim/
+</span></span><span style="display:flex;"><span>rm -rf /var/lib/cni
+</span></span></code></pre></div><ul>
+<li>清空iptables规则</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ipvsadm --clear
+</span></span><span style="display:flex;"><span>iptables -F <span style="color:#f92672">&amp;&amp;</span> iptables -t nat -F <span style="color:#f92672">&amp;&amp;</span> iptables -t mangle -F <span style="color:#f92672">&amp;&amp;</span> iptables -X
+</span></span></code></pre></div><ul>
+<li>删除 <code>ip link</code>，只需要保留<code>lo,eth0,docker0</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ip link delete cni0
+</span></span><span style="display:flex;"><span>ip link delete flannel.1
+</span></span><span style="display:flex;"><span>ip link delete kube-ipvs0
+</span></span></code></pre></div><h3 id="webui">WebUI</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl proxy --address<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0.0.0.0&#39;</span> --port<span style="color:#f92672">=</span><span style="color:#ae81ff">8001</span> --accept-hosts<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;.*&#39;</span>
+</span></span></code></pre></div><p><a href="https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md">Token生成及登陆</a></p>
+<h3 id="必看资源">必看资源</h3>
+<ul>
+<li><a href="https://kubernetes.io/docs/reference/">reference</a>： 命令行工具参数，像kubectl、kubeadm等，还有一些API列表</li>
+<li><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/#container-v1-core">api-reference</a>:用于查找一些配置参数信息</li>
+</ul>
+<h2 id="macos环境搭建minikube">MacOS环境搭建(minikube)</h2>
+<h3 id="下载vm-driver">下载Vm-Driver</h3>
+<p>macos上面可选的<code>driver</code>有许多种 <a href="https://minikube.sigs.k8s.io/docs/drivers/#macos">drivers/macos</a>，选择一个下载即可；我选择的是<code>virtualbox</code></p>
+<h3 id="安装minikubehttpsminikubesigsk8siodocsstart">安装<a href="https://minikube.sigs.k8s.io/docs/start/">Minikube</a></h3>
+<p>版本要求在1.7以上，否则在使用的时候会报如下错误：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ minikube start --vm-driver<span style="color:#f92672">=</span>virtualbox  --image-repository<span style="color:#f92672">=</span>https://registry.docker-cn.com --memory<span style="color:#f92672">=</span>4g
+</span></span><span style="display:flex;"><span>😄  minikube v1.6.2 on Darwin 10.14
+</span></span><span style="display:flex;"><span>✨  Selecting <span style="color:#e6db74">&#39;virtualbox&#39;</span> driver from user configuration <span style="color:#f92672">(</span>alternates: <span style="color:#f92672">[</span>hyperkit<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>⚠️  Not passing HTTP_PROXY<span style="color:#f92672">=</span>127.0.0.1:1087 to docker env.
+</span></span><span style="display:flex;"><span>⚠️  Not passing HTTPS_PROXY<span style="color:#f92672">=</span>127.0.0.1:1087 to docker env.
+</span></span><span style="display:flex;"><span>✅  Using image repository https://registry.docker-cn.com
+</span></span><span style="display:flex;"><span>🔥  Creating virtualbox VM <span style="color:#f92672">(</span>CPUs<span style="color:#f92672">=</span>2, Memory<span style="color:#f92672">=</span>4000MB, Disk<span style="color:#f92672">=</span>20000MB<span style="color:#f92672">)</span> ...
+</span></span><span style="display:flex;"><span>panic: runtime error: invalid memory address or nil pointer dereference
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>signal SIGSEGV: segmentation violation code<span style="color:#f92672">=</span>0x1 addr<span style="color:#f92672">=</span>0x28 pc<span style="color:#f92672">=</span>0x4ecd70f<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>goroutine <span style="color:#ae81ff">95</span> <span style="color:#f92672">[</span>running<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>github.com/google/go-containerregistry/pkg/v1/tarball.Write<span style="color:#f92672">(</span>0x0, 0xc00004c990, 0x6, 0xc00004c997, 0x1b, 0xc0002e40e3, 0x7, 0x0, 0x0, 0xc00053bc68, ...<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        /private/tmp/minikube-20191220-77113-wmp8w9/.brew_home/go/pkg/mod/github.com/google/go-containerregistry@v0.0.0-20180731221751-697ee0b3d46e/pkg/v1/tarball/write.go:57 +0x12f
+</span></span><span style="display:flex;"><span>k8s.io/minikube/pkg/minikube/machine.CacheImage<span style="color:#f92672">(</span>0xc0002e40c0, 0x2a, 0xc0002ee500, 0x4e, 0x0, 0x0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        /private/tmp/minikube-20191220-77113-wmp8w9/pkg/minikube/machine/cache_images.go:395 +0x5df
+</span></span><span style="display:flex;"><span>k8s.io/minikube/pkg/minikube/machine.CacheImages.func1<span style="color:#f92672">(</span>0xc0003a5768, 0x0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        /private/tmp/minikube-20191220-77113-wmp8w9/pkg/minikube/machine/cache_images.go:85 +0x124
+</span></span><span style="display:flex;"><span>golang.org/x/sync/errgroup.<span style="color:#f92672">(</span>*Group<span style="color:#f92672">)</span>.Go.func1<span style="color:#f92672">(</span>0xc000498420, 0xc000498540<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        /private/tmp/minikube-20191220-77113-wmp8w9/.brew_home/go/pkg/mod/golang.org/x/sync@v0.0.0-20190423024810-112230192c58/errgroup/errgroup.go:57 +0x64
+</span></span><span style="display:flex;"><span>created by golang.org/x/sync/errgroup.<span style="color:#f92672">(</span>*Group<span style="color:#f92672">)</span>.Go
+</span></span><span style="display:flex;"><span>        /private/tmp/minikube-20191220-77113-wmp8w9/.brew_home/go/pkg/mod/golang.org/x/sync@v0.0.0-20190423024810-112230192c58/errgroup/errgroup.go:54 +0x66
+</span></span></code></pre></div><p><code>minikube</code>的issues里面也有描述 <a href="https://github.com/kubernetes/minikube/issues/6428">minikube/issues/6428</a></p>
+<h4 id="brew安装">brew安装</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>brew install minikube
+</span></span></code></pre></div><h4 id="直接下载安装">直接下载安装</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+</span></span><span style="display:flex;"><span>sudo install minikube-darwin-amd64 /usr/local/bin/minikube
+</span></span></code></pre></div><h3 id="安装集群">安装集群</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>minikube start --vm-driver<span style="color:#f92672">=</span>virtualbox
+</span></span></code></pre></div><blockquote>
+<p>中间会拉取k8s的相关镜像，需要开启proxy代理</p>
+</blockquote>
+<h3 id="安装kubectl">安装kubectl</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>brew install kubectl
+</span></span></code></pre></div><h3 id="测试">测试</h3>
+<p>部署nginx</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl apply  -f  https://k8s.io/examples/application/deployment.yaml
+</span></span></code></pre></div><blockquote>
+<p>部署前可以使用<code>kubectl get --watch deployment</code>观察deployment的状态</p>
+</blockquote>
+<p>查看状态</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ kubectl get deployments
+</span></span><span style="display:flex;"><span>NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+</span></span><span style="display:flex;"><span>nginx-deployment   0/2     <span style="color:#ae81ff">2</span>            <span style="color:#ae81ff">0</span>           4m30s
+</span></span></code></pre></div><h3 id="一些信息">一些信息</h3>
+<p>查看集群</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ kubectl get po -A
+</span></span><span style="display:flex;"><span>NAMESPACE     NAME                               READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>kube-system   coredns-66bff467f8-nnm5b           1/1     Running   <span style="color:#ae81ff">0</span>          72m
+</span></span><span style="display:flex;"><span>kube-system   coredns-66bff467f8-wk9x5           1/1     Running   <span style="color:#ae81ff">0</span>          72m
+</span></span><span style="display:flex;"><span>kube-system   etcd-minikube                      1/1     Running   <span style="color:#ae81ff">0</span>          72m
+</span></span><span style="display:flex;"><span>kube-system   kube-apiserver-minikube            1/1     Running   <span style="color:#ae81ff">0</span>          72m
+</span></span><span style="display:flex;"><span>kube-system   kube-controller-manager-minikube   1/1     Running   <span style="color:#ae81ff">0</span>          72m
+</span></span><span style="display:flex;"><span>kube-system   kube-proxy-pxvlk                   1/1     Running   <span style="color:#ae81ff">0</span>          72m
+</span></span><span style="display:flex;"><span>kube-system   kube-scheduler-minikube            1/1     Running   <span style="color:#ae81ff">0</span>          72m
+</span></span><span style="display:flex;"><span>kube-system   storage-provisioner                1/1     Running   <span style="color:#ae81ff">0</span>          72m
+</span></span></code></pre></div><p>查看<code>Dashboard</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ minikube dashboard
+</span></span><span style="display:flex;"><span>🔌  Enabling dashboard ...
+</span></span><span style="display:flex;"><span>🤔  Verifying dashboard health ...
+</span></span><span style="display:flex;"><span>🚀  Launching proxy ...
+</span></span><span style="display:flex;"><span>🤔  Verifying proxy health ...
+</span></span><span style="display:flex;"><span>🎉  Opening http://127.0.0.1:62758/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
+</span></span></code></pre></div><p>查看服务</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ minikube addons list
+</span></span><span style="display:flex;"><span>|-----------------------------|----------|--------------|
+</span></span><span style="display:flex;"><span>|         ADDON NAME          | PROFILE  |    STATUS    |
+</span></span><span style="display:flex;"><span>|-----------------------------|----------|--------------|
+</span></span><span style="display:flex;"><span>| dashboard                   | minikube | enabled ✅   |
+</span></span><span style="display:flex;"><span>| default-storageclass        | minikube | enabled ✅   |
+</span></span><span style="display:flex;"><span>| efk                         | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| freshpod                    | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| gvisor                      | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| helm-tiller                 | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| ingress                     | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| ingress-dns                 | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| istio                       | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| istio-provisioner           | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| logviewer                   | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| metrics-server              | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| nvidia-driver-installer     | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| nvidia-gpu-device-plugin    | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| registry                    | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| registry-aliases            | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| registry-creds              | minikube | disabled     |
+</span></span><span style="display:flex;"><span>| storage-provisioner         | minikube | enabled ✅   |
+</span></span><span style="display:flex;"><span>| storage-provisioner-gluster | minikube | disabled     |
+</span></span><span style="display:flex;"><span>|-----------------------------|----------|--------------|
+</span></span></code></pre></div><h3 id="如何连接至minikube-vm">如何连接至Minikube VM</h3>
+<h4 id="方式一">方式一</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ minikube ssh
+</span></span><span style="display:flex;"><span>                         _             _
+</span></span><span style="display:flex;"><span>            _         _ <span style="color:#f92672">(</span> <span style="color:#f92672">)</span>           <span style="color:#f92672">(</span> <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  ___ ___  <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>  ___  <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span>| |/<span style="color:#e6db74">&#39;)  _   _ | |_      __
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/&#39;</span> _ <span style="color:#e6db74">`</span> _ <span style="color:#e6db74">`</span><span style="color:#ae81ff">\|</span> |/<span style="color:#e6db74">&#39; _ `\| || , &lt;  ( ) ( )| &#39;</span>_<span style="color:#e6db74">`</span><span style="color:#ae81ff">\ </span> /<span style="color:#e6db74">&#39;__`\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">| ( ) ( ) || || ( ) || || |\`\ | (_) || |_) )(  ___/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(_) (_) (_)(_)(_) (_)(_)(_) (_)`\___/&#39;</span><span style="color:#f92672">(</span>_,__/<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#e6db74">`</span><span style="color:#ae81ff">\_</span>___<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$
+</span></span></code></pre></div><p>查看IP</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ minikube ip
+</span></span><span style="display:flex;"><span>192.168.99.102
+</span></span></code></pre></div><p>由于<code>minikube</code>使用 <a href="https://github.com/boot2docker/boot2docker#ssh-into-vm">boot2docker</a>，所以默认用户名密码为<code>docker/tcuser</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ssh docker@192.168.99.102
+</span></span></code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/k8s/k8s%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/>https://xibolun.github.io/post/k8s/k8s%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/k8s/">
+                    #k8s</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/2019/" class="prev" rel="prev" title="2019年度总结"><i class="iconfont icon-left"></i>&nbsp;2019年度总结</a>
+        
+        
+        <a href="https://xibolun.github.io/post/k8s/k8s%E4%BA%8C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" class="next" rel="next" title="k8s(二)––基础概念">k8s(二)––基础概念&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%85%ADgc/" />
+    <link rel="next" href="https://xibolun.github.io/post/saltstack/saltstack%E4%BA%94state/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/saltstack/saltstack%E5%9B%9Bgrainspillar/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            SaltStack(四)Grains&amp;Pillar | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="SaltStack(四)Grains&amp;Pillar | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "SaltStack(四)Grains\u0026Pillar",
+    "headline" : "SaltStack(四)Grains\u0026Pillar",
+    "description" : "Grains minion的静态属性信息，分为core grains和custom grains core grains 查看grains列表 ➜ ~ sudo salt \u0026#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6\u0026#39; grains.items ➜ ~ sudo salt \u0026#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6\u0026#39; grains.ls 获取某个属性 ➜ ~ sudo salt \u0026#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6\u0026#39;",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-10-08 10:21:40 \u002b0800 CST",
+    "dateModified" : "2019-10-08 10:21:40 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/saltstack\/saltstack%E5%9B%9Bgrainspillar\/",
+    "wordCount" : "622",
+    "keywords" : [ "saltstack", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">SaltStack(四)Grains&amp;Pillar</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-10-08 itemprop="datePublished">October 8, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">622 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="grainshttpsdocssaltstackcomenlatesttopicsgrainsindexhtml"><a href="https://docs.saltstack.com/en/latest/topics/grains/index.html">Grains</a></h3>
+<p>minion的静态属性信息，分为<code>core grains</code>和<code>custom grains </code></p>
+<h4 id="core-grains">core grains</h4>
+<p>查看grains列表</p>
+<pre tabindex="0"><code>➜  ~ sudo salt &#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39; grains.items
+➜  ~ sudo salt &#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39; grains.ls   
+</code></pre><p>获取某个属性</p>
+<pre tabindex="0"><code>➜  ~ sudo salt &#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39; grains.item zmqversion
+AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+    ----------
+    zmqversion:
+        4.1.4
+</code></pre><pre tabindex="0"><code>➜  ~ sudo salt &#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39; grains.get zmqversion
+AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+    4.1.4
+</code></pre><h4 id="custom-grains">custom grains</h4>
+<p>自定义grains有多个地方可以定义:</p>
+<pre tabindex="0"><code>1. Core grains.
+2. Custom grains in /etc/salt/grains.
+3. Custom grains in /etc/salt/minion.
+4. Custom grain modules in _grains directory, synced to minions.
+</code></pre><p><code>/etc/salt/minion</code>配置文件当中</p>
+<pre tabindex="0"><code># Custom static grains for this minion can be specified here and used in SLS
+# files just like all other grains. This example sets 4 custom grains, with
+# the &#39;roles&#39; grain having two values that can be matched against.
+grains:
+  roles:
+    - webserver
+    - memcache
+  deployment: datacenter4
+  cabinet: 13
+  cab_u: 14-15
+</code></pre><p>配置完成后，需要刷新一下</p>
+<pre tabindex="0"><code>➜  ~ sudo salt &#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39; saltutil.sync_grains
+AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+➜  ~ sudo salt &#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39; grains.get roles       
+AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+    - webserver
+    - memcache
+</code></pre><blockquote>
+<p>Tips: 若配置错误，minion会挂掉</p>
+</blockquote>
+<p><code>/etc/salt/grains</code>配置，简单配置了一个app信息</p>
+<pre tabindex="0"><code>app:
+  loc: hangzhou
+  name: ZHJY
+</code></pre><pre tabindex="0"><code>➜  ~ sudo salt &#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39; saltutil.sync_grains
+AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+➜  ~ sudo salt &#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39; grains.get app      
+AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+    ----------
+    loc:
+        hangzhou
+    name:
+        ZHJY
+</code></pre><h4 id="pillarhttpsdocssaltstackcomenlatesttopicspillarindexhtmlstoring-static-data-in-the-pillar"><a href="https://docs.saltstack.com/en/latest/topics/pillar/index.html#storing-static-data-in-the-pillar">Pillar</a></h4>
+<p>存放在master端的数据结构信息，由<code>/srv/pillar/top.sls</code>文件进行统管控制</p>
+<pre tabindex="0"><code>base:
+  &#39;*&#39;:
+    - log
+</code></pre><p>添加了一个<code>log</code>的配置在<code>/etc/pillar/log.sls</code></p>
+<pre tabindex="0"><code># /srv/pillar/log.sls
+# 日志配置
+Logger:
+  # 日志存放路径，当前目录的log文件夹
+  Path: &#34;/tmp/cloudboot/logs&#34;
+  # 日志打印等级，[debug, info, warn, err, off]
+  Level: &#34;debug&#34;
+  # 最大存放时间，7天，超过7天的日志会删除
+  MaxAge: 7
+  # 日志分割时间，24小时，日志以1天为单位分割，一天一个文件
+  RotationTime: 24
+</code></pre><p>查看pillar列表</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  pillar sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> pillar.items
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>    ----------
+</span></span><span style="display:flex;"><span>    Logger:
+</span></span><span style="display:flex;"><span>        ----------
+</span></span><span style="display:flex;"><span>        Level:
+</span></span><span style="display:flex;"><span>            debug
+</span></span><span style="display:flex;"><span>        MaxAge:
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>        Path:
+</span></span><span style="display:flex;"><span>            /tmp/cloudboot/logs
+</span></span><span style="display:flex;"><span>        RotationTime:
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">24</span>
+</span></span></code></pre></div><p>刷新<code>pillar</code></p>
+<pre tabindex="0"><code>➜  salt sudo salt &#39;*&#39; saltutil.refresh_pillar
+</code></pre><p>使用<code>jinjia</code>动态参数配置</p>
+<h3 id="通用">通用</h3>
+<p>输出为<code>json</code>的时候数据结果不会进行合并，添加<code>static</code>参数</p>
+<pre tabindex="0"><code>➜  ~ sudo salt &#39;*&#39; grains.get fqdn_ip4 --out=json         
+{
+    &#34;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#34;: [
+        &#34;172.18.0.2&#34;
+    ]
+}
+{
+    &#34;E84B4F5F-0000-0000-BBD1-FA294FBCB7D5&#34;: [
+        &#34;172.18.0.3&#34;
+    ]
+}
+➜  ~ sudo salt &#39;*&#39; grains.get fqdn_ip4 --out=json --static
+{
+    &#34;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#34;: [
+        &#34;172.18.0.2&#34;
+    ], 
+    &#34;E84B4F5F-0000-0000-BBD1-FA294FBCB7D5&#34;: [
+        &#34;172.18.0.3&#34;
+    ]
+}
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/saltstack/saltstack%E5%9B%9Bgrainspillar/>https://xibolun.github.io/post/saltstack/saltstack%E5%9B%9Bgrainspillar/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/saltstack/">
+                    #saltstack</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%85%ADgc/" class="prev" rel="prev" title="Go源码分析(六)GC"><i class="iconfont icon-left"></i>&nbsp;Go源码分析(六)GC</a>
+        
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E4%BA%94state/" class="next" rel="next" title="SaltStack(五)State">SaltStack(五)State&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

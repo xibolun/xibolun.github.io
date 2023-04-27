@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/redis/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" />
+    <link rel="next" href="https://xibolun.github.io/post/k8s/k8sapi/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/tools/imagemagic/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Imagemagick使用 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Imagemagick使用 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Imagemagick使用",
+    "headline" : "Imagemagick使用",
+    "description" : "ImageMagick 最近有一批图片需要上传至阿里云，但是图片size太大了，超过了3M的要求；如果一个一个地转换比较麻烦，所以去搜索了一下，发现一个强大的批量",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-03-02 10:37:27 \u002b0800 CST",
+    "dateModified" : "2020-03-02 10:37:27 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/tools\/imagemagic\/",
+    "wordCount" : "597",
+    "keywords" : [ "tool", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Imagemagick使用</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-03-02 itemprop="datePublished">March 2, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/tool/"> tool, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">597 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="imagemagick">ImageMagick</h2>
+<blockquote>
+<p>最近有一批图片需要上传至阿里云，但是图片size太大了，超过了3M的要求；如果一个一个地转换比较麻烦，所以去搜索了一下，发现一个强大的批量处理工具––ImageMagick</p>
+</blockquote>
+<h4 id="什么是imagemagick">什么是imagemagick</h4>
+<p>ImageMagick是一个可以对图片进行创建、修改、压缩、转移的工具，支持多种图片格式 PNG, JPEG, GIF, HEIC, TIFF, DPX、EXR、 WebP, Postscript, PDF, and SVG；可以对图片进行大小调整、添加文字、线、图象、颜色等；并且还是开源的；</p>
+<ul>
+<li>这里是一个它的官方<a href="https://imagemagick.org/script/examples.php">DEMO</a>，可以对图片进行的处理功能后面的信息都放在这里；</li>
+<li>这是它的所有特性：<a href="https://github.com/ImageMagick/ImageMagick#features-and-capabilities">Features and Capabilities</a></li>
+</ul>
+<p>功能非常强大；在大批量处理图片的场景比PS等图像处理软件要好；</p>
+<h3 id="mac下使用">Mac下使用</h3>
+<h4 id="安装">安装</h4>
+<p>安装包下载完成后，需要更新一个xcode；最后把系统升级了一下搞定；</p>
+<h4 id="工具列表">工具列表</h4>
+<ul>
+<li>convert：对图片进行压缩、分辨率、品质等属性的修改、转换</li>
+<li>idenitify：查看图片的信息、详情</li>
+<li>mogrify：批量处理图片、HDRI、品质、转换等；</li>
+<li>composite：覆盖图片</li>
+<li>montage：生成缩略图</li>
+<li>display：幻灯片播放</li>
+<li>animate：查看GIF动图</li>
+<li>compare：对比图片</li>
+<li>stream：对图片进行流处理</li>
+<li>import：</li>
+<li>conjure</li>
+</ul>
+<p>所有的工具列表都在这里了 <a href="https://legacy.imagemagick.org/Usage/basics/#cmdline">basic_usage</a></p>
+<p>以下是我自己使用的简单的两个场景：</p>
+<h4 id="图片压缩">图片压缩</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>convert -quality <span style="color:#ae81ff">100</span> src -resize 1500x1125  target
+</span></span></code></pre></div><p>自己写了一个脚本转换两个目录的文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i in <span style="color:#66d9ef">$(</span>ls 家具图片<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>        convert -quality <span style="color:#ae81ff">100</span> 家具图片/$i -resize 1500x1125  convert/$i
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span></code></pre></div><h4 id="heic转jpg">HEIC转jpg</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mogrify -quality <span style="color:#ae81ff">100</span>  -format jpg *.HEIC
+</span></span></code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/tools/imagemagic/>https://xibolun.github.io/post/tools/imagemagic/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/tool/">
+                    #tool</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/redis/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="prev" rel="prev" title="Redis(三)––分布式锁"><i class="iconfont icon-left"></i>&nbsp;Redis(三)––分布式锁</a>
+        
+        
+        <a href="https://xibolun.github.io/post/k8s/k8sapi/" class="next" rel="next" title="k8s--API">k8s--API&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/istio/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+    <link rel="next" href="https://xibolun.github.io/post/tools/youtube-dl/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/istio/%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bsidecar%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Istio—从源码看Sidecar注入原理 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Istio—从源码看Sidecar注入原理 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Istio—从源码看Sidecar注入原理",
+    "headline" : "Istio—从源码看Sidecar注入原理",
+    "description" : "istio sidecar injector 原理",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2021",
+    "datePublished": "2021-01-29 16:44:02 \u002b0800 CST",
+    "dateModified" : "2021-01-29 16:44:02 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/istio\/%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bsidecar%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86\/",
+    "wordCount" : "1814",
+    "keywords" : [ "istio", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Istio—从源码看Sidecar注入原理</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2021-01-29 itemprop="datePublished">January 29, 2021</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/istio/"> istio, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1814 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="sidecar">Sidecar</h3>
+<p>问题：当创建一个<code>Pod</code>的时候，<code>Istio</code>需要对其进行观察，服务治理、信息采集等，这些操作都是通过<code>Envoy</code>处理的；那<code>Envoy</code>什么时候创建的呢？</p>
+<p>在<code>k8s</code>当中一个<code>Pod</code>里面可以有多个<code>Container</code>，如果想要创建一个<code>Sidecar</code>，那最简单的思路便是把原来创建一个<code>Pod</code>的<code>Deployment</code>配置文件修改一下，再创建一个<code>Container</code>即可，这便是<code>Istio</code>注入的操作过程；</p>
+<p>在单个<code>pod</code>的<code>deployment</code>创建的时候，我们添加一个拦截功能，“偷偷”修改掉<code>deployment</code>的配置即可完成这样的操作，这就需要用到<code>k8s</code>的 <a href="https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#what-does-each-admission-controller-do">admission controllers</a>；</p>
+<h3 id="注入">注入</h3>
+<h4 id="手工注入">手工注入</h4>
+<p>从源码当中可以看到需要的参数信息</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">## istioctl/cmd/kubeinject.go</span>
+</span></span><span style="display:flex;"><span>istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --injectConfigFile /tmp/inj-template.tmpl <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --meshConfigFile /tmp/mesh.yaml <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --valuesFile /tmp/values.json
+</span></span></code></pre></div><p>按 <a href="https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#manual-sidecar-injection">官方的文档</a> 生成<code>inject-config.yaml</code>、<code>mesh-config.yaml</code>、<code>inject-values.yaml</code>，执行即可创建出来一个2个<code>Container</code>的<code>Pod</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> ~ kubectl get pod  -l app<span style="color:#f92672">=</span>sleep
+</span></span><span style="display:flex;"><span>NAME                    READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>sleep-8f795f47d-96gpd   2/2     Running   <span style="color:#ae81ff">0</span>          3h14m
+</span></span></code></pre></div><p>这里面发生了什么呢？这个可以通过命令行工具生成一个<code>deployment.yaml</code>文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ istioctl kube-inject <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --injectConfigFile inject-config.yaml <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --meshConfigFile mesh-config.yaml <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --valuesFile inject-values.yaml <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --filename samples/sleep/sleep.yaml  &gt; sleep_delpoyment.yaml
+</span></span></code></pre></div><p>对比生成的文件和``samples/sleep/sleep.yaml<code>，可以看到对原</code>deployment`进行了以下的改动</p>
+<ul>
+<li>添加<code>annotations</code>，<code>labels</code></li>
+</ul>
+<p><img src="/img/istio/istio-sidecar-sleep-diff.jpg" alt="istio-sidecar-sleep-diff" loading="lazy" ></p>
+<ul>
+<li>添加<code>istio-proxy</code>容器，添加代理，转发</li>
+</ul>
+<p><img src="/img/istio/istio-sidecar-injector-istio-proxy.jpg" alt="istio-sidecar-injector-istio-proxy" loading="lazy" ></p>
+<ul>
+<li>添加<code>istio-init</code>容器：主要作用是创建<code>iptables</code>规则</li>
+</ul>
+<p><img src="/img/istio/istio-sidecar-injector-istio-init.jpg" alt="istio-sidecar-injector-istio-init" loading="lazy" ></p>
+<h4 id="自动注入">自动注入</h4>
+<p><a href="https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#automatic-sidecar-injection">自动注入</a> 在官方文档里面写的比较清楚，主要步骤如下：</p>
+<ul>
+<li>开启允许<code>istio</code>注入的<code>namespace</code>标签，主要对<code>default ns</code> 进行处理</li>
+</ul>
+<pre tabindex="0"><code>$ kubectl label namespace default istio-injection=enabled
+</code></pre><ul>
+<li>创建<code>Pod</code>即可</li>
+</ul>
+<pre tabindex="0"><code>kubectl apply -f samples/sleep/sleep.yaml
+</code></pre><p>这里面发生了什么事情呢？执行完上面的命令后，会进入<code>istio-pilot</code>的<code>/inject</code>请求当中；在<code>istiod</code>容器内部的日志当中可以看到如下的信息</p>
+<p><img src="/img/istio/istio-pilot-inject-log.jpg" alt="istio-pilot-inject-log" loading="lazy" ></p>
+<p>在<code>istio-sidecar-injector</code>当中早早添加了配置如下，这个配置告诉了<code>k8s-apiserver</code>，会有如下的条件判断</p>
+<ul>
+<li><code>namespace</code>的标签里面带有<code>istio-injection</code></li>
+<li>当<code>apiserver</code>当中存在<code>CREATE POD </code>时；</li>
+<li>将此请求转发至<code>istiod serverice /inject</code>接口；</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> ~ kubectl get  mutatingwebhookconfiguration istio-sidecar-injector -o yaml
+</span></span><span style="display:flex;"><span>webhooks:
+</span></span><span style="display:flex;"><span>- admissionReviewVersions:
+</span></span><span style="display:flex;"><span>  - v1beta1
+</span></span><span style="display:flex;"><span>  - v1
+</span></span><span style="display:flex;"><span>  clientConfig:
+</span></span><span style="display:flex;"><span>    caBundle: ......
+</span></span><span style="display:flex;"><span>    service:
+</span></span><span style="display:flex;"><span>      name: istiod
+</span></span><span style="display:flex;"><span>      namespace: istio-system
+</span></span><span style="display:flex;"><span>      path: /inject
+</span></span><span style="display:flex;"><span>      port: <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>  failurePolicy: Fail
+</span></span><span style="display:flex;"><span>  matchPolicy: Exact
+</span></span><span style="display:flex;"><span>  name: sidecar-injector.istio.io
+</span></span><span style="display:flex;"><span>  namespaceSelector:
+</span></span><span style="display:flex;"><span>    matchLabels:
+</span></span><span style="display:flex;"><span>      istio-injection: enabled
+</span></span><span style="display:flex;"><span>  objectSelector: <span style="color:#f92672">{}</span>
+</span></span><span style="display:flex;"><span>  reinvocationPolicy: Never
+</span></span><span style="display:flex;"><span>  rules:
+</span></span><span style="display:flex;"><span>  - apiGroups:
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    apiVersions:
+</span></span><span style="display:flex;"><span>    - v1
+</span></span><span style="display:flex;"><span>    operations:
+</span></span><span style="display:flex;"><span>    - CREATE
+</span></span><span style="display:flex;"><span>    resources:
+</span></span><span style="display:flex;"><span>    - pods
+</span></span><span style="display:flex;"><span>    scope: <span style="color:#e6db74">&#39;*&#39;</span>
+</span></span><span style="display:flex;"><span>  sideEffects: None
+</span></span><span style="display:flex;"><span>  timeoutSeconds: <span style="color:#ae81ff">30</span>
+</span></span></code></pre></div><p>在启动容器<code>istiod</code>的时候会有一个<code>pilot-discovery</code>进程，这个便是<code>istio-pilot</code>的主进程</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ ps -aux
+</span></span><span style="display:flex;"><span>USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+</span></span><span style="display:flex;"><span>istio-p+     <span style="color:#ae81ff">1</span>  0.2  0.8 <span style="color:#ae81ff">852068</span> <span style="color:#ae81ff">132900</span> ?       Ssl  Jan26  11:26 /usr/local/bin/pilot-discovery discovery --monitoringAddr<span style="color:#f92672">=</span>:15014 --log_output_level<span style="color:#f92672">=</span>default:info --domain cluster.local --keepaliveMaxServerConnectionAge 30m
+</span></span></code></pre></div><p>通过源码可以看到在<code>NewWebhook</code>的时候，已经添加了<code>/inject</code>的路由</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// NewWebhook creates a new instance of a mutating webhook for automatic sidecar injection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewWebhook</span>(<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">WebhookParameters</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">Webhook</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">......</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Mux</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/inject&#34;</span>, <span style="color:#a6e22e">wh</span>.<span style="color:#a6e22e">serveInject</span>)
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Mux</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/inject/&#34;</span>, <span style="color:#a6e22e">wh</span>.<span style="color:#a6e22e">serveInject</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">...</span>..
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>在<code>serverInject</code>的时候，会去解析请求信息<code>url path</code>、<code>content-type</code>是否为<code>application/json</code>、<code>body</code>是否为空等，若初步的校验没有问题，则会进入<code>webhook.inject</code>逻辑；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">//  pkg/kube/inject/webhook.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">wh</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Webhook</span>) <span style="color:#a6e22e">inject</span>(<span style="color:#a6e22e">ar</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">kube</span>.<span style="color:#a6e22e">AdmissionReview</span>, <span style="color:#a6e22e">path</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">kube</span>.<span style="color:#a6e22e">AdmissionResponse</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">......</span>.
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Deal with potential empty fields, e.g., when the pod is created by a deployment
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">podName</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">potentialPodName</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">pod</span>.<span style="color:#a6e22e">ObjectMeta</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">pod</span>.<span style="color:#a6e22e">ObjectMeta</span>.<span style="color:#a6e22e">Namespace</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">pod</span>.<span style="color:#a6e22e">ObjectMeta</span>.<span style="color:#a6e22e">Namespace</span> = <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Namespace</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 这个地方的日志信息便是上图日志打印的出处；
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Infof</span>(<span style="color:#e6db74">&#34;Sidecar injection request for %v/%v&#34;</span>, <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Namespace</span>, <span style="color:#a6e22e">podName</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Debugf</span>(<span style="color:#e6db74">&#34;Object: %v&#34;</span>, string(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Object</span>.<span style="color:#a6e22e">Raw</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Debugf</span>(<span style="color:#e6db74">&#34;OldObject: %v&#34;</span>, string(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">OldObject</span>.<span style="color:#a6e22e">Raw</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">......</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 获取 pod、deployment、注解等信息，下面就进行注入逻辑
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">patchBytes</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">injectPod</span>(<span style="color:#a6e22e">params</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">......</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">reviewResponse</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注入逻辑也是比较清楚，即解析<code>oldPod</code>，再将<code>pod</code>配置进行组装，包括面提到的几个操作，修改<code>spec/label</code>、<code>spec/annotations</code>，添加<code>istio-proxy</code>、<code>istio-init</code>容器，组装出来新的<code>Pod</code>配置信息后，放入<code>http response</code>（<code>AdmissionResponse</code>）当中返回给<code>k8s-apiserver</code>，并对注入成功的的<code>Pod</code>累加计数；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">reviewResponse</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">kube</span>.<span style="color:#a6e22e">AdmissionResponse</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Allowed</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Patch</span>:   <span style="color:#a6e22e">patchBytes</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">PatchType</span>: <span style="color:#66d9ef">func</span>() <span style="color:#f92672">*</span><span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">pt</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;JSONPatch&#34;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">pt</span>
+</span></span><span style="display:flex;"><span>		}(),
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">totalSuccessfulInjections</span>.<span style="color:#a6e22e">Increment</span>()
+</span></span></code></pre></div><p><code>k8s-apisever</code>拿到<code>response</code>后根据对应的配置信息创建<code>Pod</code>。</p>
+<p>整体的流程图如下：</p>
+<p><img src="/img/istio/istio-sidecar-inject-flow.jpg" alt="istio-sidecar-inject-flow" loading="lazy" ></p>
+<ol>
+<li>首先注入<code>MutatingWebhookConfiguration</code>，配置<code>k8s-apiserver</code>创建<code>pod</code>时的转发规则</li>
+<li>执行创建命令，请求至<code>k8s-apisever</code></li>
+<li><code>k8s-apiserver</code>转发<code>injecdt</code>至<code>pilot webhook</code>，对<code>pod</code>配置进行重组</li>
+<li>返回重组后的<code>AdmissionResponse</code>给<code>k8s-apiserver</code></li>
+<li><code>k8s-apisever</code>根据<code>Response</code>当中的配置创建<code>sleep</code>、<code>istio-init</code>容器；</li>
+</ol>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/">istio sidecar-injection</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/istio/%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bsidecar%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86/>https://xibolun.github.io/post/istio/%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bsidecar%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/istio/">
+                    #istio</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/istio/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="prev" rel="prev" title="Istio 1.8—环境搭建"><i class="iconfont icon-left"></i>&nbsp;Istio 1.8—环境搭建</a>
+        
+        
+        <a href="https://xibolun.github.io/post/tools/youtube-dl/" class="next" rel="next" title="youtube-dl使用">youtube-dl使用&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

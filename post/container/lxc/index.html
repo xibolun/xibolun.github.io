@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/k8s/k8s%E4%B8%83dashboard/" />
+    <link rel="next" href="https://xibolun.github.io/post/redis/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/container/lxc/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Lxc使用笔记 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Lxc使用笔记 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Lxc使用笔记",
+    "headline" : "Lxc使用笔记",
+    "description" : "什么是LXC？ LXC（Linux Container）的缩写，Linux操作系统级别的虚拟化技术，利用命名空间保证进程的隔离，及cgroup技",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-02-20 22:11:21 \u002b0800 CST",
+    "dateModified" : "2020-02-20 22:11:21 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/container\/lxc\/",
+    "wordCount" : "1195",
+    "keywords" : [ "lxc", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Lxc使用笔记</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-02-20 itemprop="datePublished">February 20, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1195 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="什么是lxc">什么是LXC？</h3>
+<p><img src="/img/lxc/lxc-logo.png" alt="lxc-logo" loading="lazy" ></p>
+<p>LXC（Linux Container）的缩写，Linux操作系统级别的虚拟化技术，利用命名空间保证进程的隔离，及cgroup技术控制cpu\内存\硬盘IO\网络，为Linux内核操作系统虚拟化出一个用户空间的容器，里面包含着应用所需要的核心组件和一些基础的函数库，类似一个沙箱的环境；使Linux用户可以快速创建和管理容器环境；</p>
+<p>使用LXC的好处</p>
+<ul>
+<li>安全：最主要的是网络运行在容器里面，与外界保持隔离</li>
+<li>隔离：传统模式安装应用之间存在互相干扰，因为在同一台设备上面会安装多个应用；使用lxc可以创建多个container，应用与应用之间完全隔离，这些应用可以按需绑定物理资源，像网络，存储，硬盘，cpu等等</li>
+<li>透明：屏蔽掉底层的物理硬件和一些系统参数设置</li>
+</ul>
+<h3 id="环境搭建centos7">环境搭建(centos7)</h3>
+<pre tabindex="0"><code># yum -y install epel-release
+## 最主要是安装前两个lxc lxc-template
+# yum -y install lxc lxc-templates libcap-devel libcgroup busybox wget bridge-utils lxc-extra
+</code></pre><p><code>lxc-template</code>是一系列的容器模板，centos、oracle、ubuntu等等，类似docker的基础操作系统镜像</p>
+<pre tabindex="0"><code>[root@k8s-master ~]# ll /usr/share/lxc/templates
+总用量 372
+-rwxr-xr-x 1 root root 10579 3月   8 2019 lxc-alpine
+-rwxr-xr-x 1 root root 13537 3月   8 2019 lxc-altlinux
+-rwxr-xr-x 1 root root 10839 3月   8 2019 lxc-archlinux
+-rwxr-xr-x 1 root root  9677 3月   8 2019 lxc-busybox
+-rwxr-xr-x 1 root root 29971 3月   8 2019 lxc-centos
+-rwxr-xr-x 1 root root 29971 2月  15 15:14 lxc-centos.bak
+-rwxr-xr-x 1 root root 10486 3月   8 2019 lxc-cirros
+-rwxr-xr-x 1 root root 18342 3月   8 2019 lxc-debian
+-rwxr-xr-x 1 root root 18064 3月   8 2019 lxc-download
+-rwxr-xr-x 1 root root 49438 3月   8 2019 lxc-fedora
+-rwxr-xr-x 1 root root 28253 3月   8 2019 lxc-gentoo
+-rwxr-xr-x 1 root root 13965 3月   8 2019 lxc-openmandriva
+-rwxr-xr-x 1 root root 13882 3月   8 2019 lxc-opensuse
+-rwxr-xr-x 1 root root 35540 3月   8 2019 lxc-oracle
+-rwxr-xr-x 1 root root 12233 3月   8 2019 lxc-plamo
+-rwxr-xr-x 1 root root  6851 3月   8 2019 lxc-sshd
+-rwxr-xr-x 1 root root 24133 3月   8 2019 lxc-ubuntu
+-rwxr-xr-x 1 root root 11641 3月   8 2019 lxc-ubuntu-cloud
+</code></pre><p>安装完成后，校验环境是否支持，主要检查：namespace、cgroups、misc、Checkpoint、restore是否都支持</p>
+<pre tabindex="0"><code># lxc-checkconfig
+</code></pre><h3 id="新建容器">新建容器</h3>
+<pre tabindex="0"><code>## -n 名称  -t 模板名称
+# lxc-create -n c1 -t centos
+</code></pre><p>创建完成后，会提示密码内容和修改密码的方式</p>
+<pre tabindex="0"><code>......
+The temporary root password is stored in:
+
+        &#39;/var/lib/lxc/c1/tmp_root_pass&#39;
+
+
+The root password is set up as expired and will require it to be changed
+at first login, which you should do as soon as possible.  If you lose the
+root password or wish to change it without starting the container, you
+can change it from the host by running the following command (which will
+also reset the expired flag):
+
+        chroot /var/lib/lxc/c1/rootfs passwd
+</code></pre><p>查看密码，也可以直接修改密码；或者copy一个centos的模板，然后将里面的密码进行自己初始化</p>
+<pre tabindex="0"><code>[root@k8s-master ~]# cat /var/lib/lxc/c1/tmp_root_pass 
+Root-c1-VpZrdB
+</code></pre><p>创建成功的容器目录在</p>
+<pre tabindex="0"><code>/var/lib/lxc/c1
+</code></pre><p>后台启动容器</p>
+<pre tabindex="0"><code> lxc-start -n c1 -d
+</code></pre><p>进入容器</p>
+<pre tabindex="0"><code># 此种方式进入需要按Ctrl+a按两次；退出Ctrl+a q
+lxc-console -n c1 -t 0
+# 此种方式进入不需要输出用户名和密码，退出Ctrl+d
+lxc-attach -n c1
+</code></pre><h3 id="常用命令">常用命令</h3>
+<pre tabindex="0"><code># 列出现在的容器
+lxc-ls
+# 查看运行的容器
+lxc-ls --active
+# 查看运行的容器
+lxc-top
+# 查看容器详情
+lxc-info -n c1
+# 停止容器，耗费时间有点长
+lxc-stop -n c1
+# 摧毁容器
+lxc-destroy -n c1
+# 冻结容器
+lxc-freeze -n c1
+# clone容器 clone的时候需要关闭容器
+lxc-clone c1 centos_lxc_clone
+# 为容器添加快照
+lxc-snapshot -n c1
+# 查看容器的快照，可以看到备份的时间，和存储的路径
+# lxc-snapshot -L -n c1
+snap0 (/var/lib/lxcsnaps/c1) 2020:02:16 23:49:59
+# 用快照回滚容器
+lxc-snapshot -r snap0 -n c1
+</code></pre><h3 id="网络配置">网络配置</h3>
+<p>有两种方式配置，一种是借助<code>lxc-net</code>配置，一种是人工添加网卡，做桥接</p>
+<h3 id="其他设置">其他设置</h3>
+<p>开机启动</p>
+<pre tabindex="0"><code># Enable autostart
+lxc.start.auto = 1
+</code></pre><p>设置挂载路径</p>
+<pre tabindex="0"><code># Bind mount system path to local path
+lxc.mount.entry = /mnt mnt none bind 0 0
+</code></pre><p>图形化管理界面</p>
+<pre tabindex="0"><code>https://github.com/lxc-webpanel/LXC-Web-Panel
+</code></pre><h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://www.thegeekdiary.com/how-to-set-external-network-for-containers-in-linux-containers-lxc/">lxc容器网络配置</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/container/lxc/>https://xibolun.github.io/post/container/lxc/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/lxc/">
+                    #lxc</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/k8s/k8s%E4%B8%83dashboard/" class="prev" rel="prev" title="k8s(七)––Dashboard"><i class="iconfont icon-left"></i>&nbsp;k8s(七)––Dashboard</a>
+        
+        
+        <a href="https://xibolun.github.io/post/redis/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="next" rel="next" title="Redis(一)––入门及环境搭建">Redis(一)––入门及环境搭建&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

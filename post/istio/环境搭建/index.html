@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/golang/%E5%85%B3%E4%BA%8Egoland%E6%97%A0%E6%B3%95debug%E7%9A%84%E9%97%AE%E9%A2%98/" />
+    <link rel="next" href="https://xibolun.github.io/post/istio/%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bsidecar%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/istio/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Istio 1.8—环境搭建 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Istio 1.8—环境搭建 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Istio 1.8—环境搭建",
+    "headline" : "Istio 1.8—环境搭建",
+    "description" : "istio 1.8 环境搭建",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2021",
+    "datePublished": "2021-01-26 14:06:50 \u002b0800 CST",
+    "dateModified" : "2021-01-26 14:06:50 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/istio\/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA\/",
+    "wordCount" : "973",
+    "keywords" : [ "istio", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Istio 1.8—环境搭建</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2021-01-26 itemprop="datePublished">January 26, 2021</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/istio/"> istio, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">973 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="istio-18环境搭建">Istio 1.8—环境搭建</h2>
+<p>Istio是一个服务治理的开放平台，1.8与前版本的命令不太一样；官网给了一个安装流程<a href="https://istio.io/latest/docs/setup/getting-started/">Getting Started</a>，</p>
+<h3 id="安装过程">安装过程</h3>
+<h4 id="下载istio-18版本">下载istio 1.8版本</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>istio-1.8.1/
+</span></span><span style="display:flex;"><span>├── bin
+</span></span><span style="display:flex;"><span>├── LICENSE
+</span></span><span style="display:flex;"><span>├── manifests
+</span></span><span style="display:flex;"><span>├── README.md
+</span></span><span style="display:flex;"><span>├── samples
+</span></span><span style="display:flex;"><span>└── tools
+</span></span></code></pre></div><h4 id="设置istioctl">设置<code>istioctl</code></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cp bin/istioctl /usr/local/bin/
+</span></span><span style="display:flex;"><span>cp tools/istioctl.bash ~/.istioctl.bash
+</span></span><span style="display:flex;"><span>source ~/.istioctl.bash
+</span></span></code></pre></div><h4 id="安装profile">安装<code>profile</code></h4>
+<p>可以看到内置的profile，几个profile的区别<a href="https://istio.io/latest/docs/setup/additional-setup/config-profiles/">config-profiles</a>；安装demo的profile，因为可以有一个<code>bookinfo</code>的应用来做为实验，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># istioctl profile list</span>
+</span></span><span style="display:flex;"><span>Istio configuration profiles:
+</span></span><span style="display:flex;"><span>    default
+</span></span><span style="display:flex;"><span>    demo
+</span></span><span style="display:flex;"><span>    empty
+</span></span><span style="display:flex;"><span>    minimal
+</span></span><span style="display:flex;"><span>    openshift
+</span></span><span style="display:flex;"><span>    preview
+</span></span><span style="display:flex;"><span>    remote
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># istioctl install --set profile=demo</span>
+</span></span><span style="display:flex;"><span>This will install the Istio demo profile with <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Istio core&#34;</span> <span style="color:#e6db74">&#34;Istiod&#34;</span> <span style="color:#e6db74">&#34;Ingress gateways&#34;</span> <span style="color:#e6db74">&#34;Egress gateways&#34;</span><span style="color:#f92672">]</span> components into the cluster. Proceed? <span style="color:#f92672">(</span>y/N<span style="color:#f92672">)</span> y
+</span></span><span style="display:flex;"><span>Detected that your cluster does not support third party JWT authentication. Falling back to less secure first party JWT. See https://istio.io/v1.8/docs/ops/best-practices/security/#configure-third-party-service-account-tokens <span style="color:#66d9ef">for</span> details.
+</span></span><span style="display:flex;"><span>✔ Istio core installed
+</span></span><span style="display:flex;"><span>✔ Istiod installed
+</span></span><span style="display:flex;"><span>✔ Egress gateways installed
+</span></span><span style="display:flex;"><span>✔ Ingress gateways installed
+</span></span><span style="display:flex;"><span>✔ Installation complete
+</span></span></code></pre></div><h3 id="其他配置">其他配置</h3>
+<p>配置<code>istio</code>允许注入<code>envoy</code>的<code>sidecar</code>代理</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl label namespace default istio-injection<span style="color:#f92672">=</span>enabled
+</span></span></code></pre></div><h3 id="部署示例bookinfo">部署示例bookinfo</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+</span></span><span style="display:flex;"><span>kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
+</span></span><span style="display:flex;"><span>kubectl apply -f samples/addons
+</span></span></code></pre></div><p>查看<code>bookInfo</code>访问地址：http://10.0.4.144:32351/productpage</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># echo $(kubectl get po -l istio=ingressgateway -n istio-system -o jsonpath=&#39;{.items[0].status.hostIP}&#39;):$( kubectl -n istio-system get service istio-ingressgateway -o jsonpath=&#39;{.spec.ports[?(@.name==&#34;http2&#34;)].nodePort}&#39;)/productpage</span>
+</span></span><span style="display:flex;"><span>10.0.4.144:32351/productpage
+</span></span></code></pre></div><p>配置<code>kiali</code>后台访问地址：http://10.0.4.175:20001/</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl -n istio-system port-forward   <span style="color:#66d9ef">$(</span>kubectl -n istio-system get pod -l app<span style="color:#f92672">=</span>kiali -o jsonpath<span style="color:#f92672">={</span>.items<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.metadata.name<span style="color:#f92672">}</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">20001</span> --address<span style="color:#f92672">=</span>10.0.4.175
+</span></span></code></pre></div><h4 id="操作">操作</h4>
+<p><code>bookInfo</code><a href="https://istio.io/latest/docs/examples/bookinfo/">这个应用的详解</a>，里面有几个服务，刷新<code>http://10.0.4.144:32351/productpage</code>，打开kiali里面的【Graph &ndash;&gt; Versiond app graph】视图即可开始查看；</p>
+<ul>
+<li>微服务details：页面上会显示书的详情信息，ISBN等</li>
+<li>微服务reviews-v1：当请求这个微服务的时候，页面是没有星，因为服务不会调用ratings</li>
+</ul>
+<p><img src="/img/istio/bookview-reviews-v1.jpg" alt="bookinfo-reviews-v1" loading="lazy" ></p>
+<p><img src="/img/istio/bookinfo-reviews-v1.jpg" alt="bookinfo-reviews-v1" loading="lazy" ></p>
+<ul>
+<li>微服务reviews-v2: 当请求v2版本的微服务时，页面是会有1-5个黑色的星</li>
+</ul>
+<p><img src="/img/istio/bookview-reviews-v2.jpg" alt="bookinfo-reviews-v1" loading="lazy" ></p>
+<p><img src="/img/istio/bookinfo-reviews-v2.jpg" alt="bookinfo-reviews-v1" loading="lazy" ></p>
+<ul>
+<li>微服务reviews-v3: 当请求v3版本的微服务时，页面是会有1-5个红星；</li>
+</ul>
+<p><img src="/img/istio/bookview-reviews-v3.jpg" alt="bookinfo-reviews-v1" loading="lazy" ></p>
+<p><img src="/img/istio/bookinfo-reviews-v3.jpg" alt="bookinfo-reviews-v1" loading="lazy" ></p>
+<h3 id="其他组件部署">其他组件部署</h3>
+<h4 id="grafana">grafana</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl -n istio-system port-forward   <span style="color:#66d9ef">$(</span>kubectl -n istio-system get pod -l app<span style="color:#f92672">=</span>grafana -o jsonpath<span style="color:#f92672">={</span>.items<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.metadata.name<span style="color:#f92672">}</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">3000</span> --address<span style="color:#f92672">=</span>10.0.4.175
+</span></span></code></pre></div><p>访问地址： http://10.0.4.175:3000</p>
+<h4 id="jaeger">jaeger</h4>
+<p>uber的一个分布式链路追踪项目，可以用来查看请求的路由进展情况</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl port-forward -n istio-system   <span style="color:#66d9ef">$(</span>kubectl get pod -n istio-system -l app<span style="color:#f92672">=</span>jaeger   -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.items[0].metadata.name}&#39;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">16686</span> --address<span style="color:#f92672">=</span>10.0.4.175
+</span></span></code></pre></div><p>访问地址：http://10.0.4.175:16686/</p>
+<h3 id="zipkin">zipkin</h3>
+<p>zipkin是Java写的，并且集成了各种语言，生态非常的强大，也是一个分布式链路追踪的组件，但是bookinfo没有集成，所以无法展示；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl apply -f  istio-1.8.1/samples/addons/extras/zipkin.yaml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kubectl port-forward -n istio-system   <span style="color:#66d9ef">$(</span>kubectl get pod -n istio-system -l app<span style="color:#f92672">=</span>zipkin   -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.items[0].metadata.name}&#39;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">9411</span> --address<span style="color:#f92672">=</span>10.0.4.175
+</span></span></code></pre></div><h4 id="prometheus">prometheus</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl port-forward -n istio-system   <span style="color:#66d9ef">$(</span>kubectl get pod -n istio-system -l app<span style="color:#f92672">=</span>prometheus   -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.items[0].metadata.name}&#39;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">9090</span> --address<span style="color:#f92672">=</span>10.0.4.175
+</span></span></code></pre></div><p>访问地址：http://10.0.4.175:9090/</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/istio/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/>https://xibolun.github.io/post/istio/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/istio/">
+                    #istio</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/golang/%E5%85%B3%E4%BA%8Egoland%E6%97%A0%E6%B3%95debug%E7%9A%84%E9%97%AE%E9%A2%98/" class="prev" rel="prev" title="M1 Goland无法debug"><i class="iconfont icon-left"></i>&nbsp;M1 Goland无法debug</a>
+        
+        
+        <a href="https://xibolun.github.io/post/istio/%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bsidecar%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86/" class="next" rel="next" title="Istio—从源码看Sidecar注入原理">Istio—从源码看Sidecar注入原理&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

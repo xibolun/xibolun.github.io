@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/%E6%9C%BA%E8%BD%A6/%E7%8E%A9%E6%91%A9%E6%89%98%E8%BD%A6%E8%8A%B1%E4%BA%86%E5%A4%9A%E5%B0%91%E9%92%B1/" />
+    <link rel="next" href="https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E5%85%B3%E4%BA%8E%E6%9D%AD%E5%B7%9E%E5%B0%8F%E4%BC%99%E5%B4%A9%E6%BA%83%E7%9A%84%E6%84%9F%E6%83%B3/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/mysql/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p1%E5%9F%BA%E7%A1%80/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            深入浅出MySQL(一) | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="深入浅出MySQL(一) | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "深入浅出MySQL(一)",
+    "headline" : "深入浅出MySQL(一)",
+    "description" : "DDL、DML、DCL Data Definition Languages: 数据定义语句，drop、create、alter、change、modify等 Data Manipulation Languages: 数据操纵语句，insert，",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-03-28 09:56:53 \u002b0800 CST",
+    "dateModified" : "2019-03-28 09:56:53 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/mysql\/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p1%E5%9F%BA%E7%A1%80\/",
+    "wordCount" : "465",
+    "keywords" : [ "MySQL", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">深入浅出MySQL(一)</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-03-28 itemprop="datePublished">March 28, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">465 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="ddldmldcl">DDL、DML、DCL</h3>
+<ul>
+<li>Data Definition Languages: 数据定义语句，drop、create、alter、change、modify等</li>
+<li>Data Manipulation Languages: 数据操纵语句，insert，delete，update等</li>
+<li>Data Control Languages: 数据控制语句，grant、revoke等</li>
+</ul>
+<h3 id="mysql版本说明">MySQL版本说明</h3>
+<h3 id="其他">其他</h3>
+<ul>
+<li>使用?可以查看命令的帮助信息</li>
+</ul>
+<pre tabindex="0"><code>mysql&gt; ? CREATE DATABASE
+Name: &#39;CREATE DATABASE&#39;
+Description:
+Syntax:
+CREATE {DATABASE | SCHEMA} [IF NOT EXISTS] db_name
+    [create_specification] ...
+
+create_specification:
+    [DEFAULT] CHARACTER SET [=] charset_name
+  | [DEFAULT] COLLATE [=] collation_name
+
+CREATE DATABASE creates a database with the given name. To use this
+statement, you need the CREATE privilege for the database. CREATE
+SCHEMA is a synonym for CREATE DATABASE.
+
+URL: http://dev.mysql.com/doc/refman/5.6/en/create-database.html
+</code></pre><h3 id="datetime与timestamp的区别">DateTime与Timestamp的区别</h3>
+<ul>
+<li>当时区一致的时候两者的日期没有什么区别，但是时区不一致的时候，Timestamp取的是系统所在时区的时间；而DateTime取的是指定时区的当前时间</li>
+<li>Timestamp支持的时间范围比较小【19700101080001 ~ 2038-01-19 11:14:07】</li>
+<li>若数据类型为Timestamp时，字段为Null，则写入的是系统当前时间</li>
+</ul>
+<h3 id="char与varchar的区别">CHAR与VARCHAR的区别</h3>
+<ul>
+<li>char为定长，varchar为可变长度</li>
+<li>char的范围为0~255，而varchar的范围0~65535</li>
+<li>char在检索的时候会去掉空格，而varchar会保留空格</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/mysql/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p1%E5%9F%BA%E7%A1%80/>https://xibolun.github.io/post/mysql/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p1%E5%9F%BA%E7%A1%80/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/mysql/">
+                    #MySQL</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/%E6%9C%BA%E8%BD%A6/%E7%8E%A9%E6%91%A9%E6%89%98%E8%BD%A6%E8%8A%B1%E4%BA%86%E5%A4%9A%E5%B0%91%E9%92%B1/" class="prev" rel="prev" title="玩摩托车花了多少钱"><i class="iconfont icon-left"></i>&nbsp;玩摩托车花了多少钱</a>
+        
+        
+        <a href="https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E5%85%B3%E4%BA%8E%E6%9D%AD%E5%B7%9E%E5%B0%8F%E4%BC%99%E5%B4%A9%E6%BA%83%E7%9A%84%E6%84%9F%E6%83%B3/" class="next" rel="next" title="关于杭州小伙逆行被抓崩溃的思考">关于杭州小伙逆行被抓崩溃的思考&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>maven on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/maven/</link>
+    <description>Recent content in maven on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 04 Mar 2017 22:39:39 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/maven/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maven学习</title>
+      <link>https://xibolun.github.io/post/tools/maven/</link>
+      <pubDate>Sat, 04 Mar 2017 22:39:39 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/maven/</guid>
+      <description>简介 Maven Document 概念讲述 什么是SNAPSHOT 有的版本号当中以SNAPSHOT为后缀，说明此版本为开发状态，不稳定； POM Profile 用户自己的设置: (%USER~HOME~%/.m2/settings.xml) 全局设置:</description>
+    </item>
+    
+  </channel>
+</rss>

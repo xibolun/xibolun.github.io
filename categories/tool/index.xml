@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tool on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/categories/tool/</link>
+    <description>Recent content in tool on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 08 Dec 2022 15:01:40 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/categories/tool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Joplin环境搭建</title>
+      <link>https://xibolun.github.io/post/tools/joplin/</link>
+      <pubDate>Thu, 08 Dec 2022 15:01:40 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/joplin/</guid>
+      <description>Joplin使用 Joplin是一个私有部署的笔记软件，它的几个特点： 针对于markdown友好， 有桌面客户端，移动端，使用起来也非常的方便；</description>
+    </item>
+    
+    <item>
+      <title>youtube-dl使用</title>
+      <link>https://xibolun.github.io/post/tools/youtube-dl/</link>
+      <pubDate>Fri, 23 Jul 2021 17:57:33 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/youtube-dl/</guid>
+      <description>youtube-dl使用 列出所有的格式 youtube-dl -F https://www.youtube.com/watch\?v\=THw7uNkHppM 下载指定格式的url youtube-dl -f best https://www.youtube.com/watch\?v\=THw7uNkHppM ## +意味着使用ffmeg合并成一个文件 youtube-dl -f bestvideo+bestaudio https://www.youtube.com/watch\?v\=THw7uNkHppM youtube-dl -f mp4 https://www.youtube.com/watch\?v\=THw7uNkHppM 下载多个 youtube-dl -f mp4</description>
+    </item>
+    
+    <item>
+      <title>M1的艰辛使用之旅</title>
+      <link>https://xibolun.github.io/post/tools/mac-m1/</link>
+      <pubDate>Tue, 12 Jan 2021 22:39:52 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/mac-m1/</guid>
+      <description>M1的艰辛使用之旅 公司给每个同学置换了mac，由于docker已经支持了M1版本，所以我也入手了一台，想体验一把传说中的神器，不想自己掉坑里</description>
+    </item>
+    
+    <item>
+      <title>CodeQL</title>
+      <link>https://xibolun.github.io/post/tools/codeql/</link>
+      <pubDate>Thu, 05 Nov 2020 10:01:27 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/codeql/</guid>
+      <description>给你的代码加上CodeQL github推出了code scanning的功能，今天在给github提PR的时候才学习着使用； 在.git/wor</description>
+    </item>
+    
+    <item>
+      <title>Imagemagick使用</title>
+      <link>https://xibolun.github.io/post/tools/imagemagic/</link>
+      <pubDate>Mon, 02 Mar 2020 10:37:27 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/imagemagic/</guid>
+      <description>ImageMagick 最近有一批图片需要上传至阿里云，但是图片size太大了，超过了3M的要求；如果一个一个地转换比较麻烦，所以去搜索了一下，发现一个强大的批量</description>
+    </item>
+    
+    <item>
+      <title>Ansbile学习</title>
+      <link>https://xibolun.github.io/post/tools/ansible/</link>
+      <pubDate>Tue, 30 Jul 2019 00:15:33 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/ansible/</guid>
+      <description>学无止境，不定期更新&amp;hellip;&amp;hellip; 牛刀小试 将ansible的ssh-pub添加至远程的服务器当中，建立ssh连接 建立/et</description>
+    </item>
+    
+    <item>
+      <title>Tmux</title>
+      <link>https://xibolun.github.io/post/tools/tmux/</link>
+      <pubDate>Thu, 25 Jul 2019 11:53:51 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/tmux/</guid>
+      <description>有一些tmux的使用技巧，有时候会经常忘记，写一篇blog记录下来 什么是Tmux tmux Tmux Features 多屏展示 多tab展示 ，一个tab里面可以开多个tab；</description>
+    </item>
+    
+    <item>
+      <title>使用Hugo&amp;GitPage写博客</title>
+      <link>https://xibolun.github.io/post/tools/hugo/</link>
+      <pubDate>Fri, 22 Feb 2019 18:47:21 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/hugo/</guid>
+      <description>本文主要是介绍一下我是怎么写博客，并且发布的。 最早方式 早期入了emacs的坑，喜欢上了 Org-mode(org-mode十分强大，尤其它的A</description>
+    </item>
+    
+    <item>
+      <title>利器</title>
+      <link>https://xibolun.github.io/post/tools/%E5%88%A9%E5%99%A8/</link>
+      <pubDate>Tue, 01 Jan 2019 22:07:16 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/%E5%88%A9%E5%99%A8/</guid>
+      <description>利器 工欲善其事，必先利其器 &amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;《论语·卫灵公》 个人是一个比较喜欢高效的东西，此篇记录一下</description>
+    </item>
+    
+    <item>
+      <title>Spacemacs</title>
+      <link>https://xibolun.github.io/post/tools/spacemacs/</link>
+      <pubDate>Tue, 04 Sep 2018 10:30:23 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/spacemacs/</guid>
+      <description>Spacemacs 配置evil中英文输入法切换 此操作只针对于mac mac安装 fcitx-remote-for-osx git clone https://github.com/xcodebuild/fcitx-remote-for-osx.git cd fcitx-remote-for-osx ./build.py build all 编译完成后，你会得到很多种输入法 ll | grep fcit drwxr-xr-x 3 pgy staff 96B 7 29 14:29 fcitx-remote -rwxr-xr-x 1</description>
+    </item>
+    
+    <item>
+      <title>curl学习</title>
+      <link>https://xibolun.github.io/post/tools/curl/</link>
+      <pubDate>Fri, 02 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/curl/</guid>
+      <description>CURL概述 CURL(command line url viewer),是命令行工具，发出网络请求，得到并提取数据，显示在标准输出里面，支持多种协议 CURL命令 curl -o file url: 保存url</description>
+    </item>
+    
+    <item>
+      <title>mac避免rm -rf悲剧</title>
+      <link>https://xibolun.github.io/post/tools/trash/</link>
+      <pubDate>Tue, 09 May 2017 10:42:16 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/trash/</guid>
+      <description>安装Trash Trash是一个命令行工具，将文件或者目录移除至Trash当中 brew install trash 添加alias 添加alias至~/.zshrc当中 alias rm=trash alias r=trash</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mongo on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/mongo/</link>
+    <description>Recent content in Mongo on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 24 May 2018 14:25:20 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/mongo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MongoDB-Sharding</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb-sharding/</link>
+      <pubDate>Thu, 24 May 2018 14:25:20 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb-sharding/</guid>
+      <description>Sharding sh 命令 rs0:PRIMARY&amp;gt; sh.help() sh.addShard( host ) server:port OR setname/server:port sh.enableSharding(dbname) enables sharding on the database dbname sh.shardCollection(fullName,key,unique) shards the collection sh.splitFind(fullName,find) splits the chunk that find is in at the median sh.splitAt(fullName,middle) splits the chunk that middle is in at middle sh.moveChunk(fullName,find,to) move the chunk where &amp;#39;find&amp;#39; is to &amp;#39;to&amp;#39; (name of shard) sh.setBalancerState( &amp;lt;bool on or not&amp;gt; ) turns the balancer on or off true=on, false=off</description>
+    </item>
+    
+    <item>
+      <title>MongoDB高级学习</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb-%E9%AB%98%E7%BA%A7/</link>
+      <pubDate>Thu, 14 Dec 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb-%E9%AB%98%E7%BA%A7/</guid>
+      <description>execute JS 创建test.js文件，录入以下文字 printjson(db.adminCommand(&amp;#39;listDatabases&amp;#39;)); printjson(db.getCollectionNames()); printjson(pwd()); 执行js mongo --quiet test.js mongo test.js mongo localhost:27017/test test.js 可以指定数据库连接和库名执行 quiet的作用是执行的时候不输出相关的执</description>
+    </item>
+    
+    <item>
+      <title>MongoDB ReplSet Replication</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb-replset-replication/</link>
+      <pubDate>Wed, 15 Nov 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb-replset-replication/</guid>
+      <description>ReplSet Replicatin master的IP： 10.0.1.9 slave IP: 10.0.106.2、10.0.106.6 以replSet形式启动master，replSet名称设置为rs0</description>
+    </item>
+    
+    <item>
+      <title>MongoDB Master Slave Replication</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb-master-slave-replication/</link>
+      <pubDate>Tue, 14 Nov 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb-master-slave-replication/</guid>
+      <description>Replication&amp;ndash;Master Slave Replication Mongod命令列表 dbpath: 指定数据库文件目录，若不存在，则提示异常 port: 端口号指定 master:指定主节点 slaver:指定从节点 source: 指定主节点</description>
+    </item>
+    
+    <item>
+      <title>MongoDB基础学习</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb--%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Wed, 27 Sep 2017 13:07:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb--%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</guid>
+      <description>启动 mongodump -h localhost --username dbuser --password dbuser -o /tmp/mongodb-directory -d directory\_db\_dev mongorestore -d hf-cmdb0622-1 --drop --dir=/root/mongodb\_production-backup-file.201701192300/hf-cmdb/ mongo --username dbuser --password dbuser 基本命令 启动mongodb ： mongod &amp;ndash;dbpath /Users/admin/projects/mongodb/data/db\ 连接mongodb : mongo 数据类型 String Integer Boolean Double keys Arrays Timestamp Object Null Symbol Date Object ID Binary Data</description>
+    </item>
+    
+    <item>
+      <title>MongoDB基础学习</title>
+      <link>https://xibolun.github.io/post/mongo/mongodb--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Wed, 20 Sep 2017 13:07:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mongo/mongodb--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>安装 各系统安装文档入口 Linux平台，添加mongo.repo touch /etc/yum.repos.d/mongodb-org-4.2.repo [mongodb-org] name=MongoDB Repository baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/7Server/mongodb-org/4.2/x86_64/ gpgcheck=0 enabled=1 安装 yum install mongodb-org .... Loading mirror speeds from cached hostfile Resolving Dependencies --&amp;gt; Running transaction check ---&amp;gt; Package mongodb-org.x86_64 0:4.2.2-1.el7 will be installed --&amp;gt; Processing Dependency: mongodb-org-tools = 4.2.2</description>
+    </item>
+    
+  </channel>
+</rss>

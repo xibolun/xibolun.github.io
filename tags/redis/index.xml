@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>redis on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/redis/</link>
+    <description>Recent content in redis on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 27 Feb 2020 19:49:47 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis(三)––分布式锁</title>
+      <link>https://xibolun.github.io/post/redis/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</link>
+      <pubDate>Thu, 27 Feb 2020 19:49:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/redis/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</guid>
+      <description>分布式锁演进 可以使用redis的NX来做处理，需要考虑以下事情 set key value EX expiration NX 锁用完了需要删除 代码需要做锁的释放，否则其他线程的不能获取到锁，导</description>
+    </item>
+    
+    <item>
+      <title>Redis(二)––集群cluster</title>
+      <link>https://xibolun.github.io/post/redis/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster/</link>
+      <pubDate>Thu, 27 Feb 2020 19:49:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/redis/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster/</guid>
+      <description>Failover验证 在Redis官网里面有一个有意思的验证方式，使用 redis-rb-cluster git clone git@github.com:antirez/redis-rb-cluster.git 安装一下ruby环境，若ruby版本过低，可能需要升级一下 yum install ruby</description>
+    </item>
+    
+    <item>
+      <title>Redis(一)––入门及环境搭建</title>
+      <link>https://xibolun.github.io/post/redis/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Tue, 25 Feb 2020 19:49:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/redis/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>Redis remote dictionary server，基于内存的一个Key-Value类型的数据库； 基础了解 淘汰策略 在redis.conf里面有如下的描述： # MAXMEMORY POLICY: how Redis will select what to</description>
+    </item>
+    
+  </channel>
+</rss>

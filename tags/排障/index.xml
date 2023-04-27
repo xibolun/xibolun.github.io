@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>排障 on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/%E6%8E%92%E9%9A%9C/</link>
+    <description>Recent content in 排障 on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 26 Apr 2023 11:21:07 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/%E6%8E%92%E9%9A%9C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>xmlsec安装报错</title>
+      <link>https://xibolun.github.io/post/python/xmlsec%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 26 Apr 2023 11:21:07 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/python/xmlsec%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/</guid>
+      <description>xmlsec安装报错 主机环境：macos M2 ✗ uname -a Darwin pgy.local 22.3.0 Darwin Kernel Version 22.3.0: Mon Jan 30 20:38:43 PST 2023; root:xnu-8792.81.3~2/RELEASE_ARM64_T8112 arm64 python版本： ✗ pyenv --version &amp;amp;&amp;amp; python -V pyenv 2.3.17 Python 3.9.1 安装依赖 官方安装文档为：</description>
+    </item>
+    
+    <item>
+      <title>一次关于etcd故障处理</title>
+      <link>https://xibolun.github.io/post/etcd/%E4%B8%80%E6%AC%A1%E5%85%B3%E4%BA%8Eetcd%E7%9A%84%E7%94%9F%E4%BA%A7%E6%8E%92%E9%9A%9C/</link>
+      <pubDate>Thu, 16 Dec 2021 12:50:35 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/%E4%B8%80%E6%AC%A1%E5%85%B3%E4%BA%8Eetcd%E7%9A%84%E7%94%9F%E4%BA%A7%E6%8E%92%E9%9A%9C/</guid>
+      <description>一次关于etcd故障处理 现象 任务下发配置不成功 链路整理 web -&amp;gt; 服务端放参数至 -&amp;gt; etcdserver -&amp;gt; 远程机接收参数信息 -&amp;gt; 远程机执行命令 问题解决 第一波观察日志未果 怀</description>
+    </item>
+    
+  </channel>
+</rss>

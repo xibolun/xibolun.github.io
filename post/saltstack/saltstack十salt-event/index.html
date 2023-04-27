@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/saltstack/saltstack%E4%B9%9Dreturner/" />
+    <link rel="next" href="https://xibolun.github.io/post/linux/ipmitool/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/saltstack/saltstack%E5%8D%81salt-event/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            SaltStack(十)salt-event | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="SaltStack(十)salt-event | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "SaltStack(十)salt-event",
+    "headline" : "SaltStack(十)salt-event",
+    "description" : "SaltEvent 在salt的架构里面有一个叫sal-event的东西，可以记录着master与 minion通讯时的一些事件信息； 如何监听 监听有两种方式；一",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-11-07 16:37:18 \u002b0800 CST",
+    "dateModified" : "2019-11-07 16:37:18 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/saltstack\/saltstack%E5%8D%81salt-event\/",
+    "wordCount" : "317",
+    "keywords" : [ "saltstack", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">SaltStack(十)salt-event</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-11-07 itemprop="datePublished">November 7, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">317 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="saltevent">SaltEvent</h2>
+<p>在salt的架构里面有一个叫<a href="https://docs.saltstack.com/en/latest/topics/event/events.html">sal-event</a>的东西，可以记录着<code>master</code>与 <code>minion</code>通讯时的一些事件信息；</p>
+<h3 id="如何监听">如何监听</h3>
+<p>监听有两种方式；一种是通过命令行，一种是通过代码监听 <code>socket</code></p>
+<h4 id="代码方式">代码方式</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> salt.config
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> salt.utils.event
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>opts <span style="color:#f92672">=</span> salt<span style="color:#f92672">.</span>config<span style="color:#f92672">.</span>client_config(<span style="color:#e6db74">&#34;/etc/salt/master&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>event <span style="color:#f92672">=</span> salt<span style="color:#f92672">.</span>utils<span style="color:#f92672">.</span>event<span style="color:#f92672">.</span>get_event(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;master&#34;</span>, sock_dir<span style="color:#f92672">=</span>opts[<span style="color:#e6db74">&#34;sock_dir&#34;</span>], transport<span style="color:#f92672">=</span>opts[<span style="color:#e6db74">&#34;transport&#34;</span>], opts<span style="color:#f92672">=</span>opts
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span>get_event()
+</span></span></code></pre></div><h4 id="命令方式">命令方式</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>salt-run state.event pretty<span style="color:#f92672">=</span>True
+</span></span></code></pre></div><p>这时会进入一个等待的状态，监听事件列表；重启一下 <code>salt-minion</code>，将输出如下信息；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>minion/refresh/10.0.2.38        <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;Minion data cache refresh&#34;</span>: <span style="color:#e6db74">&#34;10.0.2.38&#34;</span>, <span style="color:#e6db74">&#34;_stamp&#34;</span>: <span style="color:#e6db74">&#34;2020-10-26T09:02:24.924301&#34;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>minion_start    <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;pretag&#34;</span>: null, <span style="color:#e6db74">&#34;cmd&#34;</span>: <span style="color:#e6db74">&#34;_minion_event&#34;</span>, <span style="color:#e6db74">&#34;tag&#34;</span>: <span style="color:#e6db74">&#34;minion_start&#34;</span>, <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#e6db74">&#34;Minion 10.0.2.38 started at Mon Oct 26 17:02:25 2020&#34;</span>, <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;10.0.2.38&#34;</span>, <span style="color:#e6db74">&#34;_stamp&#34;</span>: <span style="color:#e6db74">&#34;2020-10-26T09:02:25.446265&#34;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>salt/minion/10.0.2.38/start     <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;pretag&#34;</span>: null, <span style="color:#e6db74">&#34;cmd&#34;</span>: <span style="color:#e6db74">&#34;_minion_event&#34;</span>, <span style="color:#e6db74">&#34;tag&#34;</span>: <span style="color:#e6db74">&#34;salt/minion/10.0.2.38/start&#34;</span>, <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#e6db74">&#34;Minion 10.0.2.38 started at Mon Oct 26 17:02:25 2020&#34;</span>, <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;10.0.2.38&#34;</span>, <span style="color:#e6db74">&#34;_stamp&#34;</span>: <span style="color:#e6db74">&#34;2020-10-26T09:02:25.454942&#34;</span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="事件解释">事件解释</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SaltEvent</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Tag</span>  <span style="color:#66d9ef">string</span>                 <span style="color:#e6db74">`json:&#34;tag&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Data</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{} <span style="color:#e6db74">`json:&#34;data&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li><code>tag</code>标志着事件的类型，常用的<code>tag</code><a href="https://docs.saltstack.com/en/latest/topics/event/master_events.html#authentication-events">列表</a></li>
+<li><code>Data</code>里面存放着数据信息</li>
+</ul>
+<h3 id="应用">应用</h3>
+<p>可以使用这个特性来做一些自主的触发提示；比如说有新的主机连接过来了、新的job返回了，用来做监听事件非常的不错。</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/saltstack/saltstack%E5%8D%81salt-event/>https://xibolun.github.io/post/saltstack/saltstack%E5%8D%81salt-event/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/saltstack/">
+                    #saltstack</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E4%B9%9Dreturner/" class="prev" rel="prev" title="SaltStack(九)salt-returner"><i class="iconfont icon-left"></i>&nbsp;SaltStack(九)salt-returner</a>
+        
+        
+        <a href="https://xibolun.github.io/post/linux/ipmitool/" class="next" rel="next" title="IPMI&amp;Tool">IPMI&amp;Tool&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/neo4j/neo4j-console/" />
+    <link rel="next" href="https://xibolun.github.io/post/neo4j/neo4j-http-api/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/neo4j/neo4j-cypher/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Neo4j-官网开发手册（三）--cypher | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Neo4j-官网开发手册（三）--cypher | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Neo4j-官网开发手册（三）--cypher",
+    "headline" : "Neo4j-官网开发手册（三）--cypher",
+    "description" : "3.2 语法 命名与建议 节点建议使用驼峰，关系使用大写，下划线分隔 查询语句当中的空格会被替换掉 查询语句当中若有数字，数字不能放在第一个 节点区分大小写",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-06-16 21:10:32 \u002b0800 CST",
+    "dateModified" : "2018-06-16 21:10:32 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/neo4j\/neo4j-cypher\/",
+    "wordCount" : "2624",
+    "keywords" : [ "neo4j", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Neo4j-官网开发手册（三）--cypher</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2018-06-16 itemprop="datePublished">June 16, 2018</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">2624 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="32-语法">3.2 语法</h2>
+<h3 id="命名与建议">命名与建议</h3>
+<ul>
+<li>节点建议使用驼峰，关系使用大写，下划线分隔</li>
+<li>查询语句当中的空格会被替换掉</li>
+<li>查询语句当中若有数字，数字不能放在第一个</li>
+<li>节点区分大小写:PERSON :Person and :person 是三个不同的节点</li>
+</ul>
+<h3 id="基础表达式">基础表达式</h3>
+<ul>
+<li>支持true、false、TRUE、FALSE的boolean类型</li>
+<li>支持八进制和十六进制字符</li>
+<li>支持动态属性? n[&ldquo;param&rdquo;]</li>
+<li>支持参数 $param</li>
+<li>转义： \t、\b、\n、\r…….</li>
+</ul>
+<h3 id="运算符operators">运算符（Operators）</h3>
+<ul>
+<li>^、%、/、*、+、-</li>
+<li>&lt;&gt;、=、&gt;、&lt;、&gt;=、&lt;=</li>
+<li>IS NULL、IS NOT NULL</li>
+<li>String运算符： STARTS WITH、ENDS WITH、CONTAINS</li>
+<li>XOR、NOT、AND、OR
+<ul>
+<li>true XOR true  = false  // XOR只有在同时为true或false的时候才为false</li>
+<li>false XOR false = false</li>
+<li>null XOR null = null</li>
+<li>NOT null = null</li>
+</ul>
+</li>
+<li>IN
+<ul>
+<li>2 IN [1, <code>null</code>, 3] = null</li>
+<li>2 IN [1, 2, <code>null</code>] = true</li>
+<li>2 IN [1] = false</li>
+<li>null in [1,null,3] = null</li>
+<li>null in []  =false</li>
+</ul>
+</li>
+</ul>
+<h3 id="casewhen">CASE…WHEN</h3>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">match (n:egfbank_AppInfo) RETURN  CASE (n.`系统功能概述`) when &#39;4324&#39; then 2 else 3 end as result
+</code></pre><pre tabindex="0"><code class="language-cypher" data-lang="cypher">MATCH (n:egfbank_BpServer) RETURN case n.`主机名` when &#39;BJS0-076&#39; then 2 when &#39;bjs0-a72-oa12&#39; then 1 else 3 end AS `主机名`
+</code></pre><ul>
+<li>属性的引号不是单引，也不是双引号，而是``</li>
+<li>返回的别名也是``</li>
+<li>case when表达式在return之后</li>
+<li>若不加result，则返回的key为【CASE (n.<code>系统功能概述</code>) when &lsquo;4324&rsquo; then 2 else 3 end】</li>
+<li>支持多个then when</li>
+</ul>
+<h3 id="查询模式">查询模式</h3>
+<ul>
+<li>不加关系查询，连接条件为  - - &gt;</li>
+<li>可以添加label</li>
+</ul>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">match(app:egfbank_AppInfo)--&gt; (app2:egfbank_DbServer) return app,app2.主机名 AS `主机名`
+</code></pre><pre tabindex="0"><code class="language-cypher" data-lang="cypher">(a)--&gt;(b)&lt;--(c)
+</code></pre><pre tabindex="0"><code class="language-cypher" data-lang="cypher">(a)--&gt;()&lt;--(c)
+</code></pre><ul>
+<li>关系上指定属性</li>
+</ul>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">(a)-[{blocked: false}]-&gt;(b)
+</code></pre><ul>
+<li>若a和b有可能存在两种关系</li>
+</ul>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">(a)-[r:TYPE1|TYPE2]-&gt;(b)
+</code></pre><ul>
+<li>关系层次查询</li>
+</ul>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">(a)-[*2]-&gt;(b)//两层关系
+</code></pre><ul>
+<li>可以直接使用RETURN</li>
+</ul>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">return size([0,1,2])
+return size(range(0,2))
+return [x in range(0,2) where x%2=0 ] as result  // in和range的写法有点像python
+</code></pre><h2 id="33-从句clauses">3.3 从句(clauses)</h2>
+<h3 id="match">Match</h3>
+<ul>
+<li>忽略关系类型和方向</li>
+</ul>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">MATCH (director { name: &#39;Oliver Stone&#39; })--(movie)  RETURN movie.title
+</code></pre><ul>
+<li>添加方向</li>
+</ul>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">MATCH (:Person { name: &#39;Oliver Stone&#39; })--&gt;(movie) RETURN movie.title
+</code></pre><ul>
+<li>不加具体关系类型，此方式可以用于计算两个节点之间的关系类型 type(r)</li>
+</ul>
+<pre tabindex="0"><code>match(app:egfbank_AppInfo) -[r] -&gt; (app2:egfbank_DbServer) return type(r)
+</code></pre><ul>
+<li>多条关系查询；  两个关系类型中间用  |  进行区分</li>
+</ul>
+<pre tabindex="0"><code>MATCH (wallstreet { title: &#39;Wall Street&#39; })&lt;-[:ACTED_IN|:DIRECTED]-(person)
+RETURN person.name
+</code></pre><ul>
+<li>关系层级</li>
+</ul>
+<pre tabindex="0"><code>MATCH (martin { name: &#39;Charlie Sheen&#39; })-[:ACTED_IN*1..3]-(movie:Movie)
+RETURN movie.title
+</code></pre><ul>
+<li>关系添加条件</li>
+</ul>
+<pre tabindex="0"><code>MATCH p =(charlie:Person)-[* { blocked:false }]-(martin:Person)
+WHERE charlie.name = &#39;Charlie Sheen&#39; AND martin.name = &#39;Martin Sheen&#39;
+RETURN p
+</code></pre><ul>
+<li>带参数查询</li>
+</ul>
+<pre tabindex="0"><code>MATCH (n:egfbank_AppInfo) where n.`系统名称` = {pro} return n  // 3.0版本
+MATCH (n:egfbank_AppInfo) where n.`系统名称` = $pro return n  // 3.2以上版本
+</code></pre><h3 id="with">With</h3>
+<p>可以将match出来的结果进行一次聚合，然后再return；结合order by 和limit使用</p>
+<pre tabindex="0"><code>MATCH (david { name: &#39;David&#39; })--(otherPerson)--&gt;()
+WITH otherPerson, count(*) AS foaf
+WHERE foaf &gt; 1
+RETURN otherPerson.name
+</code></pre><pre tabindex="0"><code>MATCH (n)
+WITH n
+ORDER BY n.name DESC LIMIT 3
+RETURN collect(n.name)//排序后再返回
+</code></pre><h3 id="unwind">Unwind</h3>
+<p>将一个列表，转换成个体；最常用的是创建一个不重复的序列，或者从将一个列表当中的元素做为查询参数</p>
+<ul>
+<li>将list转换成个体</li>
+</ul>
+<pre tabindex="0"><code>UNWIND [1, 2, 3, NULL ] AS x return x  // 1,2,3,null
+</code></pre><ul>
+<li>拆分多级list</li>
+</ul>
+<pre tabindex="0"><code>with [[1,2],[3,2],[3,4]] as col 
+unwind col as x 
+unwind x as y  
+return y
+</code></pre><ul>
+<li>去重List</li>
+</ul>
+<pre tabindex="0"><code>with [1,2,3,2,3,4] as col 
+unwind col as x 
+with distinct x 
+return collect(x) as res
+</code></pre><ul>
+<li>若list为空，需要加case</li>
+</ul>
+<pre tabindex="0"><code>WITH [] AS list
+UNWIND
+   CASE
+      WHEN list = []
+         THEN [null]
+      ELSE list
+   END AS emptylist
+RETURN emptylist
+</code></pre><h3 id="where">Where</h3>
+<ul>
+<li>可以根据label去查询，Swedish为label</li>
+</ul>
+<pre tabindex="0"><code>MATCH (n:egfbank_AppInfo)
+RETURN n.name, n.age
+</code></pre><pre tabindex="0"><code>MATCH (n)
+WHERE n:egfbank_AppInfo
+RETURN n.name, n.age
+</code></pre><p>以上两者查询速率没有什么区别</p>
+<ul>
+<li>查询属性是否存在</li>
+</ul>
+<pre tabindex="0"><code>MATCH (n)
+WHERE exists(n.belt)
+RETURN n.name, n.belt
+</code></pre><ul>
+<li>查询条件忽略大小写</li>
+</ul>
+<pre tabindex="0"><code>MATCH (n)
+WHERE n.name =~ &#39;(?i)ANDR.*&#39;
+RETURN n.name, n.age
+</code></pre><ul>
+<li>没有关系的查询</li>
+</ul>
+<pre tabindex="0"><code>MATCH (persons),(peter { name: &#39;Peter&#39; })
+WHERE NOT (persons)--&gt;(peter)
+RETURN persons.name, persons.age
+</code></pre><ul>
+<li>根据关系类型查询</li>
+</ul>
+<pre tabindex="0"><code>MATCH (n)-[r]-&gt;()
+WHERE n.name=&#39;Andres&#39; AND type(r)=~ &#39;K.*&#39;
+RETURN type(r), r.since
+</code></pre><h3 id="order-by">Order By</h3>
+<ul>
+<li>默认是asc排序</li>
+<li>null排在最后</li>
+</ul>
+<h3 id="skip--limit">SKIP &amp; LIMIT</h3>
+<ul>
+<li>skip：跳过几个</li>
+<li>limit：只显示几个</li>
+<li>两者可以配合使用，取中间的数据</li>
+</ul>
+<h3 id="create">Create</h3>
+<ul>
+<li>单参数创建</li>
+</ul>
+<pre tabindex="0"><code>{
+  &#34;props&#34; : {
+    &#34;name&#34; : &#34;Andres&#34;,
+    &#34;position&#34; : &#34;Developer&#34;
+  }
+}
+
+CREATE (n:Person $props)
+RETURN n
+</code></pre><ul>
+<li>多参数创建</li>
+</ul>
+<pre tabindex="0"><code>{
+  &#34;props&#34; : [ {
+    &#34;name&#34; : &#34;Andres&#34;,
+    &#34;position&#34; : &#34;Developer&#34;
+  }, {
+    &#34;name&#34; : &#34;Michael&#34;,
+    &#34;position&#34; : &#34;Developer&#34;
+  } ]
+}
+//用unwind将列表解开，依次创建
+UNWIND $props AS map
+CREATE (n)
+SET n = map
+</code></pre><h3 id="delete">Delete</h3>
+<ul>
+<li>删除节点  delete n</li>
+<li>删除关系  delete rel</li>
+<li>删除节点并关系  detach delete n</li>
+</ul>
+<h3 id="set">Set</h3>
+<p>用于新增和修改节点标签或节点和关系的属性</p>
+<ul>
+<li>新增节点标签</li>
+</ul>
+<pre tabindex="0"><code>MATCH (n { name: &#39;Stefan&#39; })
+SET n:German
+RETURN n.name, labels(n) AS labels
+</code></pre><ul>
+<li>新增属性</li>
+</ul>
+<pre tabindex="0"><code>MATCH (n { name: &#39;Andres&#39; })
+SET n.position = &#39;Developer&#39;, n.surname = &#39;Taylor&#39;
+</code></pre><ul>
+<li>删除属性</li>
+</ul>
+<pre tabindex="0"><code>MATCH (n { name: &#39;Andres&#39; })
+SET n.name = NULL RETURN n.name, n.age
+</code></pre><h3 id="remove">Remove</h3>
+<p>删除节点标签或属性</p>
+<ul>
+<li>删除属性</li>
+</ul>
+<pre tabindex="0"><code>MATCH (a { name: &#39;Andres&#39; })
+REMOVE a.age
+RETURN a.name, a.age
+</code></pre><ul>
+<li>删除节点标签</li>
+</ul>
+<pre tabindex="0"><code>MATCH (n { name: &#39;Peter&#39; })
+REMOVE n:German
+RETURN n.name, labels(n)
+</code></pre><h3 id="foreach">foreach</h3>
+<ul>
+<li>循环添加属性</li>
+</ul>
+<pre tabindex="0"><code>MATCH p =(begin)-[*]-&gt;(END )
+WHERE begin.name = &#39;A&#39; AND END .name = &#39;D&#39;
+FOREACH (n IN nodes(p)| SET n.marked = TRUE )
+</code></pre><h2 id="35-索引">3.5 索引</h2>
+<ul>
+<li>索引分为单属性索引(<em>single-property index</em>)和组合属性索引(<em>composite index</em>)</li>
+</ul>
+<h3 id="create-single-property-index">create single-property index</h3>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">CREATE INDEX ON :defautl_BpAppInfo(id)
+</code></pre><p>查询索引列表</p>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">CALL db.indexes
+</code></pre><p>删除索引</p>
+<pre tabindex="0"><code>drop index on :default_BpAppInfo(id);
+</code></pre><h3 id="create-compostive-index">create compostive index</h3>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">CREATE INDEX on :default_BpAppInfo(typeCode,name)
+</code></pre><p>注意：旧版本不支持索引逗号分隔操作</p>
+<h2 id="36-query-tuning">3.6 Query tuning</h2>
+<h3 id="cypher-query-options">cypher query options</h3>
+<pre tabindex="0"><code>CYPHER planner=rule match  (n) return labels(n)
+</code></pre><h3 id="profile">profile</h3>
+<p>作用是查看查询计划。那什么叫查询计划(Query Plan)？neo4j在查询的时候，会将一个查询语句分解成多个小片，称为运算(Operators)将这些运算的结果最后连接在一起，这样的模式(pattern)叫作查询计划。现在的查询计划，neo4j支持了图表展示。</p>
+<h4 id="explain">EXPLAIN</h4>
+<pre tabindex="0"><code>EXPLAIN   match  (n) return labels(n)
+</code></pre><p>EXPLAIN不真正去执行语句，而返回一个空的结果，但是可以让你看到查询的过程</p>
+<p><img src="http://oxmycii3v.bkt.clouddn.com/20180516100903.png" alt="explain-profiling.png" loading="lazy" ></p>
+<p>查询计划图说明：</p>
+<ul>
+<li>AllNodesScan: Operator name</li>
+<li>320 estimated rows: 分析了320行</li>
+<li>AllNodesScan的结果做为input，进入到Projection的运算当中，产出了320行数据，再进入最后的产出结果运算</li>
+<li>Projection当中的
+<ul>
+<li>lables(n),n: 标识符(Identifiers)</li>
+<li>LabelsFunction(n): 表达式</li>
+</ul>
+</li>
+<li>runtime: INTERPRETED   ————由于explain不真正执行结果，所以runtime为演绎时间</li>
+</ul>
+<h4 id="profile-1">PROFILE</h4>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">PROFILE MATCH (n) return labels(n)
+</code></pre><p><img src="http://oxmycii3v.bkt.clouddn.com/img/neo4j/profile-profiling.png" alt="profile-profiling.png" loading="lazy" ></p>
+<p>PROFILE的执行过程与EXPLAIN的类似，但是PROFILE的执行是真正在操作数据库，所以会有db hits；同时runtime也为真实的数值</p>
+<pre tabindex="0"><code class="language-cypher" data-lang="cypher">profile match (n{code:&#39;A_ENDS&#39;}) return n;
+profile match (n:egfbank_BpAppInfo {code:&#39;A_ENDS&#39;}) return n;
+create index on : BpAppInfo(code)
+profile match (n:egfbank_BpAppInfo {code:&#39;A_ENDS&#39;}) return n;
+profile match (n:egfbank_BpAppInfo)  USING index  n:egfbank_BpAppInfo(code)  where n.code= &#39;A_ENDS&#39;   return n;
+</code></pre><ul>
+<li>第一条会查询所有的节点，耗时比较长</li>
+<li>第二条会查询指定的label</li>
+<li>第三条会根据建立的索引去做查询</li>
+<li>可以指定index去做查询</li>
+</ul>
+<h3 id="using-keyword">USING keyword</h3>
+<p>在查询过程当中，可以使用USING关键字，去指定查询过程；</p>
+<h4 id="using-index">USING index</h4>
+<pre tabindex="0"><code>MATCH (n:default_BpAppInfo{typeCode:&#39;dfdasa&#39;}) USING index n:default_BpAppInfo(typeCode)  return n.typeCode;
+</code></pre><h4 id="using-scan">USING SCAN</h4>
+<p>在大数据查询的情况下，MATCH的查询会比较慢，若是单个的NODE查询，可以使用SCAN指定遍历的NODE节点，提高查询效率；数据量小的情况下使用SCAN没有意义</p>
+<pre tabindex="0"><code>PROFILE MATCH (n:default_BpAppInfo) USING SCAN n:default_BpAppInfo return n;
+</code></pre><h4 id="periodic-commit">PERIODIC COMMIT</h4>
+<p>此项仅在使用load csv文件时有效；USING PERIODIC COMMIT 500的意思是说：在处理大量数据的时候，一个事务可以提交500条数据，到达500条之后，事务会提交并刷新一个新的事务进行处理其他的数据，至到数据处理完成；若没有指定500，那么将以默认值(这个默认值是多少？)进行运算。</p>
+<h2 id="37-execution-plans">3.7 Execution plans</h2>
+<h3 id="什么叫执行计划">什么叫执行计划？</h3>
+<p>每一个执行查询任务的运算（<em>operators</em>）实现了一个单独的工作，将这些运算的结果连合起来到一个结构当中叫做执行计划</p>
+<p>每一个运算当中有都有以下属性：</p>
+<ul>
+<li>Rows:运算产生了多少行数据</li>
+<li>EstimateRows:预计会产生多少行数据</li>
+<li>DbHits:数据库命中次数</li>
+</ul>
+<h2 id="38是兼容性问题">3.8是兼容性问题</h2>
+<h2 id="39是保留关键字说明">3.9是保留关键字说明</h2>
+<h2 id="其他的一些查询语句">其他的一些查询语句</h2>
+<p>统计重复的数据</p>
+<pre tabindex="0"><code>MATCH (n:egfbank_Depart) with n.id as nid,count(*) as ns return ns,nid
+</code></pre><pre tabindex="0"><code>match n with labels(n) as type, n.id as nid,n as ninfo,count(n.id) as ns where type in [[&#39;Person&#39;],[&#39;egfbank_Depart&#39;]] and ns&gt;1  return nid, ninfo
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/neo4j/neo4j-cypher/>https://xibolun.github.io/post/neo4j/neo4j-cypher/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/neo4j/">
+                    #neo4j</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/neo4j/neo4j-console/" class="prev" rel="prev" title="Neo4j控制台"><i class="iconfont icon-left"></i>&nbsp;Neo4j控制台</a>
+        
+        
+        <a href="https://xibolun.github.io/post/neo4j/neo4j-http-api/" class="next" rel="next" title="Neo4j HTTP API">Neo4j HTTP API&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

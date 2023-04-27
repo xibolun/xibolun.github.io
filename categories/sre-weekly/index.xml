@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sre-weekly on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/categories/sre-weekly/</link>
+    <description>Recent content in sre-weekly on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 21 Apr 2023 11:21:07 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/categories/sre-weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SRE Weekly-2023M04W03</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w03/</link>
+      <pubDate>Fri, 21 Apr 2023 11:21:07 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w03/</guid>
+      <description>利器 https://affine.pro/ ： 新的协作工具 coderradio：一个适合在写代码的时候听歌的网站 工程 ky：一个前端http组件新秀 sd-face-editor：一</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M04W02</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w02/</link>
+      <pubDate>Fri, 14 Apr 2023 09:25:36 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w02/</guid>
+      <description>利器 anthrpoic：另一个AI Aivesa 智聊：国内可用，基于gpt3.5 AIGC工具列表 工程 tremor：一个dashboard快速迭代的rea</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M04W01</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w01/</link>
+      <pubDate>Fri, 07 Apr 2023 15:44:20 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w01/</guid>
+      <description>利器 trello：一个团队协作的task管理工具 scrcpy：一个无需root，用鼠标就可以远程控制手机的app 微信键盘：除除linux平台</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M03W05</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w05/</link>
+      <pubDate>Thu, 30 Mar 2023 23:25:37 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w05/</guid>
+      <description>利器 excalidraw：一款手绘画图工具 orbstack：mac上面docker-desktop的替换工具，同时支持虚拟化 umm-mayb</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M03W04</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w04/</link>
+      <pubDate>Wed, 22 Mar 2023 11:21:07 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w04/</guid>
+      <description>利器 warp：mac上面的terminal工具，集成了AI iconpark：字节的图标库，这种事情大厂出品是最好的，个人维护能力非常有限 ic</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M03W03</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w03/</link>
+      <pubDate>Mon, 20 Mar 2023 14:54:52 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w03/</guid>
+      <description>利器 doodleboard：一个画图工具，里面内置有许多模板 fq：一个format工具，类似jq，有提供比对的视频 工程 sohutv-cach</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M03W02</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w02/</link>
+      <pubDate>Thu, 16 Mar 2023 11:21:07 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m03w02/</guid>
+      <description>利器 三款效率工具利器 Alfred：帽子，从《MacTalk》里面听闻一直在使用，搜索、粘贴版、password、workflow功能都非常强</description>
+    </item>
+    
+  </channel>
+</rss>

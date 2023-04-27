@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/redis/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+    <link rel="next" href="https://xibolun.github.io/post/redis/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/redis/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Redis(二)––集群cluster | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Redis(二)––集群cluster | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Redis(二)––集群cluster",
+    "headline" : "Redis(二)––集群cluster",
+    "description" : "Failover验证 在Redis官网里面有一个有意思的验证方式，使用 redis-rb-cluster git clone git@github.com:antirez\/redis-rb-cluster.git 安装一下ruby环境，若ruby版本过低，可能需要升级一下 yum install ruby",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-02-27 19:49:47 \u002b0800 CST",
+    "dateModified" : "2020-02-27 19:49:47 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/redis\/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster\/",
+    "wordCount" : "881",
+    "keywords" : [ "redis", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Redis(二)––集群cluster</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-02-27 itemprop="datePublished">February 27, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">881 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="failover验证">Failover验证</h3>
+<p>在Redis<a href="https://redis.io/topics/cluster-tutorial#a-more-interesting-example-application">官网里面有一个有意思的验证方式</a>，使用 <a href="https://github.com/antirez/redis-rb-cluster">redis-rb-cluster</a></p>
+<pre tabindex="0"><code>git clone git@github.com:antirez/redis-rb-cluster.git
+</code></pre><p>安装一下<code>ruby</code>环境，若<code>ruby</code>版本过低，<a href="https://linuxize.com/post/how-to-install-ruby-on-centos-7/">可能需要升级一下</a></p>
+<pre tabindex="0"><code>yum install ruby -y
+</code></pre><pre tabindex="0"><code>## 安装一下redis-rb-cluster当中的依赖
+gem install redis
+</code></pre><p>执行脚本，这个脚本就会一直跑着，模拟着外面的系统进行写和读的操作</p>
+<pre tabindex="0"><code># ruby consistency-test.rb 127.0.0.1 7000
+715 R (0 err) | 715 W (0 err) |
+</code></pre><p>此时将<code>7001</code>，<code>7002</code>进行<code>crash</code>操作，相当于将两个<code>master</code>宕机掉，端口和进程都不再存在；</p>
+<pre tabindex="0"><code>./redis-cli -p 7001 debug segfault
+./redis-cli -p 7002 debug segfault
+</code></pre><p>可以看到会有一些读和写的error，等过一会儿等到<code>cluster</code>恢复重建后，读写恢复正常；此进也会对<code>slot</code>进行重新分配</p>
+<pre tabindex="0"><code>Writing: Too many Cluster redirections? (last error: MOVED 7854 127.0.0.1:7001)
+225032 R (16 err) | 225032 W (16 err) |
+Reading: Too many Cluster redirections? (last error: MOVED 6178 127.0.0.1:7001)
+Writing: Too many Cluster redirections? (last error: MOVED 6178 127.0.0.1:7001)
+225036 R (17 err) | 225036 W (17 err) |
+Reading: CLUSTERDOWN The cluster is down
+Writing: CLUSTERDOWN The cluster is down
+Writing: CLUSTERDOWN The cluster is down
+225036 R (1192 err) | 225036 W (1192 err) |
+Reading: CLUSTERDOWN The cluster is down
+228105 R (1351 err) | 228105 W (1351 err) |
+</code></pre><p>对比一下之前的<code>cluster</code></p>
+<table>
+<thead>
+<tr>
+<th>前</th>
+<th>后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7000(master) –– 7003(slave)<!-- raw HTML omitted -->7001(master) –– 7004(slave)<!-- raw HTML omitted -->7002(master) –– 7005(slave)</td>
+<td>7000(master) –– 7003(slave)<!-- raw HTML omitted -->7001(master,fail)<!-- raw HTML omitted -->7002(master,fail) <!-- raw HTML omitted -->7004(master)<!-- raw HTML omitted -->7005(master)</td>
+</tr>
+</tbody>
+</table>
+<p>启动<code>7001</code>，<code>7002</code>后的对比，此进也会对<code>slot</code>进行重新分配；</p>
+<table>
+<thead>
+<tr>
+<th>前</th>
+<th>后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7000(master) –– 7003(slave)<!-- raw HTML omitted -->7001(master) –– 7004(slave)<!-- raw HTML omitted -->7002(master) –– 7005(slave)</td>
+<td>7000(master)––7003(slave)<!-- raw HTML omitted -->7005(master)––7002(slave)<!-- raw HTML omitted -->7004(master)––7001(slave)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="新加一个节点">新加一个节点</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd /usr/local/redis/cluster-test &amp; mkdir <span style="color:#ae81ff">7006</span>
+</span></span><span style="display:flex;"><span>touch ./7006/redis_7006.conf <span style="color:#f92672">&amp;&amp;</span> sed -i <span style="color:#e6db74">&#39;s/7000/7006/g&#39;</span> redis.conf <span style="color:#f92672">&amp;&amp;</span> cat redis.conf &gt; 7006/redis_7006.conf
+</span></span><span style="display:flex;"><span>./redis-server /usr/local/redis/cluster-test/7006/redis_7006.conf
+</span></span></code></pre></div><p>添加之前请清理备份文件和数据库内容</p>
+<pre tabindex="0"><code>rm -rf /usr/local/redis/cluster-test/data/*
+127.0.0.1:7000&gt; FLUSHDB
+OK
+</code></pre><p>两种方式添加，</p>
+<pre tabindex="0"><code>redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000 --cluster-slave
+redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000 --cluster-slave --cluster-master-id {master_id}
+</code></pre><p>添加完成之后，可以看到<code>7006</code>被置为<code>slave</code>，挂在了<code>7005</code>下面</p>
+<pre tabindex="0"><code>127.0.0.1:7000&gt; CLUSTER NODES
+c1231ec1bb8764128a1f19cfda9f473b737f5b6a 127.0.0.1:7001@17001 slave 9d8cc17f66717fc2112b23c32455072ee75afb9c 0 1582730685000 8 connected
+9d8cc17f66717fc2112b23c32455072ee75afb9c 127.0.0.1:7004@17004 master - 0 1582730686522 8 connected 5461-10922
+0009f3817e248c0f22d20e5ed0d2757c0b946867 127.0.0.1:7000@17000 myself,master - 0 1582730683000 1 connected 0-5460
+cc39143f8f704b3eb6679317ea3798c9c981e4de 127.0.0.1:7006@17006 slave 7a2ad8bc0369e3394fb48b977d9a597b33f566e6 0 1582730682315 7 connected
+e0cd923405daa6423d94d7a4e15f3dd7da8559cc 127.0.0.1:7003@17003 slave 0009f3817e248c0f22d20e5ed0d2757c0b946867 0 1582730683000 4 connected
+5d97fcd2e63c294b047502ebe0759af13b3b76a5 127.0.0.1:7002@17002 slave 7a2ad8bc0369e3394fb48b977d9a597b33f566e6 0 1582730685000 7 connected
+7a2ad8bc0369e3394fb48b977d9a597b33f566e6 127.0.0.1:7005@17005 master - 0 1582730685519 7 connected 10923-16383
+</code></pre><p>删除节点</p>
+<pre tabindex="0"><code>./redis-cli --cluster del-node 127.0.0.1:7000 cc39143f8f704b3eb6679317ea3798c9c981e4de
+</code></pre><h3 id="segfault">Segfault</h3>
+<p>同时删除<code>master</code>和<code>slave</code>可以看到此时其他的四个节点不会发生变换，因为<code>slot</code>信息未做改变</p>
+<pre tabindex="0"><code>127.0.0.1:7000&gt; cluster nodes
+c1231ec1bb8764128a1f19cfda9f473b737f5b6a 127.0.0.1:7001@17001 slave 9d8cc17f66717fc2112b23c32455072ee75afb9c 0 1583226378247 8 connected
+9d8cc17f66717fc2112b23c32455072ee75afb9c 127.0.0.1:7004@17004 master - 0 1583226374000 8 connected 5461-10922
+0009f3817e248c0f22d20e5ed0d2757c0b946867 127.0.0.1:7000@17000 myself,master - 0 1583226376000 1 connected 0-5460
+e0cd923405daa6423d94d7a4e15f3dd7da8559cc 127.0.0.1:7003@17003 slave 0009f3817e248c0f22d20e5ed0d2757c0b946867 0 1583226377000 4 connected
+5d97fcd2e63c294b047502ebe0759af13b3b76a5 127.0.0.1:7002@17002 slave,fail 7a2ad8bc0369e3394fb48b977d9a597b33f566e6 1583226342139 1583226341136 11 disconnected
+7a2ad8bc0369e3394fb48b977d9a597b33f566e6 127.0.0.1:7005@17005 master,fail - 1583226362223 1583226359179 11 disconnected 10923-16383
+</code></pre><p>这个时候，若先起动<code>7002 slave</code>，不会进行切换，<code>master</code>还是<code>down</code>的状态</p>
+<pre tabindex="0"><code>127.0.0.1:7000&gt; cluster nodes
+c1231ec1bb8764128a1f19cfda9f473b737f5b6a 127.0.0.1:7001@17001 slave 9d8cc17f66717fc2112b23c32455072ee75afb9c 0 1583227221429 8 connected
+9d8cc17f66717fc2112b23c32455072ee75afb9c 127.0.0.1:7004@17004 master - 0 1583227220428 8 connected 5461-10922
+0009f3817e248c0f22d20e5ed0d2757c0b946867 127.0.0.1:7000@17000 myself,master - 0 1583227221000 1 connected 0-5460
+e0cd923405daa6423d94d7a4e15f3dd7da8559cc 127.0.0.1:7003@17003 slave 0009f3817e248c0f22d20e5ed0d2757c0b946867 0 1583227222432 4 connected
+5d97fcd2e63c294b047502ebe0759af13b3b76a5 127.0.0.1:7002@17002 slave 7a2ad8bc0369e3394fb48b977d9a597b33f566e6 0 1583227221000 11 connected
+7a2ad8bc0369e3394fb48b977d9a597b33f566e6 127.0.0.1:7005@17005 master,fail - 1583226362223 1583226359179 11 disconnected 10923-16383
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/redis/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster/>https://xibolun.github.io/post/redis/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/redis/">
+                    #redis</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/redis/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="prev" rel="prev" title="Redis(一)––入门及环境搭建"><i class="iconfont icon-left"></i>&nbsp;Redis(一)––入门及环境搭建</a>
+        
+        
+        <a href="https://xibolun.github.io/post/redis/redis%E4%B8%89%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="next" rel="next" title="Redis(三)––分布式锁">Redis(三)––分布式锁&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

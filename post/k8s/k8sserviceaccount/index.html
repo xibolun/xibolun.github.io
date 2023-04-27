@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/k8s/k8sjmx%E7%9B%91%E6%8E%A7/" />
+    <link rel="next" href="https://xibolun.github.io/post/k8s/k8s%E8%AF%81%E4%B9%A6/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/k8s/k8sserviceaccount/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            k8s––ServiceAccount | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="k8s––ServiceAccount | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "k8s––ServiceAccount",
+    "headline" : "k8s––ServiceAccount",
+    "description" : "ServiceAccount ServiceAccount也是一种资源，可以使用kubectl进行生命周期的管理，同时也是做为API认证的的一种方式；在每个namesp",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-03-09 21:50:12 \u002b0800 CST",
+    "dateModified" : "2020-03-09 21:50:12 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/k8s\/k8sserviceaccount\/",
+    "wordCount" : "439",
+    "keywords" : [ "k8s", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">k8s––ServiceAccount</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-03-09 itemprop="datePublished">March 9, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/k8s/"> k8s, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">439 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="serviceaccount">ServiceAccount</h3>
+<p><code>ServiceAccount</code>也是一种资源，可以使用<code>kubectl</code>进行生命周期的管理，同时也是做为<code>API</code>认证的的一种方式；在每个<code>namespace</code>下面都会默认创建一个<code>default</code>的<code>ServiceAccount</code>，同时每创建一个<code>pod</code>都会将<code>servcieaccount</code>进行挂载</p>
+<p>查看<code>default serviceaccount</code>,每个<code>serviceaccount</code>里面都会有一个<code>secret</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@ops-pre-4-175 ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl describe serviceaccount default -n idcos</span>
+</span></span><span style="display:flex;"><span>Name:                default
+</span></span><span style="display:flex;"><span>Namespace:           idcos
+</span></span><span style="display:flex;"><span>Labels:              &lt;none&gt;
+</span></span><span style="display:flex;"><span>Annotations:         &lt;none&gt;
+</span></span><span style="display:flex;"><span>Image pull secrets:  &lt;none&gt;
+</span></span><span style="display:flex;"><span>Mountable secrets:   default-token-5tjh4
+</span></span><span style="display:flex;"><span>Tokens:              default-token-5tjh4
+</span></span><span style="display:flex;"><span>Events:              &lt;none&gt;
+</span></span></code></pre></div><p>查看<code>secret</code>会发现里面有三部分组成，<code>namespace</code>、<code>token</code>、<code>CA证书</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@ops-pre-4-175 ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl describe secrets default-token-5tjh4 -n idcos</span>
+</span></span><span style="display:flex;"><span>Name:         default-token-5tjh4
+</span></span><span style="display:flex;"><span>Namespace:    idcos
+</span></span><span style="display:flex;"><span>Labels:       &lt;none&gt;
+</span></span><span style="display:flex;"><span>Annotations:  kubernetes.io/service-account.name: default
+</span></span><span style="display:flex;"><span>              kubernetes.io/service-account.uid: 374ed7a5-1e1e-4914-a77a-5e00c63dcc75
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Type:  kubernetes.io/service-account-token
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Data
+</span></span><span style="display:flex;"><span><span style="color:#f92672">====</span>
+</span></span><span style="display:flex;"><span>namespace:  <span style="color:#ae81ff">5</span> bytes
+</span></span><span style="display:flex;"><span>token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IjVLYlJRZnZFc0M5UGNsTlBIYWtTS1ZvaUt0eGZJdkJsaGxjLXQ1N3JYQnMifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJpZGNvcyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkZWZhdWx0LXRva2VuLTV0amg0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImRlZmF1bHQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiIzNzRlZDdhNS0xZTFlLTQ5MTQtYTc3YS01ZTAwYzYzZGNjNzUiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6aWRjb3M6ZGVmYXVsdCJ9.G6P7M1frjcPRu573bJfnIFD6iS3UOQ1uHwCKc5QGc6mnymv5AciauaCJwUNh_2qNIXbdLS0TwooST3k7AFkTIM72mGuYaDa73jJ5kU871buMhZmOtXSqWJGFbhhzgVBOkMT8uFCcpC0IdkZU9FoFnSmrtNjVF1fZdeqZO7MBWrW0q2p4QKGv1Io4qnADbiv3wE5BxUYMyIcEhz9tczvf_GZbY_W9x_QeY0-w-3rkVFQqNZpd2b1XAKgNMil9CVCVpKGE9YYuUbGseaoBSQDM4jOwu5LSNhFTVbHC9ACp3lWAd5KLbdhRX-QU8yIyU1IkMNR3EK8EnywY8AtE_1Pjmg
+</span></span><span style="display:flex;"><span>ca.crt:     <span style="color:#ae81ff">1025</span> bytes
+</span></span></code></pre></div><p>创建出来的<code>pod</code>都会将此<code>secret</code>挂载进去</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@ops-pre-4-175 pod<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl  describe pod cloud-act2-doc-6ddf66d4f6-fc5v4 -n idcos</span>
+</span></span><span style="display:flex;"><span>Name:         cloud-act2-doc-6ddf66d4f6-fc5v4
+</span></span><span style="display:flex;"><span>Namespace:    idcos
+</span></span><span style="display:flex;"><span>Priority:     <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Node:         ops-pre-4-144/10.0.4.144
+</span></span><span style="display:flex;"><span>Start Time:   Mon, <span style="color:#ae81ff">07</span> Dec <span style="color:#ae81ff">2020</span> 21:58:36 +0800
+</span></span><span style="display:flex;"><span>Labels:       app<span style="color:#f92672">=</span>cloud-act2-doc
+</span></span><span style="display:flex;"><span>              pod-template-hash<span style="color:#f92672">=</span>6ddf66d4f6
+</span></span><span style="display:flex;"><span>Annotations:  cni.projectcalico.org/podIP: 10.233.105.57/32
+</span></span><span style="display:flex;"><span>              cni.projectcalico.org/podIPs: 10.233.105.57/32
+</span></span><span style="display:flex;"><span>Status:       Running
+</span></span><span style="display:flex;"><span>IP:           10.233.105.57
+</span></span><span style="display:flex;"><span>IPs:
+</span></span><span style="display:flex;"><span>  IP:           10.233.105.57
+</span></span><span style="display:flex;"><span>Controlled By:  ReplicaSet/cloud-act2-doc-6ddf66d4f6
+</span></span><span style="display:flex;"><span>Containers:
+</span></span><span style="display:flex;"><span>  cloud-act2-doc:
+</span></span><span style="display:flex;"><span>    Container ID:   docker://0d30fff8dfbcf54287dd55a79fd4d3622c3a952698972a55e01dbfe1f959e53c
+</span></span><span style="display:flex;"><span>    Image:          registry.idcos.com/cloudpower/cloud-act2-docs:v1.0
+</span></span><span style="display:flex;"><span>	......
+</span></span><span style="display:flex;"><span>    Mounts:
+</span></span><span style="display:flex;"><span>      /var/run/secrets/kubernetes.io/serviceaccount from default-token-5tjh4 <span style="color:#f92672">(</span>ro<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  PodScheduled      True
+</span></span><span style="display:flex;"><span>Volumes:
+</span></span><span style="display:flex;"><span>  default-token-5tjh4:
+</span></span><span style="display:flex;"><span>    Type:        Secret <span style="color:#f92672">(</span>a volume populated by a Secret<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    SecretName:  default-token-5tjh4
+</span></span><span style="display:flex;"><span>    Optional:    false
+</span></span><span style="display:flex;"><span>......
+</span></span></code></pre></div><p>进入pod内部后即可查看到对应的文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root@cloud-act2-doc-6ddf66d4f6-fc5v4:~# ls -l  /var/run/secrets/kubernetes.io/serviceaccount
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">13</span> Dec  <span style="color:#ae81ff">7</span> 13:58 ca.crt -&gt; ..data/ca.crt
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">16</span> Dec  <span style="color:#ae81ff">7</span> 13:58 namespace -&gt; ..data/namespace
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">12</span> Dec  <span style="color:#ae81ff">7</span> 13:58 token -&gt; ..data/token
+</span></span></code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/k8s/k8sserviceaccount/>https://xibolun.github.io/post/k8s/k8sserviceaccount/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/k8s/">
+                    #k8s</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/k8s/k8sjmx%E7%9B%91%E6%8E%A7/" class="prev" rel="prev" title="k8s—JMX监控"><i class="iconfont icon-left"></i>&nbsp;k8s—JMX监控</a>
+        
+        
+        <a href="https://xibolun.github.io/post/k8s/k8s%E8%AF%81%E4%B9%A6/" class="next" rel="next" title="k8s––证书修改">k8s––证书修改&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/restful/" />
+    <link rel="next" href="https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%8C-helloworld/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/mongo/mongodb-sharding/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            MongoDB-Sharding | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="MongoDB-Sharding | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "MongoDB-Sharding",
+    "headline" : "MongoDB-Sharding",
+    "description" : "Sharding sh 命令 rs0:PRIMARY\u0026gt; sh.help() sh.addShard( host ) server:port OR setname\/server:port sh.enableSharding(dbname) enables sharding on the database dbname sh.shardCollection(fullName,key,unique) shards the collection sh.splitFind(fullName,find) splits the chunk that find is in at the median sh.splitAt(fullName,middle) splits the chunk that middle is in at middle sh.moveChunk(fullName,find,to) move the chunk where \u0026#39;find\u0026#39; is to \u0026#39;to\u0026#39; (name of shard) sh.setBalancerState( \u0026lt;bool on or not\u0026gt; ) turns the balancer on or off true=on, false=off",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-05-24 14:25:20 \u002b0800 CST",
+    "dateModified" : "2018-05-24 14:25:20 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/mongo\/mongodb-sharding\/",
+    "wordCount" : "149",
+    "keywords" : [ "mongo", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">MongoDB-Sharding</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2018-05-24 itemprop="datePublished">May 24, 2018</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">149 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="sharding">Sharding</h2>
+<p>sh 命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rs0:PRIMARY&gt; sh.help<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        sh.addShard<span style="color:#f92672">(</span> host <span style="color:#f92672">)</span>                       server:port OR setname/server:port
+</span></span><span style="display:flex;"><span>        sh.enableSharding<span style="color:#f92672">(</span>dbname<span style="color:#f92672">)</span>                 enables sharding on the database dbname
+</span></span><span style="display:flex;"><span>        sh.shardCollection<span style="color:#f92672">(</span>fullName,key,unique<span style="color:#f92672">)</span>   shards the collection
+</span></span><span style="display:flex;"><span>        sh.splitFind<span style="color:#f92672">(</span>fullName,find<span style="color:#f92672">)</span>               splits the chunk that find is in at the median
+</span></span><span style="display:flex;"><span>        sh.splitAt<span style="color:#f92672">(</span>fullName,middle<span style="color:#f92672">)</span>               splits the chunk that middle is in at middle
+</span></span><span style="display:flex;"><span>        sh.moveChunk<span style="color:#f92672">(</span>fullName,find,to<span style="color:#f92672">)</span>            move the chunk where <span style="color:#e6db74">&#39;find&#39;</span> is to <span style="color:#e6db74">&#39;to&#39;</span> <span style="color:#f92672">(</span>name of shard<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        sh.setBalancerState<span style="color:#f92672">(</span> &lt;bool on or not&gt; <span style="color:#f92672">)</span>   turns the balancer on or off true<span style="color:#f92672">=</span>on, false<span style="color:#f92672">=</span>off
+</span></span><span style="display:flex;"><span>        sh.getBalancerState<span style="color:#f92672">()</span>                     <span style="color:#66d9ef">return</span> true <span style="color:#66d9ef">if</span> enabled
+</span></span><span style="display:flex;"><span>        sh.isBalancerRunning<span style="color:#f92672">()</span>                    <span style="color:#66d9ef">return</span> true <span style="color:#66d9ef">if</span> the balancer has work in progress on any mongos
+</span></span><span style="display:flex;"><span>        sh.addShardTag<span style="color:#f92672">(</span>shard,tag<span style="color:#f92672">)</span>                 adds the tag to the shard
+</span></span><span style="display:flex;"><span>        sh.removeShardTag<span style="color:#f92672">(</span>shard,tag<span style="color:#f92672">)</span>              removes the tag from the shard
+</span></span><span style="display:flex;"><span>        sh.addTagRange<span style="color:#f92672">(</span>fullName,min,max,tag<span style="color:#f92672">)</span>      tags the specified range of the given collection
+</span></span><span style="display:flex;"><span>        sh.status<span style="color:#f92672">()</span>                               prints a general overview of the cluster
+</span></span></code></pre></div><p>检查状态</p>
+<pre tabindex="0"><code>rs0:PRIMARY&gt; sh.status()
+printShardingStatus: this db does not have sharding enabled. be sure you are connecting to a mongos from the shell and not to a mongod.
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/mongo/mongodb-sharding/>https://xibolun.github.io/post/mongo/mongodb-sharding/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/mongo/">
+                    #mongo</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/restful/" class="prev" rel="prev" title="RESTful与HTTP"><i class="iconfont icon-left"></i>&nbsp;RESTful与HTTP</a>
+        
+        
+        <a href="https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%8C-helloworld/" class="next" rel="next" title="RabbitMQ(二) HelloWorld">RabbitMQ(二) HelloWorld&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

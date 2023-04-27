@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/</link>
+    <description>Recent content in Tags on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 27 Apr 2023 10:24:20 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>alfred</title>
+      <link>https://xibolun.github.io/tags/alfred/</link>
+      <pubDate>Thu, 27 Apr 2023 10:24:20 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/alfred/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>排障</title>
+      <link>https://xibolun.github.io/tags/%E6%8E%92%E9%9A%9C/</link>
+      <pubDate>Wed, 26 Apr 2023 11:21:07 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/%E6%8E%92%E9%9A%9C/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sre-weekly</title>
+      <link>https://xibolun.github.io/tags/sre-weekly/</link>
+      <pubDate>Fri, 21 Apr 2023 11:21:07 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/sre-weekly/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>年度总结</title>
+      <link>https://xibolun.github.io/tags/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sat, 24 Dec 2022 04:04:02 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tool</title>
+      <link>https://xibolun.github.io/tags/tool/</link>
+      <pubDate>Thu, 08 Dec 2022 15:01:40 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/tool/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>读书</title>
+      <link>https://xibolun.github.io/tags/%E8%AF%BB%E4%B9%A6/</link>
+      <pubDate>Thu, 24 Nov 2022 03:59:29 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/%E8%AF%BB%E4%B9%A6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>杂谈</title>
+      <link>https://xibolun.github.io/tags/%E6%9D%82%E8%B0%88/</link>
+      <pubDate>Mon, 23 May 2022 15:22:38 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/%E6%9D%82%E8%B0%88/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://xibolun.github.io/tags/golang/</link>
+      <pubDate>Wed, 29 Dec 2021 10:11:23 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>etcd</title>
+      <link>https://xibolun.github.io/tags/etcd/</link>
+      <pubDate>Thu, 16 Dec 2021 12:50:35 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/etcd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>k8s</title>
+      <link>https://xibolun.github.io/tags/k8s/</link>
+      <pubDate>Sun, 05 Dec 2021 17:46:15 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>istio</title>
+      <link>https://xibolun.github.io/tags/istio/</link>
+      <pubDate>Fri, 29 Jan 2021 16:44:02 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/istio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://xibolun.github.io/tags/docker/</link>
+      <pubDate>Mon, 16 Nov 2020 14:13:01 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gitbook</title>
+      <link>https://xibolun.github.io/tags/gitbook/</link>
+      <pubDate>Mon, 16 Nov 2020 14:13:01 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/gitbook/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://xibolun.github.io/tags/git/</link>
+      <pubDate>Sat, 10 Oct 2020 16:58:14 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>信仰</title>
+      <link>https://xibolun.github.io/tags/%E4%BF%A1%E4%BB%B0/</link>
+      <pubDate>Tue, 06 Oct 2020 21:06:28 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/%E4%BF%A1%E4%BB%B0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>prometheues</title>
+      <link>https://xibolun.github.io/tags/prometheues/</link>
+      <pubDate>Thu, 06 Aug 2020 18:00:55 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/prometheues/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>prometheus</title>
+      <link>https://xibolun.github.io/tags/prometheus/</link>
+      <pubDate>Thu, 06 Aug 2020 18:00:55 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/prometheus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redis</title>
+      <link>https://xibolun.github.io/tags/redis/</link>
+      <pubDate>Thu, 27 Feb 2020 19:49:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lxc</title>
+      <link>https://xibolun.github.io/tags/lxc/</link>
+      <pubDate>Thu, 20 Feb 2020 22:11:21 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/lxc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>saltstack</title>
+      <link>https://xibolun.github.io/tags/saltstack/</link>
+      <pubDate>Wed, 01 Jan 2020 22:26:59 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/saltstack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://xibolun.github.io/tags/linux/</link>
+      <pubDate>Wed, 18 Dec 2019 17:41:06 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kafka</title>
+      <link>https://xibolun.github.io/tags/kafka/</link>
+      <pubDate>Wed, 18 Sep 2019 14:37:41 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/kafka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>安全</title>
+      <link>https://xibolun.github.io/tags/%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Wed, 11 Sep 2019 15:56:01 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/%E5%AE%89%E5%85%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mysql</title>
+      <link>https://xibolun.github.io/tags/mysql/</link>
+      <pubDate>Thu, 01 Aug 2019 11:15:04 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>运维</title>
+      <link>https://xibolun.github.io/tags/%E8%BF%90%E7%BB%B4/</link>
+      <pubDate>Tue, 30 Jul 2019 00:19:41 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/%E8%BF%90%E7%BB%B4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ansible</title>
+      <link>https://xibolun.github.io/tags/ansible/</link>
+      <pubDate>Tue, 30 Jul 2019 00:15:33 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/ansible/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ</title>
+      <link>https://xibolun.github.io/tags/rabbitmq/</link>
+      <pubDate>Thu, 25 Apr 2019 10:43:27 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/rabbitmq/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>https://xibolun.github.io/tags/hugo/</link>
+      <pubDate>Fri, 22 Feb 2019 18:47:21 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Css</title>
+      <link>https://xibolun.github.io/tags/css/</link>
+      <pubDate>Sun, 10 Feb 2019 09:56:08 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/css/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>neo4j</title>
+      <link>https://xibolun.github.io/tags/neo4j/</link>
+      <pubDate>Wed, 20 Jun 2018 10:41:32 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/neo4j/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mongo</title>
+      <link>https://xibolun.github.io/tags/mongo/</link>
+      <pubDate>Thu, 24 May 2018 14:25:20 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/mongo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>软件思想</title>
+      <link>https://xibolun.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%80%9D%E6%83%B3/</link>
+      <pubDate>Wed, 16 May 2018 21:08:01 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%80%9D%E6%83%B3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://xibolun.github.io/tags/python/</link>
+      <pubDate>Sat, 14 Apr 2018 14:26:21 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react</title>
+      <link>https://xibolun.github.io/tags/react/</link>
+      <pubDate>Fri, 02 Feb 2018 10:13:59 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ActiveMQ</title>
+      <link>https://xibolun.github.io/tags/activemq/</link>
+      <pubDate>Wed, 27 Dec 2017 16:38:18 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/activemq/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>about</title>
+      <link>https://xibolun.github.io/tags/about/</link>
+      <pubDate>Tue, 14 Nov 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>java</title>
+      <link>https://xibolun.github.io/tags/java/</link>
+      <pubDate>Fri, 13 Oct 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spring</title>
+      <link>https://xibolun.github.io/tags/spring/</link>
+      <pubDate>Thu, 21 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/spring/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dubbo</title>
+      <link>https://xibolun.github.io/tags/dubbo/</link>
+      <pubDate>Tue, 04 Jul 2017 22:43:54 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/dubbo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nginx</title>
+      <link>https://xibolun.github.io/tags/nginx/</link>
+      <pubDate>Thu, 15 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>curl</title>
+      <link>https://xibolun.github.io/tags/curl/</link>
+      <pubDate>Fri, 02 Jun 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/curl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jwt</title>
+      <link>https://xibolun.github.io/tags/jwt/</link>
+      <pubDate>Sat, 22 Apr 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/jwt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>maven</title>
+      <link>https://xibolun.github.io/tags/maven/</link>
+      <pubDate>Sat, 04 Mar 2017 22:39:39 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/maven/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>读书列表</title>
+      <link>https://xibolun.github.io/tags/%E8%AF%BB%E4%B9%A6%E5%88%97%E8%A1%A8/</link>
+      <pubDate>Sat, 04 Mar 2017 22:37:11 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/%E8%AF%BB%E4%B9%A6%E5%88%97%E8%A1%A8/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

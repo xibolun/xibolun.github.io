@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/tools/tmux/" />
+    <link rel="next" href="https://xibolun.github.io/post/linux/%E5%86%8D%E5%AD%A6linux%E7%AC%94%E8%AE%B0%E4%B8%80/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/tools/ansible/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Ansbile学习 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Ansbile学习 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Ansbile学习",
+    "headline" : "Ansbile学习",
+    "description" : "学无止境，不定期更新\u0026hellip;\u0026hellip; 牛刀小试 将ansible的ssh-pub添加至远程的服务器当中，建立ssh连接 建立\/et",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-07-30 00:15:33 \u002b0800 CST",
+    "dateModified" : "2019-07-30 00:15:33 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/tools\/ansible\/",
+    "wordCount" : "1424",
+    "keywords" : [ "ansible","tool", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Ansbile学习</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-07-30 itemprop="datePublished">July 30, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/tool/"> tool, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1424 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <p>学无止境，不定期更新&hellip;&hellip;</p>
+<h3 id="牛刀小试">牛刀小试</h3>
+<ol>
+<li>
+<p>将ansible的ssh-pub添加至远程的服务器当中，建立ssh连接</p>
+</li>
+<li>
+<p>建立/etc/ansible/hosts文件，配置远程的服务器</p>
+<pre tabindex="0"><code>[hosts]
+10.0.106.2
+</code></pre></li>
+<li>
+<p>尝试执行</p>
+<pre tabindex="0"><code>➜  ~ ansible -u root -m  ping
+10.0.106.2 | SUCCESS =&gt; {
+    &#34;changed&#34;: false,
+    &#34;ping&#34;: &#34;pong&#34;
+}
+</code></pre></li>
+</ol>
+<h3 id="配置">配置</h3>
+<h4 id="配置文件次序">配置文件次序</h4>
+<ul>
+<li><code>ANSIBLE_CONFIG</code> (一个环境变量)</li>
+<li><code>ansible.cfg</code> (位于当前目录中)</li>
+<li><code>.ansible.cfg</code> (位于根目录中)</li>
+<li><code>/etc/ansible/ansible.cfg</code></li>
+<li>配置项列表说明：<a href="https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg">ansbile.cfg</a></li>
+</ul>
+<h4 id="认证方式">认证方式</h4>
+<p>ssh</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ssh-keygen -t rsa
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.0.3.5
+</span></span></code></pre></div><p>配置文件内置密码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>webservers<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>10.0.3.5 ansible_ssh_pass<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Yunjikeji#123&#39;</span> ansible_ssh_port<span style="color:#f92672">=</span><span style="color:#ae81ff">2222</span>
+</span></span><span style="display:flex;"><span>10.0.2.1 ansible_ssh_pass<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Yunjikeji#123&#39;</span> ansible_ssh_port<span style="color:#f92672">=</span><span style="color:#ae81ff">2222</span>
+</span></span></code></pre></div><p>还可以配置内置端口,用于配置容器化技术, <code>inventory</code>里面有许多的内置参数 <a href="https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#assigning-a-variable-to-one-machine-host-variables">inventory-parameters</a></p>
+<h3 id="各模块说明">各模块说明</h3>
+<ul>
+<li>adhoc：可以快速执行的一些命令，比如说查看rpm包、服务信息，文件权限等<code>-m</code>参数执行</li>
+<li>playbooks：ansible的配置、发布、编排语言，将你需要的配置改成目标即可</li>
+<li>inventory：主机信息配置文件，ansible通过读取此配置文件来获取到需要执行的目标机器，主机列表支持group和pattern</li>
+<li>Cobbler：ansible的一个插件，RHEL发版，管理DNS和DHCP网络的工具</li>
+</ul>
+<h4 id="ad-hoc">Ad-hoc</h4>
+<p>ansible的模块，有各个公司、个人的支持，这也是ansible火起来的原因；比如ping、copy、shell、yum、user等</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@cloudboot etc<span style="color:#f92672">]</span><span style="color:#75715e"># ansible-doc -l | wc -l</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2114</span>
+</span></span></code></pre></div><p>想看这些模块的帮助文档: <code>ansible-doc yum|copy|ping</code></p>
+<p>下发文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ansible webservers -m copy -a <span style="color:#e6db74">&#39;src=/tmp/cloudboot-server.conf dest=/tmp/cloudboot-server.conf&#39;</span>  -i inventory.cfg
+</span></span></code></pre></div><p>shell模块使用； 查看nginx服务状态</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ansible webservers -m shell  -a <span style="color:#e6db74">&#39;systemctl status nginx&#39;</span> -i inventory.cfg
+</span></span></code></pre></div><p>ansible还做了命令的解析和处理</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>~ ansible hosts -m shell -a <span style="color:#e6db74">&#39;rm -rf swagger.log&#39;</span> 
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">[</span>WARNING<span style="color:#f92672">]</span>: Consider using the file module with state<span style="color:#f92672">=</span>absent rather than running <span style="color:#e6db74">&#39;rm&#39;</span>.  If you need to use command because file is insufficient you can add <span style="color:#e6db74">&#39;warn: false&#39;</span> to this command task or set <span style="color:#e6db74">&#39;command_warnings=False&#39;</span> in
+</span></span><span style="display:flex;"><span>ansible.cfg to get rid of this message.
+</span></span></code></pre></div><p>服务处理</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ansible hosts -m service -a <span style="color:#e6db74">&#34;name=nginx state=started&#34;</span> -u root
+</span></span><span style="display:flex;"><span>ansible hosts -m service -a <span style="color:#e6db74">&#34;name=nginx state=stopped&#34;</span> -u root
+</span></span></code></pre></div><p>单台执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ansible HOST -m shell -a <span style="color:#e6db74">&#39;ls /tmp&#39;</span>
+</span></span></code></pre></div><h4 id="facts">facts</h4>
+<p>一个ansible的采集，类似setup模块</p>
+<pre tabindex="0"><code>[root@cloudboot inventory]# ansible webservers -m setup -a &#39;filter=ansible_eth0&#39; -i inventory.cfg  
+10.0.2.1 | SUCCESS =&gt; {
+    &#34;ansible_facts&#34;: {
+        &#34;ansible_eth0&#34;: {                                                     
+            &#34;active&#34;: true,         
+            &#34;device&#34;: &#34;eth0&#34;, 
+            &#34;ipv4&#34;: {           
+                &#34;address&#34;: &#34;10.0.2.1&#34;,  
+                &#34;broadcast&#34;: &#34;10.0.255.255&#34;, 
+                &#34;netmask&#34;: &#34;255.255.0.0&#34;, 
+                &#34;network&#34;: &#34;10.0.0.0&#34;
+            },      
+            &#34;macaddress&#34;: &#34;52:54:00:e4:27:bd&#34;, 
+            &#34;module&#34;: &#34;virtio_net&#34;, 
+            &#34;mtu&#34;: 1500, 
+            &#34;pciid&#34;: &#34;virtio0&#34;, 
+            &#34;promisc&#34;: false, 
+            &#34;type&#34;: &#34;ether&#34;
+        }
+    }, 
+    &#34;changed&#34;: false
+}
+</code></pre><h4 id="其他">其他</h4>
+<ul>
+<li>role：一些连续操作的规范</li>
+<li>galaxy: <a href="https://galaxy.ansible.com/">galaxy-ansible</a> 方便查询和分享role</li>
+<li>ansible-pull : 可以拉取配置中心的配置信息，然后用于下发操作  <a href="https://github.com/ansible/ansible-examples/blob/master/language_features/ansible_pull.yml">clever-pull</a></li>
+</ul>
+<h4 id="playbook">Playbook</h4>
+<p>playbook是一个ansible的编排执行工具，官网文档<a href="https://docs.ansible.com/ansible/2.7/user_guide/playbooks.html#working-with-playbooks">working-with-playbooks</a></p>
+<p>ping-playbook.yml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">hosts</span>: <span style="color:#ae81ff">webservers</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">remote_user</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tasks</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test connection</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ping</span>: 
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">status nginx</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">systemctl status nginx</span>
+</span></span></code></pre></div><p>执行命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@cloudboot inventory<span style="color:#f92672">]</span><span style="color:#75715e"># ansible-playbook ping_playbook.yml -i inventory.cfg </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PLAY <span style="color:#f92672">[</span>webservers<span style="color:#f92672">]</span> ******************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TASK <span style="color:#f92672">[</span>Gathering Facts<span style="color:#f92672">]</span> *************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>ok: <span style="color:#f92672">[</span>10.0.2.1<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>ok: <span style="color:#f92672">[</span>10.0.3.5<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TASK <span style="color:#f92672">[</span>test connection<span style="color:#f92672">]</span> *************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>ok: <span style="color:#f92672">[</span>10.0.3.5<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>ok: <span style="color:#f92672">[</span>10.0.2.1<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TASK <span style="color:#f92672">[</span>status nginx<span style="color:#f92672">]</span> ****************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>changed: <span style="color:#f92672">[</span>10.0.2.1<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>changed: <span style="color:#f92672">[</span>10.0.3.5<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PLAY RECAP *************************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>10.0.2.1                   : ok<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>    changed<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>    unreachable<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    failed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>   
+</span></span><span style="display:flex;"><span>10.0.3.5                   : ok<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>    changed<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>    unreachable<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    failed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>  
+</span></span></code></pre></div><h5 id="命令其他参数">命令其他参数</h5>
+<ul>
+<li>校验语法：<code>ansible-playbook ping_playbook.yml --syntax-check</code></li>
+<li>从第几个task开始执行： <code>ansible-playbook ping_playbook.yml -i inventory.cfg  --start-at-task 'status nginx''</code></li>
+<li>playbook里有哪些参数：<a href="https://docs.ansible.com/ansible/latest/reference_appendices/playbooks_keywords.html#play">playbooks_keywords</a></li>
+<li>task里面有哪些参数：<a href="https://docs.ansible.com/ansible/latest/reference_appendices/playbooks_keywords.html#task">task_keywords</a></li>
+<li>变量使用：<a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#">playbooks_variables</a></li>
+<li>所有模块：<a href="https://docs.ansible.com/ansible/latest/modules/list_of_all_modules.html#all-modules">all-modules</a></li>
+<li>如何指定local执行命令？使用<code>delegate_to</code></li>
+</ul>
+<pre tabindex="0"><code>- name: Remove file if already exists
+   file:
+    path: /tmp/logfile.log
+    state: absent
+    mode: &#34;u+rw,g-wx,o-rwx&#34;
+   delegate_to: 127.0.0.1
+</code></pre><h4 id="发布swagger的一个例子">发布swagger的一个例子</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">hosts</span>: <span style="color:#ae81ff">dev</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">remote_user</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tasks</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">copy swagger.yaml</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">copy</span>:
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">src</span>: <span style="color:#ae81ff">/tmp/swagger/swagger.yaml</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">dest</span>: <span style="color:#ae81ff">/usr/yunji/swagger</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">apidoc service</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">service</span>:
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">name</span>: <span style="color:#ae81ff">apidoc</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">state</span>: <span style="color:#ae81ff">reloaded</span>
+</span></span></code></pre></div><ul>
+<li>注意copy的两个参数<code>src</code>、<code>dest</code>前面是空格，而不是tab；</li>
+<li>若下发的文件已经存在，则ansible不会再次覆盖；</li>
+<li>state参数： started|stopped|restarted|reloaded</li>
+</ul>
+<h3 id="加密">加密</h3>
+<pre tabindex="0"><code>[root@cloudboot inventory]# cat loop.yml 
+---
+- hosts: webservers
+  gather_facts: false
+  tasks: 
+      - name: debug loops
+        debug: 
+[root@cloudboot inventory]# ansible-vault encrypt loop.yml 
+New Vault password: 
+Confirm New Vault password: 
+Encryption successful
+[root@cloudboot inventory]# cat loop.yml 
+$ANSIBLE_VAULT;1.1;AES256
+38306338326462323230316139366264303438613439613963653566633036383866333832663332
+3264366536356135313739333866376431333339326536630a303863373633343133623266616461
+63353832346630616130663339353637383464633962333737616439306665633465323661393630
+3239646236363564370a393438396465643138393362326566383036653463363532636635653637
+61313362633236306363636536333032633833616530626566636362393735346433353937393735
+38393264316435356436636461363931356432396166613762373663323039363063313338623430
+64646264336335383239363633353166666437643737313164396462316632666439646633666338
+63636130636438333766313431346536653566653735646563343235303333356539633133653462
+65613565633532336664663537613834623532363166643334663733353138333261
+[root@cloudboot inventory]# ansible-vault decrypt loop.yml 
+Vault password: 
+Decryption successful
+[root@cloudboot inventory]# cat loop.yml 
+---
+- hosts: webservers
+  gather_facts: false
+  tasks: 
+      - name: debug loops
+        debug: 
+</code></pre><p>ansible-vault用法</p>
+<pre tabindex="0"><code># ansible-vault -help 
+Usage: ansible-vault [create|decrypt|edit|encrypt|encrypt_string|rekey|view] [options] [vaultfile.yml]
+</code></pre><h3 id="ansbile采集">Ansbile采集</h3>
+<pre tabindex="0"><code>https://github.com/dell/dellemc-openmanage-ansible-modules
+https://github.com/HewlettPackard/oneview-ansible
+https://github.com/Huawei/Server_Management_Plugin_Ansible
+https://github.com/lenovo/ansible-role-lxca-inventory
+https://github.com/hellojukay/ansible
+</code></pre><h4 id="ansible-dell">Ansible-Dell</h4>
+<ul>
+<li><a href="https://github.com/dell/dellemc-openmanage-ansible-modules">dellmc-ansible-modules</a></li>
+</ul>
+<h4 id="docker环境">docker环境</h4>
+<pre tabindex="0"><code>➜  ~ docker run -it centos  /bin/bash
+[root@f2bea7859ce6 /]# 
+[root@f2bea7859ce6 ~]# yum install ansible -y
+[root@f2bea7859ce6 ~]# touch /etc/ansible/hosts
+[root@f2bea7859ce6 ~]# vi /etc/ansible/hosts 
+[hosts]
+10.0.10.100
+[root@f2bea7859ce6 /]# curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+[root@f2bea7859ce6 /]# python get-pip.py 
+[root@f2bea7859ce6 ~]# pip install omsdk -i https://pypi.tuna.tsinghua.edu.cn/simple  
+[root@f2bea7859ce6 ~]# pip install omdrivers -i https://pypi.tuna.tsinghua.edu.cn/simple
+[root@f2bea7859ce6 ~]# yum install git
+[root@f2bea7859ce6 ~]# git clone git@github.com:dell/dellemc-openmanage-ansible-modules.git
+[root@f2bea7859ce6 ~]# cd dellemc-openmanage-ansible-modules/
+[root@f2bea7859ce6 dellemc-openmanage-ansible-modules]# python install.py 
+[root@85638d3a995e examples]# ansible-playbook -e &#34;idrac_ip=10.0.10.100 idrac_user=root idrac_pwd=calvin&#34; /examples/dellemc_get_lc_job_status.yml -vvv
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/tools/ansible/>https://xibolun.github.io/post/tools/ansible/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/ansible/">
+                    #ansible</a></span>
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/tool/">
+                    #tool</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/tools/tmux/" class="prev" rel="prev" title="Tmux"><i class="iconfont icon-left"></i>&nbsp;Tmux</a>
+        
+        
+        <a href="https://xibolun.github.io/post/linux/%E5%86%8D%E5%AD%A6linux%E7%AC%94%E8%AE%B0%E4%B8%80/" class="next" rel="next" title="再学Linux笔记(一)文件及权限">再学Linux笔记(一)文件及权限&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/saltstack/saltstack%E4%B8%89%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5/" />
+    <link rel="next" href="https://xibolun.github.io/post/saltstack/saltstack%E5%9B%9Bgrainspillar/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%85%ADgc/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Go源码分析(六)GC | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Go源码分析(六)GC | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Go源码分析(六)GC",
+    "headline" : "Go源码分析(六)GC",
+    "description" : "GC的方式 理解垃圾回收算法 一文里面有gif的形式，直观地描述了常用的gc算法 引用计数 不足的地方，每次都要对对象进行计数，开销比较大 会导致循环",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-10-01 22:52:32 \u002b0800 CST",
+    "dateModified" : "2019-10-01 22:52:32 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/golang\/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%85%ADgc\/",
+    "wordCount" : "525",
+    "keywords" : [ "golang", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Go源码分析(六)GC</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-10-01 itemprop="datePublished">October 1, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/golang/"> golang, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">525 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="gc的方式">GC的方式</h3>
+<p><a href="https://www.infoq.cn/article/2017/03/garbage-collection-algorithm">理解垃圾回收算法</a> 一文里面有<code>gif</code>的形式，直观地描述了常用的<code>gc</code>算法</p>
+<h4 id="引用计数">引用计数</h4>
+<ul>
+<li>不足的地方，每次都要对对象进行计数，开销比较大</li>
+<li>会导致循环引用；A引用了B，B也引用了A，那此时就无法进行gc</li>
+<li>并且会造成大量的碎片</li>
+</ul>
+<h4 id="标记清除">标记清除</h4>
+<ul>
+<li>标记清除每次都需要<code>STW</code>，是对整个内存进行清除，所以性能不是很好</li>
+</ul>
+<h4 id="三色标记">三色标记</h4>
+<ul>
+<li>三色指
+<ul>
+<li>白色：无引用（可以被清除的对象）</li>
+<li>黑色：当前对象及子对象都存在引用，被标记（一定不会被清理的对象）</li>
+<li>灰色：子对象未被标记（本次不确定，下一次再判断一次，是黑还是白）</li>
+</ul>
+</li>
+<li>三色标记的问题在于如果确定一个对象是灰色，若gc刚走完，此时已经被标记为白色的对象，添加了一个引用，此时就会错误地gc掉，同时gc的标记也是全局的，最早的版本是没有优化，导致性能很差；优化后，标记与运行态是同时进行的，不影响代码逻辑；</li>
+<li>那如何解决上面的实时地判断被标记为白色的对象，突然有了一个引用呢？就需要引用到写屏障</li>
+</ul>
+<h4 id="写屏障write-barrier">写屏障(write Barrier)</h4>
+<ul>
+<li></li>
+</ul>
+<h3 id="gc触发条件">GC触发条件</h3>
+<ul>
+<li>gcTriggerAlways: 强制触发GC</li>
+<li>gcTriggerHeap: 当前分配的内存达到一定值就触发GC</li>
+<li>gcTriggerTime: 当一定时间没有执行过GC就触发GC</li>
+<li>gcTriggerCycle: 要求启动新一轮的GC, 已启动则跳过, 手动触发GC的<code>runtime.GC()</code>会使用这个条件</li>
+</ul>
+<h3 id="函数入口">函数入口</h3>
+<pre tabindex="0"><code>// src/runtime/mgc.go method gcStart
+func gcStart(mode gcMode, trigger gcTrigger) {
+}
+</code></pre><h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://github.com/golang/proposal/blob/master/design/17503-eliminate-rescan.md"><em>hybrid write barrier</em> </a></li>
+<li><a href="http://lessisbetter.site/2019/10/20/go-gc-1-history-and-priciple/">Go垃圾回收 1：历史和原理</a></li>
+<li></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%85%ADgc/>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%85%ADgc/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/golang/">
+                    #golang</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E4%B8%89%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5/" class="prev" rel="prev" title="SaltStack(三)建立连接"><i class="iconfont icon-left"></i>&nbsp;SaltStack(三)建立连接</a>
+        
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E5%9B%9Bgrainspillar/" class="next" rel="next" title="SaltStack(四)Grains&amp;Pillar">SaltStack(四)Grains&amp;Pillar&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

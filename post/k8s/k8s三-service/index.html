@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/k8s/k8s%E4%BA%8C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" />
+    <link rel="next" href="https://xibolun.github.io/post/k8s/k8s%E5%9B%9Bpod/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/k8s/k8s%E4%B8%89-service/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            k8s(三)––Service | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="k8s(三)––Service | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "k8s(三)––Service",
+    "headline" : "k8s(三)––Service",
+    "description" : "Service的作用 为什么要使用service 首先需要理解一下集群里面的一些IP分类： nodeIP: 集群当中会有许多的node，每一个node都会有自己",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-02-06 21:43:03 \u002b0800 CST",
+    "dateModified" : "2020-02-06 21:43:03 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/k8s\/k8s%E4%B8%89-service\/",
+    "wordCount" : "638",
+    "keywords" : [ "k8s", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">k8s(三)––Service</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-02-06 itemprop="datePublished">February 6, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/k8s/"> k8s, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">638 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="service的作用">Service的作用</h3>
+<p>为什么要使用service</p>
+<p>首先需要理解一下集群里面的一些IP分类：</p>
+<ul>
+<li>nodeIP: 集群当中会有许多的node，每一个node都会有自己的IP；包括master的IP，因为master也是node</li>
+<li>podIP: 每一个node上面会有多个pod，每一个pod也会有自己的IP;</li>
+<li>serviceIP: 是pods节点上层的一层抽象，这个IP是一个虚拟IP，可以访问，但是ping不通</li>
+</ul>
+<p>一个node上面的pods会被删除，新增，导致IP会存在变化，使用service可以进行统一封装，类似nginx做一层代理，service做为统一的入口访问，可以做负载和转发，所以就有了上面的serviceIP；</p>
+<h3 id="service的模式">Service的模式</h3>
+<ul>
+<li>NodePod：可以指定在集群内访问，同时也可以指定集群外的访问；只有一个局限，那便是端口号有一个范围 <code>30000~32767</code>，可以通过<code>http://&lt;KUBERNETES_MASTER&gt;:32600</code>进行访问</li>
+</ul>
+<pre tabindex="0"><code>➜  k8s kubectl get svc -n idcos -o wide
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE   SELECTOR
+cloud-act2-doc-srv   NodePort    10.233.33.230   &lt;none&gt;        80:32600/TCP   4s    app=cloud-act2-doc
+</code></pre><ul>
+<li>ClusterIP：默认的<code>svc type</code>，只能在集群内访问，会自动创建<code>endpoints</code>进行关联</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  k8s kubectl get svc -n idcos -o wide
+</span></span><span style="display:flex;"><span>NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>   AGE   SELECTOR
+</span></span><span style="display:flex;"><span>cloud-act2-doc-srv   ClusterIP   10.233.43.198   &lt;none&gt;        80/TCP    9s    app<span style="color:#f92672">=</span>cloud-act2-doc
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  k8s kubectl get endpoints -n idcos -o wide
+</span></span><span style="display:flex;"><span>NAME                 ENDPOINTS           AGE
+</span></span><span style="display:flex;"><span>cloud-act2-doc-srv   10.233.105.49:80    51s
+</span></span></code></pre></div><ul>
+<li>LoadBalancer：会分配给<code>svc</code>一个虚拟的<code>CLUSTER_IP</code>，同时也会暴露一个<code>NodePort</code>供外部进行访问；</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  k8s kubectl get svc -n idcos
+</span></span><span style="display:flex;"><span>NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>        AGE
+</span></span><span style="display:flex;"><span>cloud-act2-doc-srv   LoadBalancer   10.233.38.230   &lt;pending&gt;     80:32077/TCP   8s
+</span></span></code></pre></div><h3 id="headless-service">Headless Service</h3>
+<p>无IP的那些<code>service</code>称为 <a href="https://kubernetes.io/docs/concepts/services-networking/service/#headless-services">Headless Service</a> ，用于那些不需要服务发现的<code>svc</code></p>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://jimmysong.io/kubernetes-handbook/guide/accessing-kubernetes-pods-from-outside-of-the-cluster.html">jimmysong的blog</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/k8s/k8s%E4%B8%89-service/>https://xibolun.github.io/post/k8s/k8s%E4%B8%89-service/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/k8s/">
+                    #k8s</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/k8s/k8s%E4%BA%8C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" class="prev" rel="prev" title="k8s(二)––基础概念"><i class="iconfont icon-left"></i>&nbsp;k8s(二)––基础概念</a>
+        
+        
+        <a href="https://xibolun.github.io/post/k8s/k8s%E5%9B%9Bpod/" class="next" rel="next" title="k8s(四)––Pod">k8s(四)––Pod&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

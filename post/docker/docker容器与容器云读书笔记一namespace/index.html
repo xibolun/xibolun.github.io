@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E5%A6%82%E4%BD%95%E4%B8%BAipad%E5%88%B7%E6%9C%BA/" />
+    <link rel="next" href="https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8Ccgroup/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80namespace/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Docker容器与容器云读书笔记（一）–Namespace | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Docker容器与容器云读书笔记（一）–Namespace | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Docker容器与容器云读书笔记（一）–Namespace",
+    "headline" : "Docker容器与容器云读书笔记（一）–Namespace",
+    "description" : "Docker容器与容器云读书笔记（一）–Namespace Linux提供了一系列隔离的API Mount: 隔离文件系统挂载点，CLONE_NEWNS UTS: 隔",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-05-26 17:59:21 \u002b0800 CST",
+    "dateModified" : "2020-05-26 17:59:21 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/docker\/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80namespace\/",
+    "wordCount" : "1940",
+    "keywords" : [ "docker", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Docker容器与容器云读书笔记（一）–Namespace</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-05-26 itemprop="datePublished">May 26, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/docker/"> docker, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1940 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="docker容器与容器云读书笔记一namespace">Docker容器与容器云读书笔记（一）–Namespace</h2>
+<p>Linux提供了一系列隔离的API</p>
+<ul>
+<li><code>Mount</code>: 隔离文件系统挂载点，<code>CLONE_NEWNS</code></li>
+<li><code>UTS</code>: 隔离主机名和域名信息，<code>CLONE_NEWUTS</code></li>
+<li><code>IPC</code>: 隔离进程间通信，<code>CLONE_NEWIPC</code></li>
+<li><code>PID</code>: 隔离进程的ID，<code>CLONE_NEWPID</code></li>
+<li><code>Network</code>: 隔离网络资源，<code>CLONE_NEWNET</code></li>
+<li><code>User</code>: 隔离用户和用户组的ID，<code>CLONE_NEWUSER</code></li>
+</ul>
+<h3 id="utc-namespace">UTC Namespace</h3>
+<p>创建<code>utc.c</code>文件如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#define _GNU_SOURCE
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/wait.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/utsname.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sched.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define errExit(msg)        \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    do                      \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    {                       \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        perror(msg);        \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        exit(EXIT_FAILURE); \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    } while (0)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 调用 clone 时执行的函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">childFunc</span>(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>arg)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> utsname uts;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>shellname;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 在子进程的 UTS namespace 中设置 hostname
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">sethostname</span>(arg, <span style="color:#a6e22e">strlen</span>(arg)) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">errExit</span>(<span style="color:#e6db74">&#34;sethostname&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 显示子进程的 hostname
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">uname</span>(<span style="color:#f92672">&amp;</span>uts) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">errExit</span>(<span style="color:#e6db74">&#34;uname&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;uts.nodename in child:  %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, uts.nodename);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;My PID is: %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#a6e22e">getpid</span>());
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;My parent PID is: %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#a6e22e">getppid</span>());
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 获取系统的默认 shell
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    shellname <span style="color:#f92672">=</span> <span style="color:#a6e22e">getenv</span>(<span style="color:#e6db74">&#34;SHELL&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>shellname)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        shellname <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#e6db74">&#34;/bin/sh&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 在子进程中执行 shell
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">execlp</span>(shellname, shellname, (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)NULL);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 设置子进程的堆栈大小为 1M
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#define STACK_SIZE (1024 * 1024)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[])
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>stack;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>stackTop;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pid_t</span> pid;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (argc <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fprintf</span>(stderr, <span style="color:#e6db74">&#34;Usage: %s &lt;child-hostname&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">exit</span>(EXIT_SUCCESS);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 为子进程分配堆栈空间,大小为 1M
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    stack <span style="color:#f92672">=</span> <span style="color:#a6e22e">malloc</span>(STACK_SIZE);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (stack <span style="color:#f92672">==</span> NULL)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">errExit</span>(<span style="color:#e6db74">&#34;malloc&#34;</span>);
+</span></span><span style="display:flex;"><span>    stackTop <span style="color:#f92672">=</span> stack <span style="color:#f92672">+</span> STACK_SIZE; <span style="color:#75715e">/* Assume stack grows downward */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 通过 clone 函数创建子进程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// CLONE_NEWUTS 标识指明为新进程创建新的 UTS namespace
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    pid <span style="color:#f92672">=</span> <span style="color:#a6e22e">clone</span>(childFunc, stackTop, CLONE_NEWUTS <span style="color:#f92672">|</span> SIGCHLD, argv[<span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (pid <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">errExit</span>(<span style="color:#e6db74">&#34;clone&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 等待子进程退出
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">waitpid</span>(pid, NULL, <span style="color:#ae81ff">0</span>) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">errExit</span>(<span style="color:#e6db74">&#34;waitpid&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;child has terminated</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">exit</span>(EXIT_SUCCESS);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>编译</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">## gcc version</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>gcc -Wall  utc.c -o utc
+</span></span></code></pre></div><p>执行后即可进入<code>myhost</code>的<code>ns</code>里面，<code>exit</code>即可退出；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e"># ./utc myhost</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e"># hostname</span>
+</span></span><span style="display:flex;"><span>myhost
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e"># exit</span>
+</span></span><span style="display:flex;"><span>exit
+</span></span><span style="display:flex;"><span>child has terminated
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e">#</span>
+</span></span></code></pre></div><h3 id="ipc-namespace">IPC Namespace</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">## 修改clone参数，添加CLONE_NEWIPC即可
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> pid <span style="color:#f92672">=</span> <span style="color:#a6e22e">clone</span>(childFunc, stackTop, CLONE_NEWIPC <span style="color:#f92672">|</span>CLONE_NEWUTS <span style="color:#f92672">|</span> SIGCHLD, argv[<span style="color:#ae81ff">1</span>]);
+</span></span></code></pre></div><p>编译</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gcc -Wall  ipc.c -o ipc
+</span></span></code></pre></div><p>测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">## 在原host里面查看并创建ipc</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e"># ipcmk -Q</span>
+</span></span><span style="display:flex;"><span>Message queue id: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e"># ipcs -q</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>------ Message Queues --------
+</span></span><span style="display:flex;"><span>key        msqid      owner      perms      used-bytes   messages
+</span></span><span style="display:flex;"><span>0xc4bdb217 <span style="color:#ae81ff">0</span>          root       <span style="color:#ae81ff">644</span>        <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e"># ipcmk -Q</span>
+</span></span><span style="display:flex;"><span>Message queue id: <span style="color:#ae81ff">32769</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### 添加ipc隔离</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e"># ./ipc myhost</span>
+</span></span><span style="display:flex;"><span>uts.nodename in child:  myhost
+</span></span><span style="display:flex;"><span>My PID is: <span style="color:#ae81ff">125325</span>
+</span></span><span style="display:flex;"><span>My parent PID is: <span style="color:#ae81ff">125324</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### 可以看到没有输出对应的ipc</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e"># ipcmk -Q</span>
+</span></span><span style="display:flex;"><span>Message queue id: <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><h3 id="pid-namespace">PID Namespace</h3>
+<p>修改代码，在<code>clone</code>的时候，添加<code>CLONE_NEWPID</code>参数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>pid <span style="color:#f92672">=</span> <span style="color:#a6e22e">clone</span>(childFunc, stackTop, CLONE_NEWPID <span style="color:#f92672">|</span> CLONE_NEWIPC <span style="color:#f92672">|</span>CLONE_NEWUTS <span style="color:#f92672">|</span> SIGCHLD, argv[<span style="color:#ae81ff">1</span>]);
+</span></span></code></pre></div><p>编译执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e"># gcc -Wall  pid.c -o pid</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### 查看当前shell的PID</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e"># echo $$</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">122947</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### 执行pid隔离，并查看PID，可以看到PID为1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e"># ./pid myhost</span>
+</span></span><span style="display:flex;"><span>uts.nodename in child:  myhost
+</span></span><span style="display:flex;"><span>My PID is: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>My parent PID is: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e"># echo $$</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>但是执行<code>ps</code>你还会发现其他的进程</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e"># ps</span>
+</span></span><span style="display:flex;"><span>   PID TTY          TIME CMD
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">122947</span> pts/0    00:00:00 bash
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127135</span> pts/0    00:00:00 pid
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127136</span> pts/0    00:00:00 bash
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127663</span> pts/0    00:00:00 ps
+</span></span></code></pre></div><p>因为<code>ps</code>读取的是原<code>host proc</code>下的文件，所以还需要做<code>mount</code>隔离</p>
+<h3 id="mount-namespace">Mount Namespace</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">## 修改代码CLONE_NEWNS，由于mount是第一个namespace，所以名称为CLOUD_NEWNS
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>pid <span style="color:#f92672">=</span> <span style="color:#a6e22e">clone</span>(childFunc, stackTop, CLONE_NEWNS <span style="color:#f92672">|</span> CLONE_NEWPID <span style="color:#f92672">|</span> CLONE_NEWIPC <span style="color:#f92672">|</span> CLONE_NEWUTS <span style="color:#f92672">|</span> SIGCHLD, argv[<span style="color:#ae81ff">1</span>]);
+</span></span></code></pre></div><p>编译测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e"># gcc -Wall mount.c -o mount</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e"># ./mount myhost</span>
+</span></span><span style="display:flex;"><span>uts.nodename in child:  myhost
+</span></span><span style="display:flex;"><span>My PID is: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>My parent PID is: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 将proc目录挂载为proc类型的file system</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e"># mount -t proc proc /proc</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e"># ps</span>
+</span></span><span style="display:flex;"><span>   PID TTY          TIME CMD
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1</span> pts/0    00:00:00 bash
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">17</span> pts/0    00:00:00 ps
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e">#</span>
+</span></span></code></pre></div><h3 id="user-namespace">User Namespace</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">## 修改代码，添加CLONE_NEWUSER
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>pid <span style="color:#f92672">=</span> <span style="color:#a6e22e">clone</span>(childFunc, stackTop,  CLONE_NEWUSER <span style="color:#f92672">|</span> SIGCHLD, argv[<span style="color:#ae81ff">1</span>]);
+</span></span></code></pre></div><p>编译测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns pgy<span style="color:#f92672">]</span><span style="color:#75715e"># ./utc myhost</span>
+</span></span><span style="display:flex;"><span>uts.nodename in child:  myhost
+</span></span><span style="display:flex;"><span>My PID is: <span style="color:#ae81ff">129716</span>
+</span></span><span style="display:flex;"><span>My parent PID is: <span style="color:#ae81ff">129715</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e"># id</span>
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>root<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e"># id -u</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e"># id -g</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@myhost pgy<span style="color:#f92672">]</span><span style="color:#75715e">#</span>
+</span></span></code></pre></div><h4 id="映射">映射</h4>
+<p><code>docker</code>里面的用户和用户组是与宿主机进行映射；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker ps | awk &#39;{print $1}&#39;</span>
+</span></span><span style="display:flex;"><span>CONTAINER
+</span></span><span style="display:flex;"><span>c884b7311190
+</span></span></code></pre></div><p>可以看到有一个 <code>docker</code>的进程，查一下它的<code>PID</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># ps -aux | grep c88 | grep -v pts/0 | awk &#39;{print $2}&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">41986</span>
+</span></span></code></pre></div><p>查看它的 <code>user</code>与 <code>group</code>的映射</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># cat /proc/41986/gid_map</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">0</span>          <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4294967295</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># cat /proc/41986/uid_map</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">0</span>          <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4294967295</span>
+</span></span></code></pre></div><p>这三列分别表示：</p>
+<ul>
+<li><code>ID-inside-ns</code>：docker里面的ID</li>
+<li><code>ID-outside-ns</code>：docker映射宿主机的ID</li>
+<li><code>length</code>：长度范围</li>
+</ul>
+<p>上面的结果的意思即为：<code>docker</code>的<code>root</code>与<code>docker-ns</code>主机的<code>root</code>进行了映射；</p>
+<h3 id="network-namespace">Network Namespace</h3>
+<h4 id="单ns的情况">单NS的情况</h4>
+<p>宿主机创建一个网络namespace</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ip netns add nstest
+</span></span></code></pre></div><p>添加一对“网线”</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ip link add veth-a type veth peer name veth-b
+</span></span></code></pre></div><p>为<code>veth-a</code>添加IP并启动</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ip addr add  10.0.0.1/24 dev veth-a
+</span></span><span style="display:flex;"><span>ip link set dev veth-a up
+</span></span></code></pre></div><p>将<code>veth-b</code>放入<code>nstest</code>当中，然后设置IP并启动</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ip link set veth-b netns nstest
+</span></span><span style="display:flex;"><span>ip netns exec nstest ip addr add  10.0.0.2/24 dev veth-b
+</span></span><span style="display:flex;"><span>ip netns exec nstest ip link set dev veth-b up
+</span></span></code></pre></div><p>添加完成后，测试ping</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># veth-a</span>
+</span></span><span style="display:flex;"><span>ping 10.0.0.2
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># veth-b</span>
+</span></span><span style="display:flex;"><span>ip netns exec nstest ping 10.0.0.1
+</span></span></code></pre></div><p>对<code>veth-b</code>的操作前面都需要添加<code>ip netns exec</code>这样的命令，我们也可以进入一个<code>bash</code>的<code>netns</code>当中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 前提是已经将veth-b添加至nstest当中</span>
+</span></span><span style="display:flex;"><span>ip link set veth-b netns nstest
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 进入netns里面</span>
+</span></span><span style="display:flex;"><span>ip netns exec nstest  bash
+</span></span></code></pre></div><p>此时进入了一个<code>netns</code>环境当中，输入<code>exit</code>即可退出，我们可以在这里面对<code>veth-b</code>进行同样的操作；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ip addr add  10.0.0.2/24 dev veth-b
+</span></span></code></pre></div><p>查看一下<code>link</code>状态，测试是否与<code>veth-a</code>想通；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip link list</span>
+</span></span><span style="display:flex;"><span>1: lo: &lt;LOOPBACK&gt; mtu <span style="color:#ae81ff">65536</span> qdisc noop state DOWN mode DEFAULT group default qlen <span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+</span></span><span style="display:flex;"><span>16: veth-b@if17: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span style="color:#ae81ff">1500</span> qdisc noqueue state UP mode DEFAULT group default qlen <span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>    link/ether ca:31:5f:1d:00:10 brd ff:ff:ff:ff:ff:ff link-netnsid <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ping 10.0.0.1</span>
+</span></span><span style="display:flex;"><span>PING 10.0.0.1 <span style="color:#f92672">(</span>10.0.0.1<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.0.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.071 ms
+</span></span></code></pre></div><p>清空ns</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 删除netns，同时会删除veth-b</span>
+</span></span><span style="display:flex;"><span>ip netns del nstest
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 删除veth-a</span>
+</span></span><span style="display:flex;"><span>ip link del veth-a
+</span></span></code></pre></div><h4 id="两个ns怎么玩呢">两个NS怎么玩呢？</h4>
+<p>创建两个ns</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip netns add ns1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip netns add ns2</span>
+</span></span></code></pre></div><p>创建一根“网线”，  <code>veth-pairs</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip link add veth-a type veth  peer name veth-b</span>
+</span></span></code></pre></div><p>在<code>ns1</code>当中创建<code>veth-a</code>，在<code>ns2</code>当中创建<code>veth-b</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip link set veth-a netns ns1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip link set veth-b netns ns2</span>
+</span></span></code></pre></div><p>启动</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip netns exec ns1 ip link set dev veth-a up</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip netns exec ns2 ip link set dev veth-b up</span>
+</span></span></code></pre></div><p>配置IP</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip netns exec ns1 ip addr add 10.0.0.1/24 dev veth-a</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip netns exec ns2 ip addr add 10.0.0.2/24 dev veth-b</span>
+</span></span></code></pre></div><p>测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip netns exec ns1 ping 10.0.0.2</span>
+</span></span><span style="display:flex;"><span>PING 10.0.0.2 <span style="color:#f92672">(</span>10.0.0.2<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.0.2: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.073 ms
+</span></span><span style="display:flex;"><span>......
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ip netns exec ns2 ping 10.0.0.1</span>
+</span></span><span style="display:flex;"><span>PING 10.0.0.1 <span style="color:#f92672">(</span>10.0.0.1<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.0.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.061 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.0.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.077 ms
+</span></span></code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80namespace/>https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80namespace/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/docker/">
+                    #docker</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E5%A6%82%E4%BD%95%E4%B8%BAipad%E5%88%B7%E6%9C%BA/" class="prev" rel="prev" title="如何刷机ipad、iphone"><i class="iconfont icon-left"></i>&nbsp;如何刷机ipad、iphone</a>
+        
+        
+        <a href="https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8Ccgroup/" class="next" rel="next" title="Docker容器与容器云读书笔记（二）–CGroup">Docker容器与容器云读书笔记（二）–CGroup&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

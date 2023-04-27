@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>prometheues on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/prometheues/</link>
+    <description>Recent content in prometheues on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 06 Aug 2020 18:00:55 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/prometheues/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>prometheus(一)环境搭建</title>
+      <link>https://xibolun.github.io/post/prometheus/prometheus%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Thu, 06 Aug 2020 18:00:55 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/prometheus/prometheus%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>需求了解的几个概念 基础架构逻辑 Discovery Alert Rule Exporter Target Rule 关于RuleFile的解析 以下是一个rule file的定义内容 groups: - name: hostStatsAlert rules: - alert: hostCpuUsageAlert expr: sum(avg without (cpu)(irate(node_cpu{mode!=&amp;#39;idle&amp;#39;}[5m]))) by (instance) &amp;gt; 0.85 for: 1m</description>
+    </item>
+    
+  </channel>
+</rss>

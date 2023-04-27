@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/k8s/k8sserviceaccount/" />
+    <link rel="next" href="https://xibolun.github.io/post/k8s/k8sschedule/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/k8s/k8s%E8%AF%81%E4%B9%A6/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            k8s––证书修改 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="k8s––证书修改 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "k8s––证书修改",
+    "headline" : "k8s––证书修改",
+    "description" : "证书列表 校验一下证书过期属性即可得到以下的证书列表，可以看到默认是一年的有效期； [root@ops-pre-4-175 pod]# kubeadm alpha certs check-expiration [check-expiration] Reading configuration from the cluster... [check-expiration] FYI: You can look at this config file with \u0026#39;kubectl -n kube-system get cm kubeadm-config -oyaml\u0026#39; W1209",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-03-11 10:31:51 \u002b0800 CST",
+    "dateModified" : "2020-03-11 10:31:51 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/k8s\/k8s%E8%AF%81%E4%B9%A6\/",
+    "wordCount" : "1076",
+    "keywords" : [ "k8s", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">k8s––证书修改</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-03-11 itemprop="datePublished">March 11, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/k8s/"> k8s, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1076 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="证书列表">证书列表</h3>
+<p>校验一下证书过期属性即可得到以下的证书列表，可以看到默认是一年的有效期；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@ops-pre-4-175 pod<span style="color:#f92672">]</span><span style="color:#75715e"># kubeadm  alpha certs check-expiration</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>check-expiration<span style="color:#f92672">]</span> Reading configuration from the cluster...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>check-expiration<span style="color:#f92672">]</span> FYI: You can look at this config file with <span style="color:#e6db74">&#39;kubectl -n kube-system get cm kubeadm-config -oyaml&#39;</span>
+</span></span><span style="display:flex;"><span>W1209 10:32:32.802898   <span style="color:#ae81ff">25396</span> defaults.go:186<span style="color:#f92672">]</span> The recommended value <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;clusterDNS&#34;</span> in <span style="color:#e6db74">&#34;KubeletConfiguration&#34;</span> is: <span style="color:#f92672">[</span>10.233.0.10<span style="color:#f92672">]</span>; the provided value is: <span style="color:#f92672">[</span>169.254.25.10<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED
+</span></span><span style="display:flex;"><span>admin.conf                 Dec 09, <span style="color:#ae81ff">2021</span> 02:22 UTC   364d                                    no
+</span></span><span style="display:flex;"><span>apiserver                  Dec 09, <span style="color:#ae81ff">2021</span> 02:22 UTC   364d            ca                      no
+</span></span><span style="display:flex;"><span>apiserver-kubelet-client   Dec 09, <span style="color:#ae81ff">2021</span> 02:23 UTC   364d            ca                      no
+</span></span><span style="display:flex;"><span>controller-manager.conf    Dec 09, <span style="color:#ae81ff">2021</span> 02:23 UTC   364d                                    no
+</span></span><span style="display:flex;"><span>front-proxy-client         Dec 09, <span style="color:#ae81ff">2021</span> 02:23 UTC   364d            front-proxy-ca          no
+</span></span><span style="display:flex;"><span>scheduler.conf             Dec 09, <span style="color:#ae81ff">2021</span> 02:23 UTC   364d                                    no
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED
+</span></span><span style="display:flex;"><span>ca                      Sep 14, <span style="color:#ae81ff">2030</span> 08:42 UTC   9y              no
+</span></span><span style="display:flex;"><span>front-proxy-ca          Sep 14, <span style="color:#ae81ff">2030</span> 08:42 UTC   9y              no
+</span></span></code></pre></div><p>可以看到<code>CA</code>的有效期为10年，而<code>api、schedule</code>等相关认证的证书时间为1年，为什么是这样呢？</p>
+<p>在生成<code>k8s config</code>的时候会创建证书和<code>key</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// cmd/kubeadm/app/util/pkiutil/pki_helpers.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// NewCertAndKey creates new certificate and key by passing the certificate authority certificate and key
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewCertAndKey</span>(<span style="color:#a6e22e">caCert</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">Certificate</span>, <span style="color:#a6e22e">caKey</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">Signer</span>, <span style="color:#a6e22e">config</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CertConfig</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">Certificate</span>, <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">Signer</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">NewPrivateKey</span>(<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">PublicKeyAlgorithm</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">Wrap</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;unable to create private key&#34;</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cert</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">NewSignedCert</span>(<span style="color:#a6e22e">config</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">caCert</span>, <span style="color:#a6e22e">caKey</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">Wrap</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;unable to sign certificate&#34;</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cert</span>, <span style="color:#a6e22e">key</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// cmd/kubeadm/app/util/pkiutil/pki_helpers.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// NewSignedCert creates a signed certificate using the given CA certificate and key
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewSignedCert</span>(<span style="color:#a6e22e">cfg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CertConfig</span>, <span style="color:#a6e22e">key</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">Signer</span>, <span style="color:#a6e22e">caCert</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">Certificate</span>, <span style="color:#a6e22e">caKey</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">Signer</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">Certificate</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">serial</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cryptorand</span>.<span style="color:#a6e22e">Int</span>(<span style="color:#a6e22e">cryptorand</span>.<span style="color:#a6e22e">Reader</span>, new(<span style="color:#a6e22e">big</span>.<span style="color:#a6e22e">Int</span>).<span style="color:#a6e22e">SetInt64</span>(<span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt64</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">CommonName</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;must specify a CommonName&#34;</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">Usages</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;must specify at least one ExtKeyUsage&#34;</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">RemoveDuplicateAltNames</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">AltNames</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">certTmpl</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">Certificate</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Subject</span>: <span style="color:#a6e22e">pkix</span>.<span style="color:#a6e22e">Name</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">CommonName</span>:   <span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">CommonName</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Organization</span>: <span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">Organization</span>,
+</span></span><span style="display:flex;"><span>		},
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">DNSNames</span>:     <span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">AltNames</span>.<span style="color:#a6e22e">DNSNames</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">IPAddresses</span>:  <span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">AltNames</span>.<span style="color:#a6e22e">IPs</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">SerialNumber</span>: <span style="color:#a6e22e">serial</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">NotBefore</span>:    <span style="color:#a6e22e">caCert</span>.<span style="color:#a6e22e">NotBefore</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 这里引用了一个常量，常量value为
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 	CertificateValidity = time.Hour * 24 * 365
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">NotAfter</span>:     <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">kubeadmconstants</span>.<span style="color:#a6e22e">CertificateValidity</span>).<span style="color:#a6e22e">UTC</span>(),
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">KeyUsage</span>:     <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">KeyUsageKeyEncipherment</span> | <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">KeyUsageDigitalSignature</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">ExtKeyUsage</span>:  <span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">Usages</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">certDERBytes</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">CreateCertificate</span>(<span style="color:#a6e22e">cryptorand</span>.<span style="color:#a6e22e">Reader</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">certTmpl</span>, <span style="color:#a6e22e">caCert</span>, <span style="color:#a6e22e">key</span>.<span style="color:#a6e22e">Public</span>(), <span style="color:#a6e22e">caKey</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">ParseCertificate</span>(<span style="color:#a6e22e">certDERBytes</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>CA的认证有效期</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// staging/src/k8s.io/client-go/util/cert/cert.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// NewSelfSignedCACert creates a CA certificate
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewSelfSignedCACert</span>(<span style="color:#a6e22e">cfg</span> <span style="color:#a6e22e">Config</span>, <span style="color:#a6e22e">key</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">Signer</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">Certificate</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">now</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tmpl</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">Certificate</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">SerialNumber</span>: new(<span style="color:#a6e22e">big</span>.<span style="color:#a6e22e">Int</span>).<span style="color:#a6e22e">SetInt64</span>(<span style="color:#ae81ff">0</span>),
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Subject</span>: <span style="color:#a6e22e">pkix</span>.<span style="color:#a6e22e">Name</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">CommonName</span>:   <span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">CommonName</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Organization</span>: <span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">Organization</span>,
+</span></span><span style="display:flex;"><span>		},
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">NotBefore</span>:             <span style="color:#a6e22e">now</span>.<span style="color:#a6e22e">UTC</span>(),
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 这里指定了10年，可以修改为100年
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">NotAfter</span>:              <span style="color:#a6e22e">now</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">duration365d</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>).<span style="color:#a6e22e">UTC</span>(),
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">KeyUsage</span>:              <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">KeyUsageKeyEncipherment</span> | <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">KeyUsageDigitalSignature</span> | <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">KeyUsageCertSign</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">BasicConstraintsValid</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">IsCA</span>:                  <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">certDERBytes</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">CreateCertificate</span>(<span style="color:#a6e22e">cryptorand</span>.<span style="color:#a6e22e">Reader</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">tmpl</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">tmpl</span>, <span style="color:#a6e22e">key</span>.<span style="color:#a6e22e">Public</span>(), <span style="color:#a6e22e">key</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x509</span>.<span style="color:#a6e22e">ParseCertificate</span>(<span style="color:#a6e22e">certDERBytes</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="如何续约">如何续约</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubeadm alpha certs renew all
+</span></span></code></pre></div><p><code>renew all</code>即可重新生成自当前时间开始，一年的有效证书；但是有一具问题，需要重启<code>k8s master\node</code>；</p>
+<p>自己做了一个测试，修改一个<code>k8s</code>集群的时间</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>date -s 12/09/2022
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@ops-pre-4-175 pki<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get pods  -n idcos -o wide</span>
+</span></span><span style="display:flex;"><span>Unable to connect to the server: x509: certificate has expired or is not yet valid
+</span></span></code></pre></div><p>调用的时候已经出现了证书校验不通过的问题，续签一年，然后再执行命令的时候依旧会报上面的错误；只有重启才可以生效；若想使用长久的证书，并且不重启集群，可以通过修改源码实现；需要了解一下如何编译<code>k8s</code>；</p>
+<h4 id="镜像编译">镜像编译</h4>
+<p>下载编译镜像</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker pull gcrcontainer/kube-cross:v1.13.6-1
+</span></span></code></pre></div><blockquote>
+<p>若k8s的版本较高，注意镜像里面的go version需要高一些；</p>
+</blockquote>
+<p>下载指定版本源码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>curl -LO https://github.com/kubernetes/kubernetes/archive/v1.18.12.zip
+</span></span></code></pre></div><p>使用镜像编译</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run --rm -v &lt;k8s源码路径&gt;:/go/src/k8s.io/kubernetes -it gcrcontainer/kube-cross:v1.13.6-1 bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd /go/src/k8s.io/kubernetes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 编译kubeadm, 这里主要编译kubeadm 即可</span>
+</span></span><span style="display:flex;"><span>make all WHAT<span style="color:#f92672">=</span>cmd/kubeadm GOFLAGS<span style="color:#f92672">=</span>-v
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 编译kubelet</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make all WHAT=cmd/kubelet GOFLAGS=-v</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 编译kubectl</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make all WHAT=cmd/kubectl GOFLAGS=-v</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 退出容器</span>
+</span></span><span style="display:flex;"><span>exit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#编译完产物在 _output/bin/kubeadm 目录下，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#其中bin是使用了软连接</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#真实路径是_output/local/bin/linux/amd64/kubeadm</span>
+</span></span><span style="display:flex;"><span>mv /usr/bin/kubeadm /usr/bin/kubeadm_backup
+</span></span><span style="display:flex;"><span>cp _output/local/bin/linux/amd64/kubeadm /usr/bin/kubeadm
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#chmod +x /usr/bin/kubeadm</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 验证版本</span>
+</span></span><span style="display:flex;"><span>kubeadm version
+</span></span></code></pre></div><p>使用新版本的<code>kubeadm</code>进行续约</p>
+<pre tabindex="0"><code>kubeadm alpha certs renew all
+</code></pre><p>需要重新配置证书</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@ops-pre-4-175 pki<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get pods  -n idcos -o wide</span>
+</span></span><span style="display:flex;"><span>error: You must be logged in to the server <span style="color:#f92672">(</span>Unauthorized<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp  /etc/kubernetes/admin.conf ~/.kube/config
+</span></span></code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/k8s/k8s%E8%AF%81%E4%B9%A6/>https://xibolun.github.io/post/k8s/k8s%E8%AF%81%E4%B9%A6/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/k8s/">
+                    #k8s</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/k8s/k8sserviceaccount/" class="prev" rel="prev" title="k8s––ServiceAccount"><i class="iconfont icon-left"></i>&nbsp;k8s––ServiceAccount</a>
+        
+        
+        <a href="https://xibolun.github.io/post/k8s/k8sschedule/" class="next" rel="next" title="k8s––schedule">k8s––schedule&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

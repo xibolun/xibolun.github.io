@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC3%E7%AB%A0-%E9%BB%98%E8%AE%A4%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/" />
+    <link rel="next" href="https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC4%E7%AB%A0--%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E8%A7%A3%E6%9E%90/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC5%E7%AB%A0--bean%E7%9A%84%E5%8A%A0%E8%BD%BD/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Spring源码深度解析第5章--bean的加载 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Spring源码深度解析第5章--bean的加载 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Spring源码深度解析第5章--bean的加载",
+    "headline" : "Spring源码深度解析第5章--bean的加载",
+    "description" : "5.1 FactoryBean的使用 \/*** AbstractBeanFactory.doGetBean方法加载bean **\/ protected \u0026lt;T\u0026gt; T doGetBean(final String name, @Nullable final Class\u0026lt;T\u0026gt; requiredType, @Nullable final Object[] args, boolean typeCheckOnly)",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-08-21 23:36:24 \u002b0800 CST",
+    "dateModified" : "2017-08-21 23:36:24 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/spring\/spring%E6%BA%90%E7%A0%81\/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC5%E7%AB%A0--bean%E7%9A%84%E5%8A%A0%E8%BD%BD\/",
+    "wordCount" : "1463",
+    "keywords" : [ "spring", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Spring源码深度解析第5章--bean的加载</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-08-21 itemprop="datePublished">August 21, 2017</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1463 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="51-factorybean的使用">5.1 FactoryBean的使用</h2>
+<pre tabindex="0"><code>  /*** AbstractBeanFactory.doGetBean方法加载bean **/
+
+    protected &lt;T&gt; T doGetBean(final String name, @Nullable final Class&lt;T&gt; requiredType,
+            @Nullable final Object[] args, boolean typeCheckOnly) throws BeansException {}
+</code></pre><h3 id="转换beanname">转换beanName</h3>
+<ul>
+<li>spring的FactoryBean是以&amp;开头的，若一个beanName是以&amp;开头的，说明是FactoryBean，需要截取&amp;后面的内容</li>
+<li>判断此name是否为aliasName，若在aliasMap当中可以找得到，那么需要给出alias的真正名称</li>
+</ul>
+<pre tabindex="0"><code>        final String beanName = transformedBeanName(name);
+
+protected String transformedBeanName(String name) {
+        return canonicalName(BeanFactoryUtils.transformedBeanName(name));
+    }
+</code></pre><pre tabindex="0"><code>public static String transformedBeanName(String name) {
+        Assert.notNull(name, &#34;&#39;name&#39; must not be null&#34;);
+        String beanName = name;
+        while (beanName.startsWith(BeanFactory.FACTORY_BEAN_PREFIX)) {
+            beanName = beanName.substring(BeanFactory.FACTORY_BEAN_PREFIX.length());
+        }
+        return beanName;
+    }
+
+    public String canonicalName(String name) {
+        String canonicalName = name;
+        // Handle aliasing...
+        String resolvedName;
+        do {
+            resolvedName = this.aliasMap.get(canonicalName);
+            if (resolvedName != null) {
+                canonicalName = resolvedName;
+            }
+        }
+        while (resolvedName != null);
+        return canonicalName;
+    }
+</code></pre><h2 id="52-缓存中获取单例bean">5.2 缓存中获取单例bean</h2>
+<h3 id="根据beanname在单例当中查找bean单例可以解决循环依赖">根据beanName在单例当中查找Bean,单例可以解决循环依赖</h3>
+<pre tabindex="0"><code>        Object sharedInstance = getSingleton(beanName);
+</code></pre><pre tabindex="0"><code>  /** Cache of early singleton objects: bean name --&gt; bean instance */
+    private final Map&lt;String, Object&gt; earlySingletonObjects = new HashMap&lt;&gt;(16);
+
+    /** Cache of singleton factories: bean name --&gt; ObjectFactory */
+    private final Map&lt;String, ObjectFactory&lt;?&gt;&gt; singletonFactories = new HashMap&lt;&gt;(16);
+
+    /** Cache of singleton objects: bean name --&gt; bean instance */
+    private final Map&lt;String, Object&gt; singletonObjects = new ConcurrentHashMap&lt;&gt;(256);
+
+    protected Object getSingleton(String beanName, boolean allowEarlyReference) {
+        Object singletonObject = this.singletonObjects.get(beanName);
+        if (singletonObject == null &amp;&amp; isSingletonCurrentlyInCreation(beanName)) {
+            synchronized (this.singletonObjects) {
+                singletonObject = this.earlySingletonObjects.get(beanName);
+                if (singletonObject == null &amp;&amp; allowEarlyReference) {
+                    ObjectFactory&lt;?&gt; singletonFactory = this.singletonFactories.get(beanName);
+                    if (singletonFactory != null) {
+                        singletonObject = singletonFactory.getObject();
+                        this.earlySingletonObjects.put(beanName, singletonObject);
+                        this.singletonFactories.remove(beanName);
+                    }
+                }
+            }
+        }
+        return (singletonObject != NULL_OBJECT ? singletonObject : null);
+    }
+</code></pre><ul>
+<li>首先看缓存的singletonObjects当中是否存在bean，若存在直接就返回</li>
+<li>若不存在，则去查找缓存的earlySingletonObjects当中是否存在</li>
+<li>若不存在，则查找singlegonFactories当中是否存在</li>
+<li>若存在，则将bean缓存起来</li>
+<li>singletonObjects里面在存放着BeanName和BeanInstance之前的关系</li>
+<li>singletonFactories里面存放着BeanName和FactoryBean之间的关系</li>
+</ul>
+<h2 id="55-准备开始创建bean">5.5 准备开始创建Bean</h2>
+<h3 id="若在单例的缓存当中不存在则判断bean是否在创建当中">若在单例的缓存当中不存在，则判断bean是否在创建当中</h3>
+<pre tabindex="0"><code>      // Fail if we&#39;re already creating this bean instance:
+            // We&#39;re assumably within a circular reference.
+            if (isPrototypeCurrentlyInCreation(beanName)) {
+                throw new BeanCurrentlyInCreationException(beanName);
+            }
+
+       /** 使用了多线程共享 **/
+    private final ThreadLocal&lt;Object&gt; prototypesCurrentlyInCreation =
+            new NamedThreadLocal&lt;&gt;(&#34;Prototype beans currently in creation&#34;);
+
+    protected boolean isPrototypeCurrentlyInCreation(String beanName) {
+        Object curVal = this.prototypesCurrentlyInCreation.get();
+        return (curVal != null &amp;&amp;
+                (curVal.equals(beanName) || (curVal instanceof Set &amp;&amp; ((Set&lt;?&gt;) curVal).contains(beanName))));
+    }
+</code></pre><h3 id="若不在创建当中去parentfactory当中找">若不在创建当中，去parentFactory当中找</h3>
+<pre tabindex="0"><code>
+            // Check if bean definition exists in this factory.
+            BeanFactory parentBeanFactory = getParentBeanFactory();
+            if (parentBeanFactory != null &amp;&amp; !containsBeanDefinition(beanName)) {
+                // Not found -&gt; check parent.
+                String nameToLookup = originalBeanName(name);
+                if (parentBeanFactory instanceof AbstractBeanFactory) {
+                    return ((AbstractBeanFactory) parentBeanFactory).doGetBean(
+                            nameToLookup, requiredType, args, typeCheckOnly);
+                }
+                else if (args != null) {
+                    // Delegation to parent with explicit args.
+                    return (T) parentBeanFactory.getBean(nameToLookup, args);
+                }
+                else {
+                    // No args -&gt; delegate to standard getBean method.
+                    return parentBeanFactory.getBean(nameToLookup, requiredType);
+                }
+            }
+</code></pre><h2 id="56-循环依赖-spring如何解决循环依赖">5.6 循环依赖-spring如何解决循环依赖</h2>
+<pre tabindex="0"><code>      // Fail if we&#39;re already creating this bean instance:
+            // We&#39;re assumably within a circular reference.
+            if (isPrototypeCurrentlyInCreation(beanName)) {
+                throw new BeanCurrentlyInCreationException(beanName);
+            }
+</code></pre><ul>
+<li>将需要创建的beanName放入到prototypesCurrentlyInCreation当中，若已经存在则抛出异常</li>
+<li>若循环依赖，抛出异常BeanCurrentlyInCreationException</li>
+</ul>
+<h2 id="57-创建bean">5.7 创建bean</h2>
+<pre tabindex="0"><code>    protected Object doCreateBean(final String beanName, final RootBeanDefinition mbd, final @Nullable Object[] args)
+            throws BeanCreationException {}
+
+    /** 若是单例的，清除缓存 ，并重新实例化**/
+        BeanWrapper instanceWrapper = null;
+        if (mbd.isSingleton()) {
+            instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
+        }
+        if (instanceWrapper == null) {
+            instanceWrapper = createBeanInstance(beanName, mbd, args);
+        }
+
+
+        // Initialize the bean instance.
+        Object exposedObject = bean;
+        try {
+            populateBean(beanName, mbd, instanceWrapper);
+            if (exposedObject != null) {
+                exposedObject = initializeBean(beanName, exposedObject, mbd);
+            }
+        }
+</code></pre><ul>
+<li>整个Spring实例化bean就是放到createBeanInstance或者initializeBean当中</li>
+</ul>
+<h3 id="575-注册bean--abstractbeanfactoryregisterdisposablebeanifnecessary">5.7.5 注册bean&ndash;AbstractBeanFactory.registerDisposableBeanIfNecessary</h3>
+<pre tabindex="0"><code>    protected void registerDisposableBeanIfNecessary(String beanName, Object bean, RootBeanDefinition mbd) {
+        AccessControlContext acc = (System.getSecurityManager() != null ? getAccessControlContext() : null);
+        if (!mbd.isPrototype() &amp;&amp; requiresDestruction(bean, mbd)) {
+            if (mbd.isSingleton()) {
+                // Register a DisposableBean implementation that performs all destruction
+                // work for the given bean: DestructionAwareBeanPostProcessors,
+                // DisposableBean interface, custom destroy method.
+                registerDisposableBean(beanName,
+                        new DisposableBeanAdapter(bean, beanName, mbd, getBeanPostProcessors(), acc));
+            }
+            else {
+                // A bean with a custom scope...
+                Scope scope = this.scopes.get(mbd.getScope());
+                if (scope == null) {
+                    throw new IllegalStateException(&#34;No Scope registered for scope name &#39;&#34; + mbd.getScope() + &#34;&#39;&#34;);
+                }
+                scope.registerDestructionCallback(beanName,
+                        new DisposableBeanAdapter(bean, beanName, mbd, getBeanPostProcessors(), acc));
+            }
+        }
+    }
+</code></pre><ul>
+<li>所有的bean都会放到disposable当中，disposable是一个LinkedHashMap,beanName作为key，bean作为value</li>
+<li>若为单例，直接放入到disposabled当中，若为自定义范围，则调用自定义的接口进行处理</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC5%E7%AB%A0--bean%E7%9A%84%E5%8A%A0%E8%BD%BD/>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC5%E7%AB%A0--bean%E7%9A%84%E5%8A%A0%E8%BD%BD/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/spring/">
+                    #spring</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC3%E7%AB%A0-%E9%BB%98%E8%AE%A4%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/" class="prev" rel="prev" title="Spring源码深度解析第3章--默认标签的解析"><i class="iconfont icon-left"></i>&nbsp;Spring源码深度解析第3章--默认标签的解析</a>
+        
+        
+        <a href="https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC4%E7%AB%A0--%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E8%A7%A3%E6%9E%90/" class="next" rel="next" title="Spring源码深度解析第4章--自定义标签解析">Spring源码深度解析第4章--自定义标签解析&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

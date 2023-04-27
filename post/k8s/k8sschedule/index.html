@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/k8s/k8s%E8%AF%81%E4%B9%A6/" />
+    <link rel="next" href="https://xibolun.github.io/post/k8s/k8sinformer%E6%9C%BA%E5%88%B6/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/k8s/k8sschedule/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            k8s––schedule | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="k8s––schedule | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "k8s––schedule",
+    "headline" : "k8s––schedule",
+    "description" : "源码根据k8s : v1.18.12版本 创建一个Pod的时候到底归属到哪个Node上面呢？这在k8s里面是有非常精细的一套调度逻辑； 调度原理 通过",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-03-12 20:41:03 \u002b0800 CST",
+    "dateModified" : "2020-03-12 20:41:03 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/k8s\/k8sschedule\/",
+    "wordCount" : "2496",
+    "keywords" : [ "k8s", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">k8s––schedule</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-03-12 itemprop="datePublished">March 12, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/k8s/"> k8s, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">2496 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <blockquote>
+<p>源码根据<code>k8s : v1.18.12</code>版本</p>
+</blockquote>
+<p>创建一个<code>Pod</code>的时候到底归属到哪个<code>Node</code>上面呢？这在<code>k8s</code>里面是有非常精细的一套调度逻辑；</p>
+<h3 id="调度原理">调度原理</h3>
+<ul>
+<li>通过<code>cobra</code>开始启动命令服务</li>
+<li>创建<code>schedule</code></li>
+<li>加载配置信息，从<code>queueSort</code>、<code>PreFilter</code>、<code>Filter</code>、<code>PreScore</code>、<code>Score</code>、<code>Bind</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// pkg/scheduler/algorithmprovider/registry.go method getDefaultConfig
+</span></span></span></code></pre></div><p>这些都是插件，可以从启动的参数里面通过<code>options</code>传递，也可以使用默认的；在<code>framework/plugins</code>下面有许多的插件，每个插件的方法都可能会有<code>queueSort</code>、<code>PreFilter</code>、<code>Filter</code>、<code>PreScore</code>、<code>Score</code>、<code>Bind</code>的<code>interface</code>实现；</p>
+<pre tabindex="0"><code>➜  plugins git:(release-1.18.12) tree -d
+.
+├── defaultbinder
+├── defaultpodtopologyspread
+├── examples
+│   ├── multipoint
+│   ├── prebind
+│   └── stateful
+├── helper
+├── imagelocality
+├── interpodaffinity
+├── nodeaffinity
+├── nodelabel
+├── nodename
+├── nodeports
+├── nodepreferavoidpods
+├── noderesources
+├── nodeunschedulable
+├── nodevolumelimits
+├── podtopologyspread
+├── queuesort
+├── serviceaffinity
+├── tainttoleration
+├── volumebinding
+├── volumerestrictions
+└── volumezone
+</code></pre><ul>
+<li>监听<code>pod</code>的列表，会有一个<code>pod queue</code>，当一个<code>pod</code>结束后，会进行下一个<code>pod</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Run begins watching and scheduling. It waits for cache to be synced, then starts scheduling and blocked until the context is done.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">sched</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Scheduler</span>) <span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 监听pod是否完成，若没有完成，则继续等待
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">WaitForCacheSync</span>(<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>(), <span style="color:#a6e22e">sched</span>.<span style="color:#a6e22e">scheduledPodsHasSynced</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">sched</span>.<span style="color:#a6e22e">SchedulingQueue</span>.<span style="color:#a6e22e">Run</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 开始调度一个pod，从pod queue当中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">wait</span>.<span style="color:#a6e22e">UntilWithContext</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">sched</span>.<span style="color:#a6e22e">scheduleOne</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">sched</span>.<span style="color:#a6e22e">SchedulingQueue</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>开始进行调试，接口主要实现是<code>genericScheduler</code></li>
+<li><code>podPassesBasicChecks</code>：校验<code>pod</code>基础信息，主要是校验<code>pvc</code>是否存在，名称是否异常</li>
+<li><code>RunPreFilterPlugins</code>： 先执行<code>PreFilter</code>，这些<code>filter</code>都在上面的那些<code>plugins</code>里面实现</li>
+<li><code>findNodesThatFitPod</code>：执行<code>Filter</code>接口实现</li>
+<li><code>RunPreScorePlugins</code>： 预先打分</li>
+<li><code>prioritizeNodes</code>：对<code>node</code>进行优选，其实就是<code>ScorePlugin</code>打分</li>
+<li><code>selectHost</code>：最终根据打出来的分，找最高的node返回，只会返回一个</li>
+</ul>
+<h3 id="如何打分">如何打分</h3>
+<blockquote>
+<p>本例当中的<code>pre-score</code>和<code>score</code>都以<code>interpodaffinity</code>为例</p>
+</blockquote>
+<h4 id="亲和与反亲和">亲和与反亲和</h4>
+<p>以<code>interpodaffinity</code>为例；用户会有<code>pod</code>的<code>spec</code>当中配置的<code>Affinity</code>属性，<code>Affinity</code>分为<code>Node-Affinity</code>、<code>Pod-Affinity</code>、<code>PodAntiAffinity</code>；他们都有以下两个属性，但是实际上在源码当中每个对象都定义了一个结构体，可能后续也是为了补充其他的属性；</p>
+<ul>
+<li><code>requiredDuringSchedulingIgnoredDuringExecution</code>：表示pod必须部署到满足条件的node之上，若没有，则会进行重试</li>
+<li><code>preferredDuringSchedulingIgnoredDuringExecution</code>：优先部署到满足条件的node上，若没有，则忽略条件部署即可</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">with-pod-affinity</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">affinity</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">podAffinity</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requiredDuringSchedulingIgnoredDuringExecution</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">labelSelector</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">matchExpressions</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">security</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">values</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">S1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">topologyKey</span>: <span style="color:#ae81ff">topology.kubernetes.io/zone</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">podAntiAffinity</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">preferredDuringSchedulingIgnoredDuringExecution</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">weight</span>: <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">podAffinityTerm</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">labelSelector</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">matchExpressions</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">security</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">values</span>:
+</span></span><span style="display:flex;"><span>              - <span style="color:#ae81ff">S2</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">topologyKey</span>: <span style="color:#ae81ff">topology.kubernetes.io/zone</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">with-pod-affinity</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">k8s.gcr.io/pause:2.0</span>
+</span></span></code></pre></div><h4 id="pre-score过程">pre-score过程</h4>
+<p><code>PodAffinity</code>会生成<code>affinityTerms</code>；而<code>PodAntiAffinity</code>会生成<code>antiAffinityTerms</code>，他们都是<code>[]weightedAffinityTerm</code>，里面存放着指标和权重</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// A &#34;processed&#34; representation of v1.WeightedAffinityTerm.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">weightedAffinityTerm</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">affinityTerm</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">weight</span> <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>PodAffinity</code>打分</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// pkg/scheduler/framework/plugins/interpodaffinity/scoring.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">pl</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">InterPodAffinity</span>) <span style="color:#a6e22e">processTerm</span>(
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">state</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">preScoreState</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">term</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">weightedAffinityTerm</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">podToCheck</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Pod</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fixedNode</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Node</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">multiplier</span> <span style="color:#66d9ef">int</span>,
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">fixedNode</span>.<span style="color:#a6e22e">Labels</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">match</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">schedutil</span>.<span style="color:#a6e22e">PodMatchesTermsNamespaceAndSelector</span>(<span style="color:#a6e22e">podToCheck</span>, <span style="color:#a6e22e">term</span>.<span style="color:#a6e22e">namespaces</span>, <span style="color:#a6e22e">term</span>.<span style="color:#a6e22e">selector</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tpValue</span>, <span style="color:#a6e22e">tpValueExist</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fixedNode</span>.<span style="color:#a6e22e">Labels</span>[<span style="color:#a6e22e">term</span>.<span style="color:#a6e22e">topologyKey</span>]
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">match</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">tpValueExist</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">pl</span>.<span style="color:#a6e22e">Lock</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">topologyScore</span>[<span style="color:#a6e22e">term</span>.<span style="color:#a6e22e">topologyKey</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">topologyScore</span>[<span style="color:#a6e22e">term</span>.<span style="color:#a6e22e">topologyKey</span>] = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int64</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 亲和属性的值加上 权重*乘数，这个乘数是从上面传过来的，下面的代码片断里面有说明
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">topologyScore</span>[<span style="color:#a6e22e">term</span>.<span style="color:#a6e22e">topologyKey</span>][<span style="color:#a6e22e">tpValue</span>] <span style="color:#f92672">+=</span> int64(<span style="color:#a6e22e">term</span>.<span style="color:#a6e22e">weight</span> <span style="color:#f92672">*</span> int32(<span style="color:#a6e22e">multiplier</span>))
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">pl</span>.<span style="color:#a6e22e">Unlock</span>()
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#75715e">// For every soft pod affinity term of &lt;pod&gt;, if &lt;existingPod&gt; matches the term,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// increment &lt;p.counts&gt; for every node in the cluster with the same &lt;term.TopologyKey&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// value as that of &lt;existingPods&gt;`s node by the term`s weight.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// 若pod的软亲和力在已经存在的Pod当中有，那么将所有的存在此属性的pod所在的node节点增长1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">pl</span>.<span style="color:#a6e22e">processTerms</span>(<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">affinityTerms</span>, <span style="color:#a6e22e">existingPod</span>, <span style="color:#a6e22e">existingPodNode</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// For every soft pod anti-affinity term of &lt;pod&gt;, if &lt;existingPod&gt; matches the term,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// decrement &lt;p.counts&gt; for every node in the cluster with the same &lt;term.TopologyKey&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// value as that of &lt;existingPod&gt;`s node by the term`s weight.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// 若pod的软非亲和力在已经存在的Pod当中有，那么将所有的存在此属性的pod所在的node节点减去1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">pl</span>.<span style="color:#a6e22e">processTerms</span>(<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">antiAffinityTerms</span>, <span style="color:#a6e22e">existingPod</span>, <span style="color:#a6e22e">existingPodNode</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>最终生成一个<code>preScoreState</code>对象，放入<code>cycleState</code>当中，这个<code>preScoreStateKey</code>即为不同的实现的名称，在此例当中即为<code>PreScoreInterPodAffinity</code>；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">cycleState</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">preScoreStateKey</span>, <span style="color:#a6e22e">state</span>)
+</span></span></code></pre></div><h4 id="score过程">score过程</h4>
+<p><code>pkg/scheduler/framework/plugins/interpodaffinity/scoring.go</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Score invoked at the Score extension point.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// The &#34;score&#34; returned in this function is the matching number of pods on the `nodeName`,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// it is normalized later.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">pl</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">InterPodAffinity</span>) <span style="color:#a6e22e">Score</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">cycleState</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">framework</span>.<span style="color:#a6e22e">CycleState</span>, <span style="color:#a6e22e">pod</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Pod</span>, <span style="color:#a6e22e">nodeName</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">int64</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">framework</span>.<span style="color:#a6e22e">Status</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">nodeInfo</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pl</span>.<span style="color:#a6e22e">sharedLister</span>.<span style="color:#a6e22e">NodeInfos</span>().<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">nodeName</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">nodeInfo</span>.<span style="color:#a6e22e">Node</span>() <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">framework</span>.<span style="color:#a6e22e">NewStatus</span>(<span style="color:#a6e22e">framework</span>.<span style="color:#a6e22e">Error</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;getting node %q from Snapshot: %v, node is nil: %v&#34;</span>, <span style="color:#a6e22e">nodeName</span>, <span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">nodeInfo</span>.<span style="color:#a6e22e">Node</span>() <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span>))
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">node</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">nodeInfo</span>.<span style="color:#a6e22e">Node</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 获取 pre-score的state信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">getPreScoreState</span>(<span style="color:#a6e22e">cycleState</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">framework</span>.<span style="color:#a6e22e">NewStatus</span>(<span style="color:#a6e22e">framework</span>.<span style="color:#a6e22e">Error</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">// 将分数值进行累加，即为对应传递进来node的分数值，完成对`Node`的`interpodaffinity`打分
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">score</span> <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">tpKey</span>, <span style="color:#a6e22e">tpValues</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">topologyScore</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">exist</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Labels</span>[<span style="color:#a6e22e">tpKey</span>]; <span style="color:#a6e22e">exist</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">score</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">tpValues</span>[<span style="color:#a6e22e">v</span>]
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">score</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="其他的一些打分实现">其他的一些打分实现</h3>
+<ul>
+<li><code>noderesources--NodeResourcesBalancedAllocation</code>：根据<code>node</code>的<code>cpu\memory\storage\scale</code></li>
+<li><code>noderesources--NodeResourcesLeastAllocated</code>：</li>
+<li><code>nodeaffinity</code>：根据<code>pod</code>当中的<code>NodeAffinity</code>当中的属性和权重来计算</li>
+<li><code>defaultpodtopologyspread</code>：默认的<code>pod</code>拓扑，即根据<code>labels</code>确定的数量即为分值</li>
+<li><code>nodepreferavoidpods––NodePreferAvoidPods</code>，将<code>ReplicationController</code>、<code>ReplicaSet</code>的<code>controller</code>分值设置 为100;</li>
+<li><code>tainttoleration––TaintToleration</code>：根据<code>Pod spec</code>的<code>Tolerations</code>和<code>Node spec</code>的<code>Taints</code>配置来计算分值</li>
+<li><code>imagelocality</code>：根据<code>Pod</code>请求的<code>image size</code> *( (<code>使用此image的nodeNum</code>)/<code>totalNumNodes</code>)，然后再根据区间进行算分</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">scaledImageScore</span>(<span style="color:#a6e22e">imageState</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">schedulernodeinfo</span>.<span style="color:#a6e22e">ImageStateSummary</span>, <span style="color:#a6e22e">totalNumNodes</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int64</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">spread</span> <span style="color:#f92672">:=</span> float64(<span style="color:#a6e22e">imageState</span>.<span style="color:#a6e22e">NumNodes</span>) <span style="color:#f92672">/</span> float64(<span style="color:#a6e22e">totalNumNodes</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> int64(float64(<span style="color:#a6e22e">imageState</span>.<span style="color:#a6e22e">Size</span>) <span style="color:#f92672">*</span> <span style="color:#a6e22e">spread</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// calculatePriority returns the priority of a node. Given the sumScores of requested images on the node, the node&#39;s
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// priority is obtained by scaling the maximum priority value with a ratio proportional to the sumScores.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">calculatePriority</span>(<span style="color:#a6e22e">sumScores</span> <span style="color:#66d9ef">int64</span>) <span style="color:#66d9ef">int64</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 上限 23mb
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sumScores</span> &lt; <span style="color:#a6e22e">minThreshold</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">sumScores</span> = <span style="color:#a6e22e">minThreshold</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 下线 1000mb
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sumScores</span> &gt; <span style="color:#a6e22e">maxThreshold</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">sumScores</span> = <span style="color:#a6e22e">maxThreshold</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// MaxNodeScore=100
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> int64(<span style="color:#a6e22e">framework</span>.<span style="color:#a6e22e">MaxNodeScore</span>) <span style="color:#f92672">*</span> (<span style="color:#a6e22e">sumScores</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">minThreshold</span>) <span style="color:#f92672">/</span> (<span style="color:#a6e22e">maxThreshold</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">minThreshold</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/k8s/k8sschedule/>https://xibolun.github.io/post/k8s/k8sschedule/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/k8s/">
+                    #k8s</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/k8s/k8s%E8%AF%81%E4%B9%A6/" class="prev" rel="prev" title="k8s––证书修改"><i class="iconfont icon-left"></i>&nbsp;k8s––证书修改</a>
+        
+        
+        <a href="https://xibolun.github.io/post/k8s/k8sinformer%E6%9C%BA%E5%88%B6/" class="next" rel="next" title="k8s—informer机制">k8s—informer机制&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

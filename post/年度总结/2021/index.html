@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/golang/go--os.exec/" />
+    <link rel="next" href="https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E8%B0%88%E4%B8%80%E4%B8%8B%E8%BF%9C%E7%A8%8B%E5%8A%9E%E5%85%AC/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/2021/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            2021年度总结 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="2021年度总结 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "2021年度总结",
+    "headline" : "2021年度总结",
+    "description" : "2021年度总结 生活 生活上改变挺大的；今年胡老师在小和山开店了，所以我不得不放下自己的房子，来到留下这边跟她一起租，一起住；有时候下班、周末",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2022",
+    "datePublished": "2022-01-15 18:19:09 \u002b0800 CST",
+    "dateModified" : "2022-01-15 18:19:09 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93\/2021\/",
+    "wordCount" : "2182",
+    "keywords" : [ "年度总结", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">2021年度总结</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2022-01-15 itemprop="datePublished">January 15, 2022</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">2182 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="2021年度总结">2021年度总结</h2>
+<h3 id="生活">生活</h3>
+<p>生活上改变挺大的；今年胡老师在小和山开店了，所以我不得不放下自己的房子，来到留下这边跟她一起租，一起住；有时候下班、周末还要帮她送货；所以全年无休了。之前排斥的拖地、做饭，洗衣服等等现在都要再拾起来，对于我来说，这是不小的压力和挑战；不过幸亏两边老妈过来帮助了我们一年，每天早上能够吃上早饭，衣服也有人洗，非常的感恩；家有一老，如有一宝真的不假；不过也确实辛苦，风里来雨里去，都是血汗钱；</p>
+<p>婚姻上，小两口还需要再磨合。</p>
+<p>今年旅行：重庆、青山湖、千岛湖、凤凰山、宝寿山；平时真的太忙，没有时间带家人出去看看、转转，都是一些小地方，期望明年能多出去看看吧；</p>
+<h3 id="信仰">信仰</h3>
+<p>信仰光景今年比较差，自己有许多的跟不上；</p>
+<ul>
+<li>
+<p>生命小组一期：《生命之道》[完结](<a href="https://www.yuque.com/docs/share/d01e4e04-2a02-4847-9a44-b24fa0c01754?#">https://www.yuque.com/docs/share/d01e4e04-2a02-4847-9a44-b24fa0c01754?#</a> 《2021.7.11 生命小组总结》)；</p>
+</li>
+<li>
+<p>生命小组二期：《旷野42站》完结，从2021.08.08~2021.12.19</p>
+</li>
+<li>
+<p>《<a href="https://www.svca.cc/discipleship/newman.html">新人门训</a>》未完成</p>
+</li>
+<li>
+<p>读经：一遍旧约，两遍新约</p>
+</li>
+<li>
+<p>灵修：章伯斯《竭诚事主》，未完成</p>
+</li>
+</ul>
+<h3 id="成长">成长</h3>
+<h4 id="技术">技术</h4>
+<p>技术今年长进不大，主要学习了vue、nsq、elasticsearch；解决了生产环境的若干问题，都是一些并发或者环境上的问题，也没有什么值得提的；</p>
+<h4 id="读书">读书</h4>
+<p>今年读书主要使用微信读书，很贴心了生成了 <a href="https://weread.qq.com/wrapped-2021?sn=5YmWgaR1OHaeaIyg3p7q1OXWx%202Lkq2uATTl1xtwfr8%3D&amp;isAnimateNavBarBackground=1&amp;isShowNavBarShadow=0&amp;isStatusbarLight=1&amp;navBarTintColor=%23ffffff&amp;navBarTitleColor=%23ffffff">2021年的读书报告</a>；完整读完了7本，还有一本应该过年前可以读完；</p>
+<p>读的其他的书都在这里记录：<a href="https://xibolun.github.io/books/readbooklist/">读书列表</a></p>
+<ul>
+<li>江守道《耶稣基督的见证》，这本书对我的帮助很大，对于特别准备了十二次的分享</li>
+<li>潘霍华《踏不死的麦种》，他的神学思想和生命，以及信仰与国家的平衡，让我惊叹；</li>
+</ul>
+<h4 id="锻炼">锻炼</h4>
+<p>今年锻炼基本为0，非常的差；</p>
+<h3 id="工作">工作</h3>
+<p>2021年最大的一个调整便是工作换了，从一家创业7人开始，干了6年的小公司，进到600多人的七牛，先谈谈工作上的变化；</p>
+<p>最大的感受就是不适应；人太多了，谁都不认识，遇到许多的问题，无从下手；虽然公司有buddy这一制度，但是我的buddy太忙了，所以最后都是问身边的人；新人入职以后，对于公司的产品、团队结构这些信息是需要培训，自己摸还是非常的耗时；我在团队呆了一个多月才知道，kodo、dora这些产品线；</p>
+<p>另外一个不适应就是节奏非常的快，干的活也非常的杂。不像之前做产品，自己只用负责好产品的落地和产品的按时交付、进度保障即可；在这里，多条线齐开，人手非常的不够，所以许多的话都是自己亲力亲为，产品、交互、前端、后端、运维上线这些都需要自己去处理，非常的累，手下没有兵的日子，还是挺苦的；</p>
+<p>从心态上也有变化；这个是我自己需要成长和面对的；上一家公司自己是7号员工，『元老』级别人的物，虽然自己没有呆在管理层，但是各业务线的leader对你也是礼让三分，自己还是有一定的话语权；在新公司里面你只是一个干活的，产出是与ROI挂钩，是要为公司解决问题，而不是为了让自己变成多么牛逼的人；个人想做的大部分的东西与公司的实际需要并不一致的时候，那自己就只能妥协；还有一个点那就是大公司推进真的吃力，有许多的问题并不是你直线Leader能够决定，而是需要其他的leader一起决定，这个进度与你的ROI息息相关，你急也没有什么用；不同意就不同意了，没有什么其他可谈的余地；</p>
+<p>不过通过在七牛的这一年的锻炼，也有许多的成长；之前一直在做产品，许多的东西都是闭门造车，并没有实际去现场或者客户那边解决他们实际的痛点，都是项目经理或者产品经理二次转述过来，导致做出来的产品真的有点四不像，并不是那么好用，这可能也是为什么有许多的产品并没有成功的原因；如果真的想做运维产品，就需要自身去一线亲自摸一把，痛点在哪里；只有这样，自己才可以设计、制造出牛逼、好用的产品；</p>
+<p>『没有标准化，就没有自动化』这句话第一次听是从苏哥嘴里出来的，现在的体会真的非常的深，当业务开发和运维如果没有标准，那根本就无从可谈自动化；Iass层的标准化程度越高，那上层的业务越容易自动化；资源隔离也是非常重要的，若没有资源隔离，就容易出现混布的情况，导致资源浪费和运维成本的增加；</p>
+<p>话语权非常重要；如果你没有话语权，那你做的东西就不会有人买帐，也没有人去care这个事情；如果你的决策是正确的，有一定的地位和话语权，那么推进就会顺利起来，哪怕是强推；当然就我而言；有的东西想不清楚，可以先走一小步，后续迭代，优化直到能够提升效率。</p>
+<p>小公司还是大公司？两者都有优劣，小公司锻炼人，但是对你的履历来讲可能不会有太大的帮助，特别是应届生；大公司有名气，但是工作比较琐碎，看到的比较局部，朋友们常说『面试造火箭，进去拧螺丝』；技术的红利已经饱和，系统化程度比较高，进去也是在基于平台搬砖；如果刚毕业，还是去创业大厂，独角兽公司里面去，排面和技术都有，说不定还可能赶上一波上市；</p>
+<p>最痛苦的是车程一个多小时，要先公交、转小红车，每天来回3个小时；骑机车被交警抓过一次；早上7点半起来就会迟到；多期望能够远程办公哇；</p>
+<h3 id="2022期望">2022期望</h3>
+<ul>
+<li>自己能够在技术上有更多的长进，如果可以学习一下<code>rust</code></li>
+<li>期望在信仰上走的更深一些</li>
+<li>锻炼身体是不容忽视</li>
+<li>有时间出去旅游，看看，和朋友一起多聚聚；</li>
+<li>学习一下理财方面的知识，如果可以实践一下；</li>
+<li>完成12本书的阅读，及读书笔记；</li>
+</ul>
+<p>祝大家新的一年，心想事成！以马内利！</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/2021/>https://xibolun.github.io/post/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/2021/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/">
+                    #年度总结</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/golang/go--os.exec/" class="prev" rel="prev" title="Go os.exec"><i class="iconfont icon-left"></i>&nbsp;Go os.exec</a>
+        
+        
+        <a href="https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E8%B0%88%E4%B8%80%E4%B8%8B%E8%BF%9C%E7%A8%8B%E5%8A%9E%E5%85%AC/" class="next" rel="next" title="谈一下远程办公">谈一下远程办公&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

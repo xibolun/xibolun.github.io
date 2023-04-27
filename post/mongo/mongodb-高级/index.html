@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/neo4j/neo4j-ogm%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" />
+    <link rel="next" href="https://xibolun.github.io/post/neo4j/neo4j-javareference/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/mongo/mongodb-%E9%AB%98%E7%BA%A7/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            MongoDB高级学习 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="MongoDB高级学习 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "MongoDB高级学习",
+    "headline" : "MongoDB高级学习",
+    "description" : "execute JS 创建test.js文件，录入以下文字 printjson(db.adminCommand(\u0026#39;listDatabases\u0026#39;)); printjson(db.getCollectionNames()); printjson(pwd()); 执行js mongo --quiet test.js mongo test.js mongo localhost:27017\/test test.js 可以指定数据库连接和库名执行 quiet的作用是执行的时候不输出相关的执",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-12-14 23:36:24 \u002b0800 CST",
+    "dateModified" : "2017-12-14 23:36:24 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/mongo\/mongodb-%E9%AB%98%E7%BA%A7\/",
+    "wordCount" : "359",
+    "keywords" : [ "Mongo", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">MongoDB高级学习</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-12-14 itemprop="datePublished">December 14, 2017</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">359 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="execute-js">execute JS</h2>
+<p>创建test.js文件，录入以下文字</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">printjson</span>(<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">adminCommand</span>(<span style="color:#e6db74">&#39;listDatabases&#39;</span>));
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">printjson</span>(<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">getCollectionNames</span>());
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">printjson</span>(<span style="color:#a6e22e">pwd</span>());
+</span></span></code></pre></div><p>执行js</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mongo --quiet test.js
+</span></span><span style="display:flex;"><span>mongo test.js
+</span></span><span style="display:flex;"><span>mongo localhost:27017/test test.js
+</span></span></code></pre></div><ul>
+<li>
+<p>可以指定数据库连接和库名执行</p>
+</li>
+<li>
+<p>quiet的作用是执行的时候不输出相关的执行信息，shell版本、服务器版本等</p>
+</li>
+<li>
+<p>printjson是一个函数，将结果美化成json格式输出</p>
+</li>
+<li>
+<p>pwd()是一些常用的native函数列表  <a href="https://docs.mongodb.com/manual/reference/method/js-native/#native-methods">native-methods </a></p>
+</li>
+<li>
+<p>db.adminCommand(&rsquo;listDatabases&rsquo;)与show dbs作用相同，是js脚本的写法，还有一些其他的改变见 <a href="https://docs.mongodb.com/manual/tutorial/write-scripts-for-the-mongo-shell/#differences-between-interactive-and-scripted-mongo">Differences Between Interactive and Scripted</a></p>
+</li>
+</ul>
+<h3 id="mongo-crud">mongo CRUD</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">conn</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Mongo</span>(<span style="color:#e6db74">&#34;127.0.0.1:27017&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">db</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">getDB</span>(<span style="color:#e6db74">&#34;xmdb-poc&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// insertMany();
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//TODO  此项没有成功，需要再试一下
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">aggregation</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * insert one
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// let user = {&#34;name&#34;:&#39;pengganyu&#39;,&#39;age&#39;:10,&#39;address&#39;:&#39;hangzhou&#39;};
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// db.users.insert(user)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * insert multiple
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">insertMany</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">users</span> <span style="color:#f92672">=</span> [{<span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;pengganyu&#39;</span>,<span style="color:#e6db74">&#39;age&#39;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>,<span style="color:#e6db74">&#39;address&#39;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;hangzhou&#39;</span>},
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;yezi&#39;</span>,<span style="color:#e6db74">&#39;age&#39;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>,<span style="color:#e6db74">&#39;address&#39;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;hangzhou&#39;</span>},
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;weixiang&#39;</span>,<span style="color:#e6db74">&#39;age&#39;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>,<span style="color:#e6db74">&#39;address&#39;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;hangzhou&#39;</span>}]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">insert</span>(<span style="color:#a6e22e">users</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * update 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// db.users.updateOne({&#39;age&#39;:10},{$set:{&#39;age&#39;:20}});
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// db.users.updateMany({&#39;age&#39;:10},{$set:{&#39;age&#39;:20}});
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * delete
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// db.users.deleteOne({&#39;age&#39;:20});
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// db.users.deleteMany({&#39;age&#39;:20});
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * aggregation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">aggregation</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printjson</span>(<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">aggregate</span>([
+</span></span><span style="display:flex;"><span>        {<span style="color:#a6e22e">$match</span><span style="color:#f92672">:</span>{<span style="color:#e6db74">&#39;name&#39;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;pengganyu&#39;</span>}},
+</span></span><span style="display:flex;"><span>        {<span style="color:#a6e22e">$group</span><span style="color:#f92672">:</span>{<span style="color:#e6db74">&#39;_id&#39;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;$cust_id&#39;</span>,<span style="color:#a6e22e">total</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">$sum</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;age&#39;</span>}}}
+</span></span><span style="display:flex;"><span>    ]))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="mapreduce">MapReduce</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">var</span> <span style="color:#960050;background-color:#1e0010">result</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#960050;background-color:#1e0010">db.cms_ci_class.mapReduce(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#960050;background-color:#1e0010">function()</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#960050;background-color:#1e0010">emit(this.name,</span> <span style="color:#960050;background-color:#1e0010">1)</span>
+</span></span><span style="display:flex;"><span>	}<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#960050;background-color:#1e0010">function(key,</span> <span style="color:#960050;background-color:#1e0010">values)</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#960050;background-color:#1e0010">printjson(key</span> <span style="color:#960050;background-color:#1e0010">+</span> <span style="color:#f92672">&#34;--&#34;</span> <span style="color:#960050;background-color:#1e0010">+</span> <span style="color:#960050;background-color:#1e0010">values);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#960050;background-color:#1e0010">return</span> <span style="color:#960050;background-color:#1e0010">Array.sum(values)</span>
+</span></span><span style="display:flex;"><span>	}<span style="color:#960050;background-color:#1e0010">,</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#960050;background-color:#1e0010">query:</span> <span style="color:#960050;background-color:#1e0010">{</span>}<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#960050;background-color:#1e0010">out:</span> <span style="color:#e6db74">&#34;hell&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">printjson(result);</span>
+</span></span></code></pre></div><pre tabindex="0"><code>{
+        &#34;result&#34; : &#34;hell&#34;,
+        &#34;timeMillis&#34; : 9,
+        &#34;counts&#34; : {
+                &#34;input&#34; : 135,
+                &#34;emit&#34; : 135,
+                &#34;reduce&#34; : 0,
+                &#34;output&#34; : 135
+        },
+        &#34;ok&#34; : 1
+}
+</code></pre><h2 id="参考">参考</h2>
+<p><a href="https://docs.mongodb.com/manual/tutorial/write-scripts-for-the-mongo-shell/#write-scripts-for-the-mongo-shell">write-scripts</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/mongo/mongodb-%E9%AB%98%E7%BA%A7/>https://xibolun.github.io/post/mongo/mongodb-%E9%AB%98%E7%BA%A7/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/mongo/">
+                    #Mongo</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/neo4j/neo4j-ogm%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="Neo4j-OGM源码分析"><i class="iconfont icon-left"></i>&nbsp;Neo4j-OGM源码分析</a>
+        
+        
+        <a href="https://xibolun.github.io/post/neo4j/neo4j-javareference/" class="next" rel="next" title="Neo4j JavaReference">Neo4j JavaReference&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

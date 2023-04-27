@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/container/lxc/" />
+    <link rel="next" href="https://xibolun.github.io/post/redis/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/redis/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Redis(一)––入门及环境搭建 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Redis(一)––入门及环境搭建 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Redis(一)––入门及环境搭建",
+    "headline" : "Redis(一)––入门及环境搭建",
+    "description" : "Redis remote dictionary server，基于内存的一个Key-Value类型的数据库； 基础了解 淘汰策略 在redis.conf里面有如下的描述： # MAXMEMORY POLICY: how Redis will select what to",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-02-25 19:49:47 \u002b0800 CST",
+    "dateModified" : "2020-02-25 19:49:47 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/redis\/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA\/",
+    "wordCount" : "1958",
+    "keywords" : [ "redis", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Redis(一)––入门及环境搭建</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-02-25 itemprop="datePublished">February 25, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1958 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="redis">Redis</h3>
+<p><code>remote dictionary server</code>，基于内存的一个Key-Value类型的数据库；</p>
+<h3 id="基础了解">基础了解</h3>
+<h4 id="淘汰策略">淘汰策略</h4>
+<p>在<code>redis.conf</code>里面有如下的描述：</p>
+<pre tabindex="0"><code># MAXMEMORY POLICY: how Redis will select what to remove when maxmemory
+# is reached. You can select among five behaviors:
+#
+# volatile-lru -&gt; Evict using approximated LRU among the keys with an expire set.
+# allkeys-lru -&gt; Evict any key using approximated LRU.
+# volatile-lfu -&gt; Evict using approximated LFU among the keys with an expire set.
+# allkeys-lfu -&gt; Evict any key using approximated LFU.
+# volatile-random -&gt; Remove a random key among the ones with an expire set.
+# allkeys-random -&gt; Remove a random key, any key.
+# volatile-ttl -&gt; Remove the key with the nearest expire time (minor TTL)
+# noeviction -&gt; Don&#39;t evict anything, just return an error on write operations.
+#
+# LRU means Least Recently Used
+# LFU means Least Frequently Used
+#
+# Both LRU, LFU and volatile-ttl are implemented using approximated
+# randomized algorithms.
+#
+# Note: with any of the above policies, Redis will return an error on write
+#       operations, when there are no suitable keys for eviction.
+#
+#       At the date of writing these commands are: set setnx setex append
+#       incr decr rpush lpush rpushx lpushx linsert lset rpoplpush sadd
+#       sinter sinterstore sunion sunionstore sdiff sdiffstore zadd zincrby
+#       zunionstore zinterstore hset hsetnx hmset hincrby incrby decrby
+#       getset mset msetnx exec sort
+#
+# The default is:
+#
+# maxmemory-policy noeviction
+</code></pre><h3 id="高可用模式">高可用模式</h3>
+<ul>
+<li>单机：基本上是自己学习使用，生产上应该没有人用单机版本的</li>
+<li>主从：可以做到读写分享，但不是最优的高可用架构；</li>
+<li><a href="https://redis.io/topics/sentinel">哨兵</a>：官方提供的高可用解决方案</li>
+<li><a href="https://redis.io/topics/cluster-spec#redis-cluster-specification">集群</a>：现在大部分使用的高可用解决方案；</li>
+</ul>
+<h3 id="单机部署">单机部署</h3>
+<pre tabindex="0"><code>$ wget http://download.redis.io/releases/redis-5.0.7.tar.gz
+$ tar xzf redis-5.0.7.tar.gz
+$ cd redis-5.0.7
+$ make
+
+// start 
+$ src/redis-server
+
+// client connection
+$ src/redis-cli
+redis&gt; set foo bar
+OK
+redis&gt; get foo
+&#34;bar&#34;
+</code></pre><blockquote>
+<p>make的时候需要依赖gcc；使用yum install -y gcc即可</p>
+</blockquote>
+<p><a href="http://try.redis.io/">在线版本</a></p>
+<p>起动的log</p>
+<pre tabindex="0"><code>99286:C 25 Feb 2020 20:20:24.008 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+99286:C 25 Feb 2020 20:20:24.008 # Redis version=5.0.7, bits=64, commit=00000000, modified=0, pid=99286, just started
+99286:C 25 Feb 2020 20:20:24.008 # Warning: no config file specified, using the default config. In order to specify a config file use ./src/redis-server /path/to/redis.conf
+                _._
+           _.-``__ &#39;&#39;-._
+      _.-``    `.  `_.  &#39;&#39;-._           Redis 5.0.7 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ &#39;&#39;-._
+ (    &#39;      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|&#39;` _.-&#39;|     Port: 6379
+ |    `-._   `._    /     _.-&#39;    |     PID: 99286
+  `-._    `-._  `-./  _.-&#39;    _.-&#39;
+ |`-._`-._    `-.__.-&#39;    _.-&#39;_.-&#39;|
+ |    `-._`-._        _.-&#39;_.-&#39;    |           http://redis.io
+  `-._    `-._`-.__.-&#39;_.-&#39;    _.-&#39;
+ |`-._`-._    `-.__.-&#39;    _.-&#39;_.-&#39;|
+ |    `-._`-._        _.-&#39;_.-&#39;    |
+  `-._    `-._`-.__.-&#39;_.-&#39;    _.-&#39;
+      `-._    `-.__.-&#39;    _.-&#39;
+          `-._        _.-&#39;
+              `-.__.-&#39;
+
+99286:M 25 Feb 2020 20:20:24.009 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+99286:M 25 Feb 2020 20:20:24.009 # Server initialized
+99286:M 25 Feb 2020 20:20:24.009 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add &#39;vm.overcommit_memory = 1&#39; to /etc/sysctl.conf and then reboot or run the command &#39;sysctl vm.overcommit_memory=1&#39; for this to take effect.
+99286:M 25 Feb 2020 20:20:24.009 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command &#39;echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled&#39; as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+99286:M 25 Feb 2020 20:20:24.009 * Ready to accept connections
+</code></pre><p>从起动log里面可以看出的一些东西</p>
+<ul>
+<li>版本&amp;进程：<code>Redis version=5.0.7, bits=64, commit=00000000, modified=0, pid=99286, just started</code></li>
+<li>配置文件：<code> ./src/redis-server /path/to/redis.conf</code></li>
+<li>模式(默认单机模式)：<code>Running in standalone mode</code></li>
+<li>端口号：<code>Port: 6379</code></li>
+</ul>
+<h3 id="集群环境httpsredisiotopicscluster-tutorial"><a href="https://redis.io/topics/cluster-tutorial">集群环境</a></h3>
+<p>设置目录</p>
+<ul>
+<li>集群目录：</li>
+</ul>
+<pre tabindex="0"><code>mkdir cluster-test
+cd cluster-test
+mkdir 7000 7001 7002 7003 7004 7005
+</code></pre><pre tabindex="0"><code>/usr/local/redis/cluster-test/
+├── 7000
+│   └── redis_7000.conf
+├── 7001
+│   └── redis_7001.conf
+├── 7002
+│   └── redis_7002.conf
+├── 7003
+│   └── redis_7003.conf
+├── 7004
+│   └── redis_7004.conf
+├── 7005
+│   └── redis_7005.conf
+├── data
+└── redis.conf
+</code></pre><p>配置文件</p>
+<pre tabindex="0"><code> cat &gt;&gt; redis.conf &lt;&lt; EOF
+## 端口号
+port 7000
+## 开启集群模式
+cluster-enabled yes
+## 集群的配置文件，主要存在node的id等信息
+cluster-config-file /usr/local/redis/cluster-test/7000/nodes.conf
+## 超时时间
+cluster-node-timeout 5000
+## 启用追加的同步至磁盘方案
+appendonly yes
+## 设置后台启动
+daemonize yes
+## 日志路径
+logfile /var/log/redis/redis_7000.log
+## 数据dump的目录，也可以自己每一个节点建一套
+dir /usr/local/redis/cluster-test/data
+EOF
+</code></pre><pre tabindex="0"><code>touch ./7000/redis_7000.conf &amp;&amp; sed -i &#39;s/7000/7000/g&#39; redis.conf &amp;&amp; cat redis.conf &gt; 7000/redis_7000.conf
+touch ./7001/redis_7001.conf &amp;&amp; sed -i &#39;s/7000/7001/g&#39; redis.conf &amp;&amp; cat redis.conf &gt; 7001/redis_7001.conf
+touch ./7002/redis_7002.conf &amp;&amp; sed -i &#39;s/7001/7002/g&#39; redis.conf &amp;&amp; cat redis.conf &gt; 7002/redis_7002.conf
+touch ./7003/redis_7003.conf &amp;&amp; sed -i &#39;s/7002/7003/g&#39; redis.conf &amp;&amp; cat redis.conf &gt; 7003/redis_7003.conf
+touch ./7004/redis_7004.conf &amp;&amp; sed -i &#39;s/7003/7004/g&#39; redis.conf &amp;&amp; cat redis.conf &gt; 7004/redis_7004.conf
+touch ./7005/redis_7005.conf &amp;&amp; sed -i &#39;s/7004/7005/g&#39; redis.conf &amp;&amp; cat redis.conf &gt; 7005/redis_7005.conf
+</code></pre><p>启动</p>
+<pre tabindex="0"><code>./redis-server /usr/local/redis/cluster-test/7000/redis_7000.conf
+./redis-server /usr/local/redis/cluster-test/7001/redis_7001.conf
+./redis-server /usr/local/redis/cluster-test/7002/redis_7002.conf
+./redis-server /usr/local/redis/cluster-test/7003/redis_7003.conf
+./redis-server /usr/local/redis/cluster-test/7004/redis_7004.conf
+./redis-server /usr/local/redis/cluster-test/7005/redis_7005.conf
+</code></pre><p>启动日志</p>
+<p><code>cat /var/log/redis/redis_7001.log </code>，可以看到集群ID；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>88892:C <span style="color:#ae81ff">26</span> Feb <span style="color:#ae81ff">2020</span> 18:08:44.405 <span style="color:#75715e"># oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span>
+</span></span><span style="display:flex;"><span>88892:C <span style="color:#ae81ff">26</span> Feb <span style="color:#ae81ff">2020</span> 18:08:44.405 <span style="color:#75715e"># Redis version=5.0.7, bits=64, commit=00000000, modified=0, pid=88892, just started</span>
+</span></span><span style="display:flex;"><span>88892:C <span style="color:#ae81ff">26</span> Feb <span style="color:#ae81ff">2020</span> 18:08:44.405 <span style="color:#75715e"># Configuration loaded</span>
+</span></span><span style="display:flex;"><span>88893:M <span style="color:#ae81ff">26</span> Feb <span style="color:#ae81ff">2020</span> 18:08:44.406 * No cluster configuration found, I<span style="color:#e6db74">&#39;m c1231ec1bb8764128a1f19cfda9f473b737f5b6a
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">88893:M 26 Feb 2020 18:08:44.411 * Running mode=cluster, port=7001.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">88893:M 26 Feb 2020 18:08:44.411 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">88893:M 26 Feb 2020 18:08:44.411 # Server initialized
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">88893:M 26 Feb 2020 18:08:44.411 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add &#39;</span>vm.overcommit_memory <span style="color:#f92672">=</span> 1<span style="color:#e6db74">&#39; to /etc/sysctl.conf and then reboot or run the command &#39;</span>sysctl vm.overcommit_memory<span style="color:#f92672">=</span>1<span style="color:#e6db74">&#39; for this to take effect.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">88893:M 26 Feb 2020 18:08:44.411 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command &#39;</span>echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled<span style="color:#960050;background-color:#1e0010">&#39;</span> as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+</span></span><span style="display:flex;"><span>88893:M <span style="color:#ae81ff">26</span> Feb <span style="color:#ae81ff">2020</span> 18:08:44.411 * Ready to accept connections
+</span></span></code></pre></div><h4 id="创建集群">创建集群</h4>
+<blockquote>
+<p>To create your cluster for Redis 5 with <code>redis-cli</code> simply type:</p>
+<pre tabindex="0"><code>redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 --cluster-replicas 1
+</code></pre><p>Using <code>redis-trib.rb</code> for Redis 4 or 3 type:</p>
+<pre tabindex="0"><code>./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 \
+127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
+</code></pre></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># ./redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 --cluster-replicas 1</span>
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; Performing hash slots allocation on <span style="color:#ae81ff">6</span> nodes...
+</span></span><span style="display:flex;"><span>Master<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> -&gt; Slots <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">5460</span>
+</span></span><span style="display:flex;"><span>Master<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> -&gt; Slots <span style="color:#ae81ff">5461</span> - <span style="color:#ae81ff">10922</span>
+</span></span><span style="display:flex;"><span>Master<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> -&gt; Slots <span style="color:#ae81ff">10923</span> - <span style="color:#ae81ff">16383</span>
+</span></span><span style="display:flex;"><span>Adding replica 127.0.0.1:7004 to 127.0.0.1:7000
+</span></span><span style="display:flex;"><span>Adding replica 127.0.0.1:7005 to 127.0.0.1:7001
+</span></span><span style="display:flex;"><span>Adding replica 127.0.0.1:7003 to 127.0.0.1:7002
+</span></span><span style="display:flex;"><span>......
+</span></span><span style="display:flex;"><span>Can I set the above configuration? <span style="color:#f92672">(</span>type <span style="color:#e6db74">&#39;yes&#39;</span> to accept<span style="color:#f92672">)</span>: yes
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; Nodes configuration updated
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; Assign a different config epoch to each node
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; Sending CLUSTER MEET messages to join the cluster
+</span></span><span style="display:flex;"><span>Waiting <span style="color:#66d9ef">for</span> the cluster to join
+</span></span><span style="display:flex;"><span>....
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; Performing Cluster Check <span style="color:#f92672">(</span>using node 127.0.0.1:7000<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>M: 0009f3817e248c0f22d20e5ed0d2757c0b946867 127.0.0.1:7000
+</span></span><span style="display:flex;"><span>   slots:<span style="color:#f92672">[</span>0-5460<span style="color:#f92672">]</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">5461</span> slots<span style="color:#f92672">)</span> master
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> additional replica<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>M: c1231ec1bb8764128a1f19cfda9f473b737f5b6a 127.0.0.1:7001
+</span></span><span style="display:flex;"><span>   slots:<span style="color:#f92672">[</span>5461-10922<span style="color:#f92672">]</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">5462</span> slots<span style="color:#f92672">)</span> master
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> additional replica<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>S: 9d8cc17f66717fc2112b23c32455072ee75afb9c 127.0.0.1:7004
+</span></span><span style="display:flex;"><span>   slots: <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span> slots<span style="color:#f92672">)</span> slave
+</span></span><span style="display:flex;"><span>   replicates c1231ec1bb8764128a1f19cfda9f473b737f5b6a
+</span></span><span style="display:flex;"><span>S: e0cd923405daa6423d94d7a4e15f3dd7da8559cc 127.0.0.1:7003
+</span></span><span style="display:flex;"><span>   slots: <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span> slots<span style="color:#f92672">)</span> slave
+</span></span><span style="display:flex;"><span>   replicates 0009f3817e248c0f22d20e5ed0d2757c0b946867
+</span></span><span style="display:flex;"><span>M: 5d97fcd2e63c294b047502ebe0759af13b3b76a5 127.0.0.1:7002
+</span></span><span style="display:flex;"><span>   slots:<span style="color:#f92672">[</span>10923-16383<span style="color:#f92672">]</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">5461</span> slots<span style="color:#f92672">)</span> master
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> additional replica<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>S: 7a2ad8bc0369e3394fb48b977d9a597b33f566e6 127.0.0.1:7005
+</span></span><span style="display:flex;"><span>   slots: <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span> slots<span style="color:#f92672">)</span> slave
+</span></span><span style="display:flex;"><span>   replicates 5d97fcd2e63c294b047502ebe0759af13b3b76a5
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>OK<span style="color:#f92672">]</span> All nodes agree about slots configuration.
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; Check <span style="color:#66d9ef">for</span> open slots...
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; Check slots coverage...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>OK<span style="color:#f92672">]</span> All <span style="color:#ae81ff">16384</span> slots covered.
+</span></span></code></pre></div><p>上面可以看到<code>16384</code>个槽位已经自动分配好了；关于<code>slot</code>的解释</p>
+<blockquote>
+<p>Redis Cluster does not use consistent hashing, but a different form of sharding where every key is conceptually part of what we call an <strong>hash slot</strong>.</p>
+<p>There are 16384 hash slots in Redis Cluster, and to compute what is the hash slot of a given key, we simply take the CRC16 of the key modulo 16384.</p>
+<p>Every node in a Redis Cluster is responsible for a subset of the hash slots, so for example you may have a cluster with 3 nodes, where:</p>
+<ul>
+<li>Node A contains hash slots from 0 to 5500.</li>
+<li>Node B contains hash slots from 5501 to 11000.</li>
+<li>Node C contains hash slots from 11001 to 16383.</li>
+</ul>
+<p>This allows to add and remove nodes in the cluster easily. For example if I want to add a new node D, I need to move some hash slot from nodes A, B, C to D. Similarly if I want to remove node A from the cluster I can just move the hash slots served by A to B and C. When the node A will be empty I can remove it from the cluster completely.</p>
+</blockquote>
+<p>此时3个master、3个slave的单机集群环境已经搭建完成，后面可以开始验证。</p>
+<p>连接</p>
+<pre tabindex="0"><code>./redis-cli -h 127.0.0.1 -p 7000
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>127.0.0.1:7000&gt; cluster nodes
+</span></span><span style="display:flex;"><span>c1231ec1bb8764128a1f19cfda9f473b737f5b6a 127.0.0.1:7001@17001 master - <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1582712625000</span> <span style="color:#ae81ff">2</span> connected 5461-10922
+</span></span><span style="display:flex;"><span>9d8cc17f66717fc2112b23c32455072ee75afb9c 127.0.0.1:7004@17004 slave c1231ec1bb8764128a1f19cfda9f473b737f5b6a <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1582712624709</span> <span style="color:#ae81ff">5</span> connected
+</span></span><span style="display:flex;"><span>0009f3817e248c0f22d20e5ed0d2757c0b946867 127.0.0.1:7000@17000 myself,master - <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1582712622000</span> <span style="color:#ae81ff">1</span> connected 0-5460
+</span></span><span style="display:flex;"><span>e0cd923405daa6423d94d7a4e15f3dd7da8559cc 127.0.0.1:7003@17003 slave 0009f3817e248c0f22d20e5ed0d2757c0b946867 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1582712625711</span> <span style="color:#ae81ff">4</span> connected
+</span></span><span style="display:flex;"><span>5d97fcd2e63c294b047502ebe0759af13b3b76a5 127.0.0.1:7002@17002 master - <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1582712625000</span> <span style="color:#ae81ff">3</span> connected 10923-16383
+</span></span><span style="display:flex;"><span>7a2ad8bc0369e3394fb48b977d9a597b33f566e6 127.0.0.1:7005@17005 slave 5d97fcd2e63c294b047502ebe0759af13b3b76a5 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1582712625000</span> <span style="color:#ae81ff">6</span> connected
+</span></span></code></pre></div><p><code>redis</code>提供了<code>myself</code>的特性，这个感觉真的非常友好；</p>
+<pre tabindex="0"><code>127.0.0.1:7000&gt; cluster info
+cluster_state:ok
+cluster_slots_assigned:16384
+cluster_slots_ok:16384
+cluster_slots_pfail:0
+cluster_slots_fail:0
+cluster_known_nodes:6
+cluster_size:3
+cluster_current_epoch:6
+cluster_my_epoch:1
+cluster_stats_messages_ping_sent:614
+cluster_stats_messages_pong_sent:638
+cluster_stats_messages_sent:1252
+cluster_stats_messages_ping_received:633
+cluster_stats_messages_pong_received:614
+cluster_stats_messages_meet_received:5
+cluster_stats_messages_received:1252
+</code></pre><p>连接验证</p>
+<pre tabindex="0"><code>./redis-cli -c -p 7000
+</code></pre><pre tabindex="0"><code>127.0.0.1:7002&gt; set ruby-version 2.5.1
+-&gt; Redirected to slot [2855] located at 127.0.0.1:7000
+OK
+</code></pre><pre tabindex="0"><code>./redis-cli  -c -p 7003
+</code></pre><pre tabindex="0"><code>127.0.0.1:7003&gt; get ruby-version
+-&gt; Redirected to slot [2855] located at 127.0.0.1:7000
+&#34;2.5.1&#34;
+</code></pre><p>至此<code>cluster</code>环境搭建已经完成</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/redis/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/>https://xibolun.github.io/post/redis/redis%E4%B8%80%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/redis/">
+                    #redis</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/container/lxc/" class="prev" rel="prev" title="Lxc使用笔记"><i class="iconfont icon-left"></i>&nbsp;Lxc使用笔记</a>
+        
+        
+        <a href="https://xibolun.github.io/post/redis/redis%E4%BA%8C%E9%9B%86%E7%BE%A4cluster/" class="next" rel="next" title="Redis(二)––集群cluster">Redis(二)––集群cluster&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

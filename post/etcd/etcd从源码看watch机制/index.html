@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage/" />
+    <link rel="next" href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Blease%E6%9C%BA%E5%88%B6/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bwatch%E6%9C%BA%E5%88%B6/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            etcd––从源码看watch机制 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="etcd––从源码看watch机制 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "etcd––从源码看watch机制",
+    "headline" : "etcd––从源码看watch机制",
+    "description" : "etcd watch",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-07-07 10:13:54 \u002b0800 CST",
+    "dateModified" : "2020-07-07 10:13:54 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/etcd\/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bwatch%E6%9C%BA%E5%88%B6\/",
+    "wordCount" : "1643",
+    "keywords" : [ "etcd", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">etcd––从源码看watch机制</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-07-07 itemprop="datePublished">July 7, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/etcd/"> etcd, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1643 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="watch使用">Watch使用</h3>
+<p><code>watch</code>有两种操作，一种是<code>key</code>，一种是<code>range</code>，即监听一段的<code>key</code>，从一个测试用例里面看看，主要包括几个操作</p>
+<ul>
+<li>初始化一个<code>watchablestore</code></li>
+<li>初始化<code>watchStream</code></li>
+<li>使用<code>watchStream</code>创建一个<code>watch</code>对象，监听一个<code>Key</code></li>
+<li>使用<code>put</code>操作进行测试即可完成整个流程</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestWatch</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">tmpPath</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">backend</span>.<span style="color:#a6e22e">NewDefaultTmpBackend</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">newWatchableStore</span>(<span style="color:#a6e22e">zap</span>.<span style="color:#a6e22e">NewExample</span>(), <span style="color:#a6e22e">b</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">lease</span>.<span style="color:#a6e22e">FakeLessor</span>{}, <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">StoreConfig</span>{})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">tmpPath</span>)
+</span></span><span style="display:flex;"><span>	}()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">testKey</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#e6db74">&#34;foo&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">testValue</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#e6db74">&#34;bar&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Put</span>(<span style="color:#a6e22e">testKey</span>, <span style="color:#a6e22e">testValue</span>, <span style="color:#a6e22e">lease</span>.<span style="color:#a6e22e">NoLease</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">w</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">NewWatchStream</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Watch</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">testKey</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">synced</span>.<span style="color:#a6e22e">contains</span>(string(<span style="color:#a6e22e">testKey</span>)) {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// the key must have had an entry in synced
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;existence = false, want true&#34;</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="watch结构">Watch结构</h3>
+<h4 id="event">event</h4>
+<p>监听即为事件信息，对事件进行封装，里面结构如下</p>
+<ul>
+<li><code>type</code>：操作类型，<code>DELET</code>、<code>PUT</code></li>
+<li><code>KV</code>：<code>key\value</code></li>
+<li><code>PrevKV</code>：上一版本的<code>kv</code></li>
+</ul>
+<h4 id="watcher">watcher</h4>
+<p>使用<code>watch</code>命令的时候即为使用此对象来存放所监听的<code>key</code>，并负责对事件最终的发送；里面重要结构如下：</p>
+<ul>
+<li><code>key</code>：<code>key</code>列表</li>
+<li><code>end</code>：若是监听一段<code>key</code>的变化，则会有一个区间形式的操作，[start，end)</li>
+<li><code>victim</code>：翻译为牺牲者，当有事件可以发送时，<code>client</code>可能存在一定的问题未发送成功（比如说通道满了）是否存在未发送成功的事件，是一个标记</li>
+<li><code>compacted</code>：对事件进行压缩</li>
+<li><code>fcs</code>：这是一个函数过滤器列表，过滤出<code>client</code>只想监听的<code>key</code></li>
+<li><code>ch</code>：还有一个<code>watchResponse</code>，用于将监听的事件发送出去，形成消息通道</li>
+</ul>
+<h4 id="watchergroup">watcherGroup</h4>
+<p><code>watcher</code>的集合，正因为这样的设计，所以<code>etcd</code>支持一段<code>key</code>的<code>watch</code>，里面结构如下：</p>
+<ul>
+<li><code>keyWatchers</code>：一个<code>map</code>对象，<code>key</code>为需要监听的<code>key</code>，<code>value</code>为<code>watcherSet</code></li>
+<li><code>ranges</code>：红黑树(<code>adt</code>)，用于对<code>key</code>-&gt;<code>watcher</code>结构进行快速查询，存储、删除操作</li>
+<li><code>watchers</code>：<code>watcher</code>列表</li>
+</ul>
+<h4 id="watchstream">watchstream</h4>
+<p>创建<code>watchserver</code>的时候，会创建一个<code>watchStream</code>；<code>stream</code>里面起了一个<code>for</code>循环，会监听<code>rpc</code>消息过来的<code>watch</code>事件信息：创建<code>watch</code>、取消<code>watch</code>，处理<code>watch</code>；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">sws</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">serverWatchStream</span>) <span style="color:#a6e22e">recvLoop</span>() <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">uv</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">RequestUnion</span>.(<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">WatchRequest_CreateRequest</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">WatchRequest_CancelRequest</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">WatchRequest_ProgressRequest</span>:
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="watchstore">watchstore</h4>
+<p>初始化<code>server</code>的时候生成，里面主要包含几个东西</p>
+<ul>
+<li><code>store</code>：对<code>boltdb</code>进行封装，实现底层数据的操作</li>
+<li><code>victimc</code>：翻译为牺牲者，实际上是发送给client失败后的一些事件信息</li>
+<li><code>unsynced</code>：本质上是<code>waitGroup</code>，未发送给<code>client</code>的事件，创建<code>key</code>的监听时，监听<code>key</code>的<code>rev</code>若小于库里面的<code>rev</code>存放于此</li>
+<li><code>synced</code>：本质上是<code>waitGroup</code>，需要发送给<code>client</code>的事件都在此存放</li>
+</ul>
+<h3 id="工作原理">工作原理</h3>
+<h4 id="初始化">初始化</h4>
+<ul>
+<li>
+<p>初始化<code>server</code></p>
+</li>
+<li>
+<p>初始化<code>mvcc</code></p>
+</li>
+<li>
+<p>初始化<code>watchstore</code></p>
+<ul>
+<li>启动监听<code>watcher</code>循环</li>
+<li>启动监听<code>victims</code>循环</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>  	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">syncWatchersLoop</span>()
+</span></span><span style="display:flex;"><span>  	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">syncVictimsLoop</span>()
+</span></span></code></pre></div><h4 id="syncwatchers">syncWatchers</h4>
+<ul>
+<li>
+<p><code>kvsToEvents</code>：将变更的<code>kv</code>进行<code>event</code>化处理，此时会从<code>watcherGroup</code>当中是否包含这个<code>key</code>，从红黑树里面拿到结果</p>
+</li>
+<li>
+<p>将<code>key</code>的rev与<code>store</code>的<code>rev</code>进行比对，判断此<code>watch</code>是否需要进行<code>sync</code>，还是放在<code>unsync</code>当中</p>
+</li>
+<li>
+<p>组装<code>watchResponse</code>，发送至<code>client</code>；若发送失败，将<code>event</code>放至<code>victims</code>里面，走<code>syncVictimsLoop</code>逻辑</p>
+</li>
+</ul>
+<h4 id="client-putend">client put&amp;&amp;end</h4>
+<p><code>put</code>操作最终会进行事务提交，所以最后会走到<code>mvcc</code>模块，这里面会有<code>put</code>操作</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">tw</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">storeTxnWrite</span>) <span style="color:#a6e22e">put</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span> []<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">leaseID</span> <span style="color:#a6e22e">lease</span>.<span style="color:#a6e22e">LeaseID</span>) {
+</span></span><span style="display:flex;"><span><span style="color:#f92672">......</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">trace</span>.<span style="color:#a6e22e">Step</span>(<span style="color:#e6db74">&#34;marshal mvccpb.KeyValue&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">tx</span>.<span style="color:#a6e22e">UnsafeSeqPut</span>(<span style="color:#a6e22e">keyBucketName</span>, <span style="color:#a6e22e">ibytes</span>, <span style="color:#a6e22e">d</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">kvindex</span>.<span style="color:#a6e22e">Put</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">idxRev</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">changes</span> = append(<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">changes</span>, <span style="color:#a6e22e">kv</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">trace</span>.<span style="color:#a6e22e">Step</span>(<span style="color:#e6db74">&#34;store kv pair into bolt db&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">......</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>将<code>kv</code>的数据信息放至<code>changes</code>里面；将<code>key</code>与revision信息重新存放至<code>btree</code>里面</p>
+<p>在<code>put</code>完成之后，会有<code>end</code>操作</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">wv</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">writeView</span>) <span style="color:#a6e22e">Put</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span> []<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">lease</span> <span style="color:#a6e22e">lease</span>.<span style="color:#a6e22e">LeaseID</span>) (<span style="color:#a6e22e">rev</span> <span style="color:#66d9ef">int64</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tw</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">wv</span>.<span style="color:#a6e22e">kv</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">traceutil</span>.<span style="color:#a6e22e">TODO</span>())
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">End</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">Put</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">lease</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="watchablestroe--end">watchableStroe  end</h4>
+<p><code>end</code>函数里面会对<code>kv</code>进行<code>event</code>化处理，最后<code>notify</code>至<code>watchstream</code>的<code>channel</code>当中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">tw</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">watchableStoreTxnWrite</span>) <span style="color:#a6e22e">End</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">changes</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">Changes</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">changes</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">TxnWrite</span>.<span style="color:#a6e22e">End</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rev</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">Rev</span>() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">evs</span> <span style="color:#f92672">:=</span> make([]<span style="color:#a6e22e">mvccpb</span>.<span style="color:#a6e22e">Event</span>, len(<span style="color:#a6e22e">changes</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">change</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">changes</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">evs</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">Kv</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">changes</span>[<span style="color:#a6e22e">i</span>]
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">change</span>.<span style="color:#a6e22e">CreateRevision</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">evs</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">Type</span> = <span style="color:#a6e22e">mvccpb</span>.<span style="color:#a6e22e">DELETE</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">evs</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">Kv</span>.<span style="color:#a6e22e">ModRevision</span> = <span style="color:#a6e22e">rev</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">evs</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">Type</span> = <span style="color:#a6e22e">mvccpb</span>.<span style="color:#a6e22e">PUT</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Lock</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// notify
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">notify</span>(<span style="color:#a6e22e">rev</span>, <span style="color:#a6e22e">evs</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">TxnWrite</span>.<span style="color:#a6e22e">End</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Unlock</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="sendwatchresponse">sendWatchResponse</h3>
+<p>将<code>event</code>的<code>key</code>在<code>watcherGroup</code>当中查找到对应的<code>watcher</code>，然后将数据变更信息发送至<code>client</code></p>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000021787055">HammerMax的关于etcd分析的blog，图片画的很不错</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bwatch%E6%9C%BA%E5%88%B6/>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bwatch%E6%9C%BA%E5%88%B6/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/etcd/">
+                    #etcd</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage/" class="prev" rel="prev" title="etcd––从源码看Storage"><i class="iconfont icon-left"></i>&nbsp;etcd––从源码看Storage</a>
+        
+        
+        <a href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Blease%E6%9C%BA%E5%88%B6/" class="next" rel="next" title="etcd––从源码看lease机制">etcd––从源码看lease机制&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

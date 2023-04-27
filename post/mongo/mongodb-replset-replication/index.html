@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/mongo/mongodb-master-slave-replication/" />
+    <link rel="next" href="https://xibolun.github.io/post/neo4j/neo4j-ogm%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/mongo/mongodb-replset-replication/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            MongoDB ReplSet Replication | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="MongoDB ReplSet Replication | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "MongoDB ReplSet Replication",
+    "headline" : "MongoDB ReplSet Replication",
+    "description" : "ReplSet Replicatin master的IP： 10.0.1.9 slave IP: 10.0.106.2、10.0.106.6 以replSet形式启动master，replSet名称设置为rs0",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-11-15 23:36:24 \u002b0800 CST",
+    "dateModified" : "2017-11-15 23:36:24 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/mongo\/mongodb-replset-replication\/",
+    "wordCount" : "1886",
+    "keywords" : [ "Mongo", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">MongoDB ReplSet Replication</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-11-15 itemprop="datePublished">November 15, 2017</time>
+                </span>
+                in
+                
+                <span class="post-word-count">1886 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="replset-replicatin">ReplSet Replicatin</h2>
+<p><img src="http://oxmycii3v.bkt.clouddn.com/img/mongodb/replica-set-trigger-election.bakedsvg.svg" alt="replica-set-trigger-election" loading="lazy" ></p>
+<p>master的IP： 10.0.1.9     slave IP: 10.0.106.2、10.0.106.6</p>
+<p>以replSet形式启动master，replSet名称设置为rs0</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mongod --dbpath /home/www/data/ --replSet rs0
+</span></span></code></pre></div><p>连接master，将自己做为一个member添加进去</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; rs.initiate<span style="color:#f92672">({</span>_id:<span style="color:#e6db74">&#34;rs0&#34;</span>,members:<span style="color:#f92672">[{</span>_id:0,host:<span style="color:#e6db74">&#34;10.0.1.9:27017&#34;</span><span style="color:#f92672">}]})</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;info&#34;</span> : <span style="color:#e6db74">&#34;Config now saved locally.  Should come online in about a minute.&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>rs0:PRIMARY&gt; 
+</span></span></code></pre></div><p>初始化成功后，shell会发生改变为   rs0:PRIMARY，标志着replSet的名称和主server；</p>
+<p>添加成员</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rs0:PRIMARY&gt; rs.add<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;10.0.106.2:27017&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>rs0:PRIMARY&gt; rs.add<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;10.0.106.6:27017&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span> <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>此时master的日志里面会出现以下log信息，说明已经有成员连接进来</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">43.995</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> [rsHealthPoll] replSet member <span style="color:#ae81ff">10.0.106.2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27017</span> is now in state SECONDARY
+</span></span></code></pre></div><p>而slave的日志如下，开始连接master，然后并开始同步数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.911</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I NETWORK  [initandlisten] connection accepted from <span style="color:#ae81ff">10.0.1.9</span><span style="color:#f92672">:</span><span style="color:#ae81ff">54292</span> #<span style="color:#ae81ff">1</span> (<span style="color:#ae81ff">1</span> connection now open)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.913</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I NETWORK  [initandlisten] connection accepted from <span style="color:#ae81ff">10.0.1.9</span><span style="color:#f92672">:</span><span style="color:#ae81ff">54293</span> #<span style="color:#ae81ff">2</span> (<span style="color:#ae81ff">2</span> connections now open)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.917</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I ASIO     [NetworkInterfaceASIO<span style="color:#f92672">-</span>Replication<span style="color:#f92672">-</span><span style="color:#ae81ff">0</span>] Successfully connected to <span style="color:#ae81ff">10.0.1.9</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27017</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.947</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I NETWORK  [conn1] <span style="color:#66d9ef">end</span> connection <span style="color:#ae81ff">10.0.1.9</span><span style="color:#f92672">:</span><span style="color:#ae81ff">54292</span> (<span style="color:#ae81ff">1</span> connection now open)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.950</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [replExecDBWorker<span style="color:#f92672">-</span><span style="color:#ae81ff">0</span>] Starting replication applier threads
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.950</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [ReplicationExecutor] New replica set config in use: { _id: <span style="color:#e6db74">&#34;rs0&#34;</span>, version: <span style="color:#ae81ff">2</span>, members: [ { _id: <span style="color:#ae81ff">0</span>, host: <span style="color:#e6db74">&#34;10.0.1.9:27017&#34;</span>, arbiterOnly: false, buildIndexes: true, hidden: false, priority: <span style="color:#ae81ff">1.0</span>, ta
+</span></span><span style="display:flex;"><span>gs: {}, slaveDelay: <span style="color:#ae81ff">0</span>, votes: <span style="color:#ae81ff">1</span> }, { _id: <span style="color:#ae81ff">1</span>, host: <span style="color:#e6db74">&#34;10.0.106.2:27017&#34;</span>, arbiterOnly: false, buildIndexes: true, hidden: false, priority: <span style="color:#ae81ff">1.0</span>, tags: {}, slaveDelay: <span style="color:#ae81ff">0</span>, votes: <span style="color:#ae81ff">1</span> } ], settings: { chainingAllowed: true, heartbeatIntervalMill
+</span></span><span style="display:flex;"><span>is: <span style="color:#ae81ff">2000</span>, heartbeatTimeoutSecs: <span style="color:#ae81ff">10</span>, electionTimeoutMillis: <span style="color:#ae81ff">10000</span>, getLastErrorModes: {}, getLastErrorDefaults: { w: <span style="color:#ae81ff">1</span>, wtimeout: <span style="color:#ae81ff">0</span> } } }
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.950</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [ReplicationExecutor] This node is <span style="color:#ae81ff">10.0.106.2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27017</span> in the config
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.950</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [ReplicationExecutor] transition to STARTUP2
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.951</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [rsSync] <span style="color:#f92672">******</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.951</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [rsSync] creating replication oplog of size: <span style="color:#ae81ff">990</span>MB...
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.952</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [ReplicationExecutor] Member <span style="color:#ae81ff">10.0.1.9</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27017</span> is now in state PRIMARY
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.956</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I STORAGE  [rsSync] Starting WiredTigerRecordStoreThread local.oplog.rs
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.957</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I STORAGE  [rsSync] The size storer reports that the oplog contains <span style="color:#ae81ff">0</span> records totaling to <span style="color:#ae81ff">0</span> bytes
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.957</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I STORAGE  [rsSync] Scanning the oplog to determine where to place markers <span style="color:#66d9ef">for</span> truncation
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.996</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [rsSync] <span style="color:#f92672">******</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27.996</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [rsSync] <span style="color:#66d9ef">initial</span> sync pending
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">28.012</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [ReplicationExecutor] syncing from: <span style="color:#ae81ff">10.0.1.9</span><span style="color:#f92672">:</span><span style="color:#ae81ff">27017</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">28.017</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [rsSync] <span style="color:#66d9ef">initial</span> sync drop all databases
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">28.017</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I STORAGE  [rsSync] dropAllDatabasesExceptLocal <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2017</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T10:<span style="color:#ae81ff">48</span><span style="color:#f92672">:</span><span style="color:#ae81ff">28.017</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0800</span> I REPL     [rsSync] <span style="color:#66d9ef">initial</span> sync clone all databases
+</span></span></code></pre></div><p>mongo shell连接至slave的时候会发现shell变成了如下样式；标志着此server为rs0的replSet，为第二个节点</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rs0:SECONDARY&gt; 
+</span></span></code></pre></div><p>查询配置信息</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rs0:SECONDARY&gt; rs.conf<span style="color:#f92672">()</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>        <span style="color:#e6db74">&#34;_id&#34;</span> : <span style="color:#e6db74">&#34;rs0&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;version&#34;</span> : 11,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;members&#34;</span> : <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;_id&#34;</span> : 0,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;host&#34;</span> : <span style="color:#e6db74">&#34;10.0.1.9:27017&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;arbiterOnly&#34;</span> : false,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;buildIndexes&#34;</span> : true,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;hidden&#34;</span> : false,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;priority&#34;</span> : 2,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;tags&#34;</span> : <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;slaveDelay&#34;</span> : NumberLong<span style="color:#f92672">(</span>0<span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;votes&#34;</span> : <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;_id&#34;</span> : 1,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;host&#34;</span> : <span style="color:#e6db74">&#34;10.0.106.2:27017&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;arbiterOnly&#34;</span> : false,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;buildIndexes&#34;</span> : true,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;hidden&#34;</span> : false,                        
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;priority&#34;</span> : 0.8,                       
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;tags&#34;</span> : <span style="color:#f92672">{</span>                        
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">}</span>,                       
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;slaveDelay&#34;</span> : NumberLong<span style="color:#f92672">(</span>0<span style="color:#f92672">)</span>,                        
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;votes&#34;</span> : <span style="color:#ae81ff">1</span>                
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">}</span>,                
+</span></span><span style="display:flex;"><span>                 <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;_id&#34;</span> : 2,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;host&#34;</span> : <span style="color:#e6db74">&#34;10.0.106.6:27017&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;arbiterOnly&#34;</span> : false,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;buildIndexes&#34;</span> : true,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;hidden&#34;</span> : false,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;priority&#34;</span> : 1,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;tags&#34;</span> : <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">}</span>,                        
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;slaveDelay&#34;</span> : NumberLong<span style="color:#f92672">(</span>0<span style="color:#f92672">)</span>,                        
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;votes&#34;</span> : <span style="color:#ae81ff">1</span>                
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;settings&#34;</span> : <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;chainingAllowed&#34;</span> : true,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;heartbeatIntervalMillis&#34;</span> : 2000,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;heartbeatTimeoutSecs&#34;</span> : 10,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;electionTimeoutMillis&#34;</span> : 10000,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;getLastErrorModes&#34;</span> : <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;getLastErrorDefaults&#34;</span> : <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;w&#34;</span> : 1,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;wtimeout&#34;</span> : <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>查看状态</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rs0:SECONDARY&gt; rs.status<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;set&#34;</span> : <span style="color:#e6db74">&#34;rs0&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;date&#34;</span> : ISODate<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;2017-11-15T03:20:32.831Z&#34;</span><span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;myState&#34;</span> : 2,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;term&#34;</span> : NumberLong<span style="color:#f92672">(</span>-1<span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;heartbeatIntervalMillis&#34;</span> : NumberLong<span style="color:#f92672">(</span>2000<span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;members&#34;</span> : <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;_id&#34;</span> : 0,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;name&#34;</span> : <span style="color:#e6db74">&#34;10.0.1.9:27017&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;health&#34;</span> : 1,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;state&#34;</span> : 1,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;stateStr&#34;</span> : <span style="color:#e6db74">&#34;PRIMARY&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;uptime&#34;</span> : 973,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;optime&#34;</span> : Timestamp<span style="color:#f92672">(</span>1510714107, 1<span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;optimeDate&#34;</span> : ISODate<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;2017-11-15T02:48:27Z&#34;</span><span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;lastHeartbeat&#34;</span> : ISODate<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;2017-11-15T03:20:32.411Z&#34;</span><span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;lastHeartbeatRecv&#34;</span> : ISODate<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;2017-11-15T03:20:32.129Z&#34;</span><span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;pingMs&#34;</span> : NumberLong<span style="color:#f92672">(</span>0<span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;electionTime&#34;</span> : Timestamp<span style="color:#f92672">(</span>1510715061, 1<span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;electionDate&#34;</span> : ISODate<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;2017-11-15T03:04:21Z&#34;</span><span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;configVersion&#34;</span> : <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;_id&#34;</span> : 1,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;name&#34;</span> : <span style="color:#e6db74">&#34;10.0.106.2:27017&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;health&#34;</span> : 1,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;state&#34;</span> : 2,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;stateStr&#34;</span> : <span style="color:#e6db74">&#34;SECONDARY&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;uptime&#34;</span> : 974,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;optime&#34;</span> : Timestamp<span style="color:#f92672">(</span>1510714107, 1<span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;optimeDate&#34;</span> : ISODate<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;2017-11-15T02:48:27Z&#34;</span><span style="color:#f92672">)</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;infoMessage&#34;</span> : <span style="color:#e6db74">&#34;could not find member to sync from&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;configVersion&#34;</span> : 2,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;self&#34;</span> : true
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="遇到的问题">遇到的问题</h3>
+<pre tabindex="0"><code>&gt; rs.initiate({_id:&#34;xmdb&#34;,members:[{_id:0,host:&#34;10.0.1.9:27017&#34;}]})
+{
+        &#34;ok&#34; : 0,
+        &#34;errmsg&#34; : &#34;local.oplog.rs is not empty on the initiating member.  cannot initiate.&#34;
+}
+</code></pre><p>原因是因为本地已经存在了 replSet的opLog，所以需要去掉，再重新initiate</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; use local
+</span></span><span style="display:flex;"><span>switched to db local
+</span></span><span style="display:flex;"><span>&gt; db.dropDatabase<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;dropped&#34;</span> : <span style="color:#e6db74">&#34;local&#34;</span>, <span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span> <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>再重新启动，可以考虑换一个新的replSet的名称</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mongod --dbpath /home/www/data/ --replSet rs0
+</span></span></code></pre></div><p>再重新初始化即可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; rs.initiate<span style="color:#f92672">({</span>_id:<span style="color:#e6db74">&#34;rs0&#34;</span>,members:<span style="color:#f92672">[{</span>_id:0,host:<span style="color:#e6db74">&#34;10.0.1.9:27017&#34;</span><span style="color:#f92672">}]})</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;info&#34;</span> : <span style="color:#e6db74">&#34;Config now saved locally.  Should come online in about a minute.&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>rs0:PRIMARY&gt; 
+</span></span></code></pre></div><p>或者直接强制初始化</p>
+<pre tabindex="0"><code>rs.reconfig(config, {force: true})
+</code></pre><h3 id="设置权重">设置权重</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rs0:PRIMARY&gt; cfg <span style="color:#f92672">=</span> rs.conf<span style="color:#f92672">()</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;_id&#34;</span> : <span style="color:#e6db74">&#34;rs0&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;version&#34;</span> : 2,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;members&#34;</span> : <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;_id&#34;</span> : 0,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;host&#34;</span> : <span style="color:#e6db74">&#34;10.0.1.9:27017&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;uth_id&#34;</span> : 1,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;host&#34;</span> : <span style="color:#e6db74">&#34;10.0.106.2:27017&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>rs0:PRIMARY&gt; cfg.members<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.priority<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>rs0:PRIMARY&gt; cfg.members<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>.priority<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>rs0:PRIMARY&gt; cfg.members<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span>.priority<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>rs0:PRIMARY&gt; rs.reconfig<span style="color:#f92672">(</span>cfg<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h4 id="注意事项">注意事项</h4>
+<ul>
+<li>权重的设置只能在Master当中</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rs0:SECONDARY&gt; rs.reconfig<span style="color:#f92672">(</span>cfg<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;ok&#34;</span> : 0,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;errmsg&#34;</span> : <span style="color:#e6db74">&#34;replSetReconfig command must be sent to the current replica set primary.&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><ul>
+<li>三个副本的replSet的名称必须一致</li>
+<li>只有两个副本集的时候，PRIMARY挂掉之后，SECONDARY是不会成为PRIMARY的，必须三个副本集以上，最多50个副本集，并且只允许7个可投票进行选举的成员</li>
+<li>priority设置为0的成员是不参与投票的</li>
+<li>当PRIMARY挂掉的时候，权重高的会被设置为PRIMARY；</li>
+<li>非PRIMARY的副本只允许查询，不允许其他的操作；</li>
+</ul>
+<h3 id="使用springboot进行操作">使用Springboot进行操作</h3>
+<p>查看rs设置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rs0:PRIMARY&gt; rs.conf<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;_id&#34;</span> : <span style="color:#e6db74">&#34;rs0&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;version&#34;</span> : 12,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;members&#34;</span> : <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;_id&#34;</span> : 0,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;host&#34;</span> : <span style="color:#e6db74">&#34;10.0.1.9:27017&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;priority&#34;</span> : <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;_id&#34;</span> : 1,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;host&#34;</span> : <span style="color:#e6db74">&#34;10.0.106.2:27017&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;priority&#34;</span> : 0.8
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;_id&#34;</span> : 2,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;host&#34;</span> : <span style="color:#e6db74">&#34;10.0.106.6:27017&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;priority&#34;</span> : 0.5
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;settings&#34;</span> : <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;getLastErrorDefaults&#34;</span> : <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;w&#34;</span> : 1,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;wtimeout&#34;</span> : <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>springboot application.properties文件配置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-properties" data-lang="properties"><span style="display:flex;"><span><span style="color:#a6e22e">mongo.replicaSet</span><span style="color:#f92672">=</span><span style="color:#e6db74">mongodb://10.0.1.9:27017,10.0.106.2:27017,10.0.106.6:27017</span>
+</span></span></code></pre></div><p>PRIMARY: 10.0.1.9   SECONDARY: 10.0.106.2, 10.0.106.6</p>
+<p>当工程启动后，实验过程和结论如下</p>
+<ul>
+<li>关闭10.0.1.9
+<ul>
+<li>10.0.106.2成为PRIMARY</li>
+<li>10.0.106.2与10.0.106.6都在尝试重连10.0.1.9</li>
+<li>此时应用操作正常，后台无连数据不上的问题</li>
+</ul>
+</li>
+<li>关闭10.0.106.2
+<ul>
+<li>此时没有PRIMARY，10.0.106.6仍然是SECONDARY节点</li>
+<li>此时应用操作不正常，后台过了最大尝试重连时间后直接异常提示</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>org.springframework.dao.DataAccessResourceFailureException: Timed out after <span style="color:#ae81ff">30000</span> ms <span style="color:#66d9ef">while</span> waiting <span style="color:#66d9ef">for</span> a server that matches <span style="color:#f92672">{</span>serverSelectors<span style="color:#f92672">=[</span>ReadPreferenceServerSelector<span style="color:#f92672">{</span>readPreference<span style="color:#f92672">=</span>primary<span style="color:#f92672">}</span>, LatencyMinimizingServerSelector<span style="color:#f92672">{</span>acceptableLatencyDifference<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span> ms<span style="color:#f92672">}]}</span>. Client view of cluster state is <span style="color:#f92672">{</span>type<span style="color:#f92672">=</span>ReplicaSet, servers<span style="color:#f92672">=[{</span>address<span style="color:#f92672">=</span>10.0.1.9:27017, type<span style="color:#f92672">=</span>Unknown, state<span style="color:#f92672">=</span>Connecting, exception<span style="color:#f92672">={</span>com.mongodb.MongoException$Network: Exception opening the socket<span style="color:#f92672">}</span>, caused by <span style="color:#f92672">{</span>java.net.ConnectException: Connection refused<span style="color:#f92672">}}</span>, <span style="color:#f92672">{</span>address<span style="color:#f92672">=</span>10.0.106.2:27017, type<span style="color:#f92672">=</span>ReplicaSetSecondary, averageLatency<span style="color:#f92672">=</span>11.9 ms, state<span style="color:#f92672">=</span>Connected<span style="color:#f92672">}</span>, <span style="color:#f92672">{</span>address<span style="color:#f92672">=</span>10.0.106.6:27017, type<span style="color:#f92672">=</span>Unknown, state<span style="color:#f92672">=</span>Connecting, exception<span style="color:#f92672">={</span>com.mongodb.MongoException$Network: Exception opening the socket<span style="color:#f92672">}</span>, caused by <span style="color:#f92672">{</span>java.net.ConnectException: Connection refused<span style="color:#f92672">}}]</span>; nested exception is com.mongodb.MongoTimeoutException: Timed out after <span style="color:#ae81ff">30000</span> ms <span style="color:#66d9ef">while</span> waiting <span style="color:#66d9ef">for</span> a server that matches <span style="color:#f92672">{</span>serverSelectors<span style="color:#f92672">=[</span>ReadPreferenceServerSelector<span style="color:#f92672">{</span>readPreference<span style="color:#f92672">=</span>primary<span style="color:#f92672">}</span>, LatencyMinimizingServerSelector<span style="color:#f92672">{</span>acceptableLatencyDifference<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span> ms<span style="color:#f92672">}]}</span>. Client view of cluster state is <span style="color:#f92672">{</span>type<span style="color:#f92672">=</span>ReplicaSet, servers<span style="color:#f92672">=[{</span>address<span style="color:#f92672">=</span>10.0.1.9:27017, type<span style="color:#f92672">=</span>Unknown, state<span style="color:#f92672">=</span>Connecting, exception<span style="color:#f92672">={</span>com.mongodb.MongoException$Network: Exception opening the socket<span style="color:#f92672">}</span>, caused by <span style="color:#f92672">{</span>java.net.ConnectException: Connection refused<span style="color:#f92672">}}</span>, <span style="color:#f92672">{</span>address<span style="color:#f92672">=</span>10.0.106.2:27017, type<span style="color:#f92672">=</span>ReplicaSetSecondary, averageLatency<span style="color:#f92672">=</span>11.9 ms, state<span style="color:#f92672">=</span>Connected<span style="color:#f92672">}</span>, <span style="color:#f92672">{</span>address<span style="color:#f92672">=</span>10.0.106.6:27017, type<span style="color:#f92672">=</span>Unknown, state<span style="color:#f92672">=</span>Connecting, exception<span style="color:#f92672">={</span>com.mongodb.MongoException$Network: Exception opening the socket<span style="color:#f92672">}</span>, caused by <span style="color:#f92672">{</span>java.net.ConnectException: Connection refused<span style="color:#f92672">}}]</span>
+</span></span></code></pre></div><ul>
+<li>
+<p>重新启动10.0.106.2</p>
+<ul>
+<li>节点10.0.106.2变为PRIMARY</li>
+<li>此时应用开始恢复，正常操作</li>
+</ul>
+</li>
+<li>
+<p>重新启动10.0.1.9</p>
+<ul>
+<li>节点10.0.106.6变为SECONDARY，10.0.1.9变为PRIMARY</li>
+<li>此时应用正常操作</li>
+</ul>
+</li>
+<li>
+<p>当没有PRIMARY的时候，应用才会宕机</p>
+</li>
+<li>
+<p>当三个节点组成replica set的时候，集群宕机到只剩下一台机器的时候，就没有PRIMARY节点，应用也就无法正常运转</p>
+</li>
+<li>
+<p>spring配置文件当中的配置顺序没有关系</p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/mongo/mongodb-replset-replication/>https://xibolun.github.io/post/mongo/mongodb-replset-replication/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/mongo/">
+                    #Mongo</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/mongo/mongodb-master-slave-replication/" class="prev" rel="prev" title="MongoDB Master Slave Replication"><i class="iconfont icon-left"></i>&nbsp;MongoDB Master Slave Replication</a>
+        
+        
+        <a href="https://xibolun.github.io/post/neo4j/neo4j-ogm%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="next" rel="next" title="Neo4j-OGM源码分析">Neo4j-OGM源码分析&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

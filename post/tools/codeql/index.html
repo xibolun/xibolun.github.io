@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/tools/git%E5%AF%B9%E8%B1%A1/" />
+    <link rel="next" href="https://xibolun.github.io/post/docker/gitbook%E4%BD%BF%E7%94%A8dockerfile/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/tools/codeql/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            CodeQL | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="CodeQL | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "CodeQL",
+    "headline" : "CodeQL",
+    "description" : "给你的代码加上CodeQL github推出了code scanning的功能，今天在给github提PR的时候才学习着使用； 在.git\/wor",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-11-05 10:01:27 \u002b0800 CST",
+    "dateModified" : "2020-11-05 10:01:27 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/tools\/codeql\/",
+    "wordCount" : "730",
+    "keywords" : [ "tool", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">CodeQL</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-11-05 itemprop="datePublished">November 5, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/tool/"> tool, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">730 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="给你的代码加上codeql">给你的代码加上CodeQL</h2>
+<p><code>github</code>推出了<code>code scanning</code>的功能，今天在给<code>github</code>提PR的时候才学习着使用；</p>
+<p>在<code>.git/workflows</code>里面添加<code>codeql-analysis</code>文件，这个文件也可以在 <code>github</code>上面创建<code>workflow</code>时创建出来；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>name: <span style="color:#e6db74">&#34;CodeQL&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on:
+</span></span><span style="display:flex;"><span>  push:
+</span></span><span style="display:flex;"><span>    branches: <span style="color:#f92672">[</span>master, develop<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  pull_request:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># The branches below must be a subset of the branches above</span>
+</span></span><span style="display:flex;"><span>    branches: <span style="color:#f92672">[</span>master<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  schedule:
+</span></span><span style="display:flex;"><span>    - cron: <span style="color:#e6db74">&#39;0 4 * * 5&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>jobs:
+</span></span><span style="display:flex;"><span>  analyse:
+</span></span><span style="display:flex;"><span>    name: Analyse
+</span></span><span style="display:flex;"><span>    runs-on: ubuntu-latest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    steps:
+</span></span><span style="display:flex;"><span>    - name: Checkout repository
+</span></span><span style="display:flex;"><span>      uses: actions/checkout@v2
+</span></span><span style="display:flex;"><span>      with:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># We must fetch at least the immediate parents so that if this is</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># a pull request then we can checkout the head.</span>
+</span></span><span style="display:flex;"><span>        fetch-depth: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># If this run was triggered by a pull request event, then checkout</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># the head of the pull request instead of the merge commit.</span>
+</span></span><span style="display:flex;"><span>    - run: git checkout HEAD^2
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>: <span style="color:#e6db74">${</span>{ github.event_name == <span style="color:#e6db74">&#39;pull_request&#39;</span> <span style="color:#e6db74">}</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Initializes the CodeQL tools for scanning.</span>
+</span></span><span style="display:flex;"><span>    - name: Initialize CodeQL
+</span></span><span style="display:flex;"><span>      uses: github/codeql-action/init@v1
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Override language selection by uncommenting this and choosing your languages</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># with:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">#   languages: go, javascript, csharp, python, cpp, java</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># If this step fails, then you should remove it and run the build manually (see below)</span>
+</span></span><span style="display:flex;"><span>    - name: Autobuild
+</span></span><span style="display:flex;"><span>      uses: github/codeql-action/autobuild@v1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ℹ️ Command-line programs to run using the OS shell.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 📚 https://git.io/JvXDl</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ✏️ If the Autobuild fails above, remove it and uncomment the following three lines</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#    and modify them (or add more) to build your code if your project</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#    uses a compiled language</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#- run: |</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#   make bootstrap</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#   make release</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - name: Perform CodeQL Analysis
+</span></span><span style="display:flex;"><span>      uses: github/codeql-action/analyze@v1
+</span></span></code></pre></div><p>从上面的文件里面可以看出</p>
+<ul>
+<li>当你提交代码至<code>master\develop</code>分支，或<code>PR</code>到<code>master</code>分支时会自动触发此<code>workflow</code>；</li>
+<li>下面有多种<code>jobs</code></li>
+</ul>
+<p>由于每次提交才能触发此机制，那能否像<code>.git/hooks</code>里面的机制，可以在提交的时候就触发，免得代码冗余，给开发者带来一些不好的感受呢？那就需要使用一些代码分析工具 <a href="https://help.semmle.com/QL/ql-tools.html">CodeQL  tools</a> ，准备使用<code>LGTM</code>来看看效果</p>
+<h3 id="lgtm">LGTM</h3>
+<p>一个代码分析工具，它有一个命令行工具，可以下载安装进行操作一下看看效果；</p>
+<ul>
+<li><a href="https://help.semmle.com/wiki/pages/viewpage.action?pageId=40698058">对golang工程的分析准备</a></li>
+</ul>
+<h4 id="安装">安装</h4>
+<p>下载软件包，是一个zip包，大概1000M；下载完成后，解压并安装</p>
+<pre tabindex="0"><code>1. `mv ~/Downloads/odasa*.zip ${install_loc}`
+2. `cd ${install_loc}`
+3. `xattr -c odasa*.zip` // 去除@符号
+4. `unzip odasa*.zip`
+</code></pre><p>大小大约1.5G</p>
+<pre tabindex="0"><code>➜  odasa du -sh
+1.5G    .
+</code></pre><p>为什么这么大？ 看了一下，把缓存、<code>node modules</code>、<code>jar</code>等各个东西都打包完成</p>
+<p>执行<code>setup.sh</code>进行安装，需要一个<code>license</code>文件；</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/tools/codeql/>https://xibolun.github.io/post/tools/codeql/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/tool/">
+                    #tool</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/tools/git%E5%AF%B9%E8%B1%A1/" class="prev" rel="prev" title="Git对象"><i class="iconfont icon-left"></i>&nbsp;Git对象</a>
+        
+        
+        <a href="https://xibolun.github.io/post/docker/gitbook%E4%BD%BF%E7%94%A8dockerfile/" class="next" rel="next" title="GitBook使用Dockerfile">GitBook使用Dockerfile&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

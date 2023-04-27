@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/k8s/k8s%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+    <link rel="next" href="https://xibolun.github.io/post/k8s/k8s%E4%B8%89-service/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/k8s/k8s%E4%BA%8C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            k8s(二)––基础概念 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="k8s(二)––基础概念 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "k8s(二)––基础概念",
+    "headline" : "k8s(二)––基础概念",
+    "description" : "部署第一个应用 首先创建一个deployment [root@k8s-master ~]# kubectl create deploy nginx --image=nginx 查看一下deployment和pod的信息 [root@k8s-master ~]# kubectl get deploy -o wide NAME READY UP-TO-DATE AVAILABLE AGE CONTAINERS IMAGES SELECTOR nginx 0\/1 1 0",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-02-05 21:43:03 \u002b0800 CST",
+    "dateModified" : "2020-02-05 21:43:03 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/k8s\/k8s%E4%BA%8C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5\/",
+    "wordCount" : "920",
+    "keywords" : [ "k8s", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">k8s(二)––基础概念</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-02-05 itemprop="datePublished">February 5, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/k8s/"> k8s, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">920 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="部署第一个应用">部署第一个应用</h3>
+<p>首先创建一个<code>deployment</code></p>
+<pre tabindex="0"><code>[root@k8s-master ~]# kubectl create deploy nginx --image=nginx
+</code></pre><p>查看一下<code>deployment</code>和<code>pod</code>的信息</p>
+<pre tabindex="0"><code>[root@k8s-master ~]# kubectl get deploy -o wide
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES   SELECTOR
+nginx   0/1     1            0           2m13s   nginx        nginx    app=nginx
+[root@k8s-master ~]# kubectl get pods -o wide
+NAME                     READY   STATUS         RESTARTS   AGE   IP           NODE        NOMINATED NODE   READINESS GATES
+nginx-86c57db685-vjz8x   0/1     ErrImagePull   0          18s   10.244.1.5   k8s-node2   &lt;none&gt;           &lt;none&gt;
+[root@k8s-master ~]# kubectl get replicaset -o wide
+NAME               DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES   SELECTOR
+nginx-86c57db685   1         1         1       11m   nginx        nginx    app=nginx,pod-template-hash=86c57db685
+</code></pre><p>稍等片刻，等服务启动起来，请求一下</p>
+<pre tabindex="0"><code>[root@k8s-master ~]# curl 10.244.1.5
+</code></pre><p>还可以另起一个窗口启动一个代理，通过<code>POD_NAME</code>访问</p>
+<pre tabindex="0"><code>[root@k8s-master ~]# kubectl proxy
+Starting to serve on 127.0.0.1:8001
+</code></pre><p>在原窗口当中执行，其中<code>nginx-86c57db685-vjz8x</code>是pod的名称</p>
+<pre tabindex="0"><code>curl http://localhost:8001/api/v1/namespaces/default/pods/nginx-86c57db685-vjz8x/proxy/
+</code></pre><h3 id="伸缩">伸缩</h3>
+<p>扩容与缩容都使用<code>scale</code>命令，通过<code>replicas</code>来控制pod的数量</p>
+<pre tabindex="0"><code>[root@k8s-master ~]# kubectl scale deploy/nginx --replicas=3
+deployment.apps/nginx scaled
+[root@k8s-master ~]# kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-86c57db685-7m6dp   1/1     Running   0          15m
+nginx-86c57db685-vjz8x   1/1     Running   0          23h
+</code></pre><h3 id="组件">组件</h3>
+<p><img src="https://d33wubrfki0l68.cloudfront.net/7016517375d10c702489167e704dcb99e570df85/7bb53/images/docs/components-of-kubernetes.png" alt="k8s component" loading="lazy" ></p>
+<p><a href="https://kubernetes.io/docs/concepts/overview/components/">组件</a> 分为三大类：k8s组件、node组件、插件</p>
+<h4 id="k8s组件">K8s组件</h4>
+<ul>
+<li>kube-controller-manager</li>
+<li>cloud-controller-manager</li>
+<li>kube-api-server</li>
+<li>etcd</li>
+<li>kube-scheduler</li>
+</ul>
+<h4 id="node组件">Node组件</h4>
+<ul>
+<li>kubelet</li>
+<li>kube-proxy</li>
+<li>container-runtime</li>
+</ul>
+<h4 id="插件">插件</h4>
+<ul>
+<li>DNS</li>
+<li>WebUI （<code>minikube dashboard</code>）</li>
+<li>Container Resource Monitoring</li>
+<li>Cluster-level Loggin</li>
+</ul>
+<h3 id="概念">概念</h3>
+<h3 id="namespace">namespace</h3>
+<p>命名空间，隔离不同的<code>deployment</code>、<code>pod</code>、<code>service</code>、<code>replicaset</code>，相当于租户的概念；</p>
+<p>命名空间的 操作</p>
+<pre tabindex="0"><code>## 创建
+[root@k8s-master ~]# kubectl create namespace aa
+
+## 查看
+[root@k8s-master ~]# kubectl get ns
+
+## 删除，注意删除的时候会将此命名空间下面的所有资源都删除
+[root@k8s-master ~]# kubectl delete ns/aa
+</code></pre><h4 id="deployment">deployment</h4>
+<p>简称<code>deploy</code>；</p>
+<p>生命周期：<code>progressing</code>、<code>complete</code>、<code>fail to progress</code></p>
+<h4 id="pod">pod</h4>
+<p>用于存放<code>container</code>的容器组，是k8s的最基本单元，一个<code>pod</code>里面可以有多个容器；并且可以包含不同的容器；存储卷，网络服务，普通镜像等；一个<code>node</code>上面可以有多个<code>pod</code></p>
+<h4 id="node">node</h4>
+<p>node是k8s里面的虚拟机或物理机，是计算节点；承载着N个pod；master会根据资源的(cpu、内存、硬盘、负载等)指标去计算，指定需要创建的<code>pod</code>在哪个节点上面；</p>
+<h4 id="replication-controller">replication controller</h4>
+<p><code>pod</code>副本控制器，用于根据<code>CRD</code>文件当中指定参数控制<code>pod</code>的数量和状态；可以用于弹性伸缩、故障处理、升级、迁移等；</p>
+<h4 id="service">service</h4>
+<p><code>cluster</code>与宿主机网络是不通的，因此需要<code>proxy</code>，<code>k8s</code>也提供了<code>kubectl proxy</code>，也可以使用<code>service</code>进行操作；将一组的pod进行统一的管理和适配</p>
+<h4 id="ingressegress">ingress/egress</h4>
+<p><code>pod</code>集群的入流量称为<code>ingress</code>，出流量为<code>egress</code>；可以通过配置策略来达到这样的限制的效果；</p>
+<p>基于以上两个概念就会有了入流量的控制器<code>ingressController</code>；</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/k8s/k8s%E4%BA%8C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/>https://xibolun.github.io/post/k8s/k8s%E4%BA%8C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/k8s/">
+                    #k8s</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/k8s/k8s%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="prev" rel="prev" title="k8s(一)––环境搭建"><i class="iconfont icon-left"></i>&nbsp;k8s(一)––环境搭建</a>
+        
+        
+        <a href="https://xibolun.github.io/post/k8s/k8s%E4%B8%89-service/" class="next" rel="next" title="k8s(三)––Service">k8s(三)––Service&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

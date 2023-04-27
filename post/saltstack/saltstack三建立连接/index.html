@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/saltstack/saltstack%E4%BA%8Cmac%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+    <link rel="next" href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%85%ADgc/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/saltstack/saltstack%E4%B8%89%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            SaltStack(三)建立连接 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="SaltStack(三)建立连接 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "SaltStack(三)建立连接",
+    "headline" : "SaltStack(三)建立连接",
+    "description" : "建立通讯 Minion日志 [DEBUG ] Process Manager starting! [68\/256] [DEBUG ] Connecting to master. Attempt 1 of 1 ### 获取到master的zmq的地址 [DEBUG ] Master URI: tcp:\/\/192.168.1.253:4506 ### 向zmq发送认证信息 [DEBUG ] Initializing new AsyncAuth for (u\u0026#39;\/etc\/salt\/pki\/minion\u0026#39;, u\u0026#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6\u0026#39;, u\u0026#39;tcp:\/\/192.168.1.253:4506\u0026#39;) [DEBUG",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-10-01 10:21:13 \u002b0800 CST",
+    "dateModified" : "2019-10-01 10:21:13 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/saltstack\/saltstack%E4%B8%89%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5\/",
+    "wordCount" : "1107",
+    "keywords" : [ "saltstack", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">SaltStack(三)建立连接</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-10-01 itemprop="datePublished">October 1, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1107 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="建立通讯">建立通讯</h3>
+<h4 id="minion日志">Minion日志</h4>
+<pre tabindex="0"><code>[DEBUG   ] Process Manager starting!                                                                                                                [68/256]
+[DEBUG   ] Connecting to master. Attempt 1 of 1   
+### 获取到master的zmq的地址
+[DEBUG   ] Master URI: tcp://192.168.1.253:4506                                                                                                             
+### 向zmq发送认证信息
+[DEBUG   ] Initializing new AsyncAuth for (u&#39;/etc/salt/pki/minion&#39;, u&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;, u&#39;tcp://192.168.1.253:4506&#39;)                   
+[DEBUG   ] Generated random reconnect delay between &#39;1000ms&#39; and &#39;11000ms&#39; (8413)                                                                           
+[DEBUG   ] Setting zmq_reconnect_ivl to &#39;8413ms&#39;                                                                                                            
+[DEBUG   ] Setting zmq_reconnect_ivl_max to &#39;11000ms&#39;                                                                                                       
+[DEBUG   ] Initializing new AsyncZeroMQReqChannel for (u&#39;/etc/salt/pki/minion&#39;, u&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;, u&#39;tcp://192.168.1.253:4506&#39;, &#39;clear
+&#39;)                                                                                                                                                          
+[DEBUG   ] Connecting the Minion to the Master URI (for the return server): tcp://192.168.1.253:4506                                                        
+[DEBUG   ] Trying to connect to: tcp://192.168.1.253:4506                       
+### 加载公钥
+[DEBUG   ] salt.crypt.get_rsa_pub_key: Loading public key                                                                                                   
+[DEBUG   ] Decrypting the current master AES key                                                                                                            
+[DEBUG   ] salt.crypt.get_rsa_key: Loading private key                                                                                                      
+[DEBUG   ] salt.crypt._get_key_with_evict: Loading private key
+[DEBUG   ] Loaded minion key: /etc/salt/pki/minion/minion.pem
+[DEBUG   ] salt.crypt.get_rsa_pub_key: Loading public key
+[DEBUG   ] Closing AsyncZeroMQReqChannel instance
+[DEBUG   ] Connecting the Minion to the Master publish port, using the URI: tcp://192.168.1.253:4505
+[DEBUG   ] salt.crypt.get_rsa_key: Loading private key
+[DEBUG   ] Loaded minion key: /etc/salt/pki/minion/minion.pem
+### 使用aes加密算法，向master的zmq发送自己的公钥
+[DEBUG   ] Initializing new AsyncZeroMQReqChannel for (u&#39;/etc/salt/pki/minion&#39;, u&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;, u&#39;tcp://192.168.1.253:4506&#39;, u&#39;aes$
+)
+[DEBUG   ] Re-using AsyncAuth for (u&#39;/etc/salt/pki/minion&#39;, u&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;, u&#39;tcp://192.168.1.253:4506&#39;)
+[DEBUG   ] Connecting the Minion to the Master URI (for the return server): tcp://192.168.1.253:4506
+[DEBUG   ] Trying to connect to: tcp://192.168.1.253:4506
+[DEBUG   ] salt.crypt.get_rsa_key: Loading private key
+[DEBUG   ] Loaded minion key: /etc/salt/pki/minion/minion.pem
+[DEBUG   ] Closing AsyncZeroMQReqChannel instance
+[DEBUG   ] Grains refresh requested. Refreshing grains.
+[DEBUG   ] Reading configuration from /etc/salt/minion
+[DEBUG   ] Including configuration from &#39;/etc/salt/minion.d/_schedule.conf&#39;
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/_schedule.conf
+[DEBUG   ] Including configuration from &#39;/etc/salt/minion.d/salt.conf&#39;
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/salt.conf
+[DEBUG   ] Loading static grains from /etc/salt/grains
+[DEBUG   ] Initializing new Schedule
+[DEBUG   ] LazyLoaded timezone.get_offset
+[DEBUG   ] LazyLoaded cmd.run
+[INFO    ] Executing command [u&#39;date&#39;, u&#39;+%z&#39;] in directory &#39;/root&#39;
+[DEBUG   ] stdout: +0000
+[DEBUG   ] output: +0000
+[DEBUG   ] LazyLoaded config.merge
+[DEBUG   ] SaltEvent PUB socket URI: /var/run/salt/minion/minion_event_fbba871d5e_pub.ipc
+[DEBUG   ] SaltEvent PULL socket URI: /var/run/salt/minion/minion_event_fbba871d5e_pull.ipc
+[DEBUG   ] Sending event: tag = /salt/minion/minion_schedule_delete_complete; data = {u&#39;_stamp&#39;: &#39;2019-10-15T10:31:16.607998&#39;, u&#39;complete&#39;: True, u&#39;schedule
+&#39;: {u&#39;__mine_interval&#39;: {u&#39;function&#39;: u&#39;mine.update&#39;, u&#39;run_on_start&#39;: True, u&#39;return_job&#39;: False, u&#39;enabled&#39;: True, u&#39;jid_include&#39;: True, u&#39;maxrunning&#39;: 2,
+ u&#39;minutes&#39;: 60}}}
+[DEBUG   ] Persisting schedule
+[DEBUG   ] Closing IPCMessageClient instance
+</code></pre><h4 id="master日志">Master日志</h4>
+<pre tabindex="0"><code>[INFO    ] Creating master process manager        
+[INFO    ] Creating master publisher process
+[DEBUG   ] Started &#39;salt.transport.zeromq.&lt;type &#39;instancemethod&#39;&gt;._publish_daemon&#39; with pid 9360
+[INFO    ] Creating master event publisher process
+[DEBUG   ] Started &#39;salt.utils.event.EventPublisher&#39; with pid 9361
+[INFO    ] Starting the Salt Publisher on tcp://0.0.0.0:4505
+[INFO    ] Starting the Salt Puller on ipc:///var/run/salt/master/publish_pull.ipc
+[DEBUG   ] Publish daemon getting data from puller ipc:///var/run/salt/master/publish_pull.ipc
+[INFO    ] Creating master maintenance process
+[DEBUG   ] Started &#39;salt.master.Maintenance&#39; with pid 9364
+[INFO    ] Creating master request server process
+[DEBUG   ] Started &#39;ReqServer&#39; with pid 9366
+[DEBUG   ] Initializing new Schedule
+[DEBUG   ] Started &#39;salt.transport.zeromq.&lt;type &#39;instancemethod&#39;&gt;.zmq_device&#39; with pid 9367
+[DEBUG   ] Started &#39;MWorker-0&#39; with pid 9369
+[INFO    ] Setting up the master communication server
+[DEBUG   ] Started &#39;MWorker-1&#39; with pid 9370
+[DEBUG   ] MasterEvent PUB socket URI: /var/run/salt/master/master_event_pub.ipc
+[DEBUG   ] MasterEvent PULL socket URI: /var/run/salt/master/master_event_pull.ipc
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Started &#39;MWorker-2&#39; with pid 9371
+[DEBUG   ] MasterEvent PUB socket URI: /var/run/salt/master/master_event_pub.ipc
+[DEBUG   ] MasterEvent PULL socket URI: /var/run/salt/master/master_event_pull.ipc
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Started &#39;MWorker-3&#39; with pid 9372
+[DEBUG   ] MasterEvent PUB socket URI: /var/run/salt/master/master_event_pub.ipc
+[DEBUG   ] MasterEvent PULL socket URI: /var/run/salt/master/master_event_pull.ipc
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Started &#39;MWorker-4&#39; with pid 9373
+[DEBUG   ] Process Manager starting!
+[DEBUG   ] MasterEvent PUB socket URI: /var/run/salt/master/master_event_pub.ipc
+[DEBUG   ] MasterEvent PULL socket URI: /var/run/salt/master/master_event_pull.ipc
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] MasterEvent PUB socket URI: /var/run/salt/master/master_event_pub.ipc
+[DEBUG   ] MasterEvent PULL socket URI: /var/run/salt/master/master_event_pull.ipc
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Started &#39;salt.master.FileserverUpdate&#39; with pid 9374
+[DEBUG   ] Process Manager starting!
+[DEBUG   ] Performing fileserver updates for items with an update interval of 60
+[DEBUG   ] Updating roots fileserver cache
+[DEBUG   ] Completed fileserver updates for items with an update interval of 60, waiting 60 seconds
+[DEBUG   ] Could not LazyLoad timezone.get_offset: &#39;timezone.get_offset&#39; is not available.
+[DEBUG   ] Could not LazyLoad config.merge: &#39;config.merge&#39; is not available.
+[DEBUG   ] Using cached minion ID from /etc/salt/minion_id: 1.0.0.127.in-addr.arpa
+[DEBUG   ] MasterEvent PUB socket URI: /var/run/salt/master/master_event_pub.ipc
+[DEBUG   ] MasterEvent PULL socket URI: /var/run/salt/master/master_event_pull.ipc
+[DEBUG   ] This salt-master instance has accepted 1 minion keys.
+[DEBUG   ] Using cached minion ID from /etc/salt/minion_id: 1.0.0.127.in-addr.arpa
+[DEBUG   ] Using cached minion ID from /etc/salt/minion_id: 1.0.0.127.in-addr.arpa
+[DEBUG   ] Using cached minion ID from /etc/salt/minion_id: 1.0.0.127.in-addr.arpa
+[DEBUG   ] Missing configuration file: /Users/admin/.saltrc
+[DEBUG   ] Missing configuration file: /Users/admin/.saltrc
+[DEBUG   ] Using cached minion ID from /etc/salt/minion_id: 1.0.0.127.in-addr.arpa
+[DEBUG   ] Missing configuration file: /Users/admin/.saltrc
+[DEBUG   ] MasterEvent PUB socket URI: /var/run/salt/master/master_event_pub.ipc
+[DEBUG   ] MasterEvent PULL socket URI: /var/run/salt/master/master_event_pull.ipc
+[DEBUG   ] MasterEvent PUB socket URI: /var/run/salt/master/master_event_pub.ipc
+[DEBUG   ] Missing configuration file: /Users/admin/.saltrc
+[DEBUG   ] MasterEvent PULL socket URI: /var/run/salt/master/master_event_pull.ipc
+[DEBUG   ] MasterEvent PUB socket URI: /var/run/salt/master/master_event_pub.ipc
+[DEBUG   ] MasterEvent PULL socket URI: /var/run/salt/master/master_event_pull.ipc
+[DEBUG   ] MasterEvent PUB socket URI: /var/run/salt/master/master_event_pub.ipc
+[DEBUG   ] MasterEvent PULL socket URI: /var/run/salt/master/master_event_pull.ipc
+[DEBUG   ] Missing configuration file: /Users/admin/.saltrc
+[DEBUG   ] MasterEvent PUB socket URI: /var/run/salt/master/master_event_pub.ipc
+[DEBUG   ] MasterEvent PULL socket URI: /var/run/salt/master/master_event_pull.ipc
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Including configuration from &#39;/etc/salt/minion.d/_schedule.conf&#39;
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/_schedule.conf
+[DEBUG   ] Using cached minion ID from /etc/salt/minion_id: 1.0.0.127.in-addr.arpa
+[DEBUG   ] Grains refresh requested. Refreshing grains.
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Including configuration from &#39;/etc/salt/minion.d/_schedule.conf&#39;
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/_schedule.conf
+[DEBUG   ] Including configuration from &#39;/etc/salt/minion.d/_schedule.conf&#39;
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/_schedule.conf
+[DEBUG   ] Including configuration from &#39;/etc/salt/minion.d/_schedule.conf&#39;
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/_schedule.conf
+[DEBUG   ] Including configuration from &#39;/etc/salt/minion.d/_schedule.conf&#39;
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/_schedule.conf
+[DEBUG   ] Using cached minion ID from /etc/salt/minion_id: 1.0.0.127.in-addr.arpa
+[DEBUG   ] Grains refresh requested. Refreshing grains.
+[DEBUG   ] Using cached minion ID from /etc/salt/minion_id: 1.0.0.127.in-addr.arpa
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Using cached minion ID from /etc/salt/minion_id: 1.0.0.127.in-addr.arpa
+[DEBUG   ] Using cached minion ID from /etc/salt/minion_id: 1.0.0.127.in-addr.arpa
+[DEBUG   ] Grains refresh requested. Refreshing grains.
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Grains refresh requested. Refreshing grains.
+[DEBUG   ] Reading configuration from /etc/salt/master
+[DEBUG   ] Grains refresh requested. Refreshing grains.
+[DEBUG   ] Reading configuration from /etc/salt/master
+</code></pre><ul>
+<li><a href="https://docs.saltstack.com/en/getstarted/system/communication.html">salt-communication</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/saltstack/saltstack%E4%B8%89%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5/>https://xibolun.github.io/post/saltstack/saltstack%E4%B8%89%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/saltstack/">
+                    #saltstack</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E4%BA%8Cmac%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="prev" rel="prev" title="SaltStack(二)Mac环境搭建"><i class="iconfont icon-left"></i>&nbsp;SaltStack(二)Mac环境搭建</a>
+        
+        
+        <a href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%85%ADgc/" class="next" rel="next" title="Go源码分析(六)GC">Go源码分析(六)GC&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

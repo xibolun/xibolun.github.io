@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hugo on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/hugo/</link>
+    <description>Recent content in hugo on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 22 Feb 2019 18:47:21 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用Hugo&amp;GitPage写博客</title>
+      <link>https://xibolun.github.io/post/tools/hugo/</link>
+      <pubDate>Fri, 22 Feb 2019 18:47:21 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/hugo/</guid>
+      <description>本文主要是介绍一下我是怎么写博客，并且发布的。 最早方式 早期入了emacs的坑，喜欢上了 Org-mode(org-mode十分强大，尤其它的A</description>
+    </item>
+    
+  </channel>
+</rss>

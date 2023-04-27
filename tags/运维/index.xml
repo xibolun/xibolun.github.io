@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>运维 on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/%E8%BF%90%E7%BB%B4/</link>
+    <description>Recent content in 运维 on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 30 Jul 2019 00:19:41 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NMAP使用</title>
+      <link>https://xibolun.github.io/post/linux/snmp-snmptrap/</link>
+      <pubDate>Tue, 30 Jul 2019 00:19:41 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/linux/snmp-snmptrap/</guid>
+      <description>Nmap nmap （Network Mapper）是一个网络工具，用于网络发现和安全审计 使用详解 仅列出需要发现的目标 [root@10-0-2-7 ~]# nmap -sL 10.0.1.1-3 Starting Nmap 6.40 ( http://nmap.org ) at 2019-11-20 21:25 CST Nmap scan report for 10.0.1.1</description>
+    </item>
+    
+  </channel>
+</rss>

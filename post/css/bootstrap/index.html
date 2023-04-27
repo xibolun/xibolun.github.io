@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/tools/%E5%88%A9%E5%99%A8/" />
+    <link rel="next" href="https://xibolun.github.io/post/tools/hugo/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/css/bootstrap/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Bootstrap | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Bootstrap | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Bootstrap",
+    "headline" : "Bootstrap",
+    "description" : "滚动 data-slide-to 每个滚动的图片的序号 data-interval 设置默认循环滚动的间隔 data-pause=\u0026ldquo;hover\u0026rdquo; 当鼠标悬停的时候滚动停止 class=\u0026lsquo;active\u0026rsquo; 默认行路的carousel \u0026lt;div id=\u0026#34;carousel-example-generic\u0026#34; class=\u0026#34;carousel slide\u0026#34; data-ride=\u0026#34;carousel\u0026#34;\u0026gt; \u0026lt;!-- Indicators --\u0026gt; \u0026lt;ol class=\u0026#34;carousel-indicators\u0026#34;\u0026gt; \u0026lt;li data-target=\u0026#34;#carousel-example-generic\u0026#34; data-slide-to=\u0026#34;0\u0026#34; class=\u0026#34;active\u0026#34;\u0026gt;\u0026lt;\/li\u0026gt; \u0026lt;li data-target=\u0026#34;#carousel-example-generic\u0026#34; data-slide-to=\u0026#34;1\u0026#34;\u0026gt;\u0026lt;\/li\u0026gt; \u0026lt;li",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-02-10 09:56:08 \u002b0800 CST",
+    "dateModified" : "2019-02-10 09:56:08 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/css\/bootstrap\/",
+    "wordCount" : "692",
+    "keywords" : [ "Css", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Bootstrap</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-02-10 itemprop="datePublished">February 10, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">692 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="滚动">滚动</h3>
+<ul>
+<li>data-slide-to 每个滚动的图片的序号</li>
+<li>data-interval 设置默认循环滚动的间隔</li>
+<li>data-pause=&ldquo;hover&rdquo; 当鼠标悬停的时候滚动停止</li>
+<li>class=&lsquo;active&rsquo; 默认行路的carousel</li>
+</ul>
+<pre tabindex="0"><code>&lt;div id=&#34;carousel-example-generic&#34; class=&#34;carousel slide&#34; data-ride=&#34;carousel&#34;&gt;
+            &lt;!-- Indicators --&gt;
+            &lt;ol class=&#34;carousel-indicators&#34;&gt;
+                &lt;li data-target=&#34;#carousel-example-generic&#34; data-slide-to=&#34;0&#34; class=&#34;active&#34;&gt;&lt;/li&gt;
+                &lt;li data-target=&#34;#carousel-example-generic&#34; data-slide-to=&#34;1&#34;&gt;&lt;/li&gt;
+                &lt;li data-target=&#34;#carousel-example-generic&#34; data-slide-to=&#34;2&#34;&gt;&lt;/li&gt;
+                &lt;li data-target=&#34;#carousel-example-generic&#34; data-slide-to=&#34;3&#34;&gt;&lt;/li&gt;
+            &lt;/ol&gt;
+
+            &lt;!-- Wrapper for slides --&gt;
+            &lt;div class=&#34;carousel-inner&#34; role=&#34;listbox&#34;&gt;
+                &lt;div class=&#34;item active&#34;&gt;
+                    &lt;img src=&#34;http://idcos.com/public/assets/homepage/banner1.jpg&#34; alt=&#34;&#34;&gt;
+                    &lt;div class=&#34;carousel-caption&#34;&gt;
+                        &lt;h1&gt;IDCOS&lt;/h1&gt;
+                        &lt;h3&gt;数据中心操作系统&lt;/h3&gt;
+                        &lt;p&gt;云霁科技自主研发的国内第一个数据中心操作系统，是面向数据中心和IT运维部门的新一代PAAS平台，解决云计算数据中心在规模和效率上面临的挑战以及传统数据中心和用户转型云计算过程中遇到的困难。
+                        &lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&#34;item&#34;&gt;
+                    &lt;img src=&#34;http://idcos.com/public/assets/homepage/banner2.jpg&#34; alt=&#34;&#34;&gt;
+                    &lt;div class=&#34;carousel-caption&#34;&gt;
+                        &lt;h1&gt;CloudRes&lt;/h1&gt;
+                        &lt;h3&gt;智能云管理平台&lt;/h3&gt;
+                        &lt;p&gt;新一代企业级laas云管理平台，实现传统设备和云化资源、私有云和公有云的统一管理，改变资源的交付模式；将传统的“设备交付”变为全自动的“服务交付”，通过服务目录和自服务的方式持续优化
+                            IT 服务能力。&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&#34;item&#34;&gt;
+                    &lt;img src=&#34;http://idcos.com/public/assets/homepage/banner3.jpg&#34; alt=&#34;&#34;&gt;
+                    &lt;div class=&#34;carousel-caption&#34;&gt;
+                        &lt;h1&gt;CloudRes&lt;/h1&gt;
+                        &lt;h3&gt;智能云管理平台&lt;/h3&gt;
+                        &lt;p&gt;新一代企业级laas云管理平台，实现传统设备和云化资源、私有云和公有云的统一管理，改变资源的交付模式；将传统的“设备交付”变为全自动的“服务交付”，通过服务目录和自服务的方式持续优化
+                            IT 服务能力。&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&#34;item&#34;&gt;
+                    &lt;img src=&#34;http://idcos.com/public/assets/homepage/banner4.jpg&#34; alt=&#34;&#34;&gt;
+                    &lt;div class=&#34;carousel-caption&#34;&gt;
+                        &lt;h1&gt;CloudRes&lt;/h1&gt;
+                        &lt;h3&gt;智能云管理平台&lt;/h3&gt;
+                        &lt;p&gt;新一代企业级laas云管理平台，实现传统设备和云化资源、私有云和公有云的统一管理，改变资源的交付模式；将传统的“设备交付”变为全自动的“服务交付”，通过服务目录和自服务的方式持续优化
+                            IT
+                            服务能力。&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/css/bootstrap/>https://xibolun.github.io/post/css/bootstrap/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/css/">
+                    #Css</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/tools/%E5%88%A9%E5%99%A8/" class="prev" rel="prev" title="利器"><i class="iconfont icon-left"></i>&nbsp;利器</a>
+        
+        
+        <a href="https://xibolun.github.io/post/tools/hugo/" class="next" rel="next" title="使用Hugo&amp;GitPage写博客">使用Hugo&amp;GitPage写博客&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RabbitMQ on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/rabbitmq/</link>
+    <description>Recent content in RabbitMQ on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 25 Apr 2019 10:43:27 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RabbitMQ-Websocket</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq-websocket/</link>
+      <pubDate>Thu, 25 Apr 2019 10:43:27 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq-websocket/</guid>
+      <description>Demo &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34; /&amp;gt; &amp;lt;meta http-equiv=&amp;#34;X-UA-Compatible&amp;#34; content=&amp;#34;IE=edge&amp;#34;&amp;gt; &amp;lt;title&amp;gt;Page Title&amp;lt;/title&amp;gt; &amp;lt;meta name=&amp;#34;viewport&amp;#34; content=&amp;#34;width=device-width, initial-scale=1&amp;#34;&amp;gt; &amp;lt;script src=&amp;#34;http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;http://cdn.jsdelivr.net/sockjs/1.0.1/sockjs.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;stomp.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; WebSocketStompMock = SockJS; var client = Stomp.client(&amp;#39;ws://localhost:15674/ws&amp;#39;); function on_connect() { client.subscribe(&amp;#34;/queue/default&amp;#34;, function(data) { var msg = data.body; alert(&amp;#34;收到数据：&amp;#34; + msg); }) }; function on_error() { console.log(&amp;#39;error&amp;#39;)</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ队列控制</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E5%85%AD-%E9%98%9F%E5%88%97%E6%8E%A7%E5%88%B6/</link>
+      <pubDate>Mon, 23 Jul 2018 10:01:44 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E5%85%AD-%E9%98%9F%E5%88%97%E6%8E%A7%E5%88%B6/</guid>
+      <description>RabbitMQ队列控制 队列控制功能列表 延迟队列 删除队列 优先队列 重入队列 切换队列 定时队列 优先队列 queue参数配置上面绑定x-max-pri</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ(三) Exchange Modes</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%89-exchange-modes/</link>
+      <pubDate>Mon, 25 Jun 2018 17:30:28 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%89-exchange-modes/</guid>
+      <description>Exchange Modes Direct direct 按着指定的路由发送至对应的queue，若routingKey不指定，则使用默认的&amp;quot;&amp;quot; 可以使用相同的routing</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ(三) Rabbitmqadmin</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%94-rabbitmqadmin/</link>
+      <pubDate>Mon, 25 Jun 2018 17:30:28 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%94-rabbitmqadmin/</guid>
+      <description>什么是STOMP http://stomp.github.io/ 一个demo 为什么是ws</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ(三) Web STOMP</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E5%9B%9B-web-stomp/</link>
+      <pubDate>Mon, 25 Jun 2018 17:30:28 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E5%9B%9B-web-stomp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ(一) 入门及基础概念</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%80-%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Wed, 30 May 2018 10:35:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%80-%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</guid>
+      <description>什么是Exchange，为什么要用Exchange，四种模式有什么区别 channel如何生成Queue，为什么会用Declare 什么是Rou</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ(二) HelloWorld</title>
+      <link>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%8C-helloworld/</link>
+      <pubDate>Wed, 30 May 2018 10:35:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%8C-helloworld/</guid>
+      <description>HelloWorld Producer Consumer 说明 TODO queue的设置需要非常注意 channel.queueDeclare(QUEUE_NAME, true, false, false, null); channel.queueDeclare(QUEUE_NAME, false, false, false, null); channel.queueDeclare(QUEUE_NAME, true, true, false, null); channel.queueDeclare(QUEUE_NAME, true, false, true, null); 发布的时候的routingKey channel.basicPublish(&amp;#34;&amp;#34;, QUEUE_NAME, null, &amp;#34;yunjikeji&amp;#34;.getBytes()); 不管producer</description>
+    </item>
+    
+  </channel>
+</rss>

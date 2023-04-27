@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/linux/linux-awk/" />
+    <link rel="next" href="https://xibolun.github.io/post/java/mulithread/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/jwt/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            JWT学习 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="JWT学习 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "JWT学习",
+    "headline" : "JWT学习",
+    "description" : "什么是JWT? jwt的全称是JSON Web Token；JSON Web Token是一个开源标准(rfc7519) ，是一个轻量，携带着用户信息的json",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-04-22 23:36:24 \u002b0800 CST",
+    "dateModified" : "2017-04-22 23:36:24 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/jwt\/",
+    "wordCount" : "1011",
+    "keywords" : [ "jwt", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">JWT学习</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-04-22 itemprop="datePublished">April 22, 2017</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1011 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="什么是jwt">什么是JWT?</h2>
+<p>jwt的全称是JSON Web Token；JSON Web
+Token是一个开源标准(<a href="https://tools.ietf.org/html/rfc7519">rfc7519)</a>
+，是一个轻量，携带着用户信息的json
+Object对象，安全的进行服务器端与客户端交互；这个对象可以校验、信任，因为它由数字组成；
+轻量：因为轻量，所以可以更好地放在http
+header里面，在服务器与客户端之间快速交互
+携带用户信息：将用户的重要信息:userId，userName等放在jwt当中，不用再次从数据库当中获取</p>
+<h2 id="什么时候使用">什么时候使用？</h2>
+<ol>
+<li>
+<p>需要认证:用户根据username、password登录后，使用jwt返回一个token给客户端，客户端在请求的时候将token放在http
+header当中给服务器端，服务器端校验token的合法性，然后处理请求的response</p>
+</li>
+<li>
+<p>用户信息被改变：</p>
+</li>
+</ol>
+<h2 id="jwt的结构">jwt的结构</h2>
+<h3 id="基本结构">基本结构</h3>
+<p>由header、payload、sinature三部分组成，最终以xxx.yyy.zzz的形式拼接</p>
+<h3 id="header">header</h3>
+<p>header由两部分组成：</p>
+<ul>
+<li>type of token : JWT</li>
+<li>加密算法: HMAC/SHA256/RSA</li>
+</ul>
+<h3 id="payload">payload</h3>
+<p>payload里面存放着用户的信息，可以使用claims进行复合拼装,claims由已定义、public、private三部分组成</p>
+<ul>
+<li>resolved(已定义)：iss/exp/sub/aud</li>
+<li>public:url信息</li>
+<li>private:用户信息</li>
+</ul>
+<p>payload当中的数据都可以由用户自行设置</p>
+<h3 id="sinature">sinature</h3>
+<p>签名，根据header、payload和一个用户设置的密码(secret)，生成一个签名，最后将header，payload，sinature拼接成xxx.yyy.zzz形式</p>
+<h2 id="怎么使用java">怎么使用（java）</h2>
+<p>pom.xml里面引入jwt</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>  <span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;groupId&gt;</span>io.jsonwebtoken<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;artifactId&gt;</span>jjwt<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;version&gt;</span>0.7.0<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/dependency&gt;</span> 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>     String secret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;password&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>     String userId <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;zhangsan&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>     String userName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;张三&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">// 输出的jwt:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6aGFuZ3NhbiIsInVzZXJOYW1lIjoi5byg5LiJIn0.024kCUw4nodiXEdeOWtjWFn8u2eoh-DdfmLiXYgZs9g
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     String jwt <span style="color:#f92672">=</span> Jwts<span style="color:#f92672">.</span><span style="color:#a6e22e">builder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">setSubject</span><span style="color:#f92672">(</span>userId<span style="color:#f92672">).</span><span style="color:#a6e22e">signWith</span><span style="color:#f92672">(</span>SignatureAlgorithm<span style="color:#f92672">.</span><span style="color:#a6e22e">HS256</span><span style="color:#f92672">,</span> secret<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">.</span><span style="color:#a6e22e">claim</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;userName&#34;</span><span style="color:#f92672">,</span> userName<span style="color:#f92672">).</span><span style="color:#a6e22e">compact</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>     System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>jwt<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">// 客户端将Jwt传递给服务器,服务器根据secret进行解密,可以对jwt进行校验,取数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     Jws<span style="color:#f92672">&lt;</span>Claims<span style="color:#f92672">&gt;</span> claims <span style="color:#f92672">=</span> Jwts<span style="color:#f92672">.</span><span style="color:#a6e22e">parser</span><span style="color:#f92672">().</span><span style="color:#a6e22e">setSigningKey</span><span style="color:#f92672">(</span>secret<span style="color:#f92672">).</span><span style="color:#a6e22e">parseClaimsJws</span><span style="color:#f92672">(</span>jwt<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">//header={alg=HS256},body={sub=zhangsan, userName=张三},signature=024kCUw4nodiXEdeOWtjWFn8u2eoh-DdfmLiXYgZs9g
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>claims<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>由上面可以看出claims里面存放的数据由header、body、signature三部分组成</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/jwt/>https://xibolun.github.io/post/jwt/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/jwt/">
+                    #jwt</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/linux/linux-awk/" class="prev" rel="prev" title="Linux-awk"><i class="iconfont icon-left"></i>&nbsp;Linux-awk</a>
+        
+        
+        <a href="https://xibolun.github.io/post/java/mulithread/" class="next" rel="next" title="Java多线程学习">Java多线程学习&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

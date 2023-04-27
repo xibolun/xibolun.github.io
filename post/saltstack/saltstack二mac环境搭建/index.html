@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/saltstack/saltstack%E4%B8%80%E5%88%9D%E6%8E%A2/" />
+    <link rel="next" href="https://xibolun.github.io/post/saltstack/saltstack%E4%B8%89%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/saltstack/saltstack%E4%BA%8Cmac%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            SaltStack(二)Mac环境搭建 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="SaltStack(二)Mac环境搭建 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "SaltStack(二)Mac环境搭建",
+    "headline" : "SaltStack(二)Mac环境搭建",
+    "description" : "其他环境 Mac OS本机SaltStack环境搭建 在mac os下部署一个master，并利用两个salt-minion的docker容器搭建一个本",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-09-29 22:52:49 \u002b0800 CST",
+    "dateModified" : "2019-09-29 22:52:49 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/saltstack\/saltstack%E4%BA%8Cmac%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA\/",
+    "wordCount" : "781",
+    "keywords" : [ "saltstack", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">SaltStack(二)Mac环境搭建</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-09-29 itemprop="datePublished">September 29, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">781 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="其他环境">其他环境</h3>
+<h2 id="mac-os本机saltstack环境搭建">Mac OS本机SaltStack环境搭建</h2>
+<p>在mac os下部署一个master，并利用两个salt-minion的docker容器搭建一个本机版本的saltstack环境</p>
+<h3 id="salt安装及文件说明">Salt安装及文件说明</h3>
+<h4 id="检查saltstack版本">检查saltstack版本</h4>
+<p>minions版本号为<code>2019.2.1</code>，那么salt-master的版本号不能低于<code>2019.2.1</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@minion1 ~<span style="color:#f92672">]</span><span style="color:#75715e"># salt-minion -V</span>
+</span></span><span style="display:flex;"><span>/usr/lib/python2.7/site-packages/salt/scripts.py:198: DeprecationWarning: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won<span style="color:#960050;background-color:#1e0010">&#39;</span>t be maintained after that date.  Salt will drop support <span style="color:#66d9ef">for</span> Python 2.7 in the Sodium release or later.
+</span></span><span style="display:flex;"><span>Salt Version:
+</span></span><span style="display:flex;"><span>           Salt: 2019.2.1
+</span></span></code></pre></div><p>brew仓库里面的saltstack，当前为<code>2019.2.0</code>所以不使用brew安装，使用<a href="https://docs.saltstack.com/en/latest/topics/installation/osx.html#installation-from-the-official-saltstack-repository">pkg安装</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ brew cat saltstack                                                                                               
+</span></span><span style="display:flex;"><span>class Salt &lt; Formula
+</span></span><span style="display:flex;"><span>  include Language::Python::Virtualenv
+</span></span><span style="display:flex;"><span>                                                           
+</span></span><span style="display:flex;"><span>  desc <span style="color:#e6db74">&#34;Dynamic infrastructure communication bus&#34;</span>                                                                                                                                                                                           
+</span></span><span style="display:flex;"><span>  homepage <span style="color:#e6db74">&#34;https://s.saltstack.com/community/&#34;</span>                                                                       
+</span></span><span style="display:flex;"><span>  url <span style="color:#e6db74">&#34;https://files.pythonhosted.org/packages/41/d4/7f6d6bb139506741771ff9feb8429d5a5ed860de9ab5a358e771e8cc3b76/salt-2019.2.0.tar.gz&#34;</span>
+</span></span><span style="display:flex;"><span>  sha256 <span style="color:#e6db74">&#34;5695bb2b3fa288bcfc0e3b93d9449afd75220bd8f0deefb5e7fc03af381df6cd&#34;</span>
+</span></span></code></pre></div><p>安装完成目录结构</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ tree /etc/salt 
+</span></span><span style="display:flex;"><span>/etc/salt
+</span></span><span style="display:flex;"><span>├── master
+</span></span><span style="display:flex;"><span>├── master.dist
+</span></span><span style="display:flex;"><span>├── minion
+</span></span><span style="display:flex;"><span>├── minion.d
+</span></span><span style="display:flex;"><span>├── minion.dist
+</span></span><span style="display:flex;"><span>├── minion_id
+</span></span></code></pre></div><p>启动方式；使用<code>info</code>的log级别后台启动，具体参数可以<code>help</code>看一下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt-master -l info -d
+</span></span></code></pre></div><h3 id="minion配置修改">Minion配置修改</h3>
+<p>查看minion uuid，由于两个容器使用了同一镜像，所以uuid相同</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@minion2 /<span style="color:#f92672">]</span><span style="color:#75715e"># cat /sys/class/dmi/id/product_uuid </span>
+</span></span><span style="display:flex;"><span>E84B4F5F-0000-0000-BBD1-FA294FBCB7D5
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@minion1 ~<span style="color:#f92672">]</span><span style="color:#75715e"># cat /sys/class/dmi/id/product_uuid </span>
+</span></span><span style="display:flex;"><span>E84B4F5F-0000-0000-BBD1-FA294FBCB7D5
+</span></span></code></pre></div><p>查看mac本机IP，做为salt-master的IP</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ ifconfig
+</span></span><span style="display:flex;"><span>.........192.168.1.228
+</span></span></code></pre></div><p>修改minion配置，保证两个minion的uuid不唯一；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@minion1 ~<span style="color:#f92672">]</span><span style="color:#75715e"># cd /etc/salt/minion.d/</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@minion1 minion.d<span style="color:#f92672">]</span><span style="color:#75715e"># vi minion.conf </span>
+</span></span><span style="display:flex;"><span>master: 192.168.1.228
+</span></span><span style="display:flex;"><span>id: E84B4F5F-0000-0000-BBD1-FA294FBCB7D5
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@minion1 minion.d<span style="color:#f92672">]</span><span style="color:#75715e"># systemctl restart salt-minion.service</span>
+</span></span></code></pre></div><blockquote>
+<p>也可以直接修改/etc/salt/minion文件，将master和id修改即可</p>
+</blockquote>
+<p><code>minion</code>有可能连接了其他的master信息，清空<code>master</code>的<code>pub-key</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; /etc/salt/pki/minion/minion_master.pub
+</span></span></code></pre></div><p>重启服务</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>systemctl status salt-minion.service
+</span></span></code></pre></div><p>mac下查看配置是否成功</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt-key -L                                    
+</span></span><span style="display:flex;"><span>Accepted Keys:
+</span></span><span style="display:flex;"><span>Denied Keys:
+</span></span><span style="display:flex;"><span>Unaccepted Keys:
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6
+</span></span><span style="display:flex;"><span>E84B4F5F-0000-0000-BBD1-FA294FBCB7D5
+</span></span><span style="display:flex;"><span>Rejected Keys:
+</span></span></code></pre></div><p>接受minions</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt-key -A
+</span></span><span style="display:flex;"><span>The following keys are going to be accepted:
+</span></span><span style="display:flex;"><span>Unaccepted Keys:
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6
+</span></span><span style="display:flex;"><span>E84B4F5F-0000-0000-BBD1-FA294FBCB7D5
+</span></span><span style="display:flex;"><span>Proceed? <span style="color:#f92672">[</span>n/Y<span style="color:#f92672">]</span> y
+</span></span><span style="display:flex;"><span>Key <span style="color:#66d9ef">for</span> minion AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6 accepted.
+</span></span><span style="display:flex;"><span>Key <span style="color:#66d9ef">for</span> minion E84B4F5F-0000-0000-BBD1-FA294FBCB7D5 accepted.
+</span></span></code></pre></div><p>执行命令测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;*&#39;</span> test.ping
+</span></span><span style="display:flex;"><span>E84B4F5F-0000-0000-BBD1-FA294FBCB7D5:
+</span></span><span style="display:flex;"><span>    True
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>    True
+</span></span></code></pre></div><h3 id="目录说明">目录说明</h3>
+<pre tabindex="0"><code>/etc/salt
+├── master   ## master配置
+├── master.dist 
+├── minion  ## minion server配置
+├── minion.d ## minion节点配置
+│   └── _schedule.conf
+├── minion.dist 
+├── minion_id ## minion的ID
+└── pki ##公钥
+</code></pre><blockquote>
+<p>master与minion建立连接后pki下面的钥匙md5值是一致的</p>
+<p>md5sum /etc/salt/pki/master/master.pub   == md5sum /etc/salt/pki/minion/minion.pub</p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/saltstack/saltstack%E4%BA%8Cmac%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/>https://xibolun.github.io/post/saltstack/saltstack%E4%BA%8Cmac%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/saltstack/">
+                    #saltstack</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E4%B8%80%E5%88%9D%E6%8E%A2/" class="prev" rel="prev" title="SaltStack(一)初探"><i class="iconfont icon-left"></i>&nbsp;SaltStack(一)初探</a>
+        
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E4%B8%89%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5/" class="next" rel="next" title="SaltStack(三)建立连接">SaltStack(三)建立连接&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

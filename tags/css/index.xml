@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Css on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/css/</link>
+    <description>Recent content in Css on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 10 Feb 2019 09:56:08 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bootstrap</title>
+      <link>https://xibolun.github.io/post/css/bootstrap/</link>
+      <pubDate>Sun, 10 Feb 2019 09:56:08 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/css/bootstrap/</guid>
+      <description>滚动 data-slide-to 每个滚动的图片的序号 data-interval 设置默认循环滚动的间隔 data-pause=&amp;ldquo;hover&amp;rdquo; 当鼠标悬停的时候滚动停止 class=&amp;lsquo;active&amp;rsquo; 默认行路的carousel &amp;lt;div id=&amp;#34;carousel-example-generic&amp;#34; class=&amp;#34;carousel slide&amp;#34; data-ride=&amp;#34;carousel&amp;#34;&amp;gt; &amp;lt;!-- Indicators --&amp;gt; &amp;lt;ol class=&amp;#34;carousel-indicators&amp;#34;&amp;gt; &amp;lt;li data-target=&amp;#34;#carousel-example-generic&amp;#34; data-slide-to=&amp;#34;0&amp;#34; class=&amp;#34;active&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li data-target=&amp;#34;#carousel-example-generic&amp;#34; data-slide-to=&amp;#34;1&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li</description>
+    </item>
+    
+  </channel>
+</rss>

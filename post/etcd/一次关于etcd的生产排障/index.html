@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/k8s/k8s%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E8%B5%84%E6%BA%90/" />
+    <link rel="next" href="https://xibolun.github.io/post/golang/go--os.exec/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/etcd/%E4%B8%80%E6%AC%A1%E5%85%B3%E4%BA%8Eetcd%E7%9A%84%E7%94%9F%E4%BA%A7%E6%8E%92%E9%9A%9C/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            一次关于etcd故障处理 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="一次关于etcd故障处理 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "一次关于etcd故障处理",
+    "headline" : "一次关于etcd故障处理",
+    "description" : "一次关于etcd故障处理 现象 任务下发配置不成功 链路整理 web -\u0026gt; 服务端放参数至 -\u0026gt; etcdserver -\u0026gt; 远程机接收参数信息 -\u0026gt; 远程机执行命令 问题解决 第一波观察日志未果 怀",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2021",
+    "datePublished": "2021-12-16 12:50:35 \u002b0800 CST",
+    "dateModified" : "2021-12-16 12:50:35 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/etcd\/%E4%B8%80%E6%AC%A1%E5%85%B3%E4%BA%8Eetcd%E7%9A%84%E7%94%9F%E4%BA%A7%E6%8E%92%E9%9A%9C\/",
+    "wordCount" : "848",
+    "keywords" : [ "etcd","排障", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">一次关于etcd故障处理</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2021-12-16 itemprop="datePublished">December 16, 2021</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/etcd/"> etcd, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">848 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="一次关于etcd故障处理">一次关于etcd故障处理</h2>
+<h3 id="现象">现象</h3>
+<ul>
+<li>任务下发配置不成功</li>
+</ul>
+<h3 id="链路整理">链路整理</h3>
+<ul>
+<li>web -&gt; 服务端放参数至 -&gt;  etcdserver -&gt; 远程机接收参数信息 -&gt; 远程机执行命令</li>
+</ul>
+<h3 id="问题解决">问题解决</h3>
+<ul>
+<li>
+<p>第一波观察日志未果</p>
+</li>
+<li>
+<p>怀疑证书问题，因为项目已经5年过去了，当时生成<code>etcd</code>证书确实使用了默认5年的配置，先把etcd证书更新了一版本，生成方法</p>
+</li>
+</ul>
+<pre tabindex="0"><code>https://github.com/coreos/docs/blob/master/os/generate-self-signed-certificates.md
+</code></pre><ul>
+<li>生成证书各端更新完后，<code>etcd</code>本身检查没有问题，发现服务端日志里面存在异常</li>
+</ul>
+<pre tabindex="0"><code>2021-12-15T21:51:06.710+0800    ERROR   node/server.go:57       context deadline exceeded
+vendor/go.uber.org/zap.Stack
+        /var/lib/workspace/cronsun/qstack/cronsun/src/vendor/go.uber.org/zap/field.go:191
+vendor/go.uber.org/zap.(*Logger).check
+        /var/lib/workspace/cronsun/qstack/cronsun/src/vendor/go.uber.org/zap/logger.go:301
+vendor/go.uber.org/zap.(*Logger).Check
+        /var/lib/workspace/cronsun/qstack/cronsun/src/vendor/go.uber.org/zap/logger.go:172
+vendor/go.uber.org/zap.(*SugaredLogger).log
+        /var/lib/workspace/cronsun/qstack/cronsun/src/vendor/go.uber.org/zap/sugar.go:233
+vendor/go.uber.org/zap.(*SugaredLogger).Errorf
+        /var/lib/workspace/cronsun/qstack/cronsun/src/vendor/go.uber.org/zap/sugar.go:148
+github.com/shunfei/cronsun/log.Errorf
+        /var/lib/workspace/cronsun/qstack/cronsun/src/github.com/shunfei/cronsun/log/log.go:39
+main.main	
+</code></pre><p>查询发现，etcd 3.3版本升级完证书存在问题，需要升级etcd到3.4版本，想想算了，证书过期了，还可以使用，将就一下</p>
+<pre tabindex="0"><code>https://github.com/sensu/sensu-go/issues/3792
+</code></pre><p>观察日志发现存在如下异常</p>
+<pre tabindex="0"><code>2021-12-15T22:01:39.392+0800    WARN    cronsun/job.go:460      GetJobs get etcd error rpc error: code = ResourceExhausted desc = grpc: received message larger than max (4206331 vs. 4194304)
+2021-12-15T22:01:39.392+0800    WARN    node/node.go:131        load jobs get jobs err rpc error: code = ResourceExhausted desc = grpc: received message larger than max (4206331 vs. 4194304)
+</code></pre><p><code>etcd server</code>当中存在起过4M的消息，而client无法消费，可以通过设置:<code>MaxCallRecvMsgSize</code>来实现；查看<code>client.Config</code>发现由于项目太老，文件缺少这两个参数，项目本身还使用<code>govendor</code>维护，而前人已经离职不知去向。</p>
+<p>将代码下载下来，使用<code>govendor fetch github.com/coreos/etcd/clientv3</code>无效</p>
+<p>于是粗暴一点，直接下载<code>etcd</code>源码，切换至<code>git checkout v3.3.0-rc.4</code>版本（由于etcd server使用的也是3.3.0，所以不敢升级太高版本），将源码<code>copy</code>至<code>vendor/github.com/coreos/</code>目录下，重新编译，失败；</p>
+<p>异常如下：</p>
+<pre tabindex="0"><code>/private/tmp/qstack/cronsun/src/vendor/golang.org/x/net/http2/frame.go use of vendored package not allowed
+</code></pre><p>查看官网源码，得知，<code>x/net</code>包已经使用了<code>gomod</code>，https://cs.opensource.google/go/x/net/+/master:go.mod<code>，当前编译环境</code>go version<code>为</code>1.16`</p>
+<p>重新下载<code>golang 1.11</code>配置<code>GOPATH</code>编译通过，发版重启后服务正常运行；</p>
+<h3 id="总结">总结</h3>
+<ul>
+<li><code>etcd</code>本身代码存在许多的问题，包括证书、包管理等，使用时需要情重，最好使用新版本来解决；</li>
+<li><code>govendor</code>的项目最好能升级至<code>gomod</code>，否则会给别人留下许多的坑</li>
+<li>业务有时也需要备用方案</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/etcd/%E4%B8%80%E6%AC%A1%E5%85%B3%E4%BA%8Eetcd%E7%9A%84%E7%94%9F%E4%BA%A7%E6%8E%92%E9%9A%9C/>https://xibolun.github.io/post/etcd/%E4%B8%80%E6%AC%A1%E5%85%B3%E4%BA%8Eetcd%E7%9A%84%E7%94%9F%E4%BA%A7%E6%8E%92%E9%9A%9C/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/etcd/">
+                    #etcd</a></span>
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/%E6%8E%92%E9%9A%9C/">
+                    #排障</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/k8s/k8s%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E8%B5%84%E6%BA%90/" class="prev" rel="prev" title="k8s——无法创建Deployment"><i class="iconfont icon-left"></i>&nbsp;k8s——无法创建Deployment</a>
+        
+        
+        <a href="https://xibolun.github.io/post/golang/go--os.exec/" class="next" rel="next" title="Go os.exec">Go os.exec&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

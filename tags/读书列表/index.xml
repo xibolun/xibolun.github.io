@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>读书列表 on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/%E8%AF%BB%E4%B9%A6%E5%88%97%E8%A1%A8/</link>
+    <description>Recent content in 读书列表 on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 04 Mar 2017 22:37:11 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/%E8%AF%BB%E4%B9%A6%E5%88%97%E8%A1%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>读书列表</title>
+      <link>https://xibolun.github.io/books/readbooklist/</link>
+      <pubDate>Sat, 04 Mar 2017 22:37:11 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/books/readbooklist/</guid>
+      <description>已读的书列表 说明 从17年开始记录自己读书列表 后续会出一些读书的心得体会 有一些书不会做笔记，只会略略看过 信仰 书名 开始时间 结束时间 作者 简介 花香满</description>
+    </item>
+    
+  </channel>
+</rss>

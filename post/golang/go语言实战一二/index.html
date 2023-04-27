@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/rabbitmq/rabbitmq-websocket/" />
+    <link rel="next" href="https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%89/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%80%E4%BA%8C/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Go语言实战(一/二)基础 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Go语言实战(一/二)基础 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Go语言实战(一\/二)基础",
+    "headline" : "Go语言实战(一\/二)基础",
+    "description" : "GO语言基础 顺序编程 执行 必须在main package下面的main方法才可以运行 运算符 \u0026amp; 返回内存地址 * 返回指针变量 func addRessFunc() { a := 1 c := a b := \u0026amp;a *b",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-05-05 07:39:43 \u002b0800 CST",
+    "dateModified" : "2019-05-05 07:39:43 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/golang\/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%80%E4%BA%8C\/",
+    "wordCount" : "1776",
+    "keywords" : [ "golang", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Go语言实战(一/二)基础</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-05-05 itemprop="datePublished">May 5, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/golang/"> golang, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1776 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="go语言基础">GO语言基础</h2>
+<h3 id="顺序编程">顺序编程</h3>
+<h4 id="执行">执行</h4>
+<ul>
+<li>必须在main package下面的main方法才可以运行</li>
+</ul>
+<h4 id="运算符">运算符</h4>
+<ul>
+<li><code>&amp;</code>  返回内存地址</li>
+<li><code>*  </code>  返回指针变量</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">addRessFunc</span>() {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">*</span><span style="color:#a6e22e">b</span> = <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>}	
+</span></span></code></pre></div><p>输出结果</p>
+<pre tabindex="0"><code>0xc420084008 0xc420090018 0xc420084010
+0xc420084008 0xc420084008 0xc420084010
+2 2 1
+2 0xc420084008 1
+</code></pre><pre tabindex="0"><code>func TestArrayPoint(t *testing.T) {
+	sp := [3]*string{new(string), new(string), new(string)}
+	*sp[0] = &#34;red&#34;
+	*sp[1] = &#34;blue&#34;
+	*sp[2] = &#34;green&#34;
+
+	for i, _ := range sp {
+		fmt.Printf(&#34;point value %v,real value %s\n&#34;, sp[i], *sp[i])
+	}
+}
+</code></pre><h4 id="byte">byte</h4>
+<p>怎么样创建一个指定的bytes数组？println输出了一个byte数组，但是想创建出来，需要将其添加,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">rubyBytes</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">byte</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">123</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">98</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">121</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">123</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">104</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">69</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">117</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">117</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">123</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">121</span>, <span style="color:#ae81ff">112</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">112</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">117</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">112</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">47</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">112</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">102</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">112</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">87</span>, <span style="color:#ae81ff">78</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">98</span>, <span style="color:#ae81ff">119</span>, <span style="color:#ae81ff">61</span>, <span style="color:#ae81ff">61</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">98</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">54</span>, <span style="color:#ae81ff">52</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">112</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">112</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">121</span>, <span style="color:#ae81ff">112</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">66</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">104</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">19</span>, <span style="color:#ae81ff">112</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">117</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">118</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">117</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">69</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">113</span>, <span style="color:#ae81ff">117</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">46</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">102</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">53</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">56</span>, <span style="color:#ae81ff">57</span>, <span style="color:#ae81ff">54</span>, <span style="color:#ae81ff">54</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">102</span>, <span style="color:#ae81ff">54</span>, <span style="color:#ae81ff">53</span>, <span style="color:#ae81ff">53</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">56</span>, <span style="color:#ae81ff">51</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">102</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">53</span>, <span style="color:#ae81ff">56</span>, <span style="color:#ae81ff">51</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">56</span>, <span style="color:#ae81ff">51</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">53</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">48</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">48</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">48</span>, <span style="color:#ae81ff">102</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">102</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">123</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">91</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">104</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">118</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">118</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">118</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">104</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">61</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">117</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">43</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">93</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">104</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">104</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">37</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">57</span>, <span style="color:#ae81ff">57</span>, <span style="color:#ae81ff">51</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">98</span>, <span style="color:#ae81ff">98</span>, <span style="color:#ae81ff">52</span>, <span style="color:#ae81ff">56</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">53</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">98</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">57</span>, <span style="color:#ae81ff">102</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">48</span>, <span style="color:#ae81ff">57</span>, <span style="color:#ae81ff">56</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">53</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">102</span>, <span style="color:#ae81ff">102</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">55</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">102</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">70</span>}
+</span></span></code></pre></div><h4 id="iota">iota</h4>
+<h5 id="string">string</h5>
+<ul>
+<li>
+<p>len(str) :获取字符串的长度</p>
+</li>
+<li>
+<p>s[i] : 取字符串s当中的某一条字符char类型</p>
+</li>
+<li>
+<p>UTF8中3个字节</p>
+</li>
+<li>
+<p>默认值为&quot;&quot;, bool为false, int为0</p>
+</li>
+<li>
+<p>%号转义  fmt.Sprintf(&quot;%%%s%s&quot;,&ldquo;hello&rdquo;) &ndash;&gt; %hello%</p>
+</li>
+<li>
+<p><a href="https://groups.google.com/forum/#!topic/golang-nuts/WAItFEvrhmU">关于TrimRight的一个问题</a></p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">str</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;\&#34;\&#34;aa233aa\&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Trim : %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Trim</span>(<span style="color:#a6e22e">str</span>, <span style="color:#e6db74">&#34;aa&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;TrimSuffix : %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSuffix</span>(<span style="color:#a6e22e">str</span>, <span style="color:#e6db74">&#34;aa&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;trim : %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Trim</span>(<span style="color:#e6db74">&#34;aa,bb,cc,dd&#34;</span>, <span style="color:#e6db74">&#34;,&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;TrimLeft : %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimLeft</span>(<span style="color:#a6e22e">str</span>, <span style="color:#e6db74">&#34;aa&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;TrimRight : %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimRight</span>(<span style="color:#a6e22e">str</span>, <span style="color:#e6db74">&#34;aa&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;trim : %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Trim</span>(<span style="color:#a6e22e">str</span>, <span style="color:#e6db74">&#34;\&#34;&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// TrimRight会截断掉给出的cutset所有的组合，以下TrimRigth都只输出A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// 官方解释：TrimRight returns a slice of the string s, with all trailing Unicode code points     contained in cutset removed.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// To remove a suffix, use TrimSuffix instead.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;TrimRigth: %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimRight</span>(<span style="color:#e6db74">&#34;A06-09~06&#34;</span>, <span style="color:#e6db74">&#34;-09~06&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;TrimRigth: %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimRight</span>(<span style="color:#e6db74">&#34;A-9-09~06&#34;</span>, <span style="color:#e6db74">&#34;-09~06&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;TrimRigth: %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimRight</span>(<span style="color:#e6db74">&#34;A9-09~06&#34;</span>, <span style="color:#e6db74">&#34;-09~06&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;TrimRigth: %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimRight</span>(<span style="color:#e6db74">&#34;A~9-09~06&#34;</span>, <span style="color:#e6db74">&#34;-09~06&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;TrimRigth: %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimRight</span>(<span style="color:#e6db74">&#34;A69-09~06&#34;</span>, <span style="color:#e6db74">&#34;-09~06&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;TrimSuffix: %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSuffix</span>(<span style="color:#e6db74">&#34;A06-09~06&#34;</span>, <span style="color:#e6db74">&#34;-09~06&#34;</span>))
+</span></span></code></pre></div><h6 id="stringbuilder">stringbuilder</h6>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 线程不安全
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestBufferWrite</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">strs</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;2&#34;</span>, <span style="color:#e6db74">&#34;3&#34;</span>, <span style="color:#e6db74">&#34;4&#34;</span>, <span style="color:#e6db74">&#34;5&#34;</span>, <span style="color:#e6db74">&#34;6&#34;</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buffer</span> <span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">str</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">strs</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">buffer</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#a6e22e">str</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">buffer</span>.<span style="color:#a6e22e">String</span>())
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="切片">切片</h4>
+<ul>
+<li>cap</li>
+<li>len</li>
+<li>append</li>
+<li>append &hellip; 当添加的元素也是一个切片的时候需要加&hellip;</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)    <span style="color:#75715e">//  [0 0 0 0 0 1 2 3]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)<span style="color:#75715e">//[1 2 3] //[1,2,3]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h5 id="切片截取性能测试">切片截取性能测试</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkSliceCopy</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> []<span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10000000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#ae81ff">1000000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	copy(<span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">i</span>:], <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">a</span> = <span style="color:#a6e22e">a</span>[:len(<span style="color:#a6e22e">a</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(len(<span style="color:#a6e22e">a</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkSliceSplit</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> []<span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10000000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#ae81ff">1000000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">0</span>:<span style="color:#a6e22e">i</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">c</span><span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(len(<span style="color:#a6e22e">a</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="file">file</h4>
+<ul>
+<li>file.writeString(string) 可以append file，不会覆盖文件</li>
+</ul>
+<h4 id="map">map </h4>
+<ul>
+<li>var myMap map[string] PersonInfo  :声明一个map</li>
+<li>myMap = make(map[string] PersonInfo)  :创建一个map</li>
+<li>myMap = make(map[string] PersonInfo, 100)  :创建一个由容量的map</li>
+<li>myMap[&ldquo;1234&rdquo;] = PersonInfo{&ldquo;1&rdquo;, &ldquo;Jack&rdquo;, &ldquo;Room 101,&hellip;&rdquo;}  :赋值</li>
+<li>delete(myMap, &ldquo;1234&rdquo;) :删除元素</li>
+<li>value, ok := myMap[&ldquo;1234&rdquo;] :获取元素值</li>
+</ul>
+<h4 id="switch">switch </h4>
+<ul>
+<li>没有break，默认break</li>
+<li>使用fallthrough,当前case会紧跟着下一个case</li>
+</ul>
+<h4 id="loop">loop</h4>
+<ul>
+<li>不支持while和do-while</li>
+<li>支持break contiue</li>
+<li>JLoop</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>;<span style="color:#a6e22e">i</span>&lt;<span style="color:#ae81ff">10</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>,<span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">array</span>{
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="func">func</h4>
+<ul>
+<li>首字母小写为私有func，大写为公有func</li>
+<li>不定参数 func add(args &hellip;.int)</li>
+<li>若想要忽略某一个返回值可以使用 _ ;   a,_ :=func()</li>
+<li>匿名函数，不带函数名的函数</li>
+</ul>
+<h4 id="闭包">闭包</h4>
+<ul>
+<li><input disabled="" type="checkbox"> TODO</li>
+</ul>
+<h4 id="错误处理">错误处理</h4>
+<h4 id="转换">转换</h4>
+<pre tabindex="0"><code>Strings.NewReader(string)  // string to reader
+bytes.NewReader([]byte)  // []byte to reader
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>[]byte(<span style="color:#66d9ef">string</span>)  <span style="color:#75715e">// string to byte
+</span></span></span></code></pre></div><pre tabindex="0"><code>func strConvert(str, typ string) (v interface{}, err error) {
+   switch typ {
+   case reflect.Int.String():
+      v, err = strconv.ParseInt(str, 10, 0)
+   case reflect.Int8.String():
+      v, err = strconv.ParseInt(str, 10, 8)
+   case reflect.Int16.String():
+      v, err = strconv.ParseInt(str, 10, 16)
+   case reflect.Int32.String():
+      v, err = strconv.ParseInt(str, 10, 32)
+   case reflect.Int64.String():
+      v, err = strconv.ParseInt(str, 10, 64)
+   case reflect.Uint.String():
+      v, err = strconv.ParseUint(str, 10, 0)
+   case reflect.Uint8.String():
+      v, err = strconv.ParseUint(str, 10, 8)
+   case reflect.Uint16.String():
+      v, err = strconv.ParseUint(str, 10, 16)
+   case reflect.Uint32.String():
+      v, err = strconv.ParseUint(str, 10, 32)
+   case reflect.Uint64.String():
+      v, err = strconv.ParseUint(str, 10, 64)
+   case reflect.Bool.String():
+      v, err = strconv.ParseBool(str)
+   case reflect.Float32.String():
+      v, err = strconv.ParseFloat(str, 32)
+   case reflect.Float64.String():
+      v, err = strconv.ParseFloat(str, 64)
+   case &#34;reader&#34;:
+      v = strings.NewReader(str)
+   case &#34;time&#34;:
+      if strings.Contains(str, &#34;CST&#34;) {
+         v, err = time.Parse(&#34;2006-01-02 15:04:05 +0800 CST&#34;, str)
+      }
+   default:
+      v = str
+   }
+   return
+}
+</code></pre><h4 id="defer">defer</h4>
+<ul>
+<li>defer是先入后出，所以是先打印最后的</li>
+<li>defer会在return 之前被执行</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Test_defer</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">deferTest</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">deferTest</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;1&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;2&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;3&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	panic(<span style="color:#e6db74">&#34;error&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="struct">struct</h4>
+<ul>
+<li>两个结构体相等，必须得是参数名一样，顺序一样</li>
+<li>若结构体当中存在map、slicen属性，则肯定不相等</li>
+</ul>
+<h3 id="面向对象编程">面向对象编程</h3>
+<h4 id="类型">类型</h4>
+<ul>
+<li>无this关键字，对象需要显式进行传递</li>
+<li>若需要改变传入对象，则需要传入对象的指针 (a *Integer)</li>
+</ul>
+<h4 id="调用形式">调用形式</h4>
+<ul>
+<li>方法（可以满足接口）</li>
+</ul>
+<pre tabindex="0"><code>func (n1 *NameAge) doSomething(n2 int) { /* */ }
+</code></pre><ul>
+<li>函数</li>
+</ul>
+<pre tabindex="0"><code>func doSomething(n1 *NameAge, n2 int) { /* */ }
+</code></pre><h3 id="其他库">其他库</h3>
+<h4 id="gofmt">gofmt</h4>
+<p><a href="elastic-tabstops">http://nickgravgaard.com/elastic-tabstops/</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%80%E4%BA%8C/>https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%80%E4%BA%8C/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/golang/">
+                    #golang</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/rabbitmq/rabbitmq-websocket/" class="prev" rel="prev" title="RabbitMQ-Websocket"><i class="iconfont icon-left"></i>&nbsp;RabbitMQ-Websocket</a>
+        
+        
+        <a href="https://xibolun.github.io/post/golang/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E4%B8%89/" class="next" rel="next" title="Go语言实战(三)工具包">Go语言实战(三)工具包&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

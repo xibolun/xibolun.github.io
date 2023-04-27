@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+    <link rel="next" href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%89%E4%BB%8Emain.go%E5%BC%80%E5%A7%8B/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%BA%8Cdebug%E5%B7%A5%E5%85%B7/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Go源码分析(二)Debug工具 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Go源码分析(二)Debug工具 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Go源码分析(二)Debug工具",
+    "headline" : "Go源码分析(二)Debug工具",
+    "description" : "Go源码分析(二)Debug工具 gdb 什么是GDB，GDB官网给出了详细的介绍，下载，以及bug，git地址等 为什么要用它？当你想debug，不",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-09-06 07:59:20 \u002b0800 CST",
+    "dateModified" : "2019-09-06 07:59:20 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/golang\/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%BA%8Cdebug%E5%B7%A5%E5%85%B7\/",
+    "wordCount" : "1170",
+    "keywords" : [ "golang", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Go源码分析(二)Debug工具</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-09-06 itemprop="datePublished">September 6, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/golang/"> golang, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1170 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="go源码分析二debug工具">Go源码分析(二)Debug工具</h2>
+<h3 id="gdb">gdb</h3>
+<ul>
+<li>什么是GDB，<a href="https://www.gnu.org/software/gdb/">GDB</a>官网给出了详细的介绍，下载，以及bug，git地址等</li>
+<li>为什么要用它？当你想debug，不知道源代码到底是什么东西的时候，因为只有一个二进制程序；若有太多的goroutine，你根本分不清到底这些里面是什么鬼的时候</li>
+<li>如何使用，<a href="https://golang.org/doc/gdb">Golang官网</a>给出了一份教程</li>
+</ul>
+<h4 id="命令参数">命令参数</h4>
+<ul>
+<li><a href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/gdb.html">GDB调试利器</a></li>
+</ul>
+<h4 id="实战">实战</h4>
+<p>写一份代码<code>main.go</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;current number is %d&#34;</span>, <span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>编译，依赖<code>GOPATH</code> 设置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go build -gcflags <span style="color:#e6db74">&#34;-N -l&#34;</span>  -o main main.go
+</span></span></code></pre></div><p>开始<code>GDB</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@bootos src<span style="color:#f92672">]</span><span style="color:#75715e"># gdb main                                                    </span>
+</span></span><span style="display:flex;"><span>GNU gdb <span style="color:#f92672">(</span>GDB<span style="color:#f92672">)</span> Red Hat Enterprise Linux 7.6.1-114.el7                           
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> <span style="color:#ae81ff">2013</span> Free Software Foundation, Inc.                              
+</span></span><span style="display:flex;"><span>License GPLv3+: GNU GPL version <span style="color:#ae81ff">3</span> or later &lt;http://gnu.org/licenses/gpl.html&gt;
+</span></span><span style="display:flex;"><span>This is free software: you are free to change and redistribute it.             
+</span></span><span style="display:flex;"><span>There is NO WARRANTY, to the extent permitted by law.  Type <span style="color:#e6db74">&#34;show copying&#34;</span>     
+</span></span><span style="display:flex;"><span>and <span style="color:#e6db74">&#34;show warranty&#34;</span> <span style="color:#66d9ef">for</span> details.                                               
+</span></span><span style="display:flex;"><span>This GDB was configured as <span style="color:#e6db74">&#34;x86_64-redhat-linux-gnu&#34;</span>.
+</span></span><span style="display:flex;"><span>For bug reporting instructions, please see:
+</span></span><span style="display:flex;"><span>&lt;http://www.gnu.org/software/gdb/bugs/&gt;...
+</span></span><span style="display:flex;"><span>Reading symbols from /home/work/go/src/main...done.
+</span></span><span style="display:flex;"><span>Loading Go Runtime support.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> list
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>       package main
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>       import <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>       func main<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>               <span style="color:#66d9ef">for</span> i :<span style="color:#f92672">=</span> 0; i &lt; 10; i++ <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>                       fmt.Printf<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;current number is %d\n&#34;</span>, i<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>               <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>       <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>给第6行添加断点</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> b <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>Breakpoint <span style="color:#ae81ff">1</span> at 0x488b27: file /home/work/go/src/main.go, line 6.
+</span></span></code></pre></div><p>查看断点；删除断点<code>delete 1</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> info b
+</span></span><span style="display:flex;"><span>Num     Type           Disp Enb Address            What
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>       breakpoint     keep y   0x0000000000488b27 in main.main at /home/work/go/src/main.go:6
+</span></span></code></pre></div><p>开始运行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> run 
+</span></span><span style="display:flex;"><span>Starting program: /home/work/go/src/main 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Breakpoint 1, main.main <span style="color:#f92672">()</span> at /home/work/go/src/main.go:6
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>                       fmt.Printf<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;current number is %d\n&#34;</span>, i<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>查看i的value</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> p i
+</span></span><span style="display:flex;"><span>$1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>i是什么类型的？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> whatis i
+</span></span><span style="display:flex;"><span>type <span style="color:#f92672">=</span> int
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> info i
+</span></span><span style="display:flex;"><span>  Num  Description       Executable        
+</span></span><span style="display:flex;"><span>* <span style="color:#ae81ff">1</span>    process <span style="color:#ae81ff">35320</span>     /home/work/go/src/main 
+</span></span></code></pre></div><p>进入函数 <code>fmt.Printf</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> s
+</span></span><span style="display:flex;"><span>fmt.Printf <span style="color:#f92672">(</span>format<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;current number is %d\n&#34;</span>, a<span style="color:#f92672">=</span> <span style="color:#f92672">[]</span>interface <span style="color:#f92672">{}</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>...<span style="color:#f92672">}</span>, n<span style="color:#f92672">=</span>&lt;optimized out&gt;, err<span style="color:#f92672">=</span>...<span style="color:#f92672">)</span> at /root/go/src/fmt/print.go:207
+</span></span><span style="display:flex;"><span>warning: Source file is more recent than executable.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">207</span>     func Printf<span style="color:#f92672">(</span>format string, a ...interface<span style="color:#f92672">{})</span> <span style="color:#f92672">(</span>n int, err error<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span></code></pre></div><p>查看代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> l
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">202</span>             <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">203</span>     <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">204</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">205</span>     // Printf formats according to a format specifier and writes to standard output.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">206</span>     // It returns the number of bytes written and any write error encountered.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">207</span>     func Printf<span style="color:#f92672">(</span>format string, a ...interface<span style="color:#f92672">{})</span> <span style="color:#f92672">(</span>n int, err error<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">208</span>             <span style="color:#66d9ef">return</span> Fprintf<span style="color:#f92672">(</span>os.Stdout, format, a...<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">209</span>     <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">210</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">211</span>     // Sprintf formats according to a format specifier and returns the resulting string.
+</span></span></code></pre></div><p>打印参数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> info args
+</span></span><span style="display:flex;"><span>format <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;current number is %d\n&#34;</span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span>  <span style="color:#f92672">[]</span>interface <span style="color:#f92672">{}</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{{</span>_type <span style="color:#f92672">=</span> 0x498c60, data <span style="color:#f92672">=</span> 0x15<span style="color:#f92672">}}</span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> &lt;optimized out&gt;
+</span></span><span style="display:flex;"><span>err <span style="color:#f92672">=</span> &lt;optimized out&gt;
+</span></span></code></pre></div><p>返回上一层</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>Make fmt.Printf <span style="color:#66d9ef">return</span> now? <span style="color:#f92672">(</span>y or n<span style="color:#f92672">)</span> y
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#0  0x0000000000488bb9 in main.main () at /home/work/go/src/main.go:6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>                       fmt.Printf<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;current number is %d\n&#34;</span>, i<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>查看当前的goroutines</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> info goroutines 
+</span></span><span style="display:flex;"><span>* <span style="color:#ae81ff">1</span> running  syscall.Syscall
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2</span> waiting  runtime.gopark
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">3</span> waiting  runtime.gopark
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">17</span> waiting  runtime.gopark
+</span></span></code></pre></div><p>命令行页面操作的太麻烦了，不够直观，可以使用<a href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/gdb.html#id9">layout模式</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>   ┌──/home/work/go/src/main.go──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+</span></span><span style="display:flex;"><span>   │1       package main                                                                                                                                     │
+</span></span><span style="display:flex;"><span>   │2                                                                                                                                                        │
+</span></span><span style="display:flex;"><span>   │3       import <span style="color:#e6db74">&#34;fmt&#34;</span>                                                                                                                                     │
+</span></span><span style="display:flex;"><span>   │4       func main<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>                                                                                                                                    │
+</span></span><span style="display:flex;"><span>   │5               <span style="color:#66d9ef">for</span> i :<span style="color:#f92672">=</span> 0; i &lt; 10; i++ <span style="color:#f92672">{</span>                                                                                                                │
+</span></span><span style="display:flex;"><span>   │6                       fmt.Printf<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;current number is %d\n&#34;</span>, i<span style="color:#f92672">)</span>                                                                                          │
+</span></span><span style="display:flex;"><span>   │7               <span style="color:#f92672">}</span>                                                                                                                                        │
+</span></span><span style="display:flex;"><span>   │8       <span style="color:#f92672">}</span>                                                                                                                                                
+</span></span><span style="display:flex;"><span>   └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+</span></span><span style="display:flex;"><span>exec No process In:                                                                                                                         Line: ??   PC: ?? 
+</span></span><span style="display:flex;"><span>warning: Invalid layout specified.
+</span></span><span style="display:flex;"><span>Usage: layout prev | next | &lt;layout_name&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span>  
+</span></span></code></pre></div><h3 id="cgdb">cgdb</h3>
+<p><a href="https://cgdb.github.io/">cgdb</a>是gdb的增强版本，若会用gdb和vi，则操作起来更加方便，官方也提供了文件说明。</p>
+<p>安装</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>yum install http://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/c/cgdb-0.6.8-1.el7.x86_64.rpm  -y
+</span></span></code></pre></div><h3 id="delve">Delve</h3>
+<ul>
+<li><a href="https://github.com/derekparker/delve">Devle</a> 是golang官网提到的一个debug工具，与gdb相比，更好地能够适应golang的runtime机制；</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%BA%8Cdebug%E5%B7%A5%E5%85%B7/>https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%BA%8Cdebug%E5%B7%A5%E5%85%B7/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/golang/">
+                    #golang</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="prev" rel="prev" title="Go源码分析(一)环境搭建"><i class="iconfont icon-left"></i>&nbsp;Go源码分析(一)环境搭建</a>
+        
+        
+        <a href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%89%E4%BB%8Emain.go%E5%BC%80%E5%A7%8B/" class="next" rel="next" title="Go源码分析(三)从main.go开始">Go源码分析(三)从main.go开始&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

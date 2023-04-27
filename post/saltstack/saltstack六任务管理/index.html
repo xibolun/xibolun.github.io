@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/saltstack/saltstack%E4%BA%94state/" />
+    <link rel="next" href="https://xibolun.github.io/post/saltstack/saltstack%E4%B8%83salt-ssh/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/saltstack/saltstack%E5%85%AD%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            SaltStack(六)任务管理 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="SaltStack(六)任务管理 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "SaltStack(六)任务管理",
+    "headline" : "SaltStack(六)任务管理",
+    "description" : "Job管理 salt在执行命令的时候会生成一个JobID，存放在\/var\/cache\/salt\/{master|minion}\/proc下面 ➜",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-10-16 09:07:03 \u002b0800 CST",
+    "dateModified" : "2019-10-16 09:07:03 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/saltstack\/saltstack%E5%85%AD%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86\/",
+    "wordCount" : "1484",
+    "keywords" : [ "saltstack", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">SaltStack(六)任务管理</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-10-16 itemprop="datePublished">October 16, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1484 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="job管理">Job管理</h3>
+<p>salt在执行命令的时候会生成一个<code>JobID</code>，存放在<code>/var/cache/salt/{master|minion}/proc</code>下面</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ tree /var/cache/salt/master -L <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>/var/cache/salt/master
+</span></span><span style="display:flex;"><span>├── file_lists
+</span></span><span style="display:flex;"><span>├── jobs  <span style="color:#75715e">## 历史job数据信息</span>
+</span></span><span style="display:flex;"><span>├── minions
+</span></span><span style="display:flex;"><span>├── proc <span style="color:#75715e">## 当前job数据信息</span>
+</span></span><span style="display:flex;"><span>├── queues
+</span></span><span style="display:flex;"><span>├── roots
+</span></span><span style="display:flex;"><span>├── syndics
+</span></span><span style="display:flex;"><span>└── tokens
+</span></span></code></pre></div><p><code>minion</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@minion2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># tree /var/cache/salt/minion/ -L 1</span>
+</span></span><span style="display:flex;"><span>/var/cache/salt/minion/
+</span></span><span style="display:flex;"><span>|-- accumulator
+</span></span><span style="display:flex;"><span>|-- extmods
+</span></span><span style="display:flex;"><span>|-- files  <span style="color:#75715e">## master /srv/salt/下的文件同步</span>
+</span></span><span style="display:flex;"><span>|-- highstate.cache.p
+</span></span><span style="display:flex;"><span>|-- module_refresh
+</span></span><span style="display:flex;"><span>└── proc  <span style="color:#75715e">## 当前job数据信息</span>
+</span></span></code></pre></div><p>查看正在运行的job</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  sudo salt-run jobs.active
+</span></span><span style="display:flex;"><span>20191016092026294806:
+</span></span><span style="display:flex;"><span>    ----------
+</span></span><span style="display:flex;"><span>    Arguments:
+</span></span><span style="display:flex;"><span>    Function:
+</span></span><span style="display:flex;"><span>        state.highstate
+</span></span><span style="display:flex;"><span>    Returned:
+</span></span><span style="display:flex;"><span>    Running:
+</span></span><span style="display:flex;"><span>        |_
+</span></span><span style="display:flex;"><span>          ----------
+</span></span><span style="display:flex;"><span>          AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>              <span style="color:#ae81ff">3522</span>
+</span></span><span style="display:flex;"><span>        |_
+</span></span><span style="display:flex;"><span>          ----------
+</span></span><span style="display:flex;"><span>          E84B4F5F-0000-0000-BBD1-FA294FBCB7D5:
+</span></span><span style="display:flex;"><span>              <span style="color:#ae81ff">834</span>
+</span></span><span style="display:flex;"><span>    StartTime:
+</span></span><span style="display:flex;"><span>        2019, Oct <span style="color:#ae81ff">16</span> 09:20:26.294806
+</span></span><span style="display:flex;"><span>    Target:
+</span></span><span style="display:flex;"><span>        *
+</span></span><span style="display:flex;"><span>    Target-type:
+</span></span><span style="display:flex;"><span>        glob
+</span></span><span style="display:flex;"><span>    User:
+</span></span><span style="display:flex;"><span>        sudo_admin
+</span></span></code></pre></div><p>salt-run Job相关操作</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt-run jobs.exit_success <span style="color:#ae81ff">20191016092026294806</span>  <span style="color:#75715e">## 查看job是否执行成功</span>
+</span></span><span style="display:flex;"><span>➜  ~ sudo salt-run jobs.active   <span style="color:#75715e">## 查看正在运行的ob</span>
+</span></span><span style="display:flex;"><span>➜  ~ sudo salt-run jobs.list_job <span style="color:#ae81ff">20191016092026294806</span>  <span style="color:#75715e">## 查看某个job的信息</span>
+</span></span><span style="display:flex;"><span>➜  ~ sudo salt-run jobs.list_jobs <span style="color:#75715e">## 查看所有的job</span>
+</span></span><span style="display:flex;"><span>➜  ~ sudo salt-run jobs.lookup_jid <span style="color:#ae81ff">20191016092026294806</span> <span style="color:#75715e">## 查看某个job的详情，与list_job有不同</span>
+</span></span><span style="display:flex;"><span>➜  ~ sudo salt-run jobs.print_job <span style="color:#ae81ff">20191016092026294806</span>  <span style="color:#75715e">## 打印job详情，与list_job功能相同</span>
+</span></span></code></pre></div><blockquote>
+<p>所有的Job操作：https://docs.saltstack.com/en/latest/ref/runners/all/salt.runners.jobs.html</p>
+</blockquote>
+<h4 id="saltutil管理job">saltutil管理Job</h4>
+<p><code>salt-master</code>run一个sleep的命令，请注意超时时间的设置</p>
+<p><code>salt '*' cmd.run 'sleep 30'</code></p>
+<pre tabindex="0"><code>salt &#39;*&#39; saltutil.running  ##查看正在running的job，可以拿到jid
+salt &#39;*&#39; saltutil.find_job 20191209234219896309 ## 查看jid
+salt &#39;*&#39; saltutil.signal_job 20191209234219896309 9 ## 向job发送信号
+salt &#39;*&#39; saltutil.term_job  20191209234219896309 ## 终止job
+salt &#39;*&#39; saltutil.kill_job  20191209234219896309 ## 杀掉job
+</code></pre><h3 id="定时job">定时Job</h3>
+<p>定时job的应用场景：</p>
+<ul>
+<li>分布式架构下文件同步、下发</li>
+<li>监控系统当中的定时巡检，采集</li>
+<li>配管系统当中的配置变更、修改；配置一致性检查</li>
+<li>&hellip;..</li>
+</ul>
+<h4 id="如何使用">如何使用</h4>
+<ul>
+<li>在配置文件当中打开；一分钟执行一个<code>file_roots</code>下面的<code>schedule</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># The loop_interval option controls the seconds for the master&#39;s maintenance</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># process check cycle. This process updates file server backends, cleans the</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># job cache and executes the scheduler.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#loop_interval: 60</span>
+</span></span></code></pre></div><ul>
+<li>使用<code>Pillar</code>；在<code>master</code> 添加配置，然后刷新同步至<code>minion</code> ,<code>saltutil.refresh_pillar</code></li>
+<li>使用 <a href="https://docs.saltstack.com/en/latest/ref/states/all/salt.states.schedule.html#module-salt.states.schedule"><code>schedule state</code></a> or <a href="https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.schedule.html#module-salt.modules.schedule"><code>schedule module</code></a></li>
+</ul>
+<h4 id="pillar实战下发文件">Pillar实战下发文件</h4>
+<p>将<code>/srv/salt/resource/dove.jpg</code>下发至<code>minion</code>的<code>/home/www/resource/dove.jpg</code></p>
+<p>创建文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># /srv/salt/resource.sls</span>
+</span></span><span style="display:flex;"><span>/home/www/resource/dove.jpg:
+</span></span><span style="display:flex;"><span>  file:
+</span></span><span style="display:flex;"><span>    - managed
+</span></span><span style="display:flex;"><span>    - source: salt://resource/dove.jpg
+</span></span></code></pre></div><p>添加定时模块<code>schedule.sls</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># /srv/pillar/schedule.sls</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 每5s执行 resource.sls</span>
+</span></span><span style="display:flex;"><span>schedule:
+</span></span><span style="display:flex;"><span>  job1:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span>: state.sls
+</span></span><span style="display:flex;"><span>    seconds: <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    args:
+</span></span><span style="display:flex;"><span>      - resource
+</span></span></code></pre></div><p>将<code>schedule.sls</code>添加至<code>/srv/pillar/top.sls</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>base:
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;*&#39;</span>:
+</span></span><span style="display:flex;"><span>    - schedule
+</span></span></code></pre></div><p>刷新<code>pillar</code>至<code>minion</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> saltutil.refresh_pillar        
+</span></span></code></pre></div><p>将文件删除后，等5s再查看文件是否同步成功</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> cmd.run <span style="color:#e6db74">&#39;rm -f /home/www/resource/dove.jpg&#39;</span>
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> cmd.run <span style="color:#e6db74">&#39;ls  /home/www/resource/dove.jpg&#39;</span>  
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>    ls: cannot access /home/www/resource/dove.jpg: No such file or directory
+</span></span><span style="display:flex;"><span>ERROR: Minions returned with non-zero exit code
+</span></span><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> cmd.run <span style="color:#e6db74">&#39;ls  /home/www/resource/dove.jpg&#39;</span>
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>    /home/www/resource/dove.jpg
+</span></span></code></pre></div><h4 id="定时模块">定时模块</h4>
+<p>帮助文档</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> schedule -d
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.list  <span style="color:#75715e">## 定时列表</span>
+</span></span><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.add job1 <span style="color:#66d9ef">function</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test.ping&#39;</span> seconds<span style="color:#f92672">=</span><span style="color:#ae81ff">3600</span> <span style="color:#75715e">##添加job</span>
+</span></span><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.build_schedule_item job1 <span style="color:#66d9ef">function</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test.ping&#39;</span> seconds<span style="color:#f92672">=</span><span style="color:#ae81ff">3600</span> <span style="color:#75715e">## build job</span>
+</span></span><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.delete job1 <span style="color:#75715e">## 删除job</span>
+</span></span><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.disable <span style="color:#75715e">## 关闭所有job</span>
+</span></span><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.disable_job job1 <span style="color:#75715e">## 关闭指定job</span>
+</span></span><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.enable <span style="color:#75715e">## 打开所有job</span>
+</span></span><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.enable_job job1 <span style="color:#75715e">## 打开指定job</span>
+</span></span><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.is_enabled name<span style="color:#f92672">=</span>job_name <span style="color:#75715e">## 判断job是否被打开</span>
+</span></span><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.show_next_fire_time job_name <span style="color:#75715e">## 查看job的下一执行时间</span>
+</span></span><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.run_job job1 force<span style="color:#f92672">=</span>True <span style="color:#75715e">## run一个job</span>
+</span></span><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.purge <span style="color:#75715e">## 清空job</span>
+</span></span></code></pre></div><blockquote>
+<ol>
+<li>schedule的state命令不能操作pillar模式的任务</li>
+<li>这些命令都是针对于minion而言</li>
+</ol>
+</blockquote>
+<p>定时的其他用法：<a href="https://docs.saltstack.com/en/latest/ref/states/all/salt.states.schedule.html">salt.state.schedule</a>、<a href="https://docs.saltstack.com/en/latest/topics/jobs/">jobs</a></p>
+<h4 id="定时模块实战下发文件">定时模块实战下发文件</h4>
+<p>具体用法如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> schedule.add job_name <span style="color:#66d9ef">function</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;xxxx&#39;</span> job_args<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[&#39;xxxxx&#39;]&#34;</span> seconds<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> schedule.add job3 <span style="color:#66d9ef">function</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;state.sls&#39;</span> job_args<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[&#39;resource&#39;]&#34;</span> seconds<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>
+</span></span></code></pre></div><p>为避免与<code>pillar</code>进行重复，可以先将<code>pillar</code>的进行移除，由于无法使用<code>state.schedule</code>删除，所以删除<code>/srv/pillar/top.sls</code>里面的<code>schedule</code>，然后再刷新<code>pillar</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> saltutil.refresh_pillar
+</span></span></code></pre></div><p>再次查看<code>schedule.list</code>就只有一个下发文件的<code>job3</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> schedule.list          
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>    schedule:
+</span></span><span style="display:flex;"><span>      job3:
+</span></span><span style="display:flex;"><span>        args:
+</span></span><span style="display:flex;"><span>        - resource
+</span></span><span style="display:flex;"><span>        enabled: true
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">function</span>: state.sls
+</span></span><span style="display:flex;"><span>        jid_include: true
+</span></span><span style="display:flex;"><span>        maxrunning: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        name: job3
+</span></span><span style="display:flex;"><span>        seconds: <span style="color:#ae81ff">5</span>
+</span></span></code></pre></div><p>删除<code>minion</code>的文件，然后再查看</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> cmd.run <span style="color:#e6db74">&#39;rm -f /home/www/resource/dove.jpg&#39;</span>
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> cmd.run <span style="color:#e6db74">&#39;ls  /home/www/resource/dove.jpg&#39;</span>  
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>    ls: cannot access /home/www/resource/dove.jpg: No such file or directory
+</span></span><span style="display:flex;"><span>ERROR: Minions returned with non-zero exit code
+</span></span><span style="display:flex;"><span>➜  ~ sudo salt <span style="color:#e6db74">&#39;AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6&#39;</span> cmd.run <span style="color:#e6db74">&#39;ls  /home/www/resource/dove.jpg&#39;</span>
+</span></span><span style="display:flex;"><span>AAAAAAAA-0000-0000-BBD1-FA294FBCB7D6:
+</span></span><span style="display:flex;"><span>    /home/www/resource/dove.jpg
+</span></span></code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/saltstack/saltstack%E5%85%AD%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86/>https://xibolun.github.io/post/saltstack/saltstack%E5%85%AD%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/saltstack/">
+                    #saltstack</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E4%BA%94state/" class="prev" rel="prev" title="SaltStack(五)State"><i class="iconfont icon-left"></i>&nbsp;SaltStack(五)State</a>
+        
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E4%B8%83salt-ssh/" class="next" rel="next" title="SaltStack(七)salt-ssh">SaltStack(七)salt-ssh&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

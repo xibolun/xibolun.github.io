@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mysql on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/mysql/</link>
+    <description>Recent content in mysql on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 01 Aug 2019 11:15:04 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL Trigger</title>
+      <link>https://xibolun.github.io/post/mysql/mysqltrigger/</link>
+      <pubDate>Thu, 01 Aug 2019 11:15:04 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mysql/mysqltrigger/</guid>
+      <description>MySQL Trigger trigger 是一个触发器，用于在新增、修改和删除数据的时候做一些额外的操作。 全局惟一，所有建的trigger不能重名 不能对TEMPORARY表进行</description>
+    </item>
+    
+    <item>
+      <title>深入浅出MySQL(一)</title>
+      <link>https://xibolun.github.io/post/mysql/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p1%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Thu, 28 Mar 2019 09:56:53 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mysql/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p1%E5%9F%BA%E7%A1%80/</guid>
+      <description>DDL、DML、DCL Data Definition Languages: 数据定义语句，drop、create、alter、change、modify等 Data Manipulation Languages: 数据操纵语句，insert，</description>
+    </item>
+    
+    <item>
+      <title>深入浅出MySQL(二)</title>
+      <link>https://xibolun.github.io/post/mysql/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p2%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Mon, 25 Mar 2019 09:57:31 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mysql/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAmysql-p2%E5%BC%80%E5%8F%91/</guid>
+      <description>MySQL存储引擎 各引擎之间的区别 特点 MyISAM InnoDB MEMORY MERGE NDB 存储限制 有 64TB 有 没有 有 事务安全 支持 锁机制 表 行 表 表 行 B树索引 支持 支持 支持 支持 支持 哈希索引 支持 支持</description>
+    </item>
+    
+    <item>
+      <title>MySql日常杂学</title>
+      <link>https://xibolun.github.io/post/mysql/mysql/</link>
+      <pubDate>Thu, 27 Apr 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/mysql/mysql/</guid>
+      <description>MySql日常杂学 安装 wget -i -c http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm yum -y install mysql57-community-release-el7-10.noarch.rpm yum -y install mysql-community-server 启动相关 /etc/init.d/mysqld start /etc/init.d/mysqld stop /etc/init.d/mysqld restart service mysqld restart service mysqld stop service mysqld start 其他命令 mysql -uroot -pP@ssw0rd -h55.6.8.142 hf-csa --default-character-set=utf8 mysql -uoot -pP@ssw0rd hf-csa -default-character-set=utf8 &amp;lt; db_qdn672.sql mysqldump --opt --protocol=TCP --user=&amp;#39;root&amp;#39; --password=&amp;#39;P@ssw0rd&amp;#39; --host=&amp;#39;55.6.8.142&amp;#39; -all-databases --result-file=&amp;#39;20170619.sql&amp;#39; mysqldump --opt --protocol=TCP</description>
+    </item>
+    
+  </channel>
+</rss>

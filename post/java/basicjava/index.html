@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/docker/docker/" />
+    <link rel="next" href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC3%E7%AB%A0-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/java/basicjava/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Java基础 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Java基础 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Java基础",
+    "headline" : "Java基础",
+    "description" : "一些颠覆认知的问题 Java的String地址是相等的 System.out.println(\u0026#34;a\u0026#34; == \u0026#34;a\u0026#34;); \/\/true System.out.println(\u0026#34;a\u0026#34;.equals(\u0026#34;a\u0026#34;)); \/\/true Integer的valueOf存在默认值-127~127的区间 Integer f1 = 100, f2 = 100,",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-06-22 23:36:24 \u002b0800 CST",
+    "dateModified" : "2017-06-22 23:36:24 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/java\/basicjava\/",
+    "wordCount" : "362",
+    "keywords" : [ "java", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Java基础</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-06-22 itemprop="datePublished">June 22, 2017</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">362 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="一些颠覆认知的问题">一些颠覆认知的问题</h2>
+<h3 id="java的string地址是相等的">Java的String地址是相等的</h3>
+<pre tabindex="0"><code>        System.out.println(&#34;a&#34; == &#34;a&#34;);   //true
+        System.out.println(&#34;a&#34;.equals(&#34;a&#34;));  //true
+</code></pre><h3 id="integer的valueof存在默认值-127127的区间">Integer的valueOf存在默认值-127~127的区间</h3>
+<pre tabindex="0"><code>        Integer f1 = 100, f2 = 100, f3 = 150, f4 = 150;
+
+        System.out.println(f1 == f2);// true
+        System.out.println(f3 == f4);// false
+</code></pre><h3 id="switch-case在处理string的时候比对的是string的hashcode">switch case在处理String的时候，比对的是String的hashCode</h3>
+<pre tabindex="0"><code>public class Test {
+    public Test() {
+    }
+    public static void main(String[] args) {
+        String str = &#34;test&#34;;
+        byte var3 = -1;
+        switch(str.hashCode()) {
+        case 97:
+            if(str.equals(&#34;a&#34;)) {
+                var3 = 0;
+            }
+            break;
+        case 98:
+            if(str.equals(&#34;b&#34;)) {
+                var3 = 1;
+            }
+            break;
+        case 99:
+            if(str.equals(&#34;c&#34;)) {
+                var3 = 2;
+            }
+        }
+        switch(var3) {
+        case 0:
+            System.out.println(&#34;a&#34;);
+            break;
+        case 1:
+            System.out.println(&#34;b&#34;);
+            break;
+        case 2:
+            System.out.println(&#34;c&#34;);
+            break;
+        default:
+            System.out.println(&#34;c&#34;);
+        }
+    }
+}
+// 编译后的代码
+public class Test {
+    public Test() {
+    }
+    public static void main(String[] args) {
+        String str = &#34;test&#34;;
+        byte var3 = -1;
+        switch(str.hashCode()) {
+        case 97:
+            if(str.equals(&#34;a&#34;)) {
+                var3 = 0;
+            }
+            break;
+        case 98:
+            if(str.equals(&#34;b&#34;)) {
+                var3 = 1;
+            }
+            break;
+        case 99:
+            if(str.equals(&#34;c&#34;)) {
+                var3 = 2;
+            }
+        }
+        switch(var3) {
+        case 0:
+            System.out.println(&#34;a&#34;);
+            break;
+        case 1:
+            System.out.println(&#34;b&#34;);
+            break;
+        case 2:
+            System.out.println(&#34;c&#34;);
+            break;
+        default:
+            System.out.println(&#34;c&#34;);
+        }
+    }
+}
+</code></pre><h2 id="名称解释">名称解释</h2>
+<h3 id="podtovo等">PO/DTO/VO等</h3>
+<ul>
+<li>PO: persitant object</li>
+<li>VO: value object</li>
+<li>DO: domain object（领域对象）</li>
+<li>TO: transfer object</li>
+<li>BO: business object</li>
+<li>POJO: plain ordinary java object（简单无规则java对象）</li>
+<li>DAO: data access object （数据库访问对象）</li>
+<li>DTO: data transfer object （数据传输对象）</li>
+</ul>
+<h3 id="jvm-options">JVM Options</h3>
+<ul>
+<li><a href="http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html">Java HotSpot VM
+Options</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/java/basicjava/>https://xibolun.github.io/post/java/basicjava/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/java/">
+                    #java</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/docker/docker/" class="prev" rel="prev" title="Docker学习"><i class="iconfont icon-left"></i>&nbsp;Docker学习</a>
+        
+        
+        <a href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC3%E7%AB%A0-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5/" class="next" rel="next" title="深入理解Java虚拟机--第3章 垃圾收集器与内存分配策略">深入理解Java虚拟机--第3章 垃圾收集器与内存分配策略&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

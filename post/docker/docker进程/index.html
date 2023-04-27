@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%89network/" />
+    <link rel="next" href="https://xibolun.github.io/post/etcd/etcd%E5%85%A5%E9%97%A8/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/docker/docker%E8%BF%9B%E7%A8%8B/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Docker守护进程 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Docker守护进程 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Docker守护进程",
+    "headline" : "Docker守护进程",
+    "description" : "Docker进程 当前Docker版本 Client: Version: 1.13.1 API version: 1.26 Package version: docker-1.13.1-203.git0be3e21.el7.centos.x86_64 Go version: go1.10.3 Git commit: 0be3e21\/1.13.1 Built: Thu Nov 12 15:11:46 2020 OS\/Arch: linux\/amd64 Server: Version: 1.13.1 API version: 1.26 (minimum version 1.12) Package version: docker-1.13.1-203.git0be3e21.el7.centos.x86_64 Go version: go1.10.3 Git commit: 0be3e21\/1.13.1 Built: Thu Nov 12 15:11:46 2020 OS\/Arch: linux\/amd64 Experimental: false D",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-06-03 09:37:06 \u002b0800 CST",
+    "dateModified" : "2020-06-03 09:37:06 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/docker\/docker%E8%BF%9B%E7%A8%8B\/",
+    "wordCount" : "2026",
+    "keywords" : [ "docker", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Docker守护进程</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-06-03 itemprop="datePublished">June 3, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/docker/"> docker, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">2026 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="docker进程">Docker进程</h2>
+<blockquote>
+<p>当前Docker版本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Client:
+</span></span><span style="display:flex;"><span> Version:         1.13.1
+</span></span><span style="display:flex;"><span> API version:     1.26
+</span></span><span style="display:flex;"><span> Package version: docker-1.13.1-203.git0be3e21.el7.centos.x86_64
+</span></span><span style="display:flex;"><span> Go version:      go1.10.3
+</span></span><span style="display:flex;"><span> Git commit:      0be3e21/1.13.1
+</span></span><span style="display:flex;"><span> Built:           Thu Nov <span style="color:#ae81ff">12</span> 15:11:46 <span style="color:#ae81ff">2020</span>
+</span></span><span style="display:flex;"><span> OS/Arch:         linux/amd64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Server:
+</span></span><span style="display:flex;"><span> Version:         1.13.1
+</span></span><span style="display:flex;"><span> API version:     1.26 <span style="color:#f92672">(</span>minimum version 1.12<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> Package version: docker-1.13.1-203.git0be3e21.el7.centos.x86_64
+</span></span><span style="display:flex;"><span> Go version:      go1.10.3
+</span></span><span style="display:flex;"><span> Git commit:      0be3e21/1.13.1
+</span></span><span style="display:flex;"><span> Built:           Thu Nov <span style="color:#ae81ff">12</span> 15:11:46 <span style="color:#ae81ff">2020</span>
+</span></span><span style="display:flex;"><span> OS/Arch:         linux/amd64
+</span></span><span style="display:flex;"><span> Experimental:    false
+</span></span></code></pre></div></blockquote>
+<h3 id="docker启动后的情形">Docker启动后的情形</h3>
+<p>以<code>grafana</code>为例先看一下现在的实例情况</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker ps | grep 17d0801f3a10</span>
+</span></span><span style="display:flex;"><span>17d0801f3a10        grafana/grafana                                   <span style="color:#e6db74">&#34;/run.sh&#34;</span>                <span style="color:#ae81ff">10</span> days ago         Up <span style="color:#ae81ff">10</span> days          0.0.0.0:20002-&gt;3000/tcp   grafana
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 17d0801f3a10容器的进程为625，父进程为15935</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ps -ef | grep 17d</span>
+</span></span><span style="display:flex;"><span>root       <span style="color:#ae81ff">625</span> <span style="color:#ae81ff">15935</span>  <span style="color:#ae81ff">0</span> Dec03 ?        00:00:00 /usr/bin/docker-containerd-shim-current 17d0801f3a105d7226ca2ec029a7957a764c40ad68d4e91b0d34c5ebc1debf67 /var/run/docker/libcontainerd/17d0801f3a105d7226ca2ec029a7957a764c40ad68d4e91b0d34c5ebc1debf67 /usr/libexec/docker/docker-runc-current
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## pstree看一下进程635下的线程列表</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># pstree 625 -p</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># pstree 625</span>
+</span></span><span style="display:flex;"><span>docker-containe─┬─grafana-server───10*<span style="color:#f92672">[{</span>grafana-server<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                └─9*<span style="color:#f92672">[{</span>docker-containe<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>       
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## pstree可以看到父进程下面都是和635一样的信息，都是一个一个地docker-containe</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># pstree 15935</span>
+</span></span><span style="display:flex;"><span>docker-containe─┬─docker-containe─┬─grafana-server───10*<span style="color:#f92672">[{</span>grafana-server<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                │                 └─9*<span style="color:#f92672">[{</span>docker-containe<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                ├─docker-containe─┬─cadvisor───13*<span style="color:#f92672">[{</span>cadvisor<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                │                 └─9*<span style="color:#f92672">[{</span>docker-containe<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                ├─docker-containe─┬─node_exporter───8*<span style="color:#f92672">[{</span>node_exporter<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                │                 └─9*<span style="color:#f92672">[{</span>docker-containe<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                ├─docker-containe─┬─sh───java───18*<span style="color:#f92672">[{</span>java<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                │                 └─9*<span style="color:#f92672">[{</span>docker-containe<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                ├─docker-containe─┬─prometheus───7*<span style="color:#f92672">[{</span>prometheus<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                │                 └─9*<span style="color:#f92672">[{</span>docker-containe<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                ├─docker-containe─┬─e3w───7*<span style="color:#f92672">[{</span>e3w<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                │                 └─9*<span style="color:#f92672">[{</span>docker-containe<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>                └─16*<span style="color:#f92672">[{</span>docker-containe<span style="color:#f92672">}]</span>       
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 15935整体的情况如下图，可以看到其父进程为15929</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ps -axjf | grep 15935</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ps -axjf | grep 15935</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span> <span style="color:#ae81ff">15935</span> <span style="color:#ae81ff">15935</span> <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-current -l unix:///var/run/docker/libcontainerd/docker-containerd.sock --metrics-interval<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> --start-timeout 2m --state-dir /var/run/docker/libcontainerd/containerd --shim docker-containerd-shim --runtime docker-runc --runtime-args --systemd-cgroup<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span>   <span style="color:#ae81ff">625</span>   <span style="color:#ae81ff">625</span> |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current 17d0801f3a105d7226ca2ec029a7957a764c40ad68d4e91b0d34c5ebc1debf67 /var/run/docker/libcontainerd/17d0801f3a105d7226ca2ec029a7957a764c40ad68d4e91b0d34c5ebc1debf67 /usr/libexec/docker/docker-runc-current
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span>   <span style="color:#ae81ff">694</span>   <span style="color:#ae81ff">694</span> |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current 9f0482925ecb9b7a7f2518becae1dd25abd13890c5e86b49a6e719845b54ad3f /var/run/docker/libcontainerd/9f0482925ecb9b7a7f2518becae1dd25abd13890c5e86b49a6e719845b54ad3f /usr/libexec/docker/docker-runc-current
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span>   <span style="color:#ae81ff">759</span>   <span style="color:#ae81ff">759</span> |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current f8be4aea02c52a21b56e4f819f69b65da80aaac0194e0165e09ecc9641090f37 /var/run/docker/libcontainerd/f8be4aea02c52a21b56e4f819f69b65da80aaac0194e0165e09ecc9641090f37 /usr/libexec/docker/docker-runc-current
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span>   <span style="color:#ae81ff">782</span>   <span style="color:#ae81ff">782</span> |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current 2d4396a783ec700de4a66e78ad9b705bd588f9a111e52719564c5685a9b5ec0b /var/run/docker/libcontainerd/2d4396a783ec700de4a66e78ad9b705bd588f9a111e52719564c5685a9b5ec0b /usr/libexec/docker/docker-runc-current
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span>  <span style="color:#ae81ff">2928</span>  <span style="color:#ae81ff">2928</span> |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current 9258cc59fd401f1b7f2e41ff3b0704203706472a4be13a3c2d238ada606fdc10 /var/run/docker/libcontainerd/9258cc59fd401f1b7f2e41ff3b0704203706472a4be13a3c2d238ada606fdc10 /usr/libexec/docker/docker-runc-current
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span> <span style="color:#ae81ff">28961</span> <span style="color:#ae81ff">28961</span> |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current 850ba3fda533a140310a6f4864af0d019f47f4631e512a1edccd405c66bac102 /var/run/docker/libcontainerd/850ba3fda533a140310a6f4864af0d019f47f4631e512a1edccd405c66bac102 /usr/libexec/docker/docker-runc-current
+</span></span></code></pre></div><p>使用<code>docker-containerd-current</code>命令启动一个守护进程，连接<code>docker-containerd.sock</code>文件，以<code>docker-runc</code>为<code>runtime</code>启动，下面挂着许多的<code>docker-containered-shim-current</code>子进程</p>
+<p>而父节点<code>15929</code>是什么情况呢？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">## 进程15929的信息如下，其父节点为1，启动进程</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ps -axjf | grep 15929</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">15929</span> <span style="color:#ae81ff">15929</span> /usr/bin/dockerd-current --add-runtime docker-runc<span style="color:#f92672">=</span>/usr/libexec/docker/docker-runc-current --default-runtime<span style="color:#f92672">=</span>docker-runc --exec-opt native.cgroupdriver<span style="color:#f92672">=</span>systemd --userland-proxy-path<span style="color:#f92672">=</span>/usr/libexec/docker/docker-proxy-current --init-path<span style="color:#f92672">=</span>/usr/libexec/docker/docker-init-current --seccomp-profile<span style="color:#f92672">=</span>/etc/docker/seccomp.json --selinux-enabled --log-driver<span style="color:#f92672">=</span>journald --signature-verification<span style="color:#f92672">=</span>false --storage-driver overlay2
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span> <span style="color:#ae81ff">15935</span> <span style="color:#ae81ff">15935</span>  <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-current -l unix:///var/run/docker/libcontainerd/docker-containerd.sock --metrics-interval<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> --start-timeout 2m --state-dir /var/run/docker/libcontainerd/containerd --shim docker-containerd-shim --runtime docker-runc --runtime-args --systemd-cgroup<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span>   <span style="color:#ae81ff">598</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">20002</span> -container-ip 172.18.0.2 -container-port <span style="color:#ae81ff">3000</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span>   <span style="color:#ae81ff">674</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">8080</span> -container-ip 172.18.0.4 -container-port <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span>   <span style="color:#ae81ff">717</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">38080</span> -container-ip 172.18.0.5 -container-port <span style="color:#ae81ff">8088</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span>   <span style="color:#ae81ff">748</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">9100</span> -container-ip 172.18.0.6 -container-port <span style="color:#ae81ff">9100</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">2921</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">9090</span> -container-ip 172.18.0.3 -container-port <span style="color:#ae81ff">9090</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span> <span style="color:#ae81ff">28955</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">1080</span> -container-ip 172.19.0.2 -container-port <span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><p>使用<code>dockerd-current</code>命令，启动一个进程，下面挂着<code>docker-containerd-current</code>，<code>docker-proxy-curren</code>子进程；</p>
+<p>整体的图如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>    <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">15929</span> <span style="color:#ae81ff">15929</span> /usr/bin/dockerd-current --add-runtime docker-runc<span style="color:#f92672">=</span>/usr/libexec/docker/docker-runc-current --default-runtime<span style="color:#f92672">=</span>docker-runc --exec-opt native.cgroupdriver<span style="color:#f92672">=</span>systemd --userland-proxy-pa
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span> <span style="color:#ae81ff">15935</span> <span style="color:#ae81ff">15935</span>  <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-current -l unix:///var/run/docker/libcontainerd/docker-containerd.sock --metrics-interval<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> --start-timeout 2m --state-dir /var/run/docker/libcontai
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span>   <span style="color:#ae81ff">625</span>   <span style="color:#ae81ff">625</span>  |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current 17d0801f3a105d7226ca2ec029a7957a764c40ad68d4e91b0d34c5ebc1debf67 /var/run/docker/libcontainerd/17d0801f3a105d7226ca2ec029a7957a764c
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">625</span>   <span style="color:#ae81ff">672</span>   <span style="color:#ae81ff">672</span>  |   |   <span style="color:#ae81ff">\_</span> grafana-server --homepath<span style="color:#f92672">=</span>/usr/share/grafana --config<span style="color:#f92672">=</span>/etc/grafana/grafana.ini --packaging<span style="color:#f92672">=</span>docker cfg:default.log.mode<span style="color:#f92672">=</span>console cfg:default.paths.data<span style="color:#f92672">=</span>/var/lib/grafana
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span>   <span style="color:#ae81ff">694</span>   <span style="color:#ae81ff">694</span>  |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current 9f0482925ecb9b7a7f2518becae1dd25abd13890c5e86b49a6e719845b54ad3f /var/run/docker/libcontainerd/9f0482925ecb9b7a7f2518becae1dd25abd1
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">694</span>   <span style="color:#ae81ff">749</span>   <span style="color:#ae81ff">749</span>  |   |   <span style="color:#ae81ff">\_</span> /usr/bin/cadvisor -logtostderr
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span>   <span style="color:#ae81ff">759</span>   <span style="color:#ae81ff">759</span>  |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current f8be4aea02c52a21b56e4f819f69b65da80aaac0194e0165e09ecc9641090f37 /var/run/docker/libcontainerd/f8be4aea02c52a21b56e4f819f69b65da80a
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">759</span>   <span style="color:#ae81ff">777</span>   <span style="color:#ae81ff">777</span>  |   <span style="color:#ae81ff">\_</span> /bin/node_exporter --path.procfs<span style="color:#f92672">=</span>/host/proc --path.rootfs<span style="color:#f92672">=</span>/rootfs --path.sysfs<span style="color:#f92672">=</span>/host/sys --collector.filesystem.ignored-mount-points<span style="color:#f92672">=</span>^/<span style="color:#f92672">(</span>sys|proc|dev|host|etc<span style="color:#f92672">)(</span>$|/<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span>   <span style="color:#ae81ff">782</span>   <span style="color:#ae81ff">782</span>  |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current 2d4396a783ec700de4a66e78ad9b705bd588f9a111e52719564c5685a9b5ec0b /var/run/docker/libcontainerd/2d4396a783ec700de4a66e78ad9b705bd588
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">782</span>   <span style="color:#ae81ff">802</span>   <span style="color:#ae81ff">802</span>  |   |   <span style="color:#ae81ff">\_</span> /bin/sh -c java -javaagent:/data/jmx_prometheus_javaagent-0.14.0.jar<span style="color:#f92672">=</span>8088:/data/proemtheus-jmx-config.yaml -jar /data/arthas-demo.jar
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">802</span>  <span style="color:#ae81ff">1010</span>   <span style="color:#ae81ff">802</span>  |   |       <span style="color:#ae81ff">\_</span> java -javaagent:/data/jmx_prometheus_javaagent-0.14.0.jar<span style="color:#f92672">=</span>8088:/data/proemtheus-jmx-config.yaml -jar /data/arthas-demo.jar
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span>  <span style="color:#ae81ff">2928</span>  <span style="color:#ae81ff">2928</span>  |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current 9258cc59fd401f1b7f2e41ff3b0704203706472a4be13a3c2d238ada606fdc10 /var/run/docker/libcontainerd/9258cc59fd401f1b7f2e41ff3b0704203706
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2928</span>  <span style="color:#ae81ff">2945</span>  <span style="color:#ae81ff">2945</span>  |   |   <span style="color:#ae81ff">\_</span> /bin/prometheus --config.file<span style="color:#f92672">=</span>/prometheus/prometheus.yml --web.enable-lifecycle --web.enable-admin-api --storage.tsdb.retention<span style="color:#f92672">=</span>1y
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15935</span> <span style="color:#ae81ff">28961</span> <span style="color:#ae81ff">28961</span>  |   <span style="color:#ae81ff">\_</span> /usr/bin/docker-containerd-shim-current 850ba3fda533a140310a6f4864af0d019f47f4631e512a1edccd405c66bac102 /var/run/docker/libcontainerd/850ba3fda533a140310a6f4864af0d019f47
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28961</span> <span style="color:#ae81ff">28978</span> <span style="color:#ae81ff">28978</span>  |       <span style="color:#ae81ff">\_</span> ./e3w
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span>   <span style="color:#ae81ff">598</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">20002</span> -container-ip 172.18.0.2 -container-port <span style="color:#ae81ff">3000</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span>   <span style="color:#ae81ff">674</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">8080</span> -container-ip 172.18.0.4 -container-port <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span>   <span style="color:#ae81ff">717</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">38080</span> -container-ip 172.18.0.5 -container-port <span style="color:#ae81ff">8088</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span>   <span style="color:#ae81ff">748</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">9100</span> -container-ip 172.18.0.6 -container-port <span style="color:#ae81ff">9100</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">2921</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">9090</span> -container-ip 172.18.0.3 -container-port <span style="color:#ae81ff">9090</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15929</span> <span style="color:#ae81ff">28955</span> <span style="color:#ae81ff">15929</span>  <span style="color:#ae81ff">\_</span> /usr/libexec/docker/docker-proxy-current -proto tcp -host-ip 0.0.0.0 -host-port <span style="color:#ae81ff">1080</span> -container-ip 172.19.0.2 -container-port <span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><p><img src="/img/docker/docker-process.jpg" alt="docker进程" loading="lazy" ></p>
+<p>可以看到整体的关系如上图所示：</p>
+<ul>
+<li><code>dockerd</code>启动了一个进程，即<code>docker daemon</code>或者说<code>docker engine</code>，所有的<code>api</code>服务都是由此项提供</li>
+<li>通过<code>dockerd</code>又启动了<code>docker-containerd</code></li>
+<li>当每启动一个<code>docker instance</code>的时候，就会启动一个<code>docker-containerd-shim</code>和<code>docker-proxy</code>
+<ul>
+<li><code>docker-containerd-shim</code>是<code>docker instance</code>的守护进程</li>
+<li><code>docker-proxy</code>为<code>docker instance</code>提供<code>iptables</code>的端口映射关系</li>
+</ul>
+</li>
+</ul>
+<p>那为什么需要中间再包一层<code>docker-containerd-shim</code>呢？</p>
+<p><code>shim</code>意思为<code>垫片</code>，标准的<code>OCI(open container initiative)</code>组织制定了容器标准，<code>shim</code>是做为一层封装来实现，默认的实现即为<code>runc</code>；</p>
+<p>我们启动一个容器的命令可以转换为<code>shim</code>命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">## run命令</span>
+</span></span><span style="display:flex;"><span>docker run -d
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## shim命令</span>
+</span></span><span style="display:flex;"><span>/usr/bin/docker-containerd-shim-current f8be4aea02c52a21b56e4f819f69b65da80aaac0194e0165e09ecc9641090f37 /var/run/docker/libcontainerd/f8be4aea02c52a21b56e4f819f69b65da80aaac0194e0165e09ecc9641090f37 /usr/libexec/docker/docker-runc-current
+</span></span></code></pre></div><p>区别在于<code>shim</code>命令所需要一系列的参数信息即<code>runc</code>所需要运行的配置文件和标准的输入/输出</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@CloudBoot-dev-2-103 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ll /var/run/docker/libcontainerd/f8be4aea02c52a21b56e4f819f69b65da80aaac0194e0165e09ecc9641090f37</span>
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">20733</span> Dec  <span style="color:#ae81ff">3</span> 09:49 config.json
+</span></span><span style="display:flex;"><span>prwx------ <span style="color:#ae81ff">1</span> root root     <span style="color:#ae81ff">0</span> Dec <span style="color:#ae81ff">14</span> 10:27 init-stderr
+</span></span><span style="display:flex;"><span>prwx------ <span style="color:#ae81ff">1</span> root root     <span style="color:#ae81ff">0</span> Dec  <span style="color:#ae81ff">3</span> 09:49 init-stdin
+</span></span><span style="display:flex;"><span>prwx------ <span style="color:#ae81ff">1</span> root root     <span style="color:#ae81ff">0</span> Dec  <span style="color:#ae81ff">3</span> 09:49 init-stdout
+</span></span></code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/docker/docker%E8%BF%9B%E7%A8%8B/>https://xibolun.github.io/post/docker/docker%E8%BF%9B%E7%A8%8B/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/docker/">
+                    #docker</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%89network/" class="prev" rel="prev" title="Docker容器与容器云读书笔记（三）–Network"><i class="iconfont icon-left"></i>&nbsp;Docker容器与容器云读书笔记（三）–Network</a>
+        
+        
+        <a href="https://xibolun.github.io/post/etcd/etcd%E5%85%A5%E9%97%A8/" class="next" rel="next" title="etcd––入门">etcd––入门&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

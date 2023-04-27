@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%89-exchange-modes/" />
+    <link rel="next" href="https://xibolun.github.io/post/rabbitmq/rabbitmq%E5%85%AD-%E9%98%9F%E5%88%97%E6%8E%A7%E5%88%B6/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/golang/go%E7%BB%84%E4%BB%B6/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            go规范及组件 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="go规范及组件 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "go规范及组件",
+    "headline" : "go规范及组件",
+    "description" : "规范 命名规范 包名是小写单词，不应该有下划线或混合大小写，保持简洁，不要过早考虑包名冲突 使用驼峰而非下划线来命名函数或者变量 接口名称必须是er",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-07-19 20:39:43 \u002b0800 CST",
+    "dateModified" : "2018-07-19 20:39:43 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/golang\/go%E7%BB%84%E4%BB%B6\/",
+    "wordCount" : "685",
+    "keywords" : [ "golang", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">go规范及组件</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2018-07-19 itemprop="datePublished">July 19, 2018</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/golang/"> golang, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">685 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="规范">规范</h3>
+<h4 id="命名规范">命名规范</h4>
+<ul>
+<li>包名是小写单词，不应该有下划线或混合大小写，保持简洁，不要过早考虑包名冲突</li>
+<li>使用驼峰而非下划线来命名函数或者变量</li>
+<li>接口名称必须是er为后缀</li>
+<li><a href="https://github.com/uber-go/guide/blob/master/style.md">uber规范</a></li>
+</ul>
+<h3 id="go组件使用注意">GO组件使用注意</h3>
+<ul>
+<li><a href="https://github.com/avelino/awesome-go">awesome-go</a></li>
+<li><a href="https://github.com/go-chi/chi">chi</a></li>
+<li><a href="https://github.com/hashicorp/go-hclog">hclog</a></li>
+<li><a href="https://studygolang.com/articles/10589">dep</a></li>
+</ul>
+<h4 id="urfavecli">urfave/cli</h4>
+<ul>
+<li>github: <a href="https://github.com/urfave/cli">cli</a></li>
+<li>version字段默认flag为v,当我想定义一下-v, verbose的时候是会提示被重复的，修改默认的versionFlag即可；官网的README.md里面也有提及</li>
+</ul>
+<pre tabindex="0"><code>	cli.VersionFlag = cli.BoolFlag{
+		Name:  &#34;V, version&#34;,
+		Usage: &#34;print only the version&#34;,
+	}
+</code></pre><ul>
+<li>BoolFlag：若添加了一些flag，则其值为true，若不添加，值为false</li>
+<li>Flag当中的Destination可以将参数对应的value拿到</li>
+<li>通过Args可以拿到命令行里面入参信息</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FileActions</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cli</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">args</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Args</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">argsLen</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">args</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">target</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">args</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">srcFile</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">args</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">destFile</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">args</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="beego">beego</h4>
+<h5 id="httplib">httplib</h5>
+<p>httplib是beego的一个包，里面有restful相关的方法，问题如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">handler</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestUpdateEntityIdByHostId</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// queryParam参数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">postRequest</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httplib</span>.<span style="color:#a6e22e">Put</span>(<span style="color:#e6db74">&#34;http://localhost:6868/host/entity&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">postRequest</span>.<span style="color:#a6e22e">Param</span>(<span style="color:#e6db74">&#34;hostId&#34;</span>, <span style="color:#e6db74">&#34;23143243214&#34;</span>).<span style="color:#a6e22e">Param</span>(<span style="color:#e6db74">&#34;entityId&#34;</span>, <span style="color:#e6db74">&#34;34134123&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">postRequest</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">postRequest</span>.<span style="color:#a6e22e">String</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#75715e">//取pathVariable方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Query</span>().<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;hostId&#34;</span>) <span style="color:#75715e">// 此种方法只能取pathVariable
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//取QueryParam参数方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ParseForm</span>()   <span style="color:#75715e">// 若要取queryParam，必须先parseForm一下，然后才能拿到具体数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;hostId&#34;</span>) <span style="color:#75715e">// 发现此方法有时候取不到值，反而Query可以使用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Query</span>().<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;hostId&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//取QueryParam参数方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">FormValue</span>(<span style="color:#e6db74">&#34;hostId&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//取body当中参数方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">bytes</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">ReadAll</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Body</span>)   <span style="color:#75715e">//将bytes转成json即可
+</span></span></span></code></pre></div><h3 id="urfavecli-1">urfave/cli</h3>
+<ul>
+<li>一个bug<a href="issues/355">https://github.com/urfave/cli/issues/355</a> ####</li>
+<li>如何输出色彩 <a href="https://misc.flogisoft.com/bash/tip_colors_and_formatting">bash_color</a></li>
+</ul>
+<h3 id="cobra">cobra</h3>
+<ul>
+<li>支持json、table样式输出</li>
+</ul>
+<h3 id="gorm">gorm</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">GetDb</span>().<span style="color:#a6e22e">Table</span>(<span style="color:#e6db74">&#34;act2_job_record&#34;</span>).<span style="color:#a6e22e">Pluck</span>(<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">strs</span>).<span style="color:#a6e22e">Error</span>
+</span></span></code></pre></div><h3 id="grpc">gRPC</h3>
+<p><a href="https://jergoo.gitbooks.io/go-grpc-practice-guide/content">gRPC实战</a></p>
+<h3 id="包管理">包管理</h3>
+<h4 id="govendor">govendor</h4>
+<p>删除依赖包下面的所有子包</p>
+<pre tabindex="0"><code>govendor remove idcos.io/cloudboot/hardware/...
+</code></pre><p>更新依赖包下面的所有子包；注意若子包未被依赖，则不会添加进来</p>
+<pre tabindex="0"><code>govendor update idcos.io/cloudboot/hardware/...
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/golang/go%E7%BB%84%E4%BB%B6/>https://xibolun.github.io/post/golang/go%E7%BB%84%E4%BB%B6/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/golang/">
+                    #golang</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%89-exchange-modes/" class="prev" rel="prev" title="RabbitMQ(三) Exchange Modes"><i class="iconfont icon-left"></i>&nbsp;RabbitMQ(三) Exchange Modes</a>
+        
+        
+        <a href="https://xibolun.github.io/post/rabbitmq/rabbitmq%E5%85%AD-%E9%98%9F%E5%88%97%E6%8E%A7%E5%88%B6/" class="next" rel="next" title="RabbitMQ队列控制">RabbitMQ队列控制&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

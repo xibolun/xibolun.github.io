@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E7%AC%AC1%E7%AB%A0-%E8%B5%B0%E8%BF%91java/" />
+    <link rel="next" href="https://xibolun.github.io/post/java/corejavai/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/linux/linux-command/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            linux命令学习 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="linux命令学习 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "linux命令学习",
+    "headline" : "linux命令学习",
+    "description" : "每天一个linux命令 会有不定期的更新，汇总\u0026hellip;\u0026hellip;.. 文件及目录操作 ls ls -l:列表显示当前目录下的文件 ls -lu:根",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-05-22 23:36:24 \u002b0800 CST",
+    "dateModified" : "2017-05-22 23:36:24 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/linux\/linux-command\/",
+    "wordCount" : "5239",
+    "keywords" : [ "linux", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">linux命令学习</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-05-22 itemprop="datePublished">May 22, 2017</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">5239 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h1 id="每天一个linux命令">每天一个linux命令</h1>
+<p>会有不定期的更新，汇总&hellip;&hellip;..</p>
+<h2 id="文件及目录操作">文件及目录操作</h2>
+<h3 id="ls">ls</h3>
+<ol>
+<li>ls -l:列表显示当前目录下的文件</li>
+<li>ls -lu:根据文件名称正序排列文件</li>
+<li>ls -lt:根据文件修改时间倒序排列</li>
+<li><code>ls -al --full-time</code> 查看时间详情</li>
+<li>ls -l * | grep
+&ldquo;^d^&quot;:列出当前文件目录下面的所有文件夹信息，其中d为linux当中的目录标识</li>
+<li>ls -l * | grep &ldquo;^-&quot;:列出当前文件目录下面的所有文件信息</li>
+<li>ll -t &ndash;time-style=long-iso:以指定的时间格式显示文件</li>
+<li>ls -color[=WHEN]:其中when可以是never|always|auto</li>
+<li>ls -Sl : 根据文件大小进行倒序</li>
+<li>ls -Slr: 根据文件大小正序排序</li>
+<li>``</li>
+</ol>
+<h3 id="cd">cd</h3>
+<ol>
+<li>cd - ：返回上一次操作的目录</li>
+<li>cd !$: 将一个命令的参数做为cd参数</li>
+</ol>
+<h3 id="pwd">pwd</h3>
+<ol>
+<li>pwd -P: 若当前目录为link,则显示link路径</li>
+<li>pwd -L: 若当前目录为link，显示软路径</li>
+</ol>
+<h3 id="mkdir">mkdir</h3>
+<ol>
+<li>mkdir -v: 创建目录成功后显示信息</li>
+<li>mkdir -p: 递归创建目录</li>
+<li>mkdir -m: 创建带权限的目录</li>
+</ol>
+<h3 id="rm">rm</h3>
+<ol>
+<li>rm -i : 交互式删除(interactive),每次删除都会有提示</li>
+<li>rm -f : 强制删除，没有提示</li>
+<li>rm -r : &ndash;recursive 递归删除</li>
+<li>rm &ndash; -f : 删除以f开头的文件</li>
+</ol>
+<h3 id="mv">mv</h3>
+<ol>
+<li>mv -t : target directory;将文件移动至目标目录 mv -t dir file&hellip;</li>
+<li>mv -f : force；若移动的文件已经存在，强制覆盖</li>
+<li>mv dir1 dir2:
+若dir2不存在，则将dir1重命名；若dir2存在，将dir1移动到dir2里面</li>
+<li>mv -b : backup,若文件存在，则根据备份策略将文件先备份</li>
+</ol>
+<h3 id="cp">cp</h3>
+<ol>
+<li>cp -a : 是否覆盖copy，copy的时候两个文件的时间保持一致;相当于 -dR</li>
+<li>cp -l : copy一个link文件</li>
+<li>cp -R : copy整个目录</li>
+</ol>
+<h3 id="touch">touch</h3>
+<ol>
+<li>touch -t : 指定文件的创建时间 touch -t 201211142223 log.log</li>
+<li>touch -r file1 file2: 将file2的时间更新为file1</li>
+</ol>
+<h3 id="cat">cat</h3>
+<ol>
+<li>cat file1 file2 &gt; file: 合并多个文件</li>
+<li>cat &gt;&gt; file : 向文件里面继续添加内容，不会将原内容覆盖</li>
+<li>cat -n file1 file2 : 将file1添加行号后输入到file2当中</li>
+<li>cat -b file1 file2 : 将file1非空白行添加行号后输入到file2当中</li>
+<li>cat &gt; file &lt;&lt; EOF : 输入信息到file当中，输入EOF结束</li>
+<li>tac file : 将file的内容倒序显示</li>
+</ol>
+<h3 id="nl">nl</h3>
+<ol>
+<li>nl -ba file : 将file的内容显示，并加上行号</li>
+<li>nl -bt file : 将file的内容显示，非空格的加上行号</li>
+<li>nl -nrz file: 将file的内容显示，非空格加上行号，行号默认以6位显示</li>
+<li>nl -nrz -w 3 file: 行号以3位数显示</li>
+</ol>
+<h3 id="more">more</h3>
+<ol>
+<li>more +n : 从第n行开始显示，如果more +3</li>
+<li>more -n : 定义每屏显示的行数</li>
+</ol>
+<h3 id="head">head</h3>
+<ol>
+<li>head file: 显示文件的前十行</li>
+<li>head -n 5 file: 显示文件的前五行</li>
+<li>head -n -5 file: 显示文件除最后五行之外的内容（mac不支持此命令）</li>
+<li>head -c 5 file: 显示文件5个字节</li>
+<li>head -c -5 file: 显示文件除最后5个字节之外的内容（mac不支持此命令）</li>
+<li>head -v file: 在文件内容的上面显示文件名称</li>
+</ol>
+<h3 id="tail">tail</h3>
+<ol>
+<li>tail -n 6 file: 显示文件的最后5行</li>
+<li>tail file: 默认显示文件的最后十行</li>
+<li>tail -f file: 循环显示文件内容，若文件内容有更新，则会显示出来</li>
+<li>tailf -v file: 在文件内容上面显示文件名称</li>
+</ol>
+<h3 id="tar">tar</h3>
+<ol>
+<li>tar本身没有压缩，需要调用其他的压缩命令实现</li>
+<li>tar -cvf log.tar log :
+将log目录打包，没有压缩；v显示过程，f指定压缩文件</li>
+<li>tar -czvf log.tar.gz log:
+将log目录打包，并压缩成支持gzip解压的包；打包文件还可以起名为tgz</li>
+<li>tar -czpvf log.tgz log: 将log里面的文件权限不变进行压缩</li>
+<li>tar &ndash;excule</li>
+<li>tar -cjvf log.tar.bz2 log: 将log目录打包，并压缩成支持bz2解压的包</li>
+<li>tar -ztf log.tgz: 显示tgz里面的文件列表</li>
+<li>tar -xvf log.tgz aaa.sql: 将压缩包当中的aaa.sql单独解压出来</li>
+<li>tar -xvf log.tgz: 解压tgz文件</li>
+</ol>
+<h2 id="文件查找命令">文件查找命令</h2>
+<h3 id="which">which</h3>
+<ol>
+<li>如果一个命令在PATH当中，则将第一个搜索到的命令返回</li>
+<li>which -v : 查看命令的版本信息</li>
+</ol>
+<h3 id="whereis">whereis</h3>
+<ol>
+<li>说明： whereis搜索的是Linux数据库当中的文件信息，一周同步一次</li>
+<li>whereis -b nginx: 搜索nginx的可执行文件</li>
+<li>whereis -m nginx: 搜索nginx的帮助文件</li>
+<li>whereis -s nginx: 搜索nignx的源文件</li>
+</ol>
+<h3 id="locate">locate</h3>
+<ol>
+<li>locate pwd: 搜索含有pwd的文件</li>
+<li>locate /etc/sh: 搜索/etc目录下面以sh开头的文件</li>
+</ol>
+<h3 id="find">find</h3>
+<ol>
+<li>find -amin -2: 查找系统当中最后2分钟被访问的文件</li>
+<li>find -atime -2: 查找系统当中最后2*24小时访问的文件</li>
+<li>find -cmin -2: 查找系统当中最后2分钟被修改状态的文件</li>
+<li>find -ctime -2: 查找系统当中最后2*24小时被修改状态的文件</li>
+<li>find -mmin -2: 查找系统当中最后2分钟被修改的文件</li>
+<li>find -mtime +2: 查找系统当中2*24小时之前被修改的文件</li>
+<li>find -mtime -2: 查找系统当中2*24小时之内被修改的文件</li>
+<li>find -mtime +2 | xargs rm -rf :
+查找系统当中2*24小时之前被修改的文件，并删除他们</li>
+<li>find . -name &ldquo;*.log&rdquo;: 在当前目录下面根据名称递归查找文件</li>
+<li>find . -perm 777: 根据文件权限查找文件</li>
+<li>find . -type f -name &ldquo;*.log&rdquo; : 根据文件类型查找文件</li>
+<li>find . -type d: 查找文件目录</li>
+<li>find . -type d | sort: 查询文件目录并排序</li>
+<li>find . -size +1000c -print:
+根据文件大小来查询，查找1k大小的文件，并进行打印输出</li>
+<li>find . -name &ldquo;<strong>SETTING</strong>.sql&rdquo; -exec ls -l {}  
+find与exec的套用；说明{}为find查出来的结果 命令必须以;结尾，\为转义</li>
+<li>find . -name &ldquo;<strong>SETTING</strong>.sql&rdquo; -exec rm -rf {}   查询文件并删除他们</li>
+<li>find . -name &ldquo;<strong>PORTAL</strong>.sql&rdquo; -exec grep &ldquo;ROLE&rdquo; {}  
+查询文件并grep文件当中的&quot;ROLE&rdquo;</li>
+<li>find . -name &ldquo;<strong>PORTAL</strong>.sql&rdquo; -exec mv {} /tmp  
+查询文件并将文件列表移动至/tmp目录;还可以使用cp命令进行拷贝</li>
+<li>find . -name &ldquo;[A-Z]*&rdquo; : 查询文件名称以大写字母开头的文件，-name
+支持参数</li>
+<li>find / -name &ldquo;*&rdquo; : 从系统的根目录开始查询文件列表信息，系统负荷较重</li>
+<li>find . -size +100c:
+查找大于100c的文件;c是bytes，M是以MB，k是以KB，G是以GB</li>
+</ol>
+<h2 id="文件和目录属性">文件和目录属性</h2>
+<ul>
+<li>包括：可变的、不可变的、可分享的、不可分享的</li>
+<li>各文件的目录结构和属性参考<a href="http://www.pathname.com/fhs/">FHS</a></li>
+</ul>
+<h3 id="linux目录结构说明">linux目录结构说明</h3>
+<ul>
+<li>bin: 常用的命令存放</li>
+<li>boot: 开机所需要的信息</li>
+<li>dev: 设备相关的信息</li>
+<li>etc: 系统设置</li>
+<li>home: 操作者的目录</li>
+<li>lib: 函数库</li>
+<li>media: 媒体相关</li>
+<li>mnt: 挂载</li>
+<li>opt: 第三方软件</li>
+<li>root: 系统管理员目录</li>
+<li>sbin: root权限相关的系统设定操作</li>
+<li>srv: 服务信息</li>
+<li>tmp: 临时目录</li>
+<li>lost+found:</li>
+<li>proc: 临时目录，存放内存的数据及其他信息</li>
+<li>sys: 核心系统所记录的内存数据</li>
+</ul>
+<h3 id="文件类型">文件类型</h3>
+<ul>
+<li>s:
+数据接口文件sockets,client与服务器通信的文件，如果mysql.sock:srwxrwxrwx</li>
+<li>-: 普通文件</li>
+<li>d: 目录</li>
+<li>c: 设备文件</li>
+<li>l: link文件</li>
+<li>b: 区块设备</li>
+<li>p: pipe或FIFO文件类型</li>
+</ul>
+<h3 id="文件权限">文件权限</h3>
+<h4 id="chmod">chmod</h4>
+<ul>
+<li>chmod a+x file: 所有的用户和群组添加x权限</li>
+<li>chmod ug+x file: 给当前用户和用户组添加x权限</li>
+<li>chmod ug-x file: 给当前用户和用户组减去x权限</li>
+<li>chmod u=x file: 将当前用户的file设置为x权限</li>
+<li>chmod -R ug+x dir: 对目录进行添加权限</li>
+</ul>
+<h4 id="chgrp">chgrp</h4>
+<ul>
+<li>chgrp -v root file: 修改file的属组</li>
+<li>chgrp &ndash;reference file1 file2: 将file2的属组修改同file1一样</li>
+<li>chgrp -R root dir: 修改dir目录下所有文件的属组为root</li>
+<li>chgrp 20 file:
+根据id命令查询当中用户组的标识为20，通过标识码对文件进行修改属组操作</li>
+</ul>
+<h4 id="chown">chown</h4>
+<ul>
+<li>chown admin: file: 修改file的属主为admin</li>
+<li>chown :root file: 修改file的属组为root</li>
+<li>chown admin:root file: 修改file的属主为admin，属组为root</li>
+<li>chown -R root:root dir: 将dir目录的属主、属组都修改为root</li>
+</ul>
+<h3 id="其他">其他</h3>
+<ul>
+<li>只要不以/开头的目录都是相对路径；以/开头的是绝对路径</li>
+<li>linux打开data文件： last /var/log/wtmp</li>
+<li>linux打开二进制文件： xxd等</li>
+</ul>
+<h2 id="系统管理">系统管理</h2>
+<h4 id="systemctl">systemctl</h4>
+<ul>
+<li>
+<p><code>systemctl --version</code> : 版本信息</p>
+</li>
+<li>
+<p><code>systemctl list-unit-files</code> : 查看所有可用的单元</p>
+</li>
+<li>
+<p><code>systemctl list-units</code> : 查看所有运行单元</p>
+</li>
+<li>
+<p><code>systemctl --failed</code> : 查看失败的单元</p>
+</li>
+<li>
+<p><code>systemctl is-active tmp.mount|smb.service|dbus.socket</code> : 是否active</p>
+</li>
+<li>
+<p><code>systemctl is-enabled tmp.mount|smb.service|dbus.socket</code> : 是否enabled</p>
+</li>
+<li>
+<p><code>systemctl enable|disable tmp.mount|smb.service|dbus.socket</code> : 设置开机启动|不启动</p>
+</li>
+<li>
+<p><code>systemctl --type=mount</code> : 查看挂载点列表</p>
+</li>
+<li>
+<p><code>systemctl --type=service</code> : 查看服务列表</p>
+</li>
+<li>
+<p><code>systemctl --type=socket</code> : 查看服务列表</p>
+</li>
+<li>
+<p>``systemctl status|reload|restart|start|stop|kill  tmp.mount|smb.service|dbus.socket` : 生命周期管理</p>
+</li>
+<li>
+<p><code>systemctl cat docker.service|tmp.mount|dbus.socket</code> : 查看配置</p>
+</li>
+<li>
+<p><code>systemctl show docker.service|tmp.mount|dbus.socket</code> : 查看配置细节</p>
+</li>
+<li>
+<p><code>systemctl list-dependencies docker.service|tmp.mount|dbus.socket</code> : 查看依赖列表</p>
+</li>
+<li>
+<p><code>systemd-analyze critical-chain docker.service|tmp.mount|dbus.socket</code> : 查看配置细节</p>
+</li>
+<li>
+<p>分析启动进程</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@10-0-2-7 ~<span style="color:#f92672">]</span><span style="color:#75715e"># systemd-analyze</span>
+</span></span><span style="display:flex;"><span>Startup finished in 1.601s <span style="color:#f92672">(</span>kernel<span style="color:#f92672">)</span> + 2.817s <span style="color:#f92672">(</span>initrd<span style="color:#f92672">)</span> + 32.876s <span style="color:#f92672">(</span>userspace<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> 37.296s
+</span></span></code></pre></div></li>
+<li>
+<p>分析</p>
+</li>
+</ul>
+<h3 id="df">df</h3>
+<ul>
+<li>df是查看系统磁盘的使用情况</li>
+<li>df -h: 以human的方式显示磁盘大小信息,以1024为单位进行转换</li>
+<li>df -H: 以1000为单位进行转换</li>
+<li>df -t ext3: 显示指定类型的磁盘</li>
+<li>df -T: 列出文件系统类型</li>
+</ul>
+<h3 id="du">du</h3>
+<ul>
+<li>du是查看文件和目录的磁盘使用情况</li>
+<li>du -ah: 列出当前目录下所以文件和目录的大小</li>
+<li>du -h file: 显示file大小</li>
+<li>du -h dir: 显示dir大小</li>
+<li>du -sh: 显示总和</li>
+<li>du -c file1,file2: 显示每一个文件的大小，并统计总和</li>
+<li>du -ah | sort -nr:
+根据文件的空间大小进行倒序排列，不加nr为正序排列，其中r为reverse</li>
+</ul>
+<h3 id="top">top</h3>
+<h4 id="第一行-top">第一行 top</h4>
+<ul>
+<li>10:53:42: 系统时间</li>
+<li>up 24 days: 开机24天</li>
+<li>1 user: 当前有一个人登陆</li>
+<li>load average: 负载使用情况</li>
+</ul>
+<h4 id="第二行-tasks">第二行 Tasks</h4>
+<ul>
+<li>65 totle: 总共有65个进程</li>
+<li>1 running: 有一个running的</li>
+<li>63 sleeping: 63个在休眠</li>
+<li>0 stopped: 0个停止的</li>
+<li>0 zombie: 0个僵尸进程</li>
+</ul>
+<h4 id="第三行-cpus">第三行 %Cpu(s)</h4>
+<ul>
+<li>0.0 us: 用户空间占用CPU的百分比</li>
+<li>3.4 sy: 内核空间占用CPU的百分比</li>
+<li>0.0 ni: 改变过优先级的进程占用CPU的百分比</li>
+<li>90 id: 空间CPU百分比</li>
+<li>0.0 wa: IO等待占用CPU的百分比</li>
+<li>0.0 hi: Hardware IRQ 硬中断占用CPU百分比</li>
+<li>0.2 si: Software Interrupts 软件中断占用CPU百分比</li>
+</ul>
+<h4 id="第四行-内存状态">第四行 内存状态</h4>
+<ul>
+<li>total: 总共内存大小，物理内存</li>
+<li>free: 空间内存大小</li>
+<li>used: 已用内存大小</li>
+<li>buff/cache: 缓存使用大小</li>
+</ul>
+<h4 id="第五行-swap信息">第五行 Swap信息</h4>
+<ul>
+<li>Swap指当内存不够用的时候，会将一部分硬盘转换为内存使用</li>
+<li>total: 交换区容量</li>
+<li>used: 使用总量</li>
+<li>free: 空间总量</li>
+<li>cached: 缓存总量</li>
+</ul>
+<h4 id="第六行-空">第六行 空</h4>
+<h4 id="第七行-各进程的状态监控">第七行 各进程的状态监控</h4>
+<h4 id="操作技巧">操作技巧</h4>
+<ul>
+<li>b : 高亮当前正在running的进程</li>
+<li>1 : 可以切换主机不同CPU的监控信息</li>
+<li>x : 对CPU的占用量排序列高亮显示</li>
+<li>k : 按k，然后输入进程id，可以kill此进程</li>
+<li>shift + &gt; 或shift +&lt;:
+向右或向左改变排序列，默认是以%CPU进行排序</li>
+<li>top -c : 监控的command列显示完整的命令</li>
+<li>top -n 2: 更新两次后终止刷新</li>
+<li>top -d 3: 以3s为周期进行更新</li>
+<li>top -p id: 显示指定id号的进程</li>
+</ul>
+<h3 id="free">free</h3>
+<ul>
+<li>free : 显示系统内存使用和空间情况</li>
+<li>free -m : 以MB显示</li>
+<li>free -k : 以KB显示</li>
+<li>free -b : 以Byte显示</li>
+<li>free -g : 以GB为单位显示</li>
+<li>free -t : 显示内存总和列</li>
+<li>free -V : 显示版本信息</li>
+<li>free -s 10 : 10s刷新一次内存</li>
+<li>cat /proc/meminfo : 查看系统内存情况</li>
+</ul>
+<h3 id="lsof">lsof</h3>
+<ul>
+<li>lsof -c java : 打开java进程正在使用的文件</li>
+<li>lsof -u root: 打开某个用户正在使用的文件</li>
+<li>lsof -u ^root^ : 打开除了某个用户正在使用的文件</li>
+<li>lsof -i : 列出所有的网络连接</li>
+<li>lsof -p PID:  列出进程打开的文件</li>
+<li>lsof -i tcp/udp: 列出所有的tcp、udp网络连接信息</li>
+<li>lsof -i:8080 : 列出8080端口被哪个应用使用</li>
+<li>lsof -i tcp:80: 列出指定的tcp协议80端口</li>
+</ul>
+<h3 id="pmap">pmap</h3>
+<ul>
+<li>pmap PID: 查看进程的内存使用状态</li>
+</ul>
+<h3 id="sar">sar</h3>
+<p>部署</p>
+<pre tabindex="0"><code>## 安装
+yum install sysstat 
+## 配置文件修改
+echo &#39;----
+# Should sadc collect system activity informations? Valid values
+# are &#34;true&#34; and &#34;false&#34;. Please do not put other values, they
+# will be overwritten by debconf!
+ENABLED=&#34;true&#34;
+----&#39; &gt;&gt; /etc/default/sysstat
+## 重启服务
+systemctl restart sysstat.service
+</code></pre><p>使用</p>
+<pre tabindex="0"><code>sar -u 1 3 ## 每隔1s，查看cpu的情况三次
+sar -d ## 硬盘
+sar -A ## 所有信息
+sar -r ## 内存
+sar -p ## 活动页page
+sar -q ## 队列
+sar -w ## 系统交换情况
+</code></pre><h2 id="网络相关">网络相关</h2>
+<h3 id="netstat">netstat</h3>
+<pre tabindex="0"><code>## t-tcp  l-listening p-program
+netstat -tlp 
+</code></pre><h2 id="文本处理">文本处理</h2>
+<h3 id="grep">grep</h3>
+<ul>
+<li><code>grep -v</code> : 排除某些选项</li>
+<li><code>grep ^u</code> : 匹配以u开头的内容</li>
+<li><code>grep ^[^u]</code> : 匹配以非u开头的内容</li>
+<li><code>grep hat$</code> : 以hat结尾</li>
+<li><code>grep -E &quot;ed|at&quot;</code> : 正则多条件匹配</li>
+<li><code>grep &quot;Inspection&quot; error.log -c</code> : 统计数量</li>
+<li><code>grep &quot;Inspection&quot; error.log -n</code> : 打印匹配行数</li>
+<li><code>grep &quot;Inspection&quot; error.log -i</code> : 忽略大小写匹配</li>
+</ul>
+<h3 id="sort">sort</h3>
+<ul>
+<li><code>sort test.txt -r</code> : 倒序排列， reverse</li>
+<li><code>sort test.txt -k n</code> : 指定排序的列</li>
+</ul>
+<h3 id="uniq">uniq</h3>
+<ul>
+<li><code>uniq -c test.txt1</code> : 统计重复数据</li>
+<li><code>uniq -u test.txt1</code> : 只输出不重复信息</li>
+<li><code>uniq -d test.txt1</code> : 只输出重复的信息</li>
+</ul>
+<h4 id="sedhttpswwwgnuorgsoftwaresedmanualsedhtml"><a href="https://www.gnu.org/software/sed/manual/sed.html">sed</a></h4>
+<p>常用参数</p>
+<ul>
+<li><code>n</code> ：使用安静(silent)模式。在一般 sed 的用法中，所有来自 STDIN 的数据一般都会被列出到终端上。但如果加上 -n 参数后，则只有经过sed 特殊处理的那一行(或者动作)才会被列出来。</li>
+<li><code>e</code> ：直接在命令列模式上进行 sed 的动作编辑；</li>
+<li><code>f</code> ：直接将 sed 的动作写在一个文件内， -f filename 则可以运行 filename 内的 sed 动作；</li>
+<li><code>r</code> ：sed 的动作支持的是延伸型正规表示法的语法。(默认是基础正规表示法语法)</li>
+<li><code>i</code> ：直接修改读取的文件内容，而不是输出到终端。</li>
+</ul>
+<p>常用function</p>
+<ul>
+<li><code>a</code> ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～</li>
+<li><code>c</code> ：取代， c 的后面可以接字串，这些字串可以取代 n1,n2 之间的行！</li>
+<li><code>d</code> ：删除，因为是删除啊，所以 d 后面通常不接任何咚咚；</li>
+<li><code>i</code> ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；</li>
+<li><code>p</code> ：列印，亦即将某个选择的数据印出。通常 p 会与参数 sed -n 一起运行～</li>
+<li><code>s</code> ：取代，可以直接进行取代的工作哩！通常这个 s 的动作可以搭配正规表示法！例如 1,20s/old/new/g 就是啦！</li>
+</ul>
+<p>样例：</p>
+<ul>
+<li>
+<p><code>sed -i 's/ws:\/\//wss:\/\//g' test.sh</code>：将test.sh里面的<code>ws://</code>替换为<code>wss://</code>; <code>-i</code>修改文件内容</p>
+</li>
+<li>
+<p><code>sed -e 's/ws:\/\//wss:\/\//g' test.sh</code>：将<code>test.sh</code>为内容，执行<code>-e</code>后面命令，输出至stdout</p>
+</li>
+<li>
+<p><code>sed -e '1,2d' test.sh </code>: 删除1-2行的数据</p>
+</li>
+</ul>
+<h2 id="高级">高级</h2>
+<h3 id="crontab">crontab</h3>
+<ul>
+<li>crontab file: 如何添加一个cron: crontab file:
+file是写的cron定时脚本；系统会将file的定时任务提交，并以当前用户的名称存放于/var/spool/cron下面</li>
+<li>crontab -l : 查询当前用户的定时任务信息</li>
+<li>cat /etc/crontab: 里面记录着crontab的用法</li>
+<li>service crontab status|stop|restart|start: service
+crontab服务的生命周期命令</li>
+<li>crontab -r : 删除当前用户的cron</li>
+</ul>
+<h4 id="linux唯一标识">linux唯一标识：</h4>
+<pre tabindex="0"><code>cat /sys/class/dmi/id/product_uuid
+</code></pre><h3 id="vmstat">vmstat</h3>
+<ul>
+<li><code>vmstat 1 3 </code> : 每1钟输出process、memory等信息详情，总共输出3次，</li>
+<li><code>vmstat 1</code>:  若count为空，则会一直输出</li>
+</ul>
+<h4 id="iostat">iostat</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>-C 显示CPU使用情况
+</span></span><span style="display:flex;"><span>-d 显示磁盘使用情况
+</span></span><span style="display:flex;"><span>-k 以 KB 为单位显示
+</span></span><span style="display:flex;"><span>-m 以 M 为单位显示
+</span></span><span style="display:flex;"><span>-N 显示磁盘阵列<span style="color:#f92672">(</span>LVM<span style="color:#f92672">)</span> 信息
+</span></span><span style="display:flex;"><span>-n 显示NFS 使用情况
+</span></span><span style="display:flex;"><span>-p<span style="color:#f92672">[</span>磁盘<span style="color:#f92672">]</span> 显示磁盘和分区的情况
+</span></span><span style="display:flex;"><span>-t 显示终端和CPU的信息
+</span></span><span style="display:flex;"><span>-x 显示详细信息
+</span></span><span style="display:flex;"><span>-V 显示版本信息
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># iostat -d  -x -k 1 1</span>
+</span></span><span style="display:flex;"><span>Linux 3.10.0-229.el7.x86_64 <span style="color:#f92672">(</span>res-10-0-0-142<span style="color:#f92672">)</span>    10/29/2019      _x86_64_        <span style="color:#f92672">(</span><span style="color:#ae81ff">4</span> CPU<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+</span></span><span style="display:flex;"><span>vda               0.00     0.19    1.02   31.48     4.07   529.77    32.86     0.04    1.22   16.05    0.74   0.31   1.01
+</span></span><span style="display:flex;"><span>vdb               0.00     0.01    0.97    0.23     2.91     3.37    10.48     0.00    1.37    1.59    0.43   0.07   0.01
+</span></span></code></pre></div><p>查看所有</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># iostat </span>
+</span></span><span style="display:flex;"><span>Linux 3.10.0-229.el7.x86_64 <span style="color:#f92672">(</span>res-10-0-0-142<span style="color:#f92672">)</span>    10/29/2019      _x86_64_        <span style="color:#f92672">(</span><span style="color:#ae81ff">4</span> CPU<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+</span></span><span style="display:flex;"><span>           4.77    0.00    0.74    0.22    0.03   94.24
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Device:            tps    kB_read/s    kB_wrtn/s    kB_read    kB_wrtn
+</span></span><span style="display:flex;"><span>vda              32.50         4.07       529.77    <span style="color:#ae81ff">3819959</span>  <span style="color:#ae81ff">497494630</span>
+</span></span><span style="display:flex;"><span>vdb               1.20         2.91         3.37    <span style="color:#ae81ff">2736630</span>    <span style="color:#ae81ff">3162946</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>%user：CPU处在用户模式下的时间百分比。
+</span></span><span style="display:flex;"><span>%nice：CPU处在带NICE值的用户模式下的时间百分比。
+</span></span><span style="display:flex;"><span>%system：CPU处在系统模式下的时间百分比。
+</span></span><span style="display:flex;"><span>%iowait：CPU等待输入输出完成时间的百分比。
+</span></span><span style="display:flex;"><span>%steal：管理程序维护另一个虚拟处理器时，虚拟CPU的无意识等待时间百分比。
+</span></span><span style="display:flex;"><span>%idle：CPU空闲时间百分比。
+</span></span></code></pre></div><h4 id="ldd">ldd</h4>
+<p>查看程序依赖库</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># ldd /usr/bin/sar</span>
+</span></span><span style="display:flex;"><span>        linux-vdso.so.1 <span style="color:#f92672">=</span>&gt;  <span style="color:#f92672">(</span>0x00007fffb3f8f000<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        libc.so.6 <span style="color:#f92672">=</span>&gt; /lib64/libc.so.6 <span style="color:#f92672">(</span>0x00007fb08f569000<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        /lib64/ld-linux-x86-64.so.2 <span style="color:#f92672">(</span>0x00007fb08f931000<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h4 id="fuser">fuser</h4>
+<p>查看程序的运行和被哪个用户使用情况</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># fuser -u -m /usr/bin/redis-server</span>
+</span></span></code></pre></div><h4 id="进程相关">进程相关</h4>
+<pre tabindex="0"><code>## 进程查看
+ps -ef | grep zabbix_agentd
+
+## 查看进程下的线程
+ps mp pid -o THREAD,tid
+## 统计进程下的线程数
+cat /proc/15176/status | grep -i Threads
+
+## 子进程
+pstree pid
+ps -axjf | grep 2018
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/linux/linux-command/>https://xibolun.github.io/post/linux/linux-command/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/linux/">
+                    #linux</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E7%AC%AC1%E7%AB%A0-%E8%B5%B0%E8%BF%91java/" class="prev" rel="prev" title="深入理解Java虚拟机--第1章 走近java"><i class="iconfont icon-left"></i>&nbsp;深入理解Java虚拟机--第1章 走近java</a>
+        
+        
+        <a href="https://xibolun.github.io/post/java/corejavai/" class="next" rel="next" title="Java核心技术卷一">Java核心技术卷一&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

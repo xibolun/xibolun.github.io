@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/git/</link>
+    <description>Recent content in git on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 10 Oct 2020 16:58:14 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git对象</title>
+      <link>https://xibolun.github.io/post/tools/git%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Sat, 10 Oct 2020 16:58:14 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/git%E5%AF%B9%E8%B1%A1/</guid>
+      <description>一个常规操作 先看一个常规的操作； mkdir /tmp/common cd /tmp/common git init echo &amp;#34;text content&amp;#34; &amp;gt; test.txt git add . 上述几个命令就是创建一个目录，并将其初始化为git工程，添加一个文件，然后使用g</description>
+    </item>
+    
+    <item>
+      <title>Git学习</title>
+      <link>https://xibolun.github.io/post/tools/git/</link>
+      <pubDate>Wed, 27 Apr 2016 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/git/</guid>
+      <description>GIT命令 git clone: git clone -b develop &amp;ndash;single-branch &amp;lt;git-address&amp;gt; :从git地址当中clone 指定的develop分支/或者在git repository当中指定此项目的默认bran</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%9B%9B%E8%B0%83%E5%BA%A6%E5%99%A8/" />
+    <link rel="next" href="https://xibolun.github.io/post/kafka/kafka%E4%BA%8C%E6%93%8D%E4%BD%9C/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/linux/sqlmap%E6%B3%A8%E5%85%A5/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            sql注入--sqlmap | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="sql注入--sqlmap | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "sql注入--sqlmap",
+    "headline" : "sql注入--sqlmap",
+    "description" : "sql注入\u0026ndash;sqlmap 介绍 sqlmap是一个sql注入的测试工具，用于测试接口或者数据库的安全性，是否存在sql注入的情形，功",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-09-11 15:56:01 \u002b0800 CST",
+    "dateModified" : "2019-09-11 15:56:01 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/linux\/sqlmap%E6%B3%A8%E5%85%A5\/",
+    "wordCount" : "444",
+    "keywords" : [ "安全", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">sql注入--sqlmap</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-09-11 itemprop="datePublished">September 11, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">444 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="sql注入--sqlmap">sql注入&ndash;sqlmap</h2>
+<h3 id="介绍">介绍</h3>
+<p><a href="https://github.com/sqlmapproject/sqlmap">sqlmap</a>是一个sql注入的测试工具，用于测试接口或者数据库的安全性，是否存在sql注入的情形，功能很强大；</p>
+<ul>
+<li>支持所有的数据库</li>
+<li>支持所有的sql注入场景</li>
+<li>支持直连操作</li>
+<li>支持http请求，https；post\get，配置cookie，agent，header、referer</li>
+<li>支持最大连接测试，重试次数</li>
+<li>还有一些其他的特性  <a href="https://github.com/sqlmapproject/sqlmap/wiki/Features">Features</a></li>
+</ul>
+<h3 id="sql注入">sql注入</h3>
+<h4 id="url注入">url注入</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@cloudboot sqlmap<span style="color:#f92672">]</span><span style="color:#75715e"># ./sqlmap.py -u  &#34;http://10.0.3.1/api/cloudboot/v1/devices/settings?sn=3Q28&amp;page=1&amp;page_size=10&#34;  --cookie &#34;access-token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLotoXnuqfnrqHnkIblkZgiLCJ1c2VySWQiOiI1OWRmNTk2MGNkNmFjMzVmNTMxMzViMzEiLCJuYW1lIjoi6LaF57qn566h55CG5ZGYIiwibG9naW5JZCI6ImFkbWluIiwibG9naW5OYW1lIjoiYWRtaW4iLCJ0ZW5hbnRJZCI6ImRlZmF1bHQiLCJ0aW1lb3V0IjoyMTYwMCwiZXhwIjoxNTY4MjA2NzAxLCJjcmVhdFRpbWUiOjE1NjgxODUxMDE5MTAsInRlbmFudE5hbWUiOiLnrqHnkIbnp5_miLcifQ.JS2KtTbiHlLx8eLEUy87Ui_PrPKxYekmqYzFEfex3F4&#34; --level 1 --current-user</span>
+</span></span><span style="display:flex;"><span>.........
+</span></span><span style="display:flex;"><span>.........
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>15:49:49<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> the back-end DBMS is MySQL
+</span></span><span style="display:flex;"><span>web application technology: Nginx 1.14.2
+</span></span><span style="display:flex;"><span>back-end DBMS: MySQL &gt;<span style="color:#f92672">=</span> 5.0.12
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>15:49:49<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> fetching current user
+</span></span><span style="display:flex;"><span>..........
+</span></span><span style="display:flex;"><span>current user:   None
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>15:49:51<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>WARNING<span style="color:#f92672">]</span> HTTP error codes detected during run:
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">500</span> <span style="color:#f92672">(</span>Internal Server Error<span style="color:#f92672">)</span> - <span style="color:#ae81ff">6</span> times
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>15:49:51<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> fetched data logged to text files under <span style="color:#e6db74">&#39;/root/.sqlmap/output/10.0.3.1&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ending @ 15:49:51 /2019-09-11/
+</span></span></code></pre></div><p>post带参数请求</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>/sqlmap.py -u <span style="color:#e6db74">&#34;http://localhost:8083/api/osinstall/v1/user/login&#34;</span> --data <span style="color:#e6db74">&#39;{&#34;username&#34;:&#34;admin&#34;,&#34;password&#34;:&#34;admin&#34;,&#34;language&#34;:&#34;ZH&#34;}&#39;</span> --method POST
+</span></span></code></pre></div><h4 id="直连">直连</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./sqlmap.py -d <span style="color:#e6db74">&#34;mysql://root:xxxxxx@localhost:3306/xxxxxx&#34;</span> -f --banner --dbs --users
+</span></span></code></pre></div><pre tabindex="0"><code>[22:14:16] [INFO] fetching database users
+database management system users [4]:
+[*] &#39;mysql.session&#39;@&#39;localhost&#39;
+[*] &#39;mysql.sys&#39;@&#39;localhost&#39;
+[*] &#39;root&#39;@&#39;%&#39;
+[*] &#39;root&#39;@&#39;localhost&#39;
+
+[22:14:16] [INFO] fetching database names
+available databases [10]:
+[*] .....
+[*] sys
+</code></pre><p>当前数据库</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./sqlmap.py -d <span style="color:#e6db74">&#34;mysql://root:xxxxxx@localhost:3306/xxxxxx&#34;</span> --current-db
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>22:33:54<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> fetching current database
+</span></span><span style="display:flex;"><span>current database: <span style="color:#e6db74">&#39;xxxxxx&#39;</span>
+</span></span></code></pre></div><p>当前用户</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./sqlmap.py -d <span style="color:#e6db74">&#34;mysql://root:xxxxxx@localhost:3306/xxxxxx&#34;</span> --current-user
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>22:34:34<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> fetching current user
+</span></span><span style="display:flex;"><span>current user: <span style="color:#e6db74">&#39;root@localhost&#39;</span>
+</span></span></code></pre></div><p>列出当前的表</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./sqlmap.py -d <span style="color:#e6db74">&#34;mysql://root:Yunjikeji#123@localhost:3306/cloudboot&#34;</span> -D xxxxxx --tables
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>22:35:54<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> fetching tables <span style="color:#66d9ef">for</span> database: <span style="color:#e6db74">&#39;xxxxxx&#39;</span>
+</span></span><span style="display:flex;"><span>Database: xxxxxx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#ae81ff">67</span> tables<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>列出某张表的字段</p>
+<pre tabindex="0"><code>./sqlmap.py -d &#34;mysql://root:Yunjikeji#123@localhost:3306/cloudboot&#34; -D xxxxxx -T platform_configs --columns
+[22:42:38] [INFO] fetching columns for table &#39;platform_configs&#39; in database &#39;xxxxxx&#39;
+Database: xxxxxx
+Table: platform_configs
+[6 columns]
+</code></pre><p>其他的一些操作  <a href="https://github.com/sqlmapproject/sqlmap/wiki/Usage#usage">usage</a> ;sql注入问题可以使用orm框架进行很好的避免，不要自己去拼装sql语句。</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/linux/sqlmap%E6%B3%A8%E5%85%A5/>https://xibolun.github.io/post/linux/sqlmap%E6%B3%A8%E5%85%A5/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/%E5%AE%89%E5%85%A8/">
+                    #安全</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/golang/go%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%9B%9B%E8%B0%83%E5%BA%A6%E5%99%A8/" class="prev" rel="prev" title="Go源码分析(四)调度器"><i class="iconfont icon-left"></i>&nbsp;Go源码分析(四)调度器</a>
+        
+        
+        <a href="https://xibolun.github.io/post/kafka/kafka%E4%BA%8C%E6%93%8D%E4%BD%9C/" class="next" rel="next" title="Kafka(二)操作">Kafka(二)操作&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

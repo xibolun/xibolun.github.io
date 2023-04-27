@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC5%E7%AB%A0--%E9%AB%98%E7%BA%A7%E9%9B%86%E5%90%88%E7%B1%BB%E5%92%8C%E6%94%B6%E9%9B%86%E5%99%A8/" />
+    <link rel="next" href="https://xibolun.github.io/post/mongo/mongodb-replset-replication/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/mongo/mongodb-master-slave-replication/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            MongoDB Master Slave Replication | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="MongoDB Master Slave Replication | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "MongoDB Master Slave Replication",
+    "headline" : "MongoDB Master Slave Replication",
+    "description" : "Replication\u0026ndash;Master Slave Replication Mongod命令列表 dbpath: 指定数据库文件目录，若不存在，则提示异常 port: 端口号指定 master:指定主节点 slaver:指定从节点 source: 指定主节点",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-11-14 23:36:24 \u002b0800 CST",
+    "dateModified" : "2017-11-14 23:36:24 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/mongo\/mongodb-master-slave-replication\/",
+    "wordCount" : "655",
+    "keywords" : [ "Mongo", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">MongoDB Master Slave Replication</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-11-14 itemprop="datePublished">November 14, 2017</time>
+                </span>
+                in
+                
+                <span class="post-word-count">655 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="replication--master-slave-replication">Replication&ndash;Master Slave Replication</h2>
+<p><img src="http://oxmycii3v.bkt.clouddn.com/img/mongodb/replica-set-read-write-operations-primary.bakedsvg.svg" alt="replica-set-read-write-operations-primary.bakedsvg" loading="lazy" ></p>
+<h3 id="mongod命令列表">Mongod命令列表</h3>
+<ul>
+<li>
+<p>dbpath: 指定数据库文件目录，若不存在，则提示异常</p>
+</li>
+<li>
+<p>port: 端口号指定</p>
+</li>
+<li>
+<p>master:指定主节点</p>
+</li>
+<li>
+<p>slaver:指定从节点</p>
+</li>
+<li>
+<p>source: 指定主节点来源</p>
+</li>
+<li>
+<p>autoresync: 自动同步，当主节点的oplog太老的时候，使用此参数可以自动同步</p>
+</li>
+<li>
+<p>config: 指定配置文件进行启动，配置文件里面可以添加mongo的端口号，数据库位置等</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-properties" data-lang="properties"><span style="display:flex;"><span><span style="color:#a6e22e">dbpath</span><span style="color:#f92672">=</span><span style="color:#e6db74">/mongodb/master</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">logpath</span><span style="color:#f92672">=</span><span style="color:#e6db74">/mongodb/log/master.log</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">master</span><span style="color:#f92672">=</span><span style="color:#e6db74">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># slave=true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># source=localhost:10001</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># autoresync=true</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fork</span><span style="color:#f92672">=</span><span style="color:#e6db74">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">port</span><span style="color:#f92672">=</span><span style="color:#e6db74">10001</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">oplogSize</span><span style="color:#f92672">=</span><span style="color:#e6db74">2048</span>
+</span></span></code></pre></div></li>
+</ul>
+<h5 id="主节点启动">主节点启动</h5>
+<p>启动主节点，端口号设为10001</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mongod --dbpath projects/mongodb/data/db --port <span style="color:#ae81ff">10001</span> --master
+</span></span></code></pre></div><h5 id="从节点启动方式一">从节点启动方式一：</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mongod --dbpath /tmp/slave --port <span style="color:#ae81ff">10002</span>  --slave --source localhost:10001 --autoresync
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2017-11-14T15:40:02.636+0800 I NETWORK  <span style="color:#f92672">[</span>thread1<span style="color:#f92672">]</span> waiting <span style="color:#66d9ef">for</span> connections on port 100022017-11-14T15:40:03.638+0800 I REPL     <span style="color:#f92672">[</span>replslave<span style="color:#f92672">]</span> syncing from host:localhost:10001
+</span></span><span style="display:flex;"><span>2017-11-14T15:40:03.642+0800 I REPL     <span style="color:#f92672">[</span>replslave<span style="color:#f92672">]</span> syncing from host:localhost:100012017-11-14T15:40:04.726+0800 I REPL     <span style="color:#f92672">[</span>replslave<span style="color:#f92672">]</span> syncing from host:localhost:10001
+</span></span><span style="display:flex;"><span>2017-11-14T15:40:05.730+0800 I REPL     <span style="color:#f92672">[</span>replslave<span style="color:#f92672">]</span> syncing from host:localhost:100012017-11-14T15:40:06.735+0800 I REPL     <span style="color:#f92672">[</span>replslave<span style="color:#f92672">]</span> syncing from host:localhost:10001
+</span></span><span style="display:flex;"><span>2017-11-14T15:40:07.737+0800 I REPL     <span style="color:#f92672">[</span>replslave<span style="color:#f92672">]</span> syncing from host:localhost:100012017-11-14T15:40:09.407+0800 I REPL     <span style="color:#f92672">[</span>replslave<span style="color:#f92672">]</span> syncing from host:localhost:10001
+</span></span><span style="display:flex;"><span>2017-11-14T15:40:10.408+0800 I REPL     <span style="color:#f92672">[</span>replslave<span style="color:#f92672">]</span> syncing from host:localhost:10001
+</span></span></code></pre></div><h5 id="从节点启动方式二">从节点启动方式二：</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  projects mongo -port <span style="color:#ae81ff">10002</span>
+</span></span><span style="display:flex;"><span>&gt; use local
+</span></span><span style="display:flex;"><span>switched to db local
+</span></span><span style="display:flex;"><span>&gt; db.sources.insert<span style="color:#f92672">({</span><span style="color:#e6db74">&#34;host&#34;</span>:<span style="color:#e6db74">&#34;localhost:10001&#34;</span><span style="color:#f92672">})</span>;
+</span></span><span style="display:flex;"><span>WriteResult<span style="color:#f92672">({</span> <span style="color:#e6db74">&#34;nInserted&#34;</span> : <span style="color:#ae81ff">1</span> <span style="color:#f92672">})</span>
+</span></span><span style="display:flex;"><span>&gt; db.sources.find<span style="color:#f92672">()</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;_id&#34;</span> : ObjectId<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;5a0a9f3a6b2b725c4a09f8be&#34;</span><span style="color:#f92672">)</span>, <span style="color:#e6db74">&#34;host&#34;</span> : <span style="color:#e6db74">&#34;localhost:10001&#34;</span>, <span style="color:#e6db74">&#34;source&#34;</span> : <span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;syncedTo&#34;</span> : Timestamp<span style="color:#f92672">(</span>1510645568, 1<span style="color:#f92672">)</span>, <span style="color:#e6db74">&#34;dbsNextPass&#34;</span> : <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;hf-cmdb5&#34;</span> : true, <span style="color:#e6db74">&#34;test&#34;</span> : true <span style="color:#f92672">}</span>, <span style="color:#e6db74">&#34;incompleteCloneDbs&#34;</span> : <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;hf-cmdb5&#34;</span> : true <span style="color:#f92672">}</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>&gt; rs.slaveOk<span style="color:#f92672">()</span>;
+</span></span><span style="display:flex;"><span>&gt; show dbs;
+</span></span><span style="display:flex;"><span>admin     0.000GB
+</span></span><span style="display:flex;"><span>hf-cmdb5  0.009GB
+</span></span><span style="display:flex;"><span>local     0.000GB
+</span></span><span style="display:flex;"><span>test      0.086GB
+</span></span></code></pre></div><h6 id="查看主节点同步信息">查看主节点同步信息</h6>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; db.printReplicationInfo<span style="color:#f92672">()</span>;
+</span></span><span style="display:flex;"><span>configured oplog size:   192MB
+</span></span><span style="display:flex;"><span>log length start to end: 3999secs <span style="color:#f92672">(</span>1.11hrs<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>oplog first event time:  Tue Nov <span style="color:#ae81ff">14</span> <span style="color:#ae81ff">2017</span> 15:10:23 GMT+0800 <span style="color:#f92672">(</span>CST<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>oplog last event time:   Tue Nov <span style="color:#ae81ff">14</span> <span style="color:#ae81ff">2017</span> 16:17:02 GMT+0800 <span style="color:#f92672">(</span>CST<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>now:                     Tue Nov <span style="color:#ae81ff">14</span> <span style="color:#ae81ff">2017</span> 16:17:07 GMT+0800 <span style="color:#f92672">(</span>CST<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h6 id="查看从节点同步信息">查看从节点同步信息</h6>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; db.printSlaveReplicationInfo<span style="color:#f92672">()</span>;
+</span></span><span style="display:flex;"><span>source: localhost:10001
+</span></span><span style="display:flex;"><span>        syncedTo: Tue Nov <span style="color:#ae81ff">14</span> <span style="color:#ae81ff">2017</span> 16:19:42 GMT+0800 <span style="color:#f92672">(</span>CST<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">10</span> secs <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span> hrs<span style="color:#f92672">)</span> behind the freshest member <span style="color:#f92672">(</span>no primary available at the moment<span style="color:#f92672">)</span>
+</span></span></code></pre></div><blockquote>
+<p>2.6版本后使用rs.printSlaveReplicationInfo(); rs.printReplicationInfo();</p>
+</blockquote>
+<ul>
+<li>
+<p>若主节点突然挂掉，从节点会每3s请求一次，直到主节点起来</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>2017-11-14T17:13:07.847+0800 W NETWORK  <span style="color:#f92672">[</span>replslave<span style="color:#f92672">]</span> Failed to connect to 127.0.0.1:10001, in<span style="color:#f92672">(</span>checking socket <span style="color:#66d9ef">for</span> error after poll<span style="color:#f92672">)</span>, reason: Connection refused
+</span></span><span style="display:flex;"><span>2017-11-14T17:13:07.847+0800 E REPL     <span style="color:#f92672">[</span>replslave<span style="color:#f92672">]</span> couldn<span style="color:#960050;background-color:#1e0010">&#39;</span>t connect to server localhost:10001, connection attempt failed
+</span></span><span style="display:flex;"><span>2017-11-14T17:13:07.847+0800 I REPL     <span style="color:#f92672">[</span>replslave<span style="color:#f92672">]</span> sleep <span style="color:#ae81ff">3</span> sec before next pass
+</span></span></code></pre></div></li>
+</ul>
+<h4 id="遇到问题">遇到问题</h4>
+<p>连接slave的时候，做查询报错，原因是默认slave不允许读写需要进行设置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; show dbs;
+</span></span><span style="display:flex;"><span>2017-11-14T15:13:26.658+0800 E QUERY    <span style="color:#f92672">[</span>thread1<span style="color:#f92672">]</span> Error: listDatabases failed:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;ok&#34;</span> : 0,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;errmsg&#34;</span> : <span style="color:#e6db74">&#34;not master and slaveOk=false&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;code&#34;</span> : 13435,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;codeName&#34;</span> : <span style="color:#e6db74">&#34;NotMasterNoSlaveOk&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span> :
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; rs.slaveOk<span style="color:#f92672">()</span>;
+</span></span><span style="display:flex;"><span>&gt; show dbs;
+</span></span><span style="display:flex;"><span>admin     0.000GBhf-cmdb5  0.009GB
+</span></span><span style="display:flex;"><span>local     0.000GB
+</span></span><span style="display:flex;"><span>test      0.086GB
+</span></span></code></pre></div><p>关闭Secondary的时候，主节点的日志信息如下：</p>
+<pre tabindex="0"><code>2018-07-18T09:47:35.344+0000 I NETWORK  [ReplExecNetThread-226] Socket closed remotely, no longer connected (idle 6 secs, remote host 10.0.0.136:10002)
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/mongo/mongodb-master-slave-replication/>https://xibolun.github.io/post/mongo/mongodb-master-slave-replication/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/mongo/">
+                    #Mongo</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC5%E7%AB%A0--%E9%AB%98%E7%BA%A7%E9%9B%86%E5%90%88%E7%B1%BB%E5%92%8C%E6%94%B6%E9%9B%86%E5%99%A8/" class="prev" rel="prev" title="Java8函数式编程笔记第5章"><i class="iconfont icon-left"></i>&nbsp;Java8函数式编程笔记第5章</a>
+        
+        
+        <a href="https://xibolun.github.io/post/mongo/mongodb-replset-replication/" class="next" rel="next" title="MongoDB ReplSet Replication">MongoDB ReplSet Replication&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

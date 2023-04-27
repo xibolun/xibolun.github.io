@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>istio on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/istio/</link>
+    <description>Recent content in istio on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 29 Jan 2021 16:44:02 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/istio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Istio—从源码看Sidecar注入原理</title>
+      <link>https://xibolun.github.io/post/istio/%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bsidecar%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Fri, 29 Jan 2021 16:44:02 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/istio/%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bsidecar%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86/</guid>
+      <description>Sidecar 问题：当创建一个Pod的时候，Istio需要对其进行观察，服务治理、信息采集等，这些操作都是通过Envoy处理的；那Envoy什么时候创建</description>
+    </item>
+    
+    <item>
+      <title>Istio 1.8—环境搭建</title>
+      <link>https://xibolun.github.io/post/istio/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Tue, 26 Jan 2021 14:06:50 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/istio/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>Istio 1.8—环境搭建 Istio是一个服务治理的开放平台，1.8与前版本的命令不太一样；官网给了一个安装流程Getting Started， 安装过</description>
+    </item>
+    
+  </channel>
+</rss>

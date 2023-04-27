@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/mysql/mysqltrigger/" />
+    <link rel="next" href="https://xibolun.github.io/post/golang/%E5%85%B3%E4%BA%8Egorm%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E6%88%91%E7%9A%84a9/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            我的A9 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="我的A9 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "我的A9",
+    "headline" : "我的A9",
+    "description" : "我的A9 ​ A9不是奥迪的那个A9，我也没有那样的财富买一辆A9开开。 ​ 小时候学骑车的时候没有太多的条件，就骑着家里的二八杠，然后在麦场上面玩",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-08-11 12:09:38 \u002b0800 CST",
+    "dateModified" : "2019-08-11 12:09:38 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/%E6%9D%82%E8%B0%88\/%E6%88%91%E7%9A%84a9\/",
+    "wordCount" : "1254",
+    "keywords" : [ "杂谈", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">我的A9</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-08-11 itemprop="datePublished">August 11, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%9D%82%E8%B0%88/"> 杂谈, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1254 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="我的a9">我的A9</h2>
+<p>​	A9不是奥迪的那个A9，我也没有那样的财富买一辆A9开开。</p>
+<p>​	小时候学骑车的时候没有太多的条件，就骑着家里的二八杠，然后在麦场上面玩起来，因为个子小，上不去，只能脚从中间跨过去，每次只能蹬半圈。等到10岁的时候终于能上去了，但是脚不能着地，也只能蹬半圈。曾经跟着姐姐一起骑了14公里的路，都是半圈着骑的。看着那些抗日、解放电视剧里面的特工、神枪手骑着二八杠打鬼子确实很爽。自己也模仿过他们，一路上你追我赶的。啊，这都是童年的美好回忆。</p>
+<p>​	上了初中，每到周末都会有一位哥哥，骑着二八杠自行车来我学校接我，是我的专职司机。人也很高，也很帅，每次我们也都聊许多的事情。这也弥补了父母不在身边，自己没有人接送的缺陷。高中的时候，离家太远了，只能坐班车上学了，也失去了骑自行车的机会。但从自己内心当中一直想买一辆山地车，觉得非常的酷，非常拉风；但是也一直没有机会拥有。一方面是太贵了，另一方面生活的圈子也不是太需用；</p>
+<p>​	等到大学，大学果然很大，并且公交车也不太方便，所以在学校的跳蚤市场里面，买了一辆自行车，220块钱，带变速，黑色，前面还有一个车篓，有点像《不能说的秘密》里面杰伦的车。这辆自行车一直陪着我去聚会，去工作。曾经也出过事故，换过外胎，换过钢圈，陪我淋过雨，陪我晒过太阳，看过夕阳，我也骑着带着初恋一起去玩过，很像电影里面的场景。后来工作了，每天上班也只有两步路，所以骑的也比较少。让我最难以忘记的便是弟兄的儿子因病去世了，我骑着车子去看他，他哭的真的很伤心。再后来，因为要离开郑州，所以就把自行车送给了我徒弟，然后再怎么样就不知道了。</p>
+<p>​	来到杭州，上班7公里，程序员也没有时间去锻炼，所以想着就骑骑自行车挺好的；开始去京东上面看自行车。预算1000块以下的，并不是非常富有的人，专门玩自行车的那种；其实自行车的分类还是挺多的，山地车、公路车；碳钢、铝合金…..品牌也有路虎，宝马；于是买了一辆永久自行车，销量也非常的好，700多块钱。</p>
+<p><img src="/img/Beast_20170303093949.png" alt="A9组装完的样子" loading="lazy" ></p>
+<p>​	这辆自行车陪我去了西湖，陪我加班一直到10点多，陪我上班，无论刮大风下雨；短短的9公里，却一直陪我了两年的时间；陪我去聚会，聚会路上有时候真的不想再去了，但是仍然坚持着，坚持着，就这样过了一周又一周。</p>
+<p><img src="/img/IMG_20181117_124249R.jpg" alt="西湖骑行" loading="lazy" ></p>
+<p>​	有一段时间，心真的非常累，加班太多，在杭州没有什么感觉了，心情非常糟糕，糟糕到一个地步不想工作，不想上班，不想学习，那怎么办呢？就想着来杭州这么久还从来没有去过西湖转转，所以就骑着它去西湖。这是一次非常难忘的旅行，到西湖景区，看到那些树，那些花都感觉来到了另外一个世界，随着音乐，把西湖给转了一圈，心中很踏实，很满足。</p>
+<p>​	有一次下班出来，发现车子不见了，心中诸多的失落感，想想陪伴了我这么久，就这样丢了，怪我没有好好珍惜。后来去找了监控才发现，原来是放在了不当的位置，被保安队长给挪走了。找到之后，骑上他回家的感觉真的是开心，真的是失去了才懂得珍惜。</p>
+<p>​	后来因为买了机车，所以慢慢就在那里吃灰了，最后把他放到了地下室。也许最后也会被出手卖掉吧。</p>
+<p>​	陪伴是最真情的告白。</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E6%88%91%E7%9A%84a9/>https://xibolun.github.io/post/%E6%9D%82%E8%B0%88/%E6%88%91%E7%9A%84a9/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/%E6%9D%82%E8%B0%88/">
+                    #杂谈</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/mysql/mysqltrigger/" class="prev" rel="prev" title="MySQL Trigger"><i class="iconfont icon-left"></i>&nbsp;MySQL Trigger</a>
+        
+        
+        <a href="https://xibolun.github.io/post/golang/%E5%85%B3%E4%BA%8Egorm%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" class="next" rel="next" title="关于gorm的问题">关于gorm的问题&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

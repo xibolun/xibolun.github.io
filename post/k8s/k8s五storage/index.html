@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/k8s/k8s%E5%9B%9Bpod/" />
+    <link rel="next" href="https://xibolun.github.io/post/k8s/k8s%E5%85%ADsecret/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/k8s/k8s%E4%BA%94storage/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            k8s(五)––Storage | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="k8s(五)––Storage | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "k8s(五)––Storage",
+    "headline" : "k8s(五)––Storage",
+    "description" : "K8s数据卷 docker里面使用Volume进行挂载； k8s里面的数据卷集成了各种的存储系统\u0026ndash; Types of Volumes；主要看一下Ho",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-02-14 13:44:57 \u002b0800 CST",
+    "dateModified" : "2020-02-14 13:44:57 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/k8s\/k8s%E4%BA%94storage\/",
+    "wordCount" : "915",
+    "keywords" : [ "k8s", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">k8s(五)––Storage</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-02-14 itemprop="datePublished">February 14, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/k8s/"> k8s, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">915 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="k8s数据卷">K8s数据卷</h3>
+<p><code>docker</code>里面使用<code>Volume</code>进行挂载； <code>k8s</code>里面的数据卷集成了各种的存储系统&ndash; <a href="https://kubernetes.io/docs/concepts/storage/volumes/#volume-types">Types of Volumes</a>；主要看一下<code>HostPath</code>、<code>EmtptyDir</code>，以及<code>PV/PVC</code>的使用和操作</p>
+<h3 id="本地存储">本地存储</h3>
+<h4 id="emptydirhttpskubernetesiodocsconceptsstoragevolumesemptydir"><a href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir">EmptyDir</a></h4>
+<p>随着<code>Pod</code>的创建而创建，删除而删除，适用于<code>Pod</code>之间的文件共享</p>
+<p>创建一个<code>EmptyDir</code>类型的<code>Pod</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e">## 一个count镜像，用于测试日志输出的过程</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">counter</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">count</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">busybox</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">/bin/sh</span>
+</span></span><span style="display:flex;"><span>    - -<span style="color:#ae81ff">c</span>
+</span></span><span style="display:flex;"><span>    - &gt;<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      i=0;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      while true;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      do
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        echo &#34;$i: $(date)&#34; &gt;&gt; /var/log/1.log;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        echo &#34;$(date) INFO $i&#34; &gt;&gt; /var/log/2.log;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        i=$((i+1));
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        sleep 1;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      done</span>      
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">varlog</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/var/log</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">varlog</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">emptyDir</span>: {}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  k8s kubectl exec  counter -- ls /var/log
+</span></span><span style="display:flex;"><span>1.log
+</span></span><span style="display:flex;"><span>2.log
+</span></span></code></pre></div><h4 id="hostpathhttpskubernetesiodocsconceptsstoragevolumeshostpath"><a href="https://kubernetes.io/docs/concepts/storage/volumes/#hostpath">HostPath</a></h4>
+<p>挂载卷在宿主机<code>Node</code>上面的挂载类型，当<code>Pod</code>被删除的时候，还可以被持久化下来；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e">## 一个count镜像，用于测试日志输出的过程</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">counter</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">count</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">busybox</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">## 省略了一下.....</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">varlog</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/var/log</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">varlog</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">hostPath</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/log</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@ops-pre-4-103 tmp<span style="color:#f92672">]</span><span style="color:#75715e"># ll /tmp/log/</span>
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1541</span> Dec  <span style="color:#ae81ff">3</span> 14:30 1.log
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1729</span> Dec  <span style="color:#ae81ff">3</span> 14:30 2.log
+</span></span></code></pre></div><h3 id="pvpvc">PV/PVC</h3>
+<p>有了PV，不管下层用的是什么存储类型，相当于给屏蔽掉底层，只对上层进行服务即可；用户管理员先对PV进行规划，然后开始创建一个一个地小块PVC，每个pvc与pv进行绑定；上层的pod可以使用创建出来的pvc，形成一套闭环的链路；删除的时候，会根据回收策略进行删除，是自行清理或者k8s自动清理等；</p>
+<p>这篇 <a href="https://cloud.tencent.com/developer/article/1392872">搭建redis-cluster</a>的文章里面使用<code>NFS</code>做为持久化的工具来实现<code>pv</code>、<code>pvc</code></p>
+<p>有几个注意的事项：</p>
+<ol>
+<li>pv与pvc绑定可以使用相同的<code>StorageClass</code>，若不设置，那pvc就会找空的<code>StorageClass</code>的pv；</li>
+<li><a href="https://kubernetes.io/docs/concepts/storage/storage-classes/#introduction">Storage</a>有一个属性为<code>volumeBindingMode</code>，默认为<code>Immediate</code>会立即绑定，若设置为<code>WaitForFirstConsumer</code>，则当有<code>Pod</code>使用此<code>pvc</code>的时候才会进行绑定；</li>
+<li>报错：<code>no volume plugin matched</code>；说明你没有对应的 <a href="https://kubernetes.io/docs/concepts/storage/storage-classes/#provisioner">provisioner</a>；去搜索添加对应的<code>provisioner</code>即可，我使用的是<code>nfs</code>，需要安装 <a href="https://github.com/kubernetes-retired/external-storage/tree/master/nfs-client">nfs-client</a>；然后再指定对应的配置；</li>
+</ol>
+<p>可以看到使用nfs比较麻烦，总结一下流程如下：</p>
+<ul>
+<li>搭建nfs环境</li>
+<li>sa创建</li>
+<li>rbac: 创建</li>
+<li>nfs-client-provisioner创建</li>
+<li>storageclass创建</li>
+<li>最后才是pv与pvc的创建，及其他所需要 pvc资源的创建；</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/k8s/k8s%E4%BA%94storage/>https://xibolun.github.io/post/k8s/k8s%E4%BA%94storage/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/k8s/">
+                    #k8s</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/k8s/k8s%E5%9B%9Bpod/" class="prev" rel="prev" title="k8s(四)––Pod"><i class="iconfont icon-left"></i>&nbsp;k8s(四)––Pod</a>
+        
+        
+        <a href="https://xibolun.github.io/post/k8s/k8s%E5%85%ADsecret/" class="next" rel="next" title="k8s(六)––Secret">k8s(六)––Secret&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

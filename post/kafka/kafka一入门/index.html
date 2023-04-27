@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/linux/snmp-snmptrap/" />
+    <link rel="next" href="https://xibolun.github.io/post/golang/go--template/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/kafka/kafka%E4%B8%80%E5%85%A5%E9%97%A8/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Kafka(一)环境搭建及问题整理 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Kafka(一)环境搭建及问题整理 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Kafka(一)环境搭建及问题整理",
+    "headline" : "Kafka(一)环境搭建及问题整理",
+    "description" : "环境搭建 集群 Topic:cloudboot PartitionCount:1 ReplicationFactor:3 Configs: Topic: cloudboot Partition: 0 Leader: 1 Replicas: 1,2,0 Isr: 1,2,0 问题 Kafka的消费流转模型是怎么样的？ 新连接上来的消费者的offset是怎么样的呢？难道将每一个p",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-07-30 00:20:07 \u002b0800 CST",
+    "dateModified" : "2019-07-30 00:20:07 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/kafka\/kafka%E4%B8%80%E5%85%A5%E9%97%A8\/",
+    "wordCount" : "618",
+    "keywords" : [ "kafka", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Kafka(一)环境搭建及问题整理</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-07-30 itemprop="datePublished">July 30, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">618 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="环境搭建">环境搭建</h3>
+<h3 id="集群">集群</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Topic:cloudboot PartitionCount:1        ReplicationFactor:3     Configs:
+</span></span><span style="display:flex;"><span>        Topic: cloudboot        Partition: <span style="color:#ae81ff">0</span>    Leader: <span style="color:#ae81ff">1</span>       Replicas: 1,2,0 Isr: 1,2,0
+</span></span></code></pre></div><h3 id="问题">问题</h3>
+<ul>
+<li>Kafka的消费流转模型是怎么样的？</li>
+<li>新连接上来的消费者的offset是怎么样的呢？难道将每一个partition里面的消息都再次消费一遍么？
+<ul>
+<li>目前看来是会再消费一次的，如果没有添加offset的话</li>
+</ul>
+</li>
+<li>数据量太多的时候，会报错; 需要修改参数信息<code>socket.request.max.bytes=10240</code></li>
+<li><code>consumer</code> 启动的时候指定<code>zk:2181</code>与<code>broker:9092 or broker:9093</code>有什么区别？</li>
+<li><code>broker</code>模式下停掉<code>9092</code>端口好像无法再接收到消息？</li>
+<li><code>broker</code>模式下宕掉非<code>9092</code>的端口其他的接收是怎么样的？</li>
+<li>kafka节点之间如何复制备份的？</li>
+<li>kafka消息是否会丢失？为什么？</li>
+<li>kafka最合理的配置是什么？</li>
+<li>kafka的leader选举机制是什么？</li>
+<li>kafka对硬件的配置有什么要求？</li>
+<li>kafka的消息保证有几种方式？</li>
+<li>kafka为什么会丢消息？</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>org.apache.kafka.common.network.InvalidReceiveException: Invalid receive <span style="color:#f92672">(</span>size <span style="color:#f92672">=</span> <span style="color:#ae81ff">100235</span> larger than 10240<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        at org.apache.kafka.common.network.NetworkReceive.readFromReadableChannel<span style="color:#f92672">(</span>NetworkReceive.java:95<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        at org.apache.kafka.common.network.NetworkReceive.readFrom<span style="color:#f92672">(</span>NetworkReceive.java:75<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        at org.apache.kafka.common.network.KafkaChannel.receive<span style="color:#f92672">(</span>KafkaChannel.java:203<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        at org.apache.kafka.common.network.KafkaChannel.read<span style="color:#f92672">(</span>KafkaChannel.java:167<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        at org.apache.kafka.common.network.Selector.pollSelectionKeys<span style="color:#f92672">(</span>Selector.java:390<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        at org.apache.kafka.common.network.Selector.poll<span style="color:#f92672">(</span>Selector.java:334<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        at kafka.network.Processor.poll<span style="color:#f92672">(</span>SocketServer.scala:500<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        at kafka.network.Processor.run<span style="color:#f92672">(</span>SocketServer.scala:435<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        at java.lang.Thread.run<span style="color:#f92672">(</span>Thread.java:745<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h4 id="partition">Partition</h4>
+<ul>
+<li>
+<p>message会存放在Partition当中</p>
+</li>
+<li>
+<p>存放的位置在<code>server.properties</code>当中配置<code>log.dirs=/tmp/kafka-logs</code></p>
+<ul>
+<li>
+<pre tabindex="0"><code>-rw-r--r-- 1 root root    0 Jul 23 00:08 cleaner-offset-checkpoint
+drwxr-xr-x 2 root root  141 Jul 25 14:27 __consumer_offsets-0
+-rw-r--r-- 1 root root    4 Jul 25 14:43 log-start-offset-checkpoint
+-rw-r--r-- 1 root root   54 Jul 23 00:08 meta.properties
+-rw-r--r-- 1 root root 1204 Jul 25 14:43 recovery-point-offset-checkpoint
+-rw-r--r-- 1 root root 1207 Jul 25 14:43 replication-offset-checkpoint
+drwxr-xr-x 2 root root  141 Jul 25 14:30 test-0
+</code></pre></li>
+</ul>
+</li>
+<li>
+<p>存放的格式</p>
+<ul>
+<li>offset.log <code>00000000000000000000.log</code>，即当前Partition0当中的名称为test的topic的第一条信息</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/kafka/kafka%E4%B8%80%E5%85%A5%E9%97%A8/>https://xibolun.github.io/post/kafka/kafka%E4%B8%80%E5%85%A5%E9%97%A8/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/kafka/">
+                    #kafka</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/linux/snmp-snmptrap/" class="prev" rel="prev" title="NMAP使用"><i class="iconfont icon-left"></i>&nbsp;NMAP使用</a>
+        
+        
+        <a href="https://xibolun.github.io/post/golang/go--template/" class="next" rel="next" title="Go template">Go template&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

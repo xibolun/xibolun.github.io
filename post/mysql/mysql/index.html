@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/spring/spring-resttemplate/" />
+    <link rel="next" href="https://xibolun.github.io/post/tools/trash/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/mysql/mysql/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            MySql日常杂学 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="MySql日常杂学 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "MySql日常杂学",
+    "headline" : "MySql日常杂学",
+    "description" : "MySql日常杂学 安装 wget -i -c http:\/\/dev.mysql.com\/get\/mysql57-community-release-el7-10.noarch.rpm yum -y install mysql57-community-release-el7-10.noarch.rpm yum -y install mysql-community-server 启动相关 \/etc\/init.d\/mysqld start \/etc\/init.d\/mysqld stop \/etc\/init.d\/mysqld restart service mysqld restart service mysqld stop service mysqld start 其他命令 mysql -uroot -pP@ssw0rd -h55.6.8.142 hf-csa --default-character-set=utf8 mysql -uoot -pP@ssw0rd hf-csa -default-character-set=utf8 \u0026lt; db_qdn672.sql mysqldump --opt --protocol=TCP --user=\u0026#39;root\u0026#39; --password=\u0026#39;P@ssw0rd\u0026#39; --host=\u0026#39;55.6.8.142\u0026#39; -all-databases --result-file=\u0026#39;20170619.sql\u0026#39; mysqldump --opt --protocol=TCP",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-04-27 23:36:24 \u002b0800 CST",
+    "dateModified" : "2017-04-27 23:36:24 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/mysql\/mysql\/",
+    "wordCount" : "1604",
+    "keywords" : [ "mysql", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">MySql日常杂学</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-04-27 itemprop="datePublished">April 27, 2017</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1604 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h1 id="mysql日常杂学">MySql日常杂学</h1>
+<h3 id="安装">安装</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>wget -i -c http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm
+</span></span><span style="display:flex;"><span>yum -y install mysql57-community-release-el7-10.noarch.rpm
+</span></span><span style="display:flex;"><span>yum -y install mysql-community-server
+</span></span></code></pre></div><h2 id="启动相关">启动相关</h2>
+<pre tabindex="0"><code>/etc/init.d/mysqld start
+/etc/init.d/mysqld stop
+/etc/init.d/mysqld restart
+
+service mysqld restart
+service mysqld stop
+service mysqld start
+</code></pre><h2 id="其他命令">其他命令</h2>
+<pre tabindex="0"><code>mysql -uroot -pP@ssw0rd -h55.6.8.142 hf-csa --default-character-set=utf8
+mysql -uoot -pP@ssw0rd hf-csa -default-character-set=utf8 &lt; db_qdn672.sql
+mysqldump --opt --protocol=TCP --user=&#39;root&#39; --password=&#39;P@ssw0rd&#39; --host=&#39;55.6.8.142&#39; -all-databases  --result-file=&#39;20170619.sql&#39;
+mysqldump --opt --protocol=TCP --user=&#39;root&#39; --password=&#39;P@ssw0rd&#39; --host=&#39;55.6.8.142&#39; hf-csa  --result-file=&#39;20170619.sql&#39;
+</code></pre><h2 id="index">Index</h2>
+<ul>
+<li>SHOW INDEX FROM SRV~INFO~; &ndash; 查看表里面的索引信息</li>
+<li>ALTER TABLE SRV~INFOWFNODEEXECLOG~ ADD INDEX
+SRV~INFOWFNODEEXECLOGINDEX1~(SRV~INFOWFNODEID~,FROM~STATE~,TO~STATE~);
+&ndash; 添加索引</li>
+<li>ALTER TABLE SRV~INFOWFNODEEXECLOG~ DROP INDEX
+SRV~INFOWFNODEEXECLOGINDEX1~; &ndash; 删除索引</li>
+</ul>
+<h2 id="mysql优化">MySQL优化</h2>
+<h4 id="表字段">表字段</h4>
+<ul>
+<li>整数类型不要使用INT，使用TINYINT、SMALLINT、MEDIUM~INT~,非负添加UNSIGNED</li>
+<li>VARCHAR的长度只分配真正需要的空间</li>
+<li>使用TIMESTAMP而非DATETIME</li>
+<li>单表字段不超过20</li>
+<li>用整型来存IP</li>
+</ul>
+<h4 id="查询类">查询类</h4>
+<ul>
+<li>不用SELECT *</li>
+<li>OR改写为IN: or的效率是N级别，而IN的效率是Log(n)级别</li>
+<li>WHERE的子句不用!=或者&lt;&gt;操作，否则引擎放弃使用索引而进行全表扫描</li>
+</ul>
+<h2 id="mysql-dump">Mysql Dump</h2>
+<h4 id="dump数据库">dump数据库</h4>
+<pre tabindex="0"><code>mysqldump -uroot -p hf-csa &gt; hf-csa.sql
+</code></pre><h4 id="只dump数据库表结构--no-data--d">只dump数据库表结构（&ndash;no-data -d）</h4>
+<pre tabindex="0"><code>mysqldump -uroot -p --no-data --add-drop-table hf-csa &gt; hf-csa.sql
+mysqldump -uroot -p -d --add-drop-table hf-csa &gt; hf-csa.sql
+</code></pre><h4 id="dump数据库表结构排除某些表">dump数据库表结构排除某些表</h4>
+<pre tabindex="0"><code>mysqldump -uroot -p --no-data --add-drop-table hf-csa --ignore-table=hf-csa.ACT_GET_PROPERTY &gt; hf-csa.sql
+</code></pre><h4 id="dump数据库某张表表中间以空格分隔">dump数据库某张表，表中间以空格分隔</h4>
+<pre tabindex="0"><code>mysqldump -uroot -p --no-data hf-csa SRV_INFO SRV_BP_APP_INFO &gt; hf-csa.sql
+</code></pre><h4 id="dump数据库带注释的表结构">dump数据库带注释的表结构</h4>
+<pre tabindex="0"><code>mysqldump -uroot -p --no-data --comments hf-csa SRV_INFO SRV_BP_APP_INFO &gt; hf-csa.sql
+</code></pre><h4 id="dump数据库某表的某些数据">dump数据库某表的某些数据</h4>
+<pre tabindex="0"><code>mysqldump -uroot -p cloudboot_216 device --where=&#34;sn=&#39;J3Q9F3X&#39;&#34;
+</code></pre><h3 id="reload-dump-file">reload dump File</h3>
+<pre tabindex="0"><code>shell&gt; mysql hf-csa &lt; hf-csa.sql
+shell&gt; mysql -e &#34;source hf-csa.sql&#34; hf-csa
+mysql&gt; use `hf-csa`;
+mysql&gt; source hf-csa.sql 
+</code></pre><h2 id="infomationschema">INFOMATION~SCHEMA~</h2>
+<pre tabindex="0"><code>SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = &#39;hf-csa&#39;; // 查询hf-csa下所有表的列
+SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = &#39;hf-csa&#39;; // 查询hf-csa下所有的表
+</code></pre><pre tabindex="0"><code> SHOW FULL COLUMNS FROM table_name;                          #查看mysql某表当中的列字段，包括列的character
+ SHOW TABLE STATUS where name like &#39;SRV_BP_APP_NODE_VER&#39;;    # 查看某表的状态
+</code></pre><h4 id="修改密码">修改密码</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>UPDATE user SET authentication_string <span style="color:#f92672">=</span> PASSWORD<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;xxxxx&#39;</span><span style="color:#f92672">)</span> WHERE User <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;root&#39;</span> AND Host <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;%&#39;</span>;
+</span></span><span style="display:flex;"><span>UPDATE user SET authentication_string <span style="color:#f92672">=</span> PASSWORD<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;xxxxx&#39;</span><span style="color:#f92672">)</span> WHERE User <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;root&#39;</span> AND Host <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;localhost&#39;</span>;
+</span></span><span style="display:flex;"><span>FLUSH PRIVILEGES
+</span></span></code></pre></div><h2 id="语法相关">语法相关</h2>
+<h3 id="left-joinright-join-inner-join">LEFT JOIN，RIGHT JOIN, INNER JOIN</h3>
+<ul>
+<li>LEFT JOIN：以左边的表为基准显示查询结果</li>
+<li>RIGHT JOIN：以右边的表为基准显示查询结果</li>
+<li>INNER JOIN：只显示符合条件的查询结果</li>
+</ul>
+<pre tabindex="0"><code>SELECT ip.IP_ADDRESS,ip.ID,unit.NAME FROM SRV_BP_DEV_IP ip LEFT JOIN SRV_BP_DEV dev ON ip.SRV_BP_DEV_ID = dev.ID
+  LEFT JOIN SRV_BP_APP_DP_UNIT unit ON dev.SRV_BP_APP_DP_UNIT_ID = unit.ID WHERE
+  ip.SRV_INFO_ID = dev.SRV_INFO_ID AND dev.SRV_INFO_ID = unit.SRV_INFO_ID AND ip.SRV_INFO_ID = &#39;9ecbd34c-3ed6-4e61-8d11-0ba526e9ca98&#39;;
+</code></pre><h2 id="问题列表">问题列表</h2>
+<h3 id="mysql的一些运维命令">mysql的一些运维命令</h3>
+<pre tabindex="0"><code># 查看mysql的端口监听情况
+netstate -nlt | grep 3306
+lsof -i:3306
+# 查看mysql的进程，同时可以看到mysql的一些文件位置
+ps ax | grep mysqld 
+</code></pre><h3 id="设置允许远程连接">设置允许远程连接</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">GRANT</span> <span style="color:#66d9ef">ALL</span> <span style="color:#66d9ef">PRIVILEGES</span> <span style="color:#66d9ef">ON</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;root&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span> IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;Yunjikeji@123&#39;</span> <span style="color:#66d9ef">WITH</span> <span style="color:#66d9ef">GRANT</span> <span style="color:#66d9ef">OPTION</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">update</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">set</span> authentication_string<span style="color:#f92672">=</span>PASSWORD(<span style="color:#e6db74">&#34;Yunjikeji#123&#34;</span>) <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;root&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FLUSH <span style="color:#66d9ef">PRIVILEGES</span>;
+</span></span></code></pre></div><h3 id="error-1045-28000-access-denied-for-user-rootlocalhost-using-password-yes">ERROR 1045 (28000): Access denied for user &lsquo;root&rsquo;@&rsquo;localhost&rsquo; (using password: YES)</h3>
+<pre tabindex="0"><code>-- 进入安全模式
+➜  ~ mysqld_safe --skip-grant-tables &amp;
+
+-- 直接无密码进入
+➜  ~ mysql -uroot
+
+-- 选择mysql
+mysql&gt; use mysql;
+
+-- 修改密码
+mysql&gt; update user set password=PASSWORD(&#34;yunjikeji&#34;) where User = &#39;root&#39;;
+## 5.7以后 passowrd字段改为authentication_string
+mysql&gt; UPDATE mysql.user SET authentication_string=PASSWORD(&#39;P@ssw0rd&#39;) WHERE user=&#39;root&#39; AND host=&#39;localhost&#39;;
+
+
+-- flush 生效
+mysql&gt; flush privileges;
+
+-- 再次用密码尝试登陆
+➜  ~ mysql -uroot -p
+</code></pre><h3 id="incorrect-definition-of-table-performanceschemaeventswaitscurrent-expected-column-nestingeven">Incorrect definition of table performance~schema~.events~waitscurrent~: expected column &lsquo;NESTING~EVEN~</h3>
+<p>数据库结构错误，导致mysql启动异常</p>
+<pre tabindex="0"><code>➜  ~ mysql_upgrade -u root -p
+</code></pre><h3 id="mac-homebrew安装的mysql相关">MAC homebrew安装的mysql相关</h3>
+<ul>
+<li>my.cnf目录位于：/usr/local/Cellar/mysql/5.7.11/support-files/</li>
+<li>启动相关命令：mysql.server start|stop|staus|restart</li>
+</ul>
+<h3 id="修改timestamp类型的默认值">修改timestamp类型的默认值</h3>
+<p>无法使用</p>
+<pre tabindex="0"><code>alter table mytable alter column updated_at SET DEFAULT current_timestamp ;
+</code></pre><p>只能使用以下来解决</p>
+<pre tabindex="0"><code>ALTER TABLE mytable CHANGE `time` `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+</code></pre><h3 id="data-source-rejected-establishment-of-connection-message-from-server-too-many-connections">Data source rejected establishment of connection, message from server: &ldquo;Too many connections</h3>
+<p>由于mysql的连接数过大导致，修改最大连接数即可;</p>
+<pre tabindex="0"><code>mysql&gt; show VARIABLES  WHERE variable_name = &#39;max_connections&#39;;
+
+mysql&gt; set GLOBAL max_connections=200;
+</code></pre><p>但是在启动java工程的时候仍然会报错，并且重新Mysql后，此值无法生效，又变成了默认值151（有的版本为100）；就想着修改mysql的默认配置文件；去找一个mac平台里面的my.cnf，但是没有；于是从/usr/local/Cellar/mysql/5.7.11/support-files/当中copy一个conf到/etc/my.cnf当中,在my.cnf当中设置max~connections即可~，这样每次启动Mysql，都会设置为默认的值；
+在mac下/etc/my.cnf里面会自动加上权限为只读文件</p>
+<pre tabindex="0"><code>[mysqld]
+## set column max value
+max_allowed_packet = 500M
+max_connections=200
+
+sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES 
+</code></pre><h3 id="mysql-lock">mysql lock</h3>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlock-example.html">An InnoDB Deadlock Example</a>
+<a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlocks.html">Deadlocks in InnoDB</a></p>
+<ul>
+<li><a href="https://www.aneasystone.com/archives/2017/10/solving-dead-locks-one.html">解决死锁之路 - 学习事务与隔离级别</a></li>
+<li><a href="https://www.aneasystone.com/archives/2017/11/solving-dead-locks-two.html">解决死锁之路 - 了解常见的锁类型</a></li>
+<li><a href="https://www.aneasystone.com/archives/2017/10/solving-dead-locks-one.html">解决死锁之路 - 常见 SQL 语句的加锁分析</a></li>
+<li><a href="https://www.aneasystone.com/archives/2017/10/solving-dead-locks-one.html">解决死锁之路（终结篇） - 再见死锁</a></li>
+</ul>
+<h4 id="一个存储过程">一个存储过程</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DELIMITER</span> ;;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">PROCEDURE</span> <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">EXISTS</span> DisinctInsp;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> DisinctInsp()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">BEGIN</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">DECLARE</span> sns varchar(<span style="color:#ae81ff">64</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">DECLARE</span> cur1 <span style="color:#66d9ef">CURSOR</span> <span style="color:#66d9ef">FOR</span> <span style="color:#66d9ef">SELECT</span> sn <span style="color:#66d9ef">FROM</span> inspection <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> sn;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">OPEN</span> cur1;
+</span></span><span style="display:flex;"><span>	map_loop:
+</span></span><span style="display:flex;"><span>		LOOP
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">FETCH</span> cur1 <span style="color:#66d9ef">INTO</span> sns;
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> inspection_latest <span style="color:#66d9ef">WHERE</span> sn <span style="color:#f92672">=</span> sns <span style="color:#66d9ef">AND</span> id <span style="color:#f92672">!=</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">max</span>(id) <span style="color:#66d9ef">FROM</span> inspection <span style="color:#66d9ef">WHERE</span> sn <span style="color:#f92672">=</span> sns);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">END</span> LOOP map_loop;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">END</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DELIMITER</span> ;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CALL</span> DisinctInsp;
+</span></span></code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/mysql/mysql/>https://xibolun.github.io/post/mysql/mysql/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/mysql/">
+                    #mysql</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/spring/spring-resttemplate/" class="prev" rel="prev" title="Spring-RestTemplate"><i class="iconfont icon-left"></i>&nbsp;Spring-RestTemplate</a>
+        
+        
+        <a href="https://xibolun.github.io/post/tools/trash/" class="next" rel="next" title="mac避免rm -rf悲剧">mac避免rm -rf悲剧&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

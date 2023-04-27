@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80namespace/" />
+    <link rel="next" href="https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%89network/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8Ccgroup/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Docker容器与容器云读书笔记（二）–CGroup | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Docker容器与容器云读书笔记（二）–CGroup | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Docker容器与容器云读书笔记（二）–CGroup",
+    "headline" : "Docker容器与容器云读书笔记（二）–CGroup",
+    "description" : "Docker容器与容器云读书笔记（二）–CGroup 术语 需要先知道几个术语 task 任务：即进程或者线程，tasks里面有许多的进程号码 [root@docker-ns 41986]# ll \/sys\/fs\/cgroup\/cpu\/tasks -rw-r--r-- 1",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-05-27 09:13:38 \u002b0800 CST",
+    "dateModified" : "2020-05-27 09:13:38 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/docker\/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8Ccgroup\/",
+    "wordCount" : "1237",
+    "keywords" : [ "docker", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Docker容器与容器云读书笔记（二）–CGroup</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-05-27 itemprop="datePublished">May 27, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/docker/"> docker, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1237 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="docker容器与容器云读书笔记二cgroup">Docker容器与容器云读书笔记（二）–CGroup</h2>
+<h3 id="术语">术语</h3>
+<p>需要先知道几个术语</p>
+<ul>
+<li>task 任务：即进程或者线程，<code>tasks</code>里面有许多的进程号码</li>
+</ul>
+<pre tabindex="0"><code>[root@docker-ns 41986]# ll /sys/fs/cgroup/cpu/tasks
+-rw-r--r-- 1 root root 0 Apr  8  2020 /sys/fs/cgroup/cpu/tasks
+</code></pre><ul>
+<li>cgroup 控制组：对各个资源进行控制，每个资源下面可以分为多个子系统和<code>task</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns 41986<span style="color:#f92672">]</span><span style="color:#75715e"># ls /sys/fs/cgroup/</span>
+</span></span><span style="display:flex;"><span>blkio  cpu  cpuacct  cpu,cpuacct  cpuset  devices  freezer  hugetlb  memory  net_cls  net_cls,net_prio  net_prio  perf_event  pids  systemd
+</span></span></code></pre></div><ul>
+<li>subsystem 子系统：<code>sys/fs/cgroup</code>目录下面的子系统</li>
+<li>hierarchy 层级：由多个<code>cgroup</code>组成，与子系统绑定，对资源进行控制</li>
+</ul>
+<h3 id="原理">原理</h3>
+<p>Linux当中一切皆文件，进程也是文件，限制也做成了文件；</p>
+<p>在<code>/sys/fs/cgroup/cpu</code>目录下创建一个目录，看看会发生什么效果？</p>
+<pre tabindex="0"><code>[root@CloudPower-dev-2-119 cpu]# mkdir /sys/fs/cgroup/cpu/cg1
+[root@CloudPower-dev-2-119 cpu]# ll cg1
+total 0
+-rw-r--r-- 1 root root 0 Nov 26 13:53 cgroup.clone_children
+--w--w--w- 1 root root 0 Nov 26 13:53 cgroup.event_control
+-rw-r--r-- 1 root root 0 Nov 26 13:53 cgroup.procs
+-r--r--r-- 1 root root 0 Nov 26 13:53 cpuacct.stat
+-rw-r--r-- 1 root root 0 Nov 26 13:53 cpuacct.usage
+-r--r--r-- 1 root root 0 Nov 26 13:53 cpuacct.usage_percpu
+-rw-r--r-- 1 root root 0 Nov 26 13:53 cpu.cfs_period_us
+-rw-r--r-- 1 root root 0 Nov 26 13:53 cpu.cfs_quota_us
+-rw-r--r-- 1 root root 0 Nov 26 13:53 cpu.rt_period_us
+-rw-r--r-- 1 root root 0 Nov 26 13:53 cpu.rt_runtime_us
+-rw-r--r-- 1 root root 0 Nov 26 13:53 cpu.shares
+-r--r--r-- 1 root root 0 Nov 26 13:53 cpu.stat
+-rw-r--r-- 1 root root 0 Nov 26 13:53 notify_on_release
+-rw-r--r-- 1 root root 0 Nov 26 13:53 tasks
+</code></pre><p>为什么会多出那么多的文件呢？<code>cg1</code>便是一个<code>cpu</code>的<code>cgroup</code>，这个乃是系统自动生成，为控制<code>CPU</code>的使用的；可以理解为<code>cgroup</code>是一个对象，这些文件都是它的属性，然后通过外接<code>cpu 子系统</code>的调度算法对<code>cgroup</code>下的<code>cpu</code>进行控制；最重要的两个参数如下：</p>
+<ul>
+<li>cpu.cfs_quota_us：为-1时表示cpu不受cgroup限制</li>
+<li>cfs_period_us：设置cpu的带宽，设置某个周期内可以使用cpu，用于提升cpu的吞吐量</li>
+</ul>
+<p>通俗理解，一个<code>cpu</code>子系统下面挂载着许多的<code>cpu cgroups</code>，每个<code>cgroup</code>对进程进行限制；</p>
+<h3 id="实战">实战</h3>
+<h4 id="cpu限制">CPU限制</h4>
+<p>下面这段代码是一个死循环，会把<code>cpu</code>跑满，我们对容器的<code>cpu</code>进行控制</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(;;) i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>编译运行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns cgroup<span style="color:#f92672">]</span><span style="color:#75715e"># gcc -Wall cpu.c -o cpu</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns cgroup<span style="color:#f92672">]</span><span style="color:#75715e"># ./cpu</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## TOP里面看到cpu已经到100%了</span>
+</span></span><span style="display:flex;"><span>	PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">7543</span> root      <span style="color:#ae81ff">20</span>   <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">4212</span>    <span style="color:#ae81ff">352</span>    <span style="color:#ae81ff">276</span> R 100.0  0.0   0:15.79 cpu
+</span></span></code></pre></div><p>其中<code>cpu.cfs_quota_us</code>即为限制<code>cpu</code>的阈值</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">## 设置阈值</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns cg1<span style="color:#f92672">]</span><span style="color:#75715e"># echo 20000 &gt; /sys/fs/cgroup/cpu/cg1/cpu.cfs_quota_us</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 设置生效的线程</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns cg1<span style="color:#f92672">]</span><span style="color:#75715e"># echo 7543 &gt; /sys/fs/cgroup/cpu/cg1/tasks</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 再运行TOP即可看到cpu控制在20%了</span>
+</span></span><span style="display:flex;"><span>PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">7543</span> root      <span style="color:#ae81ff">20</span>   <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">4212</span>    <span style="color:#ae81ff">348</span>    <span style="color:#ae81ff">276</span> R  19.9  0.0   0:33.12 cpu
+</span></span></code></pre></div><h4 id="memroy限制">memroy限制</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># mkdir /sys/fs/cgroup/memory/mem1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># cat /sys/fs/cgroup/memory/mem1/memory.limit_in_bytes</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9223372036854771712</span>  // <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># echo 64k &gt;  /sys/fs/cgroup/memory/mem1/memory.limit_in_bytes</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># echo 7543 &gt; /sys/fs/cgroup/memory/mem1/tasks</span>
+</span></span></code></pre></div><p>若进程<code>7543</code>的阈值超过<code>64k</code>会被<code>kill</code></p>
+<h4 id="disk限制">disk限制</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># mkdir /sys/fs/cgroup/blkio/disk</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># cat  /sys/fs/cgroup/blkio/disk/blkio.throttle.read_bps_device</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># echo &#39;8:0 1048576&#39;  &gt; /sys/fs/cgroup/blkio/io/blkio.throttle.read_bps_device</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@docker-ns ~<span style="color:#f92672">]</span><span style="color:#75715e"># echo 7543 &gt; /sys/fs/cgroup/blkio/disk/tasks</span>
+</span></span></code></pre></div><h4 id="dcoker的实现">Dcoker的实现</h4>
+<p>而现在<code>containerd</code>已经提供了标准的调用方式 <a href="https://github.com/containerd/cgroups">cgroups</a>，并且<code>Docker</code>为了生态也实现了，所以咱直接引包，使用即可；创建一个<code>Dcoker</code>容器后，也会在<code>cgroup</code>当中创建对应的目录结构，及对进程的限制信息；</p>
+<blockquote>
+<p>不同的驱动和版本创建的目录不尽相同：https://docs.docker.com/config/containers/runmetrics/#find-the-cgroup-for-a-given-container</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># tree /sys/fs/cgroup/cpu/system.slice/docker-30110dfe51d97408e45814afe729cf5aa609a120f300e80795b450830ee81455.scope</span>
+</span></span><span style="display:flex;"><span>/sys/fs/cgroup/cpu/system.slice/docker-30110dfe51d97408e45814afe729cf5aa609a120f300e80795b450830ee81455.scope
+</span></span><span style="display:flex;"><span>├── cgroup.clone_children
+</span></span><span style="display:flex;"><span>├── cgroup.event_control
+</span></span><span style="display:flex;"><span>├── cgroup.procs
+</span></span><span style="display:flex;"><span>├── cpuacct.stat
+</span></span><span style="display:flex;"><span>├── cpuacct.usage
+</span></span><span style="display:flex;"><span>├── cpuacct.usage_percpu
+</span></span><span style="display:flex;"><span>├── cpu.cfs_period_us
+</span></span><span style="display:flex;"><span>├── cpu.cfs_quota_us
+</span></span><span style="display:flex;"><span>├── cpu.rt_period_us
+</span></span><span style="display:flex;"><span>├── cpu.rt_runtime_us
+</span></span><span style="display:flex;"><span>├── cpu.shares
+</span></span><span style="display:flex;"><span>├── cpu.stat
+</span></span><span style="display:flex;"><span>├── notify_on_release
+</span></span><span style="display:flex;"><span>└── tasks
+</span></span></code></pre></div><h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://tech.meituan.com/2015/03/31/cgroups.html">美团技术blog</a></li>
+<li><a href="https://lwn.net/Articles/606925/">lwn</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8Ccgroup/>https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8Ccgroup/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/docker/">
+                    #docker</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80namespace/" class="prev" rel="prev" title="Docker容器与容器云读书笔记（一）–Namespace"><i class="iconfont icon-left"></i>&nbsp;Docker容器与容器云读书笔记（一）–Namespace</a>
+        
+        
+        <a href="https://xibolun.github.io/post/docker/docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%89network/" class="next" rel="next" title="Docker容器与容器云读书笔记（三）–Network">Docker容器与容器云读书笔记（三）–Network&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

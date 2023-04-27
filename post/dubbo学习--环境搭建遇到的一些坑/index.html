@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC2%E7%AB%A0-java%E5%86%85%E5%AD%98%E5%8C%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/" />
+    <link rel="next" href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC4%E7%AB%A0-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/dubbo%E5%AD%A6%E4%B9%A0--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            dubbo学习--环境搭建遇到的一些坑 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="dubbo学习--环境搭建遇到的一些坑 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "dubbo学习--环境搭建遇到的一些坑",
+    "headline" : "dubbo学习--环境搭建遇到的一些坑",
+    "description" : "前言 最近比较寂寞，想学dubbo，又不想按照官网那种方式进行配置，想集成于spring boot；所以上网找了一下有没有spring boot dubb",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-07-04 22:43:54 \u002b0800 CST",
+    "dateModified" : "2017-07-04 22:43:54 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/dubbo%E5%AD%A6%E4%B9%A0--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91\/",
+    "wordCount" : "1097",
+    "keywords" : [ "dubbo", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">dubbo学习--环境搭建遇到的一些坑</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-07-04 itemprop="datePublished">July 4, 2017</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1097 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="前言">前言</h2>
+<p>最近比较寂寞，想学dubbo，又不想按照官网那种方式进行配置，想集成于spring
+boot；所以上网找了一下有没有spring boot
+dubbo这样的玩意；于是就发现了<a href="https://github.com/teaey/spring-boot-starter-dubbo">spring-boot-starter-dubbo</a>
+并且还有一个<a href="https://github.com/teaey/spring-boot-starter-dubbo-sample">spring-boot-starter-dubbo-sample</a>;
+欣喜若狂地下载下来，竟然启动不起来；于是改巴改巴，将坑都给填填，以后再详细研究原理</p>
+<h2 id="环境搭建步骤">环境搭建步骤</h2>
+<ul>
+<li>下载zookeeper，解压并启动；</li>
+<li>下载sample代码，分别启动server和client</li>
+<li>启动client成功后，client和server和console里面分别打印abccc即可成功</li>
+</ul>
+<h2 id="pom文件修改">POM文件修改</h2>
+<ul>
+<li>pom文件里面的spring boot
+starter-parent的1.3.6.RELEASE版本号在maven中央仓库里面没有，改成了1.3.5.RELEASE</li>
+<li>pom文件里面的spring-boot-starter-dubbo的1.0.0-SNAPSHOT在maven中央仓库里面也没有，改成了1.0.0</li>
+</ul>
+<h2 id="坑一-运行了zookeeper启动命令但是状态却是没有启动">坑一： 运行了zookeeper启动命令，但是状态却是没有启动</h2>
+<pre tabindex="0"><code>➜  bin sh zkServer.sh start
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/projects/zookeeper-3.4.8/bin/../conf/zoo.cfg
+-n Starting zookeeper ... 
+STARTED
+➜  bin sh zkServer.sh status
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/projects/zookeeper-3.4.8/bin/../conf/zoo.cfg
+Error contacting service. It is probably not running.
+</code></pre><h3 id="解决方法使用前置启动sh-zkserversh-start-foreground">解决方法：使用前置启动：sh zkServer.sh start-foreground</h3>
+<pre tabindex="0"><code>➜  bin sh zkServer.sh start-foreground
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/projects/zookeeper-3.4.8/bin/../conf/zoo.cfg
+2017-07-20 11:23:58,873 [myid:] - INFO  [main:QuorumPeerConfig@103] - Reading configuration from: /Users/admin/projects/zookeeper-3.4.8/bin/../conf/zoo.cfg
+2017-07-20 11:23:58,877 [myid:] - INFO  [main:DatadirCleanupManager@78] - autopurge.snapRetainCount set to 3
+2017-07-20 11:23:58,878 [myid:] - INFO  [main:DatadirCleanupManager@79] - autopurge.purgeInterval set to 0
+2017-07-20 11:23:58,878 [myid:] - INFO  [main:DatadirCleanupManager@101] - Purge task is not scheduled.
+2017-07-20 11:23:58,878 [myid:] - WARN  [main:QuorumPeerMain@113] - Either no config or no quorum defined in config, running  in standalone mode
+2017-07-20 11:23:58,890 [myid:] - INFO  [main:QuorumPeerConfig@103] - Reading configuration from: /Users/admin/projects/zookeeper-3.4.8/bin/../conf/zoo.cfg
+2017-07-20 11:23:58,890 [myid:] - INFO  [main:ZooKeeperServerMain@95] - Starting server
+2017-07-20 11:24:03,905 [myid:] - INFO  [main:Environment@100] - Server environment:zookeeper.version=3.4.8--1, built on 02/06/2016 03:18 GMT
+2017-07-20 11:24:03,905 [myid:] - INFO  [main:Environment@100] - Server environment:host.name=localhost
+2017-07-20 11:24:03,906 [myid:] - INFO  [main:Environment@100] - Server environment:java.version=1.7.0_79
+2017-07-20 11:24:03,906 [myid:] - INFO  [main:Environment@100] - Server environment:java.vendor=Oracle Corporation
+2017-07-20 11:24:03,906 [myid:] - INFO  [main:Environment@100] - Server environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home/jre
+2017-07-20 11:24:03,906 [myid:] - INFO  [main:Environment@100] - Server environment:java.class.path=/Users/admin/projects/zookeeper-3.4.8/bin/../build/classes:/Users/admin/projects/zookeeper-3.4.8/bin/../build/lib/*.jar:/Users/admin/projects/zookeeper-3.4.8/bin/../lib/slf4j-log4j12-1.6.1.jar:/Users/admin/projects/zookeeper-3.4.8/bin/../lib/slf4j-api-1.6.1.jar:/Users/admin/projects/zookeeper-3.4.8/bin/../lib/netty-3.7.0.Final.jar:/Users/admin/projects/zookeeper-3.4.8/bin/../lib/log4j-1.2.16.jar:/Users/admin/projects/zookeeper-3.4.8/bin/../lib/jline-0.9.94.jar:/Users/admin/projects/zookeeper-3.4.8/bin/../zookeeper-3.4.8.jar:/Users/admin/projects/zookeeper-3.4.8/bin/../src/java/lib/*.jar:/Users/admin/projects/zookeeper-3.4.8/bin/../conf:
+2017-07-20 11:24:03,907 [myid:] - INFO  [main:Environment@100] - Server environment:java.library.path=/Users/admin/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2017-07-20 11:24:03,907 [myid:] - INFO  [main:Environment@100] - Server environment:java.io.tmpdir=/var/folders/5k/92yp5fn10cg0dw2gzyrjynqh0000gn/T/
+2017-07-20 11:24:03,907 [myid:] - INFO  [main:Environment@100] - Server environment:java.compiler=&lt;NA&gt;
+2017-07-20 11:24:03,909 [myid:] - INFO  [main:Environment@100] - Server environment:os.name=Mac OS X
+2017-07-20 11:24:03,909 [myid:] - INFO  [main:Environment@100] - Server environment:os.arch=x86_64
+2017-07-20 11:24:03,910 [myid:] - INFO  [main:Environment@100] - Server environment:os.version=10.12
+2017-07-20 11:24:03,910 [myid:] - INFO  [main:Environment@100] - Server environment:user.name=admin
+2017-07-20 11:24:03,910 [myid:] - INFO  [main:Environment@100] - Server environment:user.home=/Users/admin
+2017-07-20 11:24:03,910 [myid:] - INFO  [main:Environment@100] - Server environment:user.dir=/Users/admin/projects/zookeeper-3.4.8/bin
+2017-07-20 11:24:03,917 [myid:] - INFO  [main:ZooKeeperServer@787] - tickTime set to 2000
+2017-07-20 11:24:03,917 [myid:] - INFO  [main:ZooKeeperServer@796] - minSessionTimeout set to -1
+2017-07-20 11:24:03,917 [myid:] - INFO  [main:ZooKeeperServer@805] - maxSessionTimeout set to -1
+2017-07-20 11:24:03,936 [myid:] - INFO  [main:NIOServerCnxnFactory@89] - binding to port 0.0.0.0/0.0.0.0:2181
+</code></pre><h2 id="坑二-moduleconfigmodule为null">坑二： ModuleConfig.module为null</h2>
+<pre tabindex="0"><code>Caused by: java.lang.IllegalStateException: ModuleConfig.module == null
+    at com.alibaba.dubbo.config.AbstractConfig.appendParameters(AbstractConfig.java:282) ~[dubbo-2.5.3.jar:2.5.3]
+    at com.alibaba.dubbo.config.AbstractConfig.appendParameters(AbstractConfig.java:217) ~[dubbo-2.5.3.jar:2.5.3]
+    at com.alibaba.dubbo.config.ServiceConfig.doExportUrlsFor1Protocol(ServiceConfig.java:357) ~[dubbo-2.5.3.jar:2.5.3]
+    at com.alibaba.dubbo.config.ServiceConfig.doExportUrls(ServiceConfig.java:281) ~[dubbo-2.5.3.jar:2.5.3]
+    at com.alibaba.dubbo.config.ServiceConfig.doExport(ServiceConfig.java:242) ~[dubbo-2.5.3.jar:2.5.3]
+    at com.alibaba.dubbo.config.ServiceConfig.export(ServiceConfig.java:143) ~[dubbo-2.5.3.jar:2.5.3]
+    at com.alibaba.dubbo.config.spring.AnnotationBean.postProcessAfterInitialization(AnnotationBean.java:195) ~[dubbo-2.5.3.jar:2.5.3]
+    at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsAfterInitialization(AbstractAutowireCapableBeanFactory.java:422) ~[spring-beans-4.2.4.RELEASE.jar:4.2.4.RELEASE]
+    at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1583) ~[spring-beans-4.2.4.RELEASE.jar:4.2.4.RELEASE]
+    at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545) ~[spring-beans-4.2.4.RELEASE.jar:4.2.4.RELEASE]
+    ... 14 common frames omitted
+Caused by: java.lang.IllegalStateException: ModuleConfig.module == null
+    at com.alibaba.dubbo.config.AbstractConfig.appendParameters(AbstractConfig.java:267) ~[dubbo-2.5.3.jar:2.5.3]
+    ... 23 common frames omitted
+</code></pre><h3 id="解决方法在applicationproperties当中添加springdubbomoduledefaultfalse">解决方法：在application.properties当中添加spring.dubbo.module.default=false</h3>
+<h2 id="坑三启动client报错">坑三：启动Client报错</h2>
+<pre tabindex="0"><code>failed to connect to server /10.3.52.85:20880, error message is:connection timed out
+</code></pre><h3 id="解决方法查看服务器端发布服务的地址是否可能ping通若ping不通在applicationproperties当中添加springdubboprotocolhostlt你本机ipgt重启server">解决方法：查看服务器端发布服务的地址是否可能ping通；若ping不通，在application.properties当中添加spring.dubbo.protocol.host=&lt;你本机IP&gt;，重启server</h3>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/dubbo%E5%AD%A6%E4%B9%A0--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/>https://xibolun.github.io/post/dubbo%E5%AD%A6%E4%B9%A0--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/dubbo/">
+                    #dubbo</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC2%E7%AB%A0-java%E5%86%85%E5%AD%98%E5%8C%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/" class="prev" rel="prev" title="深入理解Java虚拟机--第2章 Java内存区域与内存溢出异常"><i class="iconfont icon-left"></i>&nbsp;深入理解Java虚拟机--第2章 Java内存区域与内存溢出异常</a>
+        
+        
+        <a href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC4%E7%AB%A0-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/" class="next" rel="next" title="深入理解Java虚拟机--第4章 虚拟机性能监控与故障处理">深入理解Java虚拟机--第4章 虚拟机性能监控与故障处理&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

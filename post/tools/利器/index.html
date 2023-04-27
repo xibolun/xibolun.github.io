@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/golang/go--reflect/" />
+    <link rel="next" href="https://xibolun.github.io/post/css/bootstrap/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/tools/%E5%88%A9%E5%99%A8/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            利器 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="利器 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "利器",
+    "headline" : "利器",
+    "description" : "利器 工欲善其事，必先利其器 \u0026mdash;\u0026mdash;\u0026mdash;\u0026ndash;《论语·卫灵公》 个人是一个比较喜欢高效的东西，此篇记录一下",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-01-01 22:07:16 \u002b0800 CST",
+    "dateModified" : "2019-01-01 22:07:16 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/tools\/%E5%88%A9%E5%99%A8\/",
+    "wordCount" : "763",
+    "keywords" : [ "tool", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">利器</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-01-01 itemprop="datePublished">January 1, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/tool/"> tool, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">763 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h3 id="利器">利器</h3>
+<blockquote>
+<p>工欲善其事，必先利其器    &mdash;&mdash;&mdash;&ndash;《<a href="https://baike.baidu.com/item/%E8%AE%BA%E8%AF%AD/372830">论语</a>·<a href="https://baike.baidu.com/item/%E5%8D%AB%E7%81%B5%E5%85%AC/7604791">卫灵公</a>》</p>
+</blockquote>
+<p>个人是一个比较喜欢高效的东西，此篇记录一下自己的关注的一些关于工具和软件的平台及自己的一些软件工具；</p>
+<h4 id="关注">关注</h4>
+<ul>
+<li><a href="http://liqi.io">利器</a></li>
+<li><a href="https://sspai.com/">少数派</a></li>
+<li><a href="https://www.vmovier.com/">场库</a>：一些非常高质量的视频</li>
+</ul>
+<h4 id="软件">软件</h4>
+<h5 id="命令行工具">命令行工具</h5>
+<ul>
+<li>Iterm2+Zsh+Tmux：三件套组合</li>
+</ul>
+<h5 id="jetbrains家族">Jetbrains家族</h5>
+<ul>
+<li>Datagrip：Mysql、SQLite</li>
+<li>IDEA：Java主力开发</li>
+<li>Goland: Go语言编辑器</li>
+<li>Pycharm: 写一些爬虫</li>
+</ul>
+<h5 id="编辑器">编辑器</h5>
+<ul>
+<li>sublime：最早的时候用的，写emberJs</li>
+<li>vscode：写vue、react，推荐一个插件Tabine，代码写得飞起</li>
+<li>spacemacs：emacs最受欢迎的一个变种，界面精美，设计思路非常新奇</li>
+<li>Typora：markdown编辑器，喜欢所见即所得的模式</li>
+</ul>
+<h5 id="效率">效率</h5>
+<ul>
+<li>Alfred：快速搜索应用、词典、粘贴板、热键、workflow、关机锁屏等</li>
+<li>Dash：离线文档</li>
+<li>ag： 一个强大的搜索工具</li>
+<li>Foxit Reader：pdf阅读器，非常好用</li>
+<li>Reeder：rss阅读器，关注了一些牛人的blog和其他的信息</li>
+<li>Mindnode：脑图工具，更喜欢使用里面的尖角模式</li>
+<li>笔记软件：有道云，逐步向语雀、飞书迁移</li>
+</ul>
+<h4 id="硬件">硬件</h4>
+<ul>
+<li>macbook pro：2015年老款，用了快五年了；用不惯新版本的键盘，有一些生硬；</li>
+<li>Flico FKBC87M：第一款机械键盘，16年双11买的，非常喜欢；</li>
+<li><a href="https://www.keychron.com/products/keychron-k2-wireless-mechanical-keyboard">keychron k2</a>：第二款键盘，20年双11买的，红轴；</li>
+<li>Dell U2412Mb：2015年老款显示器，非全屏，但是比较宽大，用着顺档</li>
+<li>Logitech M590：17年京东会员plus还没过期的时候买的，一直用到现在，双模式切的非常爽；</li>
+<li>Forever A9：17~18年11月份的座骑，一直骑着她上下班，聚会用</li>
+<li>Honda 猛鸷190x：人生第一辆机车，18年11月至今的座骑，跑过舟山，天荒坪，宁波小长途，有时间会再出去跑跑的</li>
+</ul>
+<p>如果你有一些更好的工具，欢迎交流；</p>
+<p><img src="/img/my_wechat.jpg" alt="my_wechat" loading="lazy" ></p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/tools/%E5%88%A9%E5%99%A8/>https://xibolun.github.io/post/tools/%E5%88%A9%E5%99%A8/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/tool/">
+                    #tool</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/golang/go--reflect/" class="prev" rel="prev" title="GO—reflect"><i class="iconfont icon-left"></i>&nbsp;GO—reflect</a>
+        
+        
+        <a href="https://xibolun.github.io/post/css/bootstrap/" class="next" rel="next" title="Bootstrap">Bootstrap&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

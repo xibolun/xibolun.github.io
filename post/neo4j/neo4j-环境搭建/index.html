@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%80-%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" />
+    <link rel="next" href="https://xibolun.github.io/post/neo4j/neo4j-console/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/neo4j/neo4j-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Neo4j环境搭建 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Neo4j环境搭建 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Neo4j环境搭建",
+    "headline" : "Neo4j环境搭建",
+    "description" : "Neo4j环境搭建 安装启动 neo4j分为community和enterprise两种版本，后者属于企业版本，为付费版本；当前只针对commu",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-06-07 14:47:52 \u002b0800 CST",
+    "dateModified" : "2018-06-07 14:47:52 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/neo4j\/neo4j-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA\/",
+    "wordCount" : "477",
+    "keywords" : [ "neo4j", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Neo4j环境搭建</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2018-06-07 itemprop="datePublished">June 7, 2018</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">477 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="neo4j环境搭建">Neo4j环境搭建</h2>
+<h3 id="安装启动">安装启动</h3>
+<p>neo4j分为community和enterprise两种版本，后者属于企业版本，为付费版本；当前只针对community版本；</p>
+<p>版本列表及下载地址</p>
+<p>解压后展开目录层级如下：</p>
+<pre tabindex="0"><code>.
+├── bin    # neo4j、cypher脚本
+│   └── tools
+├── certificates #  认证的cert和key
+├── conf 
+├── data  # 数据文件
+│   ├── databases
+│   │   └── graph.db
+│   │       └── index
+│   └── dbms
+├── import
+├── lib
+├── logs # log
+├── plugins # 插件列表
+└── run
+</code></pre><p>启动</p>
+<pre tabindex="0"><code>./bin/neo4j start
+</code></pre><p>可以查看启动的log</p>
+<pre tabindex="0"><code>tail -f logs/neo4j.log
+</code></pre><pre tabindex="0"><code>2018-06-07 07:23:49.379+0000 INFO  ======== Neo4j 3.4.0 ========
+2018-06-07 07:23:49.477+0000 INFO  Starting...
+2018-06-07 07:24:04.957+0000 INFO  Bolt enabled on 127.0.0.1:7687.
+2018-06-07 07:24:09.653+0000 INFO  Started.
+2018-06-07 07:24:11.718+0000 INFO  Remote interface available at http://localhost:7474/
+</code></pre><p>在浏览器当中打开http://localhost:7474即可看到web的控制台</p>
+<p>初始化密码为neo4j/neo4j，修改密码后即可正常使用</p>
+<h3 id="官方教程">官方教程</h3>
+<pre tabindex="0"><code>:play cypher
+</code></pre><p>即可开始简易的cypher教程，按着教程即可学习创建节点，查询节点等</p>
+<pre tabindex="0"><code>:play movie-graph
+</code></pre><p>以一个电影和演员的关系数据，可以学习到关系查询、属性查询、删除节点等</p>
+<pre tabindex="0"><code>:play northwind-graph
+</code></pre><p>从在线的csv当中import数据，学习关系创建，创建索引，复杂查询等</p>
+<h3 id="常用语句">常用语句</h3>
+<pre tabindex="0"><code>match n return distinct labels(n)//统计节点数量
+</code></pre><pre tabindex="0"><code>match n return count(n) //统计节点数量
+</code></pre><h3 id="官方cypher文档">官方cypher文档</h3>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/neo4j/neo4j-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/>https://xibolun.github.io/post/neo4j/neo4j-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/neo4j/">
+                    #neo4j</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%80-%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" class="prev" rel="prev" title="RabbitMQ(一) 入门及基础概念"><i class="iconfont icon-left"></i>&nbsp;RabbitMQ(一) 入门及基础概念</a>
+        
+        
+        <a href="https://xibolun.github.io/post/neo4j/neo4j-console/" class="next" rel="next" title="Neo4j控制台">Neo4j控制台&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

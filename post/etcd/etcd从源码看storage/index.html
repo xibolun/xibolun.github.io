@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8B%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6/" />
+    <link rel="next" href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bwatch%E6%9C%BA%E5%88%B6/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            etcd––从源码看Storage | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="etcd––从源码看Storage | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "etcd––从源码看Storage",
+    "headline" : "etcd––从源码看Storage",
+    "description" : "etcd storage types",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-07-05 14:32:00 \u002b0800 CST",
+    "dateModified" : "2020-07-05 14:32:00 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/etcd\/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage\/",
+    "wordCount" : "2218",
+    "keywords" : [ "etcd", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">etcd––从源码看Storage</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-07-05 itemprop="datePublished">July 5, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/etcd/"> etcd, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">2218 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <p>当启动了一个<code>etcd server</code>的时候，会生成一些数据文件，这些文件便是<code>etcd storage</code>，主要分析<code>wal</code>和<code>snapshot</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  tree
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── member
+</span></span><span style="display:flex;"><span>    ├── snap
+</span></span><span style="display:flex;"><span>    │   └── db
+</span></span><span style="display:flex;"><span>    └── wal
+</span></span><span style="display:flex;"><span>        ├── 0.tmp
+</span></span><span style="display:flex;"><span>        └── 0000000000000000-0000000000000000.wal
+</span></span></code></pre></div><h3 id="wal">WAL</h3>
+<p><code>WAL</code>是与磁盘打交道的模块，这个是用于数据持久化的；</p>
+<h4 id="存储结构">存储结构</h4>
+<p>几个重要的属性</p>
+<ul>
+<li>start： 快照开始读的地方</li>
+<li>decoder、encoder：将<code>entry</code>进行序列化和反序列化</li>
+<li>state：wal的头部</li>
+<li>metadata：每个wal的头部信息，记录着<code>NodeId</code>、<code>ClusterID</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// etcdserver/raft.go#startNode
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">metadata</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pbutil</span>.<span style="color:#a6e22e">MustMarshal</span>(
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Metadata</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">NodeID</span>:    uint64(<span style="color:#a6e22e">member</span>.<span style="color:#a6e22e">ID</span>),
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">ClusterID</span>: uint64(<span style="color:#a6e22e">cl</span>.<span style="color:#a6e22e">ID</span>()),
+</span></span><span style="display:flex;"><span>		},
+</span></span><span style="display:flex;"><span>	)
+</span></span></code></pre></div><ul>
+<li>locks： 文件锁</li>
+</ul>
+<p>一个<code>wal</code>文件是由多个<code>record</code>组成，record的结构如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Record</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 类型，可以是metadata、entry、state、crc、snapshot
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Type</span>             <span style="color:#66d9ef">int64</span>  <span style="color:#e6db74">`protobuf:&#34;varint,1,opt,name=type&#34; json:&#34;type&#34;`</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 校验码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Crc</span>              <span style="color:#66d9ef">uint32</span> <span style="color:#e6db74">`protobuf:&#34;varint,2,opt,name=crc&#34; json:&#34;crc&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Data</span>             []<span style="color:#66d9ef">byte</span> <span style="color:#e6db74">`protobuf:&#34;bytes,3,opt,name=data&#34; json:&#34;data,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">XXX_unrecognized</span> []<span style="color:#66d9ef">byte</span> <span style="color:#e6db74">`json:&#34;-&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>record</code>经过<code>encode</code>之后就被<code>write</code>到<code>file</code>对象当中</p>
+<h4 id="初始化">初始化</h4>
+<p>初始化过程从<code>startNode</code>开始，主要做了如下几个动作</p>
+<ul>
+<li>根据文件创建<code>wal dir</code></li>
+<li>生成<code>wal</code>的名称文件</li>
+<li>对文件进行预置操作，默认是<code>64M</code>大小</li>
+</ul>
+<pre tabindex="0"><code>➜  wal ll -h
+total 8
+-rw-------  1 admin  wheel    61M Dec 23 14:58 0.tmp
+-rw-------  1 admin  wheel    61M Dec 23 14:58 0000000000000000-0000000000000000.wal
+</code></pre><ul>
+<li>将<code>crc</code>写入</li>
+<li>将<code>metadata</code>的数据写入进去</li>
+<li>将<code>snapshot</code>数据写入</li>
+<li>对文件进行重命名（0.tmp）</li>
+<li>将重命名操作同步至<code>parent dir</code></li>
+</ul>
+<h4 id="其他操作">其他操作</h4>
+<ul>
+<li><code>OpenWAL</code>：当<code>node</code>重启，获取销毁建立的时候，会根据先加载<code>snapshot</code>，根据<code>snapshot</code>的<code>index</code>来到<code>wal dir</code>当中获取指定的<code>wal</code></li>
+<li><code>Verify</code>：根据<code>snapshot</code>和<code>wal dir</code>来获取指定的<code>wal</code>,对其<code>crc</code>、<code>metadata</code>、<code>snapthot</code>进行校验，看看这个<code>wal</code>文件是否中间是否存在中断的情况，这个主要是用于测试用例；</li>
+<li><code>Save</code>：在<code>node start|restart</code> 、<code>dump</code>、<code>restore命令</code>的时候会执行<code>wal save</code>操作，主要干了以下几个事情
+<ul>
+<li>接收一个<code>	HardState</code>，包括：<code>term</code>、<code>vote</code>、<code>commit</code>；同时接收所需要保存的<code>entries</code></li>
+<li><code>wal</code>对象里面的<code>state</code>与传入的<code>state</code>进行对比，校验<code>term</code>、<code>vote</code>是否相等</li>
+<li>开始保存<code>entry</code>，新建一个类型为<code>entry</code>的<code>record</code>，然后序列化，落盘</li>
+<li>同时将<code>wal</code>对象里面的<code>state</code>用<code>state</code>类型的<code>record</code>进行封装，序列化后落盘</li>
+<li>若文件的大小&lt; <code>SegmentSizeBytes--64M</code>，直接<code>flush</code>，若大于，需要进行<code>cut</code>操作</li>
+</ul>
+</li>
+<li><code>cut</code>：将<code>offset</code>超出的部分，重新写入一个文件，再走一次<code>create</code>逻辑，这个时候<code>wal</code>的文件序列会+1，即<code>1.tmp</code></li>
+</ul>
+<h3 id="snapshot">Snapshot</h3>
+<p><code>snapshot</code>是一个快照，用于保存数据信息，便于恢复；经过压缩大小会比<code>wal</code>小；本篇是基于<code>etcdServer</code>里面的逻辑写的，<code>etcd</code>里面还有一个<code>raftexample/raft.go</code>，这个是一个简易版本，逻辑差不多，方便读者理解<code>raft</code>的逻辑；</p>
+<h4 id="存储结构-1">存储结构</h4>
+<p>从<code>pb</code>文件里面可以看到存储结构如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Snapshot</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>	<span style="color:#66d9ef">optional</span> <span style="color:#66d9ef">bytes</span>            data     <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>	<span style="color:#66d9ef">optional</span> SnapshotMetadata metadata <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> [(gogoproto.nullable) <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>];<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">SnapshotMetadata</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>	<span style="color:#66d9ef">optional</span> ConfState conf_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> [(gogoproto.nullable) <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>];<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>	<span style="color:#66d9ef">optional</span> <span style="color:#66d9ef">uint64</span>    index      <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> [(gogoproto.nullable) <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>];<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>	<span style="color:#66d9ef">optional</span> <span style="color:#66d9ef">uint64</span>    term       <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span> [(gogoproto.nullable) <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>];<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">ConfState</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>	<span style="color:#75715e">// The voters in the incoming config. (If the configuration is not joint,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// then the outgoing config is empty).
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">repeated</span> <span style="color:#66d9ef">uint64</span> voters <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>	<span style="color:#75715e">// The learners in the incoming config.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">repeated</span> <span style="color:#66d9ef">uint64</span> learners          <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>	<span style="color:#75715e">// The voters in the outgoing config.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">repeated</span> <span style="color:#66d9ef">uint64</span> voters_outgoing   <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>	<span style="color:#75715e">// The nodes that will become learners when the outgoing config is removed.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// These nodes are necessarily currently in nodes_joint (or they would have
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// been added to the incoming config right away).
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">repeated</span> <span style="color:#66d9ef">uint64</span> learners_next     <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>	<span style="color:#75715e">// If set, the config is joint and Raft will automatically transition into
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// the final config (i.e. remove the outgoing config) when this is safe.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">optional</span> <span style="color:#66d9ef">bool</span>   auto_leave        <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> [(gogoproto.nullable) <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>];<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>在<code>raft/storage.go</code>当中可以看到<code>Storeage</code>是一个<code>interface</code>，目前只有一种基于内存的实现<code>MemoryStorage</code></p>
+<ul>
+<li>里面有一个互斥锁</li>
+<li>有<code>snapshot</code></li>
+<li>还有对应的<code>entries</code></li>
+<li>这个<code>hardState</code>是用来记录这个快照的<code>term</code>、<code>vote</code>、<code>commit</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MemoryStorage</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Protects access to all fields. Most methods of MemoryStorage are
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// run on the raft goroutine, but Append() is run on an application
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// goroutine.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">hardState</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">HardState</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">snapshot</span>  <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Snapshot</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ents[i] has raft log position i+snapshot.Metadata.Index
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ents</span> []<span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Entry</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="初始化-1">初始化</h4>
+<p>在<code>NewServer</code>的时候会初始化<code>snapshotter</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">ss</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">snap</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">Logger</span>, <span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">SnapDir</span>())
+</span></span></code></pre></div><h4 id="何时触发快照">何时触发快照</h4>
+<p><code>server</code>启动后，会有一个<code>forever</code>的处理，里面会有<code>apply</code>的操作，这个<code>applyAll</code>会触发快照的生成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// etcdserver/server.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">......</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">ap</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">apply</span>():
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) { <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">applyAll</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ep</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ap</span>) }
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">sched</span>.<span style="color:#a6e22e">Schedule</span>(<span style="color:#a6e22e">f</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">......</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>而这个<code>apply</code>是在<code>node start</code>的时候，同样启动了一个<code>forever</code>，监听<code>node Ready</code>通道；当上层业务通过调用<code>getSnapshot</code>的时候就会触发此<code>ready</code>操作，<code>Ready</code>是一个状态集合，维护着各种状态，是否可以读，可以写等；</p>
+<p>另外，可以看一下测试类里面的代码：<code>etcdserver/server_test.go#TestTriggerSnap</code></p>
+<h4 id="生成快照">生成快照</h4>
+<p><code>getSnapshot</code>将用户需要做快照的数据进行传递过来，然后会进行两步操作</p>
+<ul>
+<li>保存在wal：用<code>snapsho</code>t类型的<code>record</code>进行封装，然后序列化，落盘</li>
+<li>保存snapshot：用<code>Snapshot</code>对象进行封装，然后序列化，落盘至<code>snapshot</code>的文件当中，<code>snapshot</code>文件命名格式为:<code>Term-Index.snap</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rc</span>.<span style="color:#a6e22e">wal</span>.<span style="color:#a6e22e">SaveSnapshot</span>(<span style="color:#a6e22e">walSnap</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rc</span>.<span style="color:#a6e22e">snapshotter</span>.<span style="color:#a6e22e">SaveSnap</span>(<span style="color:#a6e22e">snap</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span></code></pre></div><p>需要注意的：快照是<code>follower</code>在本地完成的，不需要<code>leader</code>向其发送消息；因为<code>follower</code>是完整的备份事项，<code>leader</code>只需要将<code>snapshot</code>所带的<code>term</code>和<code>index</code>传递过来即可；</p>
+<pre tabindex="0"><code>func (r *raft) handleSnapshot(m pb.Message) {
+	// message里面只是一个snapshot对象，包含index和term
+   sindex, sterm := m.Snapshot.Metadata.Index, m.Snapshot.Metadata.Term
+   if r.restore(m.Snapshot) {
+      r.logger.Infof(&#34;%x [commit: %d] restored snapshot [index: %d, term: %d]&#34;,
+         r.id, r.raftLog.committed, sindex, sterm)
+      r.send(pb.Message{To: m.From, Type: pb.MsgAppResp, Index: r.raftLog.lastIndex()})
+   } else {
+      r.logger.Infof(&#34;%x [commit: %d] ignored snapshot [index: %d, term: %d]&#34;,
+         r.id, r.raftLog.committed, sindex, sterm)
+      r.send(pb.Message{To: m.From, Type: pb.MsgAppResp, Index: r.raftLog.committed})
+   }
+}
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage/>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/etcd/">
+                    #etcd</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8B%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6/" class="prev" rel="prev" title="etcd––从源码看日志复制"><i class="iconfont icon-left"></i>&nbsp;etcd––从源码看日志复制</a>
+        
+        
+        <a href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bwatch%E6%9C%BA%E5%88%B6/" class="next" rel="next" title="etcd––从源码看watch机制">etcd––从源码看watch机制&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

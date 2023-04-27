@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/golang/go--template/" />
+    <link rel="next" href="https://xibolun.github.io/post/mysql/mysqltrigger/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/linux/%E5%86%8D%E5%AD%A6linux%E7%AC%94%E8%AE%B0%E4%BA%8C/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            再学Linux笔记(二)文件与目录 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="再学Linux笔记(二)文件与目录 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "再学Linux笔记(二)文件与目录",
+    "headline" : "再学Linux笔记(二)文件与目录",
+    "description" : "root目录下的两个特殊的目录 [root@7e02d7cc602a \/]# ls -al total 64 drwxr-xr-x 1 root root 4096 Jul 10 13:08 . drwxr-xr-x 1 root root 4096 Jul 10 13:08 .. 这两个目录其实是一个目录 目录创建 ## 创建指定权限的目录 mkdir -m 777 \/tmp\/aa ##",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-07-30 22:38:08 \u002b0800 CST",
+    "dateModified" : "2019-07-30 22:38:08 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/linux\/%E5%86%8D%E5%AD%A6linux%E7%AC%94%E8%AE%B0%E4%BA%8C\/",
+    "wordCount" : "294",
+    "keywords" : [ "linux", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">再学Linux笔记(二)文件与目录</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-07-30 itemprop="datePublished">July 30, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">294 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h4 id="root目录下的两个特殊的目录">root目录下的两个特殊的目录</h4>
+<pre tabindex="0"><code>[root@7e02d7cc602a /]# ls -al
+total 64
+drwxr-xr-x   1 root root  4096 Jul 10 13:08 .
+drwxr-xr-x   1 root root  4096 Jul 10 13:08 ..
+</code></pre><p>这两个目录其实是一个目录</p>
+<h3 id="目录创建">目录创建</h3>
+<pre tabindex="0"><code>## 创建指定权限的目录
+mkdir -m 777 /tmp/aa 
+## 递归创建目录
+mdkir -p /tmp/aa
+</code></pre><h3 id="目录管理">目录管理</h3>
+<pre tabindex="0"><code>## 复制的时候，保留文件和目录的权限信息
+cp -a /etc /tmp 
+## 有差异地复制
+cp -u ~/.bashrc /tmp/.bashrc
+## 创建文件带-
+touch ./-aaa-
+rm ./-aaa- 或 rm -- -aaa- 
+</code></pre><h3 id="文档查看">文档查看</h3>
+<p>cat的缩写是：<code>Concatenate</code></p>
+<pre tabindex="0"><code>## -A, --show-all 显示所有的特殊字符 $ 表示换行； ^I 表示tab
+[root@7e02d7cc602a tmp]# cat -A /etc/issue
+## -n, --number  显示行号
+[root@7e02d7cc602a tmp]# cat -n /etc/issue
+[root@7e02d7cc602a tmp]# ^C
+## od命令也挺有意思的
+[root@7e02d7cc602a tmp]# cat aa.log 
+ABC
+[root@7e02d7cc602a tmp]# od -t c aa.log 
+0000000   A   B   C  \n
+0000004
+[root@7e02d7cc602a tmp]# od aa.log 
+0000000 041101 005103
+0000004
+[root@7e02d7cc602a tmp]# 
+</code></pre><h3 id="文档的时间">文档的时间</h3>
+<ul>
+<li>mtime(modification time): 数据变更时间</li>
+<li>ctime(status time): 文档状态改变，权限属性改变</li>
+<li>atime(access time): 文件读取时间； cat等操作</li>
+<li>以上使用可以通过touch -a</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/linux/%E5%86%8D%E5%AD%A6linux%E7%AC%94%E8%AE%B0%E4%BA%8C/>https://xibolun.github.io/post/linux/%E5%86%8D%E5%AD%A6linux%E7%AC%94%E8%AE%B0%E4%BA%8C/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/linux/">
+                    #linux</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/golang/go--template/" class="prev" rel="prev" title="Go template"><i class="iconfont icon-left"></i>&nbsp;Go template</a>
+        
+        
+        <a href="https://xibolun.github.io/post/mysql/mysqltrigger/" class="next" rel="next" title="MySQL Trigger">MySQL Trigger&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

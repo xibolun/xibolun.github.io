@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Braft%E9%80%89%E4%B8%BE/" />
+    <link rel="next" href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8B%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            etcd––从源码看日志复制 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="etcd––从源码看日志复制 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "etcd––从源码看日志复制",
+    "headline" : "etcd––从源码看日志复制",
+    "description" : "日志复制 日志对象 etcd把一条日志做为一个entry，每一个里面都会有几个属性： Term：leader的任期，这个属性的目的乃是follow",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-07-04 09:45:47 \u002b0800 CST",
+    "dateModified" : "2020-07-04 09:45:47 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/etcd\/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8B%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6\/",
+    "wordCount" : "2560",
+    "keywords" : [ "etcd", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">etcd––从源码看日志复制</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2020-07-04 itemprop="datePublished">July 4, 2020</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/etcd/"> etcd, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">2560 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="日志复制">日志复制</h2>
+<h3 id="日志对象">日志对象</h3>
+<p><code>etcd</code>把一条日志做为一个<code>entry</code>，每一个里面都会有几个属性：</p>
+<ul>
+<li><code>Term</code>：<code>leader</code>的任期，这个属性的目的乃是<code>follower</code>接收到<code>msgApp</code>类型的消息的时候，会与本地维护的<code>Term</code>进行对比，防止出现不是最新的<code>leader</code>，以便可以重新发起选举</li>
+<li><code>Index</code>，<code>leader</code>维护的日志信息当中最大的索引</li>
+<li><code>Type</code>，日志类型，因为<code>etcd</code>当中最早使用的是<code>entryConfChange</code>现在升级到2版本，主要加了事务的功能；</li>
+<li><code>Data</code>，日志信息，是使用<code>entryConfChange2</code>结构体进行序列化的结果</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Entry</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Term</span>             <span style="color:#66d9ef">uint64</span>    <span style="color:#e6db74">`protobuf:&#34;varint,2,opt,name=Term&#34; json:&#34;Term&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Index</span>            <span style="color:#66d9ef">uint64</span>    <span style="color:#e6db74">`protobuf:&#34;varint,3,opt,name=Index&#34; json:&#34;Index&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Type</span>             <span style="color:#a6e22e">EntryType</span> <span style="color:#e6db74">`protobuf:&#34;varint,1,opt,name=Type,enum=raftpb.EntryType&#34; json:&#34;Type&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Data</span>             []<span style="color:#66d9ef">byte</span>    <span style="color:#e6db74">`protobuf:&#34;bytes,4,opt,name=Data&#34; json:&#34;Data,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">XXX_unrecognized</span> []<span style="color:#66d9ef">byte</span>    <span style="color:#e6db74">`json:&#34;-&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="日志复制过程">日志复制过程</h3>
+<h4 id="发起">发起</h4>
+<p>当<code>client</code>向<code>etcd-server</code>发起一条<code>msg</code>的时候（比如<code>etcdctl put key value</code>），这个时候的会通过<code>rpc</code>调用至<code>etcdserver</code>，<code>etcdserver</code>在处理的时候，会将这条数据进行封装</p>
+<ul>
+<li>类型为<code>MsgProp</code></li>
+<li>消息体为<code>Entry</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">node</span>) <span style="color:#a6e22e">Propose</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">data</span> []<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">stepWait</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Message</span>{<span style="color:#a6e22e">Type</span>: <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">MsgProp</span>, <span style="color:#a6e22e">Entries</span>: []<span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Entry</span>{{<span style="color:#a6e22e">Data</span>: <span style="color:#a6e22e">data</span>}}})
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>然后将这条消息放入到<code>node的propc</code>的<code>channel</code>当中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Step advances the state machine using msgs. The ctx.Err() will be returned,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// if any.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">node</span>) <span style="color:#a6e22e">stepWithWaitOption</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">m</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Message</span>, <span style="color:#a6e22e">wait</span> <span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">......</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">propc</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">pm</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">msgWithResult</span>{<span style="color:#a6e22e">m</span>: <span style="color:#a6e22e">m</span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">wait</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">pm</span>.<span style="color:#a6e22e">result</span> = make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">error</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 将pm写入channel，node监听拿到pm，这就是go channel的好处哇；
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">pm</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">wait</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">...</span>..
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>而<code>node run</code>的时候会有一个<code>forever</code>的进程，一直在监听着<code>channel</code>，直接就进入<code>leader</code>的<code>stepLeader</code>方法当中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">pm</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">propc</span>:
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pm</span>.<span style="color:#a6e22e">m</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">From</span> = <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">id</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 进入r.Step，因为leader的Term比较大，所以直接就进行StepLeader
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Step</span>(<span style="color:#a6e22e">m</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">pm</span>.<span style="color:#a6e22e">result</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">pm</span>.<span style="color:#a6e22e">result</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>				close(<span style="color:#a6e22e">pm</span>.<span style="color:#a6e22e">result</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span></code></pre></div><h4 id="leader处理过程">Leader处理过程</h4>
+<h5 id="leader本地处理">Leader本地处理</h5>
+<ul>
+<li>对日志进行<code>unmarshal</code></li>
+<li>判断日志是否可以进行追加
+<ul>
+<li>已经存在待追加的消息</li>
+<li>已经joint，事务还未提交（根据节点维护的<code>ProgressTracker</code>记录着<code>follower</code>当前的状态来判断）</li>
+<li>存在正在提交事务</li>
+</ul>
+</li>
+<li>若可以则进行将<code>pendingConfIndex+1</code>，并进行日志追加广播
+<ul>
+<li>追加日志广播的时候一样的逻辑，消息类型为<code>msgApp</code>，消息体为<code>entry</code>，并带上自身的<code>LogTerm</code>和<code>Index</code></li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/etcd/etcd-election-send-entry.jpg" alt="leader send entry" loading="lazy" ></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">case</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">MsgProp</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">......</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 开始处理entry
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Entries</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 反序列化得到消息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Entries</span>[<span style="color:#a6e22e">i</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">......</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ccc</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">ConfChangeV2</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ccc</span>.<span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Data</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>					panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">cc</span> = <span style="color:#a6e22e">ccc</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">cc</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 判断是否可以追加
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>				<span style="color:#a6e22e">alreadyPending</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">pendingConfIndex</span> &gt; <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">raftLog</span>.<span style="color:#a6e22e">applied</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">alreadyJoint</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">prs</span>.<span style="color:#a6e22e">Config</span>.<span style="color:#a6e22e">Voters</span>[<span style="color:#ae81ff">1</span>]) &gt; <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">wantsLeaveJoint</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">cc</span>.<span style="color:#a6e22e">AsV2</span>().<span style="color:#a6e22e">Changes</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">refused</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">alreadyPending</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">refused</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;possible unapplied conf change at index %d (applied to %d)&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">pendingConfIndex</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">raftLog</span>.<span style="color:#a6e22e">applied</span>)
+</span></span><span style="display:flex;"><span>				} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">alreadyJoint</span> <span style="color:#f92672">&amp;&amp;</span> !<span style="color:#a6e22e">wantsLeaveJoint</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">refused</span> = <span style="color:#e6db74">&#34;must transition out of joint config first&#34;</span>
+</span></span><span style="display:flex;"><span>				} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">alreadyJoint</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">wantsLeaveJoint</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">refused</span> = <span style="color:#e6db74">&#34;not in joint state; refusing empty conf change&#34;</span>
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">refused</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">Infof</span>(<span style="color:#e6db74">&#34;%x ignoring conf change %v at config %s: %s&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">cc</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">prs</span>.<span style="color:#a6e22e">Config</span>, <span style="color:#a6e22e">refused</span>)
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Entries</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Entry</span>{<span style="color:#a6e22e">Type</span>: <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">EntryNormal</span>}
+</span></span><span style="display:flex;"><span>				} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">pendingConfIndex</span> = <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">raftLog</span>.<span style="color:#a6e22e">lastIndex</span>() <span style="color:#f92672">+</span> uint64(<span style="color:#a6e22e">i</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">appendEntry</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Entries</span><span style="color:#f92672">...</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ErrProposalDropped</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">bcastAppend</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span></code></pre></div><h5 id="follower远程处理">Follower远程处理</h5>
+<p><code>follower</code>接收到消息之后的逻辑</p>
+<ul>
+<li>比对一个<code>Term</code>，看看<code>leader</code>是不是最新的</li>
+<li>开始尝试追加</li>
+<li>最后返回给<code>leader</code>一个<code>MsgAppResp</code>的消息类型</li>
+</ul>
+<p><img src="/img/etcd/etcd-election-heartbeat.jpg" alt="follower resp" loading="lazy" ></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">raft</span>) <span style="color:#a6e22e">handleAppendEntries</span>(<span style="color:#a6e22e">m</span> <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Message</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Index</span> &lt; <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">raftLog</span>.<span style="color:#a6e22e">committed</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Message</span>{<span style="color:#a6e22e">To</span>: <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">From</span>, <span style="color:#a6e22e">Type</span>: <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">MsgAppResp</span>, <span style="color:#a6e22e">Index</span>: <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">raftLog</span>.<span style="color:#a6e22e">committed</span>})
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">mlastIndex</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">raftLog</span>.<span style="color:#a6e22e">maybeAppend</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Index</span>, <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">LogTerm</span>, <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Commit</span>, <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Entries</span><span style="color:#f92672">...</span>); <span style="color:#a6e22e">ok</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Message</span>{<span style="color:#a6e22e">To</span>: <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">From</span>, <span style="color:#a6e22e">Type</span>: <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">MsgAppResp</span>, <span style="color:#a6e22e">Index</span>: <span style="color:#a6e22e">mlastIndex</span>})
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">Debugf</span>(<span style="color:#e6db74">&#34;%x [logterm: %d, index: %d] rejected MsgApp [logterm: %d, index: %d] from %x&#34;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">raftLog</span>.<span style="color:#a6e22e">zeroTermOnErrCompacted</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">raftLog</span>.<span style="color:#a6e22e">term</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Index</span>)), <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Index</span>, <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">LogTerm</span>, <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Index</span>, <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">From</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Message</span>{<span style="color:#a6e22e">To</span>: <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">From</span>, <span style="color:#a6e22e">Type</span>: <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">MsgAppResp</span>, <span style="color:#a6e22e">Index</span>: <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Index</span>, <span style="color:#a6e22e">Reject</span>: <span style="color:#66d9ef">true</span>, <span style="color:#a6e22e">RejectHint</span>: <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">raftLog</span>.<span style="color:#a6e22e">lastIndex</span>()})
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h5 id="follower追加逻辑">follower追加逻辑</h5>
+<p>对比本地<code>index</code>和<code>Term</code>；每一个节点上面都会维护一个<code>raftLog</code>，它里面包含已存储的日志<code>Storage</code>，已提交的日志索引(Commited)、未提交的<code>unstable</code>，已同意提交的<code>applied</code>（其中这个属性的值会&lt;=committed）</p>
+<ul>
+<li>
+<p><code>entry</code>的<code>index</code>需要比<code>unstable</code>和<code>storage</code>的最大值还要大；</p>
+</li>
+<li>
+<p><code>entry</code>的<code>term</code>需要比<code>unstable</code>和<code>storage</code>的<code>Term</code>最大值还要大，都取最后一条日志的上一条的<code>Term</code>进行对比；这也是为什么<code>etcd</code>能够做到数据版本历史的原因</p>
+</li>
+<li>
+<p>若以上条件都满足，对每个<code>entry</code>是否已经被包含了,然后再进行一次<code>commit</code>，这个逻辑比较简单，直接将<code>committed</code>修改为最新需要<code>commit</code>的<code>index</code>即可</p>
+</li>
+<li>
+<p>做完这一切会向<code>Leader</code>发送一个<code>MsgAppResp</code>的消息，包括自己的<code>id</code>,最新的日志信息<code>index</code>；若是拒绝的，则会发送自身最新的日志信息，将其放在<code>RejectHint</code>属性当中</p>
+</li>
+</ul>
+<h5 id="leader接收msgappresp">Leader接收MsgAppResp</h5>
+<p>在<code>stepLeader</code> <code>function</code>当中可以看到收到<code>MsgAppResp</code>的消息后，<code>Leader</code>做了以下处理：</p>
+<ul>
+<li>
+<p>若是拒绝消息，因为有可能<code>follower</code>的日志比较旧，跟不上<code>leader</code>，那么<code>leader</code>就会根据<code>RejectHint</code>来降低自己的日志索引，然后发给<code>follower</code>，同时将<code>progress</code>里面<code>follower</code>的状态维护为<code>StateProbe</code>，意思是这个伙计现在有点问题，直至恢复</p>
+</li>
+<li>
+<p>若是成功消息，则对此<code>follower</code>的<code>progress</code>里面的状态进行判断</p>
+<ul>
+<li>若为<code>Probe</code>，修改为<code>Replicate</code></li>
+<li>若为<code>snapshot</code>，说明是需要做快照了</li>
+<li>若为<code>replicate</code>，则需要开始提交<code>commit</code>了；</li>
+<li>若没有问题，将<code>leader</code>的commit索引更新，然后广播可以提交的append消息，只不过这一次发送的时候<code>progress</code>的状态不同；</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">maybeCommit</span>() {
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e">// 广播发送
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>					<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">bcastAppend</span>()
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>		<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Type</span> = <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">MsgApp</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Index</span> = <span style="color:#a6e22e">pr</span>.<span style="color:#a6e22e">Next</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">LogTerm</span> = <span style="color:#a6e22e">term</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Entries</span> = <span style="color:#a6e22e">ents</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Commit</span> = <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">raftLog</span>.<span style="color:#a6e22e">committed</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Entries</span>); <span style="color:#a6e22e">n</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">pr</span>.<span style="color:#a6e22e">State</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// optimistically increase the next when in StateReplicate
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#75715e">// 再次发送时，state为replicate
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">tracker</span>.<span style="color:#a6e22e">StateReplicate</span>:
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">last</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Entries</span>[<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">Index</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">pr</span>.<span style="color:#a6e22e">OptimisticUpdate</span>(<span style="color:#a6e22e">last</span>)
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">pr</span>.<span style="color:#a6e22e">Inflights</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">last</span>)
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// 第一次发送是为probe状态
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">tracker</span>.<span style="color:#a6e22e">StateProbe</span>:
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">pr</span>.<span style="color:#a6e22e">ProbeSent</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">Panicf</span>(<span style="color:#e6db74">&#34;%x is sending append in unhandled state %s&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">pr</span>.<span style="color:#a6e22e">State</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span></code></pre></div></li>
+</ul>
+<p>可以看到当<code>etcdserver</code>接受到命令的时候，并不是直接就执行，而是先放在本地的<code>unstable</code>里面，然后再向<code>follower</code>发送，等大多数的<code>follower</code>返回结果，自己才会进行更新至<code>commit</code>里面；而整个过程都是维护在<code>ProgressTracker</code>当中；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ProgressTracker</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Config</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Progress</span> <span style="color:#a6e22e">ProgressMap</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Votes</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">uint64</span>]<span style="color:#66d9ef">bool</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">MaxInflight</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>ProgressMap是以follower的id为key，对应的value为一个<code>Progress</code>的指针，维护着<code>follower</code>的状态
+<ul>
+<li>状态类型，<code>probe</code>、<code>replicate</code>、<code>snapshot</code></li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Progress</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Match</span>, <span style="color:#a6e22e">Next</span> <span style="color:#66d9ef">uint64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">State</span> <span style="color:#a6e22e">StateType</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 等待快照的数量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">PendingSnapshot</span> <span style="color:#66d9ef">uint64</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 是否活跃，即收到了任何的message都会设置为true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">RecentActive</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 当为true时，follower就无法向其发送信息，直到follower修改状态
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ProbeSent</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 这个是航班，每开始同步日志的时候，就会将其尾部的去掉，将新的日志index加入进去；
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Inflights</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Inflights</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 刚开始的节点或者角色发生变化 后，状态为learner；
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">IsLearner</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8B%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6/>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8B%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/etcd/">
+                    #etcd</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Braft%E9%80%89%E4%B8%BE/" class="prev" rel="prev" title="etcd––从源码看raft选举"><i class="iconfont icon-left"></i>&nbsp;etcd––从源码看raft选举</a>
+        
+        
+        <a href="https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage/" class="next" rel="next" title="etcd––从源码看Storage">etcd––从源码看Storage&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

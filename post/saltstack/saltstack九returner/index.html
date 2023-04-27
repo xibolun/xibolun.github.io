@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/saltstack/saltstack%E5%85%ABsalt-api/" />
+    <link rel="next" href="https://xibolun.github.io/post/saltstack/saltstack%E5%8D%81salt-event/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/saltstack/saltstack%E4%B9%9Dreturner/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            SaltStack(九)salt-returner | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="SaltStack(九)salt-returner | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "SaltStack(九)salt-returner",
+    "headline" : "SaltStack(九)salt-returner",
+    "description" : "Returner salt支持的returners列表 查看当前salt-minion上面支持多少returner，有的环境可以没有装太多的returner salt",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-11-05 16:37:18 \u002b0800 CST",
+    "dateModified" : "2019-11-05 16:37:18 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/saltstack\/saltstack%E4%B9%9Dreturner\/",
+    "wordCount" : "720",
+    "keywords" : [ "saltstack", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">SaltStack(九)salt-returner</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2019-11-05 itemprop="datePublished">November 5, 2019</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">720 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="returner">Returner</h2>
+<p><code>salt</code>支持的<a href="https://docs.saltstack.com/en/latest/ref/returners/all/index.html#all-salt-returners"><code>returners</code>列表</a></p>
+<p>查看当前salt-minion上面支持多少returner，有的环境可以没有装太多的<code>returner</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>salt <span style="color:#e6db74">&#39;*&#39;</span> sys.list_returners
+</span></span></code></pre></div><h3 id="returner原理">Returner原理</h3>
+<p><img src="/img/salt/external_job.png" alt="external-job-cache" loading="lazy" ></p>
+<p>master下发指令后，minion将结果返回给master，同时写一份数据至其他扩展的系统，可以是mysql、mongo、syslog、stmp等；</p>
+<p>github上面写的有现成的第三方组件 <a href="https://github.com/saltstack/salt/tree/master/salt/returners">salt-returners</a></p>
+<h4 id="mysql-returner">MySQL Returner</h4>
+<p>官网link： <a href="https://docs.saltstack.com/en/latest/ref/returners/all/salt.returners.mysql.html#module-salt.returners.mysql">salt.returners.mysql</a></p>
+<h5 id="master端配置">Master端配置</h5>
+<p>查看已经当前<code>salt</code>版本已经支持的returners</p>
+<pre tabindex="0"><code>salt &#39;*&#39; sys.list_returners
+</code></pre><p>若不支持<code>mysql</code>，进行如下操作，若已经支持，则忽略</p>
+<p>下载 <a href="https://github.com/saltstack/salt/blob/master/salt/returners/mysql.py">mysql.py</a> 至<code>/srv/salt/_returners</code>目录下，使用以下任何命令进行同步</p>
+<ul>
+<li><a href="https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.state.html#salt.modules.state.apply_"><code>state.apply</code></a></li>
+<li><a href="https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.saltutil.html#salt.modules.saltutil.sync_returners"><code>saltutil.sync_returners</code></a></li>
+<li><a href="https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.saltutil.html#salt.modules.saltutil.sync_all"><code>saltutil.sync_all</code></a></li>
+</ul>
+<h5 id="minion端配置">Minion端配置</h5>
+<p>安装<code>MySQL-python</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>yum install -y MySQL-python
+</span></span></code></pre></div><p>修改配置文件<code>/etc/salt/minion</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">return</span>: <span style="color:#ae81ff">mysql</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">mysql.host</span>: <span style="color:#e6db74">&#39;xxxxx&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">mysql.user</span>: <span style="color:#e6db74">&#39;root&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">mysql.pass</span>: <span style="color:#e6db74">&#39;xxxxx&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">mysql.db</span>: <span style="color:#e6db74">&#39;salt&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">mysql.port</span>: <span style="color:#ae81ff">3306</span>
+</span></span></code></pre></div><p>以下的数据库当中需要创建如下<code>SQL</code>：</p>
+<pre tabindex="0"><code>CREATE DATABASE  `salt`
+  DEFAULT CHARACTER SET utf8
+  DEFAULT COLLATE utf8_general_ci;
+
+USE `salt`;
+
+--
+-- Table structure for table `jids`
+--
+
+DROP TABLE IF EXISTS `jids`;
+CREATE TABLE `jids` (
+  `jid` varchar(255) NOT NULL,
+  `load` mediumtext NOT NULL,
+  UNIQUE KEY `jid` (`jid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE INDEX jid ON jids(jid) USING BTREE;
+
+--
+-- Table structure for table `salt_returns`
+--
+
+DROP TABLE IF EXISTS `salt_returns`;
+CREATE TABLE `salt_returns` (
+  `fun` varchar(50) NOT NULL,
+  `jid` varchar(255) NOT NULL,
+  `return` mediumtext NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `success` varchar(10) NOT NULL,
+  `full_ret` mediumtext NOT NULL,
+  `alter_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  KEY `id` (`id`),
+  KEY `jid` (`jid`),
+  KEY `fun` (`fun`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `salt_events`
+--
+
+DROP TABLE IF EXISTS `salt_events`;
+CREATE TABLE `salt_events` (
+`id` BIGINT NOT NULL AUTO_INCREMENT,
+`tag` varchar(255) NOT NULL,
+`data` mediumtext NOT NULL,
+`alter_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+`master_id` varchar(255) NOT NULL,
+PRIMARY KEY (`id`),
+KEY `tag` (`tag`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+</code></pre><p>执行命令</p>
+<p><code>salt '*' test.ping --return mysql</code></p>
+<p>查询数据</p>
+<p><code>SELECT * FROM salt_returns;</code></p>
+<h4 id="mongo-return">Mongo Return</h4>
+<p>Master同样的操作</p>
+<h5 id="minion">Minion</h5>
+<p>安装pymongo依赖</p>
+<pre tabindex="0"><code>yum install pymongo -y
+</code></pre><p>修改配置文件<code>/etc/salt/minion</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#66d9ef">return</span>: mongo
+</span></span><span style="display:flex;"><span>mongo.db: salt
+</span></span><span style="display:flex;"><span>mongo.host: xxxx
+</span></span><span style="display:flex;"><span>mongo.user: root
+</span></span><span style="display:flex;"><span>mongo.password: xxxx
+</span></span><span style="display:flex;"><span>mongo.port: <span style="color:#ae81ff">27017</span>
+</span></span></code></pre></div><h4 id="redis-return">Redis Return</h4>
+<p>Master同样操作</p>
+<h5 id="minion-1">Minion</h5>
+<p>安装python redis</p>
+<pre tabindex="0"><code>yum install python2-redis -y
+</code></pre><p>修改配置文件<code>/etc/salt/minion</code></p>
+<pre tabindex="0"><code>return: redis
+redis.db: &#39;0&#39;
+redis.host: &#39;salt&#39;
+redis.port: 6379
+</code></pre><p>执行命令</p>
+<p><code>salt '*' test.ping --return redis</code></p>
+<p>查看redis结果</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; keys *
+ 1) &#34;ret:20191230212420062280&#34;
+ 2) &#34;F6572042-D38D-464D-0A2E-80ACAD430903:state.highstate&#34;
+ 3) &#34;ret:req&#34;
+ 4) &#34;F6572042-D38D-464D-0A2E-80ACAD430903:cmd.run&#34;
+ 5) &#34;ret:20191230212656663741&#34;
+ 6) &#34;ret:20191230212954734477&#34;
+ 7) &#34;F6572042-D38D-464D-0A2E-80ACAD430903:test.ping&#34;
+ 8) &#34;ret:20191230212927159795&#34;
+ 9) &#34;minions&#34;
+10) &#34;F6572042-D38D-464D-0A2E-80ACAD430903:saltutil.sync_returners&#34;
+</code></pre><h3 id="自定义returner">自定义Returner</h3>
+<p><a href="https://docs.saltstack.com/en/latest/ref/returners/#writing-a-returner">writting-a-returner</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/saltstack/saltstack%E4%B9%9Dreturner/>https://xibolun.github.io/post/saltstack/saltstack%E4%B9%9Dreturner/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/saltstack/">
+                    #saltstack</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E5%85%ABsalt-api/" class="prev" rel="prev" title="SaltStack(八)salt-api"><i class="iconfont icon-left"></i>&nbsp;SaltStack(八)salt-api</a>
+        
+        
+        <a href="https://xibolun.github.io/post/saltstack/saltstack%E5%8D%81salt-event/" class="next" rel="next" title="SaltStack(十)salt-event">SaltStack(十)salt-event&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

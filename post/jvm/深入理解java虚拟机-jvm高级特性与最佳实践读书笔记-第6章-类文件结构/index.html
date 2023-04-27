@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC4%E7%AB%A0-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/" />
+    <link rel="next" href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC5%E7%AB%A0-%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC6%E7%AB%A0-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            深入理解Java虚拟机--第6章 类文件结构 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="深入理解Java虚拟机--第6章 类文件结构 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "深入理解Java虚拟机--第6章 类文件结构",
+    "headline" : "深入理解Java虚拟机--第6章 类文件结构",
+    "description" : "第6章 类文件结构 6.1 概述 代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步 二进制本地机器码不再是唯一的选",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-07-07 23:36:24 \u002b0800 CST",
+    "dateModified" : "2017-07-07 23:36:24 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/jvm\/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC6%E7%AB%A0-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84\/",
+    "wordCount" : "1495",
+    "keywords" : [  "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">深入理解Java虚拟机--第6章 类文件结构</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-07-07 itemprop="datePublished">July 7, 2017</time>
+                </span>
+                in
+                
+                <span class="post-word-count">1495 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h1 id="第6章-类文件结构">第6章 类文件结构</h1>
+<h2 id="61-概述">6.1 概述</h2>
+<ul>
+<li>代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步</li>
+<li>二进制本地机器码不再是唯一的选择</li>
+</ul>
+<h2 id="62-无关性基石">6.2 无关性基石</h2>
+<ul>
+<li>一次编写，到处运行</li>
+<li>JVM通过JSR-292实现了对其他语言在jvm上面运行，像Clojure、Groovy、JRuby、Jython、Scala等；通过对应语言的编译器，将代码都编译成Class文件</li>
+</ul>
+<h2 id="63-class类文件结构">6.3 Class类文件结构</h2>
+<ul>
+<li>Class文件是一组以8位字节为基础单位的二进制流</li>
+<li>Class文件结构采用一种类似于C语言结构体的伪结构来存储数据，有两种数据类型：无符号和表</li>
+<li>无符号类型属于基本数据类型，以u1、u2、u4、u8来代表1个字节、2个字节、4个字节、8个字节的无符号数，用于描述数字，索引引用、数量值或者UTF-8编码构成字符串等</li>
+<li>表是由多个无符号或者其他表作为数据项构成的复合数据类型，表一般以~info结尾~，用于描述层次关系的复合结构数据，整个Class文件就是一张表</li>
+</ul>
+<h3 id="631-魔数与class文件的版本">6.3.1 魔数与Class文件的版本</h3>
+<ul>
+<li>每个Class文件的头4个字节称为魔数，唯一作用是确定这个文件是否被虚拟机接受的Class文件</li>
+<li>文件的扩展名称可以随意改动，基于安全方面的考虑采用了魔数</li>
+<li>vim打开.class文件，输入:%!xxd即可转换为十六进制</li>
+<li>4个字节后面存储的是Class文件的版本号，即0xcafebabe</li>
+<li>第5、6个字节是次版本号 0x0000</li>
+<li>第7、8个字节是主版本号 0x0033</li>
+</ul>
+<pre tabindex="0"><code>00000000: cafe babe 0000 0033 002d 0a00 0700 2609
+</code></pre><h3 id="632-常量池">6.3.2 常量池</h3>
+<ul>
+<li>紧接着主次版本号之后的是常量池入口，常量池是</li>
+<li>占用Class文件最多的资源仓库，</li>
+<li>占用Class文件空间最大的数据项目，</li>
+<li>与其他项目关联最多的数据类型，</li>
+<li>Class文件当中第一个出现的表类型数据项目</li>
+<li>由于常量池当中常量的数量无法固定，所以放置一项u2类型数据</li>
+<li>常量池容量计数值从1开始，而不是从0开始</li>
+<li>常量池当中存放大类的常量：字面量和符号引用</li>
+<li>字面量(literal)与Java语言的常量概念接近，final声明或者字符串等</li>
+<li>符号引用(symbolic
+References)类似于编译原理方面的概念，包括下面三类常量:类和接口的全限定名、字段的名称和描述符</li>
+</ul>
+<h3 id="633-访问标志">6.3.3 访问标志</h3>
+<ul>
+<li>两个字节来代表，用于记录访问标志是public、final、注解、枚举等</li>
+</ul>
+<h3 id="634-类索引父类索引与接口索引集合">6.3.4 类索引、父类索引与接口索引集合</h3>
+<ul>
+<li>类索引和父类索引是u2类型的数据、接口索引是u2类型数据的集合</li>
+<li>因为对象都继承于Object，那么所有Java类的父类索引都不为0</li>
+</ul>
+<h3 id="635-字段表集合">6.3.5 字段表集合</h3>
+<ul>
+<li>用于描述接口或者类中声明的变量</li>
+<li>字段表包括访问标志、名称索引、描述符索引、属性表</li>
+</ul>
+<h3 id="636-方法表集合">6.3.6 方法表集合</h3>
+<ul>
+<li>方法表用于描述类当中的方法，与字段表的结构一样，包括访问标志、名称索引、描述符索引、属性表集合几项</li>
+<li>方法当中的代码被存放在方法属性表集合当中的一个&quot;CODE&quot;属性里面</li>
+</ul>
+<h3 id="637-属性表集合">6.3.7 属性表集合</h3>
+<ul>
+<li>Exception、final声明的常量值、方法里面的代码(CODE)等</li>
+</ul>
+<h2 id="64-字节码指令简介">6.4 字节码指令简介</h2>
+<ul>
+<li>jvm有一套字节码转换指定，比如说加法指令：iadd、ladd、fadd、dadd等</li>
+<li>这些指令包括：加载和存储指令、运算指令、类转换指令、对象创建与访问指令、操作数栈管理指令、方法调用和返回指令、异常处理指令、同步指令</li>
+</ul>
+<h2 id="65-公有设计和私有实现">6.5 公有设计和私有实现</h2>
+<ul>
+<li>jvm怎么可以知道方法是私有还是公有的呢？</li>
+<li>两种方式实现：</li>
+<li>
+<ol>
+<li>将代码在加载或执行时翻译成另外一种虚拟机的指令集</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>将代码在加载或执行时翻译成宿主机CPU的本地指令集（JIT代码生成技术）</li>
+</ol>
+</li>
+</ul>
+<h2 id="66-class文件结构的发展">6.6 Class文件结构的发展</h2>
+<ul>
+<li>Java虚拟机规范第1版本以来，Class文件结构一直都比较稳定</li>
+<li>在第2版本当中添加了一些访问标志等属性</li>
+</ul>
+<h2 id="67-本章小结">6.7 本章小结</h2>
+<ul>
+<li>Class文件结构是怎么样的</li>
+<li>字节码指令的介绍</li>
+<li>虚拟机怎么解释字节码</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC6%E7%AB%A0-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/>https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC6%E7%AB%A0-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC4%E7%AB%A0-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/" class="prev" rel="prev" title="深入理解Java虚拟机--第4章 虚拟机性能监控与故障处理"><i class="iconfont icon-left"></i>&nbsp;深入理解Java虚拟机--第4章 虚拟机性能监控与故障处理</a>
+        
+        
+        <a href="https://xibolun.github.io/post/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-jvm%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC5%E7%AB%A0-%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/" class="next" rel="next" title="深入理解Java虚拟机--第5章 调优案例分析与实战">深入理解Java虚拟机--第5章 调优案例分析与实战&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

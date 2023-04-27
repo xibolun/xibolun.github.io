@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%94-rabbitmqadmin/" />
+    <link rel="next" href="https://xibolun.github.io/post/golang/go%E7%BB%84%E4%BB%B6/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%89-exchange-modes/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            RabbitMQ(三) Exchange Modes | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="RabbitMQ(三) Exchange Modes | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "RabbitMQ(三) Exchange Modes",
+    "headline" : "RabbitMQ(三) Exchange Modes",
+    "description" : "Exchange Modes Direct direct 按着指定的路由发送至对应的queue，若routingKey不指定，则使用默认的\u0026quot;\u0026quot; 可以使用相同的routing",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-06-25 17:30:28 \u002b0800 CST",
+    "dateModified" : "2018-06-25 17:30:28 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/rabbitmq\/rabbitmq%E4%B8%89-exchange-modes\/",
+    "wordCount" : "479",
+    "keywords" : [ "RabbitMQ", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">RabbitMQ(三) Exchange Modes</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2018-06-25 itemprop="datePublished">June 25, 2018</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">479 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="exchange-modes">Exchange Modes</h2>
+<h3 id="direct">Direct</h3>
+<ul>
+<li>direct 按着指定的路由发送至对应的queue，若routingKey不指定，则使用默认的&quot;&quot;</li>
+</ul>
+<p><img src="https://www.rabbitmq.com/img/tutorials/intro/exchange-direct.png" alt="exchange-direct" loading="lazy" ></p>
+<ul>
+<li>可以使用相同的routingKey绑定不同的Queues，这种形式像fanout模式一样</li>
+</ul>
+<p><img src="http://www.rabbitmq.com/img/tutorials/direct-exchange-multiple.png" alt="direct-exchange-multiple" loading="lazy" ></p>
+<h3 id="fanout">Fanout</h3>
+<ul>
+<li>路由模式，设置routingKey是没有用的，会发送消息至所有与fanoutExchange绑定的queues里面去</li>
+<li>若FanoutExchange改变了绑定的Queue，RabbitMQ不会内部刷新，需要手工删除</li>
+<li>faout发送的消息，topic也是可以接收到的</li>
+</ul>
+<p><img src="https://www.rabbitmq.com/img/tutorials/intro/exchange-fanout.png" alt="exchange-fanout" loading="lazy" ></p>
+<h3 id="topic">Topic</h3>
+<ul>
+<li>发送时定义什么样的routingKey，则接收的时候按照routingKey的规则去接收</li>
+<li>topic模式下的routingKey可以是表达式，用于多个Queue进行接收</li>
+<li>若TopicExchange改变了绑定的RoutingKey，RabbitMQ不会内部刷新，需要手工删除</li>
+</ul>
+<h4 id="----">*  &amp;  #</h4>
+<pre tabindex="0"><code>/**
+ * Q1    hello*
+ * Q2    hello#
+ * 2.hello.2        Q1
+ * hello.2          Q1 Q2
+ * hello.to.hello   Q2
+ * null             无
+ * &#34;&#34;               无
+ * 2hello           无
+ * hello2           无
+ */
+</code></pre><ul>
+<li>* 只匹配一个字符</li>
+<li># 匹配多个字符</li>
+<li>若存在多个匹配字符，则*就不会命中，只有#会命中</li>
+<li>hello2与2hello不会命中说明不是like，而是单词的full匹配；</li>
+</ul>
+<h3 id="demo">Demo</h3>
+<p><a href="https://github.com/kedadiannao220/springboot-exp/tree/master/springboot-rabbit">springboot-rabbit</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%89-exchange-modes/>https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%B8%89-exchange-modes/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/rabbitmq/">
+                    #RabbitMQ</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/rabbitmq/rabbitmq%E4%BA%94-rabbitmqadmin/" class="prev" rel="prev" title="RabbitMQ(三) Rabbitmqadmin"><i class="iconfont icon-left"></i>&nbsp;RabbitMQ(三) Rabbitmqadmin</a>
+        
+        
+        <a href="https://xibolun.github.io/post/golang/go%E7%BB%84%E4%BB%B6/" class="next" rel="next" title="go规范及组件">go规范及组件&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

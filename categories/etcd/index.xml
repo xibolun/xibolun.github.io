@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>etcd on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/categories/etcd/</link>
+    <description>Recent content in etcd on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 16 Dec 2021 12:50:35 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/categories/etcd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一次关于etcd故障处理</title>
+      <link>https://xibolun.github.io/post/etcd/%E4%B8%80%E6%AC%A1%E5%85%B3%E4%BA%8Eetcd%E7%9A%84%E7%94%9F%E4%BA%A7%E6%8E%92%E9%9A%9C/</link>
+      <pubDate>Thu, 16 Dec 2021 12:50:35 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/%E4%B8%80%E6%AC%A1%E5%85%B3%E4%BA%8Eetcd%E7%9A%84%E7%94%9F%E4%BA%A7%E6%8E%92%E9%9A%9C/</guid>
+      <description>一次关于etcd故障处理 现象 任务下发配置不成功 链路整理 web -&amp;gt; 服务端放参数至 -&amp;gt; etcdserver -&amp;gt; 远程机接收参数信息 -&amp;gt; 远程机执行命令 问题解决 第一波观察日志未果 怀</description>
+    </item>
+    
+    <item>
+      <title>etcd––从源码看lease机制</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Blease%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Wed, 08 Jul 2020 17:44:23 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Blease%E6%9C%BA%E5%88%B6/</guid>
+      <description>Lease使用 先声明一个指定过期时间ttl的lease，再将lease绑定到一个key上面，ttl到期后将key移除，这中间有哪些操作呢？ L</description>
+    </item>
+    
+    <item>
+      <title>etcd––从源码看watch机制</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bwatch%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Tue, 07 Jul 2020 10:13:54 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bwatch%E6%9C%BA%E5%88%B6/</guid>
+      <description>Watch使用 watch有两种操作，一种是key，一种是range，即监听一段的key，从一个测试用例里面看看，主要包括几个操作 初始化一个w</description>
+    </item>
+    
+    <item>
+      <title>etcd––从源码看Storage</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage/</link>
+      <pubDate>Sun, 05 Jul 2020 14:32:00 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Bstorage/</guid>
+      <description>当启动了一个etcd server的时候，会生成一些数据文件，这些文件便是etcd storage，主要分析wal和snapshot ➜ tree . └──</description>
+    </item>
+    
+    <item>
+      <title>etcd––从源码看日志复制</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8B%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6/</link>
+      <pubDate>Sat, 04 Jul 2020 09:45:47 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8B%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6/</guid>
+      <description>日志复制 日志对象 etcd把一条日志做为一个entry，每一个里面都会有几个属性： Term：leader的任期，这个属性的目的乃是follow</description>
+    </item>
+    
+    <item>
+      <title>etcd––从源码看raft选举</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Braft%E9%80%89%E4%B8%BE/</link>
+      <pubDate>Fri, 03 Jul 2020 15:48:17 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E4%BB%8E%E6%BA%90%E7%A0%81%E7%9C%8Braft%E9%80%89%E4%B8%BE/</guid>
+      <description>Raft算法 分布式一致性算法最出名的是paxos，但是因为其非常难以理解，所以便有了简单可理解的raft算法；Raft将分布式问题归为几个模</description>
+    </item>
+    
+    <item>
+      <title>etcd––入门</title>
+      <link>https://xibolun.github.io/post/etcd/etcd%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Wed, 01 Jul 2020 14:17:18 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/etcd/etcd%E5%85%A5%E9%97%A8/</guid>
+      <description>环境搭建 现在有了docker，环境搭建就非常的简单了 /usr/bin/docker run --restart=on-failure:5 --env-file=/etc/etcd.env --net=host -v /etc/ssl/certs:/etc/ssl/certs:ro -v /etc/ssl/etcd/ssl:/etc/ssl/etcd/ssl:ro -v /var/lib/et cd:/var/lib/etcd:rw --memory=512M --blkio-weight=1000 --name=etcd1 kubesphere/etcd:v3.3.12 /usr/local/bin/etcd 使用 连接 export ETCDCTL_API=3 etcdctl --endpoints=10.0.4.175:2379,10.0.4.175:2380 --cacert=/etc/ssl/etcd/ssl/ca.pem --cert=/etc/ssl/etcd/ssl/node-Ops-pre-4-175.pem --key=/etc/ssl/etcd/ssl/node-Ops-pre-4-175-key.pem member list alias一下会比较方便 alias etcdctl=&amp;#39;etcdctl</description>
+    </item>
+    
+  </channel>
+</rss>

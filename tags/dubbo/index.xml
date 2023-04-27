@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dubbo on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/dubbo/</link>
+    <description>Recent content in dubbo on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 04 Jul 2017 22:43:54 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/dubbo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>dubbo学习--环境搭建遇到的一些坑</title>
+      <link>https://xibolun.github.io/post/dubbo%E5%AD%A6%E4%B9%A0--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</link>
+      <pubDate>Tue, 04 Jul 2017 22:43:54 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/dubbo%E5%AD%A6%E4%B9%A0--%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</guid>
+      <description>前言 最近比较寂寞，想学dubbo，又不想按照官网那种方式进行配置，想集成于spring boot；所以上网找了一下有没有spring boot dubb</description>
+    </item>
+    
+  </channel>
+</rss>

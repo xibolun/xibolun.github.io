@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>spring on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/tags/spring/</link>
+    <description>Recent content in spring on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 21 Sep 2017 23:36:24 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/spring/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SpringBoot实战第7章--Actuator</title>
+      <link>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC7%E7%AB%A0--actuator/</link>
+      <pubDate>Thu, 21 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC7%E7%AB%A0--actuator/</guid>
+      <description>说明 SpringBoot实战第4章讲测试 SpringBoot实战第5章讲Groovy SpringBoot实战第6章讲Grails 由于在工作当</description>
+    </item>
+    
+    <item>
+      <title>SpringBoot实战第1章--入门</title>
+      <link>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC1%E7%AB%A0--%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Wed, 20 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC1%E7%AB%A0--%E5%85%A5%E9%97%A8/</guid>
+      <description>前言 SpringBoot可以让Spring不再成为开发的绊脚石，轻量配置或者完全不需要配置 内容 Spring精要 自动配置：若配置了dataso</description>
+    </item>
+    
+    <item>
+      <title>SpringBoot实战第2章--自定义配置</title>
+      <link>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC2%E7%AB%A0--%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 20 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/springboot%E5%AE%9E%E6%88%98%E7%AC%AC2%E7%AB%A0--%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/</guid>
+      <description>注解 属性文件外置配置 要想使用属性文件外置配置，根据 Generating your own meta-data using the annotation processor 需要配置spring-boot-configuration-process</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第12章--远程服务</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC12%E7%AB%A0--%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Wed, 20 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC12%E7%AB%A0--%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1/</guid>
+      <description>目前调用远程接口可以使用一些RPC框架，或者使用Spring Template；或Web Service等</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第13章--Spring消息</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC13%E7%AB%A0--spring%E6%B6%88%E6%81%AF/</link>
+      <pubDate>Wed, 20 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC13%E7%AB%A0--spring%E6%B6%88%E6%81%AF/</guid>
+      <description>Spring与ActiveMQ的集成：ActiveMQ</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第10章--事务</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC10%E7%AB%A0--%E4%BA%8B%E5%8A%A1/</link>
+      <pubDate>Mon, 18 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC10%E7%AB%A0--%E4%BA%8B%E5%8A%A1/</guid>
+      <description>前言 以JDBC的形式操作数据库，需要控制获得连接、关闭连接、事务提交、回滚等操作，而Spring的声明式事务处理可以从复杂的事务处理中脱离出</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第11章--Spring MVC</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC11%E7%AB%A0--spring-mvc/</link>
+      <pubDate>Mon, 18 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC11%E7%AB%A0--spring-mvc/</guid>
+      <description>说明，由于目前使用SpringBoot，并且使用Restful对API进行管理；所以Spring MVC的思想继续保持延续，但代码一般不怎么写</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第8章--数据库连接JDBC</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC8%E7%AB%A0--%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5jdbc/</link>
+      <pubDate>Tue, 12 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC8%E7%AB%A0--%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5jdbc/</guid>
+      <description>前言 什么是JDBC（Java DataBase Connectivity Java数据库连接） 怎么使用JDBC？ 引入数据库驱动jar包 Java在程序当中加载驱动Class.forNa</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第9章--MyBatis整合</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC9%E7%AB%A0--mybatis%E6%95%B4%E5%90%88/</link>
+      <pubDate>Tue, 12 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC9%E7%AB%A0--mybatis%E6%95%B4%E5%90%88/</guid>
+      <description>前言 MyBatis 之前叫iBatis，是Apache的一个开源项目，后来迁移到了Google Code当中，改名为MyBatis 官网介绍如下：MyBati</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第7章--AOP</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC7%E7%AB%A0--aop/</link>
+      <pubDate>Mon, 04 Sep 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC7%E7%AB%A0--aop/</guid>
+      <description>前言 什么是AOP？为什么要玩AOP AOP是Aspect Oriented Programming，意即面向切面编程 面向对向编程是竖向的方式；无法对多个对象进行</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第6章--容器的功能扩展</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC6%E7%AB%A0--%E5%AE%B9%E5%99%A8%E7%9A%84%E5%8A%9F%E8%83%BD%E6%89%A9%E5%B1%95/</link>
+      <pubDate>Tue, 29 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC6%E7%AB%A0--%E5%AE%B9%E5%99%A8%E7%9A%84%E5%8A%9F%E8%83%BD%E6%89%A9%E5%B1%95/</guid>
+      <description>概述 spring不仅仅提供了xmlBeanFactory，还提供了ApplictionContext用于扩展BeanFactory当中的功能</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第4章--自定义标签解析</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC4%E7%AB%A0--%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Mon, 21 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC4%E7%AB%A0--%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E8%A7%A3%E6%9E%90/</guid>
+      <description>4.1 自定义标签的使用 为了方便非标准的spring bean配置，spring提供了自定义标签的功能 原理为使用spring提供AbstractBe</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第5章--bean的加载</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC5%E7%AB%A0--bean%E7%9A%84%E5%8A%A0%E8%BD%BD/</link>
+      <pubDate>Mon, 21 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC5%E7%AB%A0--bean%E7%9A%84%E5%8A%A0%E8%BD%BD/</guid>
+      <description>5.1 FactoryBean的使用 /*** AbstractBeanFactory.doGetBean方法加载bean **/ protected &amp;lt;T&amp;gt; T doGetBean(final String name, @Nullable final Class&amp;lt;T&amp;gt; requiredType, @Nullable final Object[] args, boolean typeCheckOnly)</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第3章--默认标签的解析</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC3%E7%AB%A0-%E9%BB%98%E8%AE%A4%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Tue, 15 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC3%E7%AB%A0-%E9%BB%98%E8%AE%A4%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/</guid>
+      <description>3.1 bean标签的解析及注册 DefaultBeanDefinitionDocumentReader.parseDefaultElement:解</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第1章--整体架构和环境搭建</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC1%E7%AB%A0--%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Thu, 03 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC1%E7%AB%A0--%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>学习说明 在看到第五章的时候有以下心得 看源码是一个枯燥的过程，因为你并没有参与到实际的开发和设计当中，所以有一些命名和思路不会非常明确，并且写</description>
+    </item>
+    
+    <item>
+      <title>Spring源码深度解析第2章--容器的基本实现</title>
+      <link>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC2%E7%AB%A0--%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Thu, 03 Aug 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring%E6%BA%90%E7%A0%81/spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E7%AC%AC2%E7%AB%A0--%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/</guid>
+      <description>2.3 最简单的例子 public class MyTestBean { private String testStr = &amp;#34;testStr&amp;#34;; public String getTestStr() { return this.testStr; } public void setTestStr(String str) { this.testStr = str; } } &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; ?&amp;gt; &amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&amp;#34;&amp;gt; &amp;lt;bean id=&amp;#34;myTestBean&amp;#34; class=&amp;#34;com.spring.MyTestBean&amp;#34;/&amp;gt; &amp;lt;/beans&amp;gt; public class TestClass { @Test public void test() throws IOException { // ClassPathResource Resource res = new ClassPathResource(&amp;#34;beanFactory.xml&amp;#34;); BeanFactory beanFactory = new XBeanXmlBeanFactory(res); MyTestBean</description>
+    </item>
+    
+    <item>
+      <title>Spring-RestTemplate</title>
+      <link>https://xibolun.github.io/post/spring/spring-resttemplate/</link>
+      <pubDate>Thu, 27 Apr 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring-resttemplate/</guid>
+      <description>解决中文乱码的问题和Delete无法传入body的问题 问题说明：RestTemplate中文乱码问题； 回复里面有我的评论，以下为解决方法 package com.idcos.cloudres.biz.common.util;</description>
+    </item>
+    
+    <item>
+      <title>Spring-SpringBoot</title>
+      <link>https://xibolun.github.io/post/spring/spring-springboot/</link>
+      <pubDate>Thu, 27 Apr 2017 23:36:24 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/spring/spring-springboot/</guid>
+      <description>Spring 1.5.x当中的hibrenate名称转换策略 今天将Spring从1.3.2升级到1.5.x当中，发现所有的查询都会有异常信息，异常信息为</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/mongo/mongodb--%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" />
+    <link rel="next" href="https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC3%E7%AB%A0/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC4%E7%AB%A0--%E7%B1%BB%E5%BA%93/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Java8函数式编程笔记第4章 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Java8函数式编程笔记第4章 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Java8函数式编程笔记第4章",
+    "headline" : "Java8函数式编程笔记第4章",
+    "description" : "第4章 类库 数据类型 int占用4字节，Integer占用16字节;Integer为整形对象 在最坏的情况下，Integer[]要比int[]多占",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-10-10 23:36:24 \u002b0800 CST",
+    "dateModified" : "2017-10-10 23:36:24 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/java\/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC4%E7%AB%A0--%E7%B1%BB%E5%BA%93\/",
+    "wordCount" : "680",
+    "keywords" : [ "java", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Java8函数式编程笔记第4章</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-10-10 itemprop="datePublished">October 10, 2017</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"> 技术文章, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">680 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h2 id="第4章-类库">第4章 类库</h2>
+<h3 id="数据类型">数据类型</h3>
+<ul>
+<li>int占用4字节，Integer占用16字节;Integer为整形对象</li>
+<li>在最坏的情况下，Integer[]要比int[]多占用6倍的内存</li>
+<li>所以拆箱效率比装箱快</li>
+</ul>
+<pre tabindex="0"><code>    public static void mapToFun() {
+        System.out.println(Stream.of(new Integer(20)).mapToInt(x -&gt; x.intValue()).count());
+        System.out.println(Stream.of(new Integer(20)).mapToLong(x -&gt; x.longValue()).count());
+        System.out.println(Stream.of(new Integer(20)).mapToDouble(x -&gt; x.doubleValue()).count());
+    }
+
+    public static void intStream() {
+
+        System.out.println(IntStream.of(1, 2, 3).average().getAsDouble());
+        System.out.println(IntStream.of(1, 2, 3).max().getAsInt());
+        System.out.println(IntStream.of(1, 2, 3).min().getAsInt());
+        System.out.println(IntStream.of(1, 2, 3).findFirst().getAsInt());
+        System.out.println(IntStream.of(1, 2, 3).findAny().getAsInt());
+        System.out.println(IntStream.of(1, 2, 3).count());
+        System.out.println(IntStream.of(1, 2, 3).sum());
+        System.out.println(IntStream.of(1, 2, 3).limit(2).findFirst().getAsInt());
+        IntStream.range(1, 10).forEach(x -&gt; System.out.println(x));
+
+    }
+</code></pre><h3 id="optional">Optional</h3>
+<pre tabindex="0"><code>    public static void OptionalTest() {
+        System.out.println(Optional.of(&#34;ab&#34;).get());
+        //        System.out.println(Optional.of(null).get());//NPE
+        System.out.println(Optional.ofNullable(null).orElse(&#34;bb&#34;));
+        System.out.println(Optional.empty().orElse(&#34;bb&#34;));
+        System.out.println(Optional.of(&#34;aa&#34;).orElse(&#34;bb&#34;));
+    }
+</code></pre><h3 id="重载解析">重载解析</h3>
+<ul>
+<li>用lambda做为参数传递的时候遵守以下原则</li>
+<li>若只有一个可能的目标类型，由相应的函数接口的参数类型推导得出</li>
+<li>若有多个可能的目标类型，由相应的函数接口参数类型推导得出</li>
+<li>若有多个可能的目标类型且最具体的目标类型不明确的时候，需要人为进行指定lambda的参数类型</li>
+</ul>
+<h3 id="default">default</h3>
+<pre tabindex="0"><code>
+interface Parent {
+
+    public default void welcome() {
+        System.out.println(&#34;this is parent&#34;);
+    }
+}
+
+class ParentImpl implements Parent {
+
+}
+</code></pre><ul>
+<li>使用default定义的接口方法不需要子类必须实现</li>
+<li>若ParentImpl override了welcome方法，则会走ParentImpl方法</li>
+</ul>
+<h3 id="多继承">多继承</h3>
+<pre tabindex="0"><code>interface Person {
+    public default void welcome() {
+        System.out.println(&#34;this is person&#34;);
+    }
+}
+
+interface Parent {
+
+    public default void welcome() {
+        System.out.println(&#34;this is parent&#34;);
+    }
+}
+
+class MultiChild implements Person, Parent {
+
+    @Override
+    public void welcome() {
+        System.out.println(&#34;this is MultiChild&#34;);
+    }
+}
+</code></pre><pre tabindex="0"><code>class ChildImpl {
+    public void welcome() {
+        System.out.println(&#34;this is ChildImpl&#34;);
+    }
+}
+
+interface Parent {
+
+    public default void welcome() {
+        System.out.println(&#34;this is parent&#34;);
+    }
+}
+
+class OverrideChildImpl extends ChildImpl implements Parent {
+
+}
+
+
+      new OverrideChildImpl().welcome();//输出 this is ChildImpl
+</code></pre><ul>
+<li>MultiChild实现了Parent，Person都有welcome方法，则子类MultiChild必须指定自己的welcome</li>
+<li>子类只能一个了父类，但是可以有多个接口实现</li>
+<li>OverrideChildImpl继承的父类和实现的接口当中都有welcome方法，则优先会走父类的方法；类优于接口</li>
+<li>若OverrideChildImpl当中override了welcome方法，那么就会走子类的方法</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC4%E7%AB%A0--%E7%B1%BB%E5%BA%93/>https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC4%E7%AB%A0--%E7%B1%BB%E5%BA%93/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/java/">
+                    #java</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/mongo/mongodb--%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" class="prev" rel="prev" title="MongoDB基础学习"><i class="iconfont icon-left"></i>&nbsp;MongoDB基础学习</a>
+        
+        
+        <a href="https://xibolun.github.io/post/java/java8%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC3%E7%AB%A0/" class="next" rel="next" title="Java8函数式编程笔记第3章">Java8函数式编程笔记第3章&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

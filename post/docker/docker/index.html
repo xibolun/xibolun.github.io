@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    <link rel="prev" href="https://xibolun.github.io/post/tools/nginx/" />
+    <link rel="next" href="https://xibolun.github.io/post/java/basicjava/" />
+    <link rel="canonical" href="https://xibolun.github.io/post/docker/docker/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            Docker学习 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="Docker学习 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "Docker学习",
+    "headline" : "Docker学习",
+    "description" : "Get Started command docker \u0026ndash;version : docker版本 docker command \u0026ndash;help : 查看某个命令的帮助 docker-compose \u0026ndash;version : docker compose版本 docker-machine \u0026ndash;version: docker machine版本 docker version: 查看docker client和s",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-06-20 23:36:24 \u002b0800 CST",
+    "dateModified" : "2017-06-20 23:36:24 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/docker\/docker\/",
+    "wordCount" : "952",
+    "keywords" : [ "docker", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Docker学习</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xibolun.github.io" rel="author">pengganyu</a> with ♥
+                <span class="post-time">
+                on <time datetime=2017-06-20 itemprop="datePublished">June 20, 2017</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/docker/"> docker, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">952 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <hr>
+<h1 id="get-started">Get Started</h1>
+<h2 id="command">command</h2>
+<ol>
+<li>docker &ndash;version : docker版本</li>
+<li>docker command &ndash;help : 查看某个命令的帮助</li>
+<li>docker-compose &ndash;version : docker compose版本</li>
+<li>docker-machine &ndash;version: docker machine版本</li>
+<li>docker version: 查看docker client和server的状态</li>
+<li>docker run -h=&lsquo;cmdb&rsquo; &ndash;name cmdb -d -p 180:80 -p 122:22 dcosapp1.0</li>
+<li>docker save -o dcosapp.tar dcosapp1.0</li>
+</ol>
+<h2 id="镜像">镜像</h2>
+<ul>
+<li>docker pull ubuntu:14.04 : 下载ubuntu:14.04镜像</li>
+<li>docker images : 列出镜像</li>
+<li>docker images -q : 只列出镜像ID</li>
+<li>docker images -f since=hello-world : -f 过滤出某些镜像；since/before</li>
+<li>docker的镜像放在镜像源当中</li>
+</ul>
+<h2 id="容器">容器</h2>
+<h3 id="启动容器">启动容器</h3>
+<ol>
+<li>docker run -it ubuntu:14.04 : 启动一个容器</li>
+<li>docker run -itd ubuntu:14.04 : 启动一个detach的容器，可以使用docker
+attach或者docker exec重新连接</li>
+<li>docker run -it -n pengganyu : 启动容器时添加容器名称</li>
+<li>docker run -it -v /tmp ubuntu:14.04 : 创建容器时添加Volumn</li>
+<li>docker run -it -v /tmp:/tmp ubuntu:14.04 :
+创建容器时添加/tmp卷，同时连接host的/tmp目录，host的/tmp与容器里面的/tmp共享</li>
+</ol>
+<h3 id="其他">其他</h3>
+<ol>
+<li><code>docker logs ubuntu:14.04 </code> ： 输出容器log日志信息</li>
+<li><code>docker create ubuntu:14.04</code> : 创建一个容器</li>
+<li><code>docker ps</code> : 查看running状态的docker运行状态；</li>
+<li><code>docker ps -a </code>: 查看所有的容器列表，包括没有运行的和已经Exited</li>
+<li><code>docker run -it ubuntu:14.04 /bin/bash</code> : 启动一个bash终端，退出则容器销毁</li>
+<li><code>docker exec -it de2ef4052dce /bin/bash</code>: 进入某个docker容器</li>
+<li><code>docker rm bfa78720b949</code> : 删除某个容器，其中bfa78720b949为容器的ID号，结合stop命令使用，先stop再rm</li>
+<li><code>ctrl+d</code> :  退出容器，此时容器也就不再running了，若想重新再running，可以使用<code>docker start</code></li>
+<li><code>docker export de2ef4052dce &amp;gt; test.tar</code> : 将容器导出至tar</li>
+<li><code>docker import test.tar - test/ubuntu:v1.0</code> : 导入容器</li>
+<li><code>docker rename a b</code> ：重命名容器</li>
+</ol>
+<h4 id="进入关闭的container">进入关闭的container</h4>
+<pre tabindex="0"><code>➜  ~ docker ps -a
+CONTAINER ID        IMAGE               COMMAND               CREATED             STATUS                     PORTS               NAMES
+e60e84b8f06d        centos              &#34;/bin/bash&#34;           4 days ago          Exited (130) 4 days ago                        determined_austin
+7e02d7cc602a        centos:7            &#34;/bin/bash&#34;           2 weeks ago         Up 3 minutes                                   golang
+➜  ~ docker start golang 
+golang
+➜  ~ docker ps 
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+7e02d7cc602a        centos:7            &#34;/bin/bash&#34;         2 weeks ago         Up 9 seconds                            golang
+➜  ~ docker exec -it golang /bin/bash
+[root@7e02d7cc602a /]# 
+</code></pre><h2 id="数据管理">数据管理</h2>
+<h3 id="创建docker与本地主机的共享">创建docker与本地主机的共享</h3>
+<ol>
+<li>docker run -it -v /tmp:/tmp ubuntu:14.04 :
+创建容器时添加/tmp卷，同时连接host的/tmp目录，host的/tmp与容器里面的/tmp共享</li>
+<li>第一个tmp为docker里面的数据卷，第二个/tmp为本机的/tmp目录</li>
+<li>本机目录必须为绝对路径</li>
+</ol>
+<h4 id="修改docker默认的uuid">修改docker默认的uuid</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># cat /proc/sys/kernel/random/uuid &gt; /var/tmp/product_uuid ( uuidgen &gt; /var/tmp/product_uuid)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># docker run --rm -ti -v /var/tmp/product_uuid:/sys/class/dmi/id/product_uuid centos bash</span>
+</span></span></code></pre></div><h3 id="创建docker与其他docker的共享">创建docker与其他docker的共享</h3>
+<ol>
+<li>创建docker hf-csa-manager ： docker run -it -v hf-csa-manager &ndash;name
+hf-csa-manager ubuntu:14.04 /bin/bash</li>
+<li>创建docker hf-cmdb : docker run -it &ndash;volumes-from hf-csa-manager
+&ndash;name hf-cmdb ubuntu:14.04 /bin/bash</li>
+<li>两个docker的hf-csa-manager目录数据即可共享</li>
+</ol>
+<h3 id="docker文件提取">docker文件提取</h3>
+<pre tabindex="0"><code>docker cp 85638d3a995e:/root/dellemc-openmanage-ansible-modules /tmp  
+docker cp dellemc-openmanage-ansible-modules f2bea7859ce6:/root
+</code></pre><h2 id="网络配置">网络配置</h2>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/docker/docker/>https://xibolun.github.io/post/docker/docker/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/docker/">
+                    #docker</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/tools/nginx/" class="prev" rel="prev" title="Nginx学习"><i class="iconfont icon-left"></i>&nbsp;Nginx学习</a>
+        
+        
+        <a href="https://xibolun.github.io/post/java/basicjava/" class="next" rel="next" title="Java基础">Java基础&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2016 - 2023</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://xibolun.github.io">pengganyu</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/Mogeko/Mogege" target="_blank" rel="external nofollow">Mogege</a></span>
+    </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>
