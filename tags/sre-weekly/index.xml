@@ -6,7 +6,16 @@
     <description>Recent content in sre-weekly on Peng ganyu blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 21 Apr 2023 11:21:07 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/sre-weekly/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Apr 2023 10:45:33 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/sre-weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SRE Weekly-2023M04W05</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w04/</link>
+      <pubDate>Fri, 28 Apr 2023 10:45:33 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w04/</guid>
+      <description>利器 motrix：免费开源的全能下载工具、支持代理 、BT、磁力 妙言：markdown书写软件，比typora多了ppt mode，使用swif</description>
+    </item>
+    
     <item>
       <title>SRE Weekly-2023M04W03</title>
       <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w03/</link>

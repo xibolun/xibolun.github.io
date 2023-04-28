@@ -11,9 +11,9 @@
     
     
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <meta name="referrer" content="no-referrer-when-downgrade"><link rel="prev" href="https://xibolun.github.io/post/python/xmlsec%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/" />
-    <link rel="next" href="https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w04/" />
-    <link rel="canonical" href="https://xibolun.github.io/post/tools/aflred/" />
+        <meta name="referrer" content="no-referrer-when-downgrade"><link rel="prev" href="https://xibolun.github.io/post/tools/aflred/" />
+    
+    <link rel="canonical" href="https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w04/" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -24,10 +24,10 @@
     <title>
         
         
-            Alfred snippets日期格式化 | Peng ganyu blog
+            SRE Weekly-2023M04W05 | Peng ganyu blog
         
     </title>
-    <meta name="title" content="Alfred snippets日期格式化 | Peng ganyu blog">
+    <meta name="title" content="SRE Weekly-2023M04W05 | Peng ganyu blog">
     
 <link rel="stylesheet" href="/css/main.min.css">
 
@@ -45,9 +45,9 @@
          "@id": "https:\/\/xibolun.github.io"
     },
     "articleSection" : "post",
-    "name" : "Alfred snippets日期格式化",
-    "headline" : "Alfred snippets日期格式化",
-    "description" : "alfred snippets data forma",
+    "name" : "SRE Weekly-2023M04W05",
+    "headline" : "SRE Weekly-2023M04W05",
+    "description" : "sre weekly",
     "inLanguage" : "zh-cn",
     "author" : "pengganyu",
     "creator" : "pengganyu",
@@ -55,11 +55,11 @@
     "accountablePerson" : "pengganyu",
     "copyrightHolder" : "pengganyu",
     "copyrightYear" : "2023",
-    "datePublished": "2023-04-27 10:24:20 \u002b0800 CST",
-    "dateModified" : "2023-04-27 10:24:20 \u002b0800 CST",
-    "url" : "https:\/\/xibolun.github.io\/post\/tools\/aflred\/",
-    "wordCount" : "347",
-    "keywords" : [ "alfred", "Peng ganyu blog"]
+    "datePublished": "2023-04-28 10:45:33 \u002b0800 CST",
+    "dateModified" : "2023-04-28 10:45:33 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/sre-weekly\/sre-weekly-2023m04w04\/",
+    "wordCount" : "150",
+    "keywords" : [ "sre-weekly", "Peng ganyu blog"]
 }
 </script>
 
@@ -169,11 +169,11 @@
                     
 <article class="post-warp" itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Alfred snippets日期格式化</h1>
+        <h1 class="post-title" itemprop="name headline">SRE Weekly-2023M04W05</h1>
         <div class="post-meta">
                 Written
                 <span class="post-time">
-                on <time datetime=2023-04-27 itemprop="datePublished">April 27, 2023</time>
+                on <time datetime=2023-04-28 itemprop="datePublished">April 28, 2023</time>
                 </span>
                 in
                 
@@ -182,11 +182,11 @@
                         
                         
                         
-                          <a href="https://xibolun.github.io/categories/tools/"> tools, </a>
+                          <a href="https://xibolun.github.io/categories/sre-weekly/"> sre-weekly, </a>
                         
                         
                 </span>
-                <span class="post-word-count">347 words</span>
+                <span class="post-word-count">150 words</span>
                 
                 
                 <span id="busuanzi_container_page_pv">本文阅读量<span id="busuanzi_value_page_pv"></span>次</span>
@@ -209,24 +209,18 @@
         
         
 
-        <h2 id="alfred-snippets-placeholder">Alfred snippets PlaceHolder</h2>
-<p>snippets是一个快捷定制化短语的功能，我一般会将常用的一些命令、文本信息放在其内；它有一些动态的输入方式，像python的jinjia模板一样；</p>
-<p>举例</p>
+        <h3 id="利器">利器</h3>
 <ul>
-<li>生成uuid：<code> {random:UUID}</code></li>
-<li>添加一段时间：<code> {datetime}</code></li>
+<li><a href="https://motrix.app/">motrix</a>：免费开源的全能下载工具、支持代理 、BT、磁力</li>
+<li><a href="https://github.com/tw93/MiaoYan">妙言</a>：markdown书写软件，比typora多了ppt mode，使用swift5开发，只适用于mac</li>
 </ul>
-<h3 id="日期格式化">日期格式化</h3>
-<p>如何格式化时间呢？Alfred的格式化遵循 <a href="https://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Field_Symbol_Table">UNICODE LOCALE DATA MARKUP LANGUAGE (LDML)</a>标准</p>
-<p>例如：标准的年-月-日： <code>{date: yyyy-MM-dd}</code> 关键字为 <code>date</code>，接一下冒号就是 <code>format</code>，后面的 <code>yyyy-MM-dd</code>是需要 <code>format</code>的格式；</p>
-<p>从文档当中可以看出：</p>
+<h3 id="工程">工程</h3>
 <ul>
-<li>日期的format是大小写敏感：例： w是一年的每几周； W是每月的第几周</li>
-<li>日期的format与字母的次数有关， 例：如果是9月份， M代表9，MM为09，MMM为Sept，MMMM为September，MMMMMM为S</li>
+<li><a href="https://github.com/ipipdotnet/ipdb-go">ipdb-go</a>：一个根据ipdb文件来解析IP信息的库</li>
 </ul>
-<p>所以可以开始format你的日期，</p>
+<h3 id="好文">好文</h3>
 <ul>
-<li>年-本年第几个月-本年每几周： <code>{date: YYYY-MM-W}</code></li>
+<li><a href="https://www.interdb.jp/pg/">The Internals of PostgreSQL</a>：讲述PG的内部原理，不过国内用mysql的居多</li>
 </ul>
 
     </div>
@@ -242,7 +236,7 @@
             
             <p class="copyright-item">
                     <span>Link:</span>
-                    <a href=https://xibolun.github.io/post/tools/aflred/>https://xibolun.github.io/post/tools/aflred/</span>
+                    <a href=https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w04/>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w04/</span>
             </p>
             
             
@@ -254,8 +248,8 @@
             <section>
             <i class="iconfont icon-tag"></i>Tag(s):
             
-            <span class="tag"><a href="https://xibolun.github.io/tags/alfred/">
-                    #alfred</a></span>
+            <span class="tag"><a href="https://xibolun.github.io/tags/sre-weekly/">
+                    #sre-weekly</a></span>
             
             </section>
         
@@ -267,10 +261,8 @@
 
     <div class="post-nav">
         
-        <a href="https://xibolun.github.io/post/python/xmlsec%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/" class="prev" rel="prev" title="xmlsec安装报错"><i class="iconfont icon-left"></i>&nbsp;xmlsec安装报错</a>
+        <a href="https://xibolun.github.io/post/tools/aflred/" class="prev" rel="prev" title="Alfred snippets日期格式化"><i class="iconfont icon-left"></i>&nbsp;Alfred snippets日期格式化</a>
         
-        
-        <a href="https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w04/" class="next" rel="next" title="SRE Weekly-2023M04W05">SRE Weekly-2023M04W05&nbsp;<i class="iconfont icon-right"></i></a>
         
     </div>
 

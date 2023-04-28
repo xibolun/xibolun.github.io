@@ -6,7 +6,16 @@
     <description>Recent content in Tags on Peng ganyu blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 27 Apr 2023 10:24:20 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Apr 2023 10:45:33 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>sre-weekly</title>
+      <link>https://xibolun.github.io/tags/sre-weekly/</link>
+      <pubDate>Fri, 28 Apr 2023 10:45:33 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/tags/sre-weekly/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>alfred</title>
       <link>https://xibolun.github.io/tags/alfred/</link>
@@ -22,15 +31,6 @@
       <pubDate>Wed, 26 Apr 2023 11:21:07 +0800</pubDate>
       
       <guid>https://xibolun.github.io/tags/%E6%8E%92%E9%9A%9C/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>sre-weekly</title>
-      <link>https://xibolun.github.io/tags/sre-weekly/</link>
-      <pubDate>Fri, 21 Apr 2023 11:21:07 +0800</pubDate>
-      
-      <guid>https://xibolun.github.io/tags/sre-weekly/</guid>
       <description></description>
     </item>
     
