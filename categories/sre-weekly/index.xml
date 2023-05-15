@@ -6,7 +6,25 @@
     <description>Recent content in sre-weekly on Peng ganyu blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 28 Apr 2023 10:45:33 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/categories/sre-weekly/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 May 2023 11:41:02 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/categories/sre-weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SRE Weekly-2023M05W02</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m05w02/</link>
+      <pubDate>Mon, 15 May 2023 11:41:02 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m05w02/</guid>
+      <description>利器 https://app.insta-speak.com/ 在线的英语对话 工程 nemo_go：一个开源的信息化收集平台，支持ip、域名 博客 http://invece.org/ ： redis作者antirez的个人blog 好文 断网，</description>
+    </item>
+    
+    <item>
+      <title>SRE Weekly-2023M05W01</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m05w01/</link>
+      <pubDate>Fri, 05 May 2023 11:40:27 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m05w01/</guid>
+      <description>利器 totp：一个Google Auth的命令行工具，可以让你不用再拿起手机 zbarimg：二维码识别工具，提供了一个在线decode的功能，</description>
+    </item>
+    
     <item>
       <title>SRE Weekly-2023M04W05</title>
       <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m04w04/</link>
