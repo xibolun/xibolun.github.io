@@ -6,7 +6,16 @@
     <description>Recent content in sre-weekly on Peng ganyu blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 15 May 2023 11:41:02 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/sre-weekly/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 May 2023 10:12:16 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/tags/sre-weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SRE Weekly-2023M05W03</title>
+      <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m05w03/</link>
+      <pubDate>Wed, 24 May 2023 10:12:16 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m05w03/</guid>
+      <description>利器 3D建模工具 zeabur：一个DevOps的工具 webpiolot：一个开源免费的AI对话 好文 Nginx-Proxy-Manager</description>
+    </item>
+    
     <item>
       <title>SRE Weekly-2023M05W02</title>
       <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m05w02/</link>
