@@ -6,7 +6,25 @@
     <description>Recent content in Posts on Peng ganyu blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 24 May 2023 10:12:16 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Nov 2024 14:24:42 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>我的输入法折腾经过</title>
+      <link>https://xibolun.github.io/post/tools/%E8%BE%93%E5%85%A5%E6%B3%95/</link>
+      <pubDate>Wed, 06 Nov 2024 14:24:42 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/tools/%E8%BE%93%E5%85%A5%E6%B3%95/</guid>
+      <description>2024年了，我还以折腾输入法，说起来也有一些惭愧，因为之前就知道一些emcas大佬就开始有什么Rime、小狼毫，中州韵、小鹤双拼等等，这次</description>
+    </item>
+    
+    <item>
+      <title>Go Prometheus取消go相关的metrics</title>
+      <link>https://xibolun.github.io/post/sre/prometheus%E5%8F%96%E6%B6%88go%E6%9C%AC%E8%BA%AB%E7%9A%84metrics/</link>
+      <pubDate>Fri, 16 Aug 2024 11:29:53 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre/prometheus%E5%8F%96%E6%B6%88go%E6%9C%AC%E8%BA%AB%E7%9A%84metrics/</guid>
+      <description>Go Prometheus取消go相关的metrics 取消go 采集器的注册即可 prometheus.Unregister(collectors.NewGoCollector())</description>
+    </item>
+    
     <item>
       <title>SRE Weekly-2023M05W03</title>
       <link>https://xibolun.github.io/post/sre-weekly/sre-weekly-2023m05w03/</link>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="pengganyu">
+    <meta name="description" content="Peng ganyu的个人博客">
+    
+    
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <meta name="referrer" content="no-referrer-when-downgrade"><link rel="prev" href="https://xibolun.github.io/post/sre/prometheus%E5%8F%96%E6%B6%88go%E6%9C%AC%E8%BA%AB%E7%9A%84metrics/" />
+    
+    <link rel="canonical" href="https://xibolun.github.io/post/tools/%E8%BE%93%E5%85%A5%E6%B3%95/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            我的输入法折腾经过 | Peng ganyu blog
+        
+    </title>
+    <meta name="title" content="我的输入法折腾经过 | Peng ganyu blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xibolun.github.io"
+    },
+    "articleSection" : "post",
+    "name" : "我的输入法折腾经过",
+    "headline" : "我的输入法折腾经过",
+    "description" : "rime wubi macos",
+    "inLanguage" : "zh-cn",
+    "author" : "pengganyu",
+    "creator" : "pengganyu",
+    "publisher": "pengganyu",
+    "accountablePerson" : "pengganyu",
+    "copyrightHolder" : "pengganyu",
+    "copyrightYear" : "2024",
+    "datePublished": "2024-11-06 14:24:42 \u002b0800 CST",
+    "dateModified" : "2024-11-06 14:24:42 \u002b0800 CST",
+    "url" : "https:\/\/xibolun.github.io\/post\/tools\/%E8%BE%93%E5%85%A5%E6%B3%95\/",
+    "wordCount" : "1570",
+    "keywords" : [ "input method", "Peng ganyu blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://xibolun.github.io">
+                    <span class="logo_text" >cd /home/</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/post/" title="">Blog</a>
+                
+                <a class="menu-item" href="/tags/tool/" title="">Tools</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/books" title="">读书</a>
+                
+                <a class="menu-item" href="/tags/sre-weekly/" title="">SRE周刊</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://xibolun.github.io">Peng ganyu blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/post/" title="">
+                            <h3>Blog</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/tool/" title="">
+                            <h3>Tools</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/books" title="">
+                            <h3>读书</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/sre-weekly/" title="">
+                            <h3>SRE周刊</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">我的输入法折腾经过</h1>
+        <div class="post-meta">
+                Written
+                <span class="post-time">
+                on <time datetime=2024-11-06 itemprop="datePublished">November 6, 2024</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://xibolun.github.io/categories/tools/"> tools, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1570 words</span>
+                
+                
+                <span id="busuanzi_container_page_pv">本文阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <p>2024年了，我还以折腾输入法，说起来也有一些惭愧，因为之前就知道一些emcas大佬就开始有什么Rime、小狼毫，中州韵、<a href="https://www.flypy.com/">小鹤双拼</a>等等，这次记录下来主要是有两个原因：</p>
+<ol>
+<li>最近在学英文，现在的五笔输入法软件不支持英文自动联想，所以就下了狠心折腾一下；不过英文输入比较多的话，可以使用 <a href="https://github.com/dongyuwei/hallelujahIM">hallelujahIM输入法</a>，作者还在维护</li>
+<li>有一些敏感的信息，不希望上传到云端，虽然已经裸奔了多年 - - ；</li>
+</ol>
+<h3 id="百度输入法">百度输入法</h3>
+<p>一直以来使用<a href="https://shurufa.baidu.com/wubi/">百度五笔输入法</a>，它相比于其他的五笔输入法有以下优点：</p>
+<ul>
+<li>全平台支持,mac\ios\linux\android\windows，是的，它有linux平台的，在ubuntu上面使用配置也非常的方便</li>
+<li>一个账号，多端同步数据</li>
+<li>配置可以上传云端</li>
+</ul>
+<h3 id="rime">RIME</h3>
+<p>优点如下：</p>
+<ul>
+<li>自主定义，字体大小，候选词数</li>
+<li>多个主题</li>
+<li>词库可以自定义扩展</li>
+<li>多种输入法生态，</li>
+<li>备份同步：RIME的配置都放在指定的目录当中，可以选择同步用户数据，将数据所在的目录同步至云端</li>
+<li>隐私留在了本地，自主可控</li>
+</ul>
+<h4 id="mac下安装">mac下安装</h4>
+<blockquote>
+<p>我这里使用的是mac安装，linux和windows的存储目录不尽相同</p>
+</blockquote>
+<pre tabindex="0"><code># 安装 鼠须管 Squirrel
+brew install --cask squirrel
+</code></pre><h4 id="五笔输入法安装">五笔输入法安装</h4>
+<p>这个时候已经安装完成了，但是你发现输入的都是繁体，还是拼音，还需要安装五笔输入法</p>
+<pre tabindex="0"><code># 安装 输入法管理插件东风破plum： rime-install，下面的这个脚本会将其安装在~/plum
+curl -fsSL https://raw.githubusercontent.com/rime/plum/master/rime-install | bash
+
+# 安装wubi输入法，这个五笔输入法是官方自带的
+bash rime-install wubi pinyin-simp
+</code></pre><p>不想动默认的<code>default.yml</code>，可以添加自定义配置</p>
+<pre tabindex="0"><code># touch ~/Library/Rime/default.custom.yaml
+patch:
+  # 菜单中可选的方案列表，可根据喜好自行调整顺序，第一位为默认方案
+  schema_list:
+    - schema: wubi_pinyin # 官方的五笔拼音输入法
+</code></pre><p>然后重新部署一下即可生效，可以使用快捷键：alt+ctrl+`，相同于重启一下输入法；</p>
+<p>不过我看安装 <a href="https://github.com/KyleBing/rime-wubi86-jidian">极点五笔</a>的安装和start比较高，所以就选了这个，安装文档在官方的github里面</p>
+<h4 id="自定义词库">自定义词库</h4>
+<p>因为我的百度输入法里面有一些我经常使用的词组，所以将其导入进来；</p>
+<ul>
+<li>
+<p>先导出：在百度输入法mac，【偏好设置】当中有【词库】-&gt; 【用户词库】-&gt; 【导出】，导出后的文件为：百度mac词库导出2024_11_06</p>
+</li>
+<li>
+<p>创建自定义的dict文件：<code>~/Library/Rime/wubi_baidu_im.dict.yaml</code></p>
+</li>
+<li>
+<p>写入文件内容： <code>cat 百度mac词库导出2024_11_06 &gt;&gt; ~/Library/Rime/wubi_baidu_im.dict.yaml</code>，如果出现乱码，可以直接使用复制copy的方式</p>
+</li>
+<li>
+<p>写入主字典配置文件: <code>~/Library/Rime/wubi86_jidian.dict.yaml</code></p>
+</li>
+</ul>
+<pre tabindex="0"><code>import_tables: # 此处是添加用户自定义词库的地方
+  - wubi86_jidian_user                # 个人私有词库
+  - wubi86_jidian_user_hamster        # Hamster 词库
+  - wubi86_jidian_extra               # 扩展词库
+  - wubi_baidu_imported            # 百度输入法词库
+</code></pre><h4 id="主题配置">主题配置</h4>
+<p>主题配置文件是在 <code>~/Library/Rime/squirrel.yaml</code>当中，如果你不想动这个默认的文件，你可以自己添加一个custom的配置：<code>~/Library/Rime/squirrel.custom.yaml</code></p>
+<pre tabindex="0"><code>patch:
+  style:
+    color_scheme: roseo_maple # 白亮模式下启用的皮肤，名字对应下方对皮肤的字义名
+    color_scheme_dark: roseo_maple_dark # 暗黑模式下启用的皮肤
+  preset_color_schemes:
+</code></pre><ul>
+<li>preset_color_schemes是管理pifu列表的</li>
+<li>color_scheme: 后面接preset_color_schemes列表当中的名称即可</li>
+</ul>
+<h4 id="安静模式">安静模式</h4>
+<p>安静模式即是进入某个应用的时候，自动切换为英文，官方提供的文档在这里：<a href="https://github.com/rime/home/wiki/CustomizationGuide#%E5%9C%A8%E7%89%B9%E5%AE%9A%E7%A8%8B%E5%BA%8F%E8%A3%8F%E9%97%9C%E9%96%89%E4%B8%AD%E6%96%87%E8%BC%B8%E5%85%A5">在特定程序裏關閉中文輸入</a></p>
+<p>以<code>VSCode</code>为例，先查看应用的启动包名称：</p>
+<pre tabindex="0"><code>cat /Applications/Visual\ Studio\ Code.app/Contents/Info.plist| grep &#39;BundleIdentifier&#39; -A 1
+    &lt;key&gt;CFBundleIdentifier&lt;/key&gt;
+    &lt;string&gt;com.microsoft.VSCode&lt;/string&gt;
+</code></pre><p>在<code>~/Library/Rime/squirrel.custom.yaml</code>当中做如下配置即可</p>
+<pre tabindex="0"><code>  # --- 特定程序定义初始状态的英文输入 ---
+  app_options:
+    com.microsoft.VSCode:
+      ascii_mode: true
+</code></pre><p>其他应用以此类推</p>
+<h4 id="英文联想">英文联想</h4>
+<p>目前能看到可以使用的英文库有两个</p>
+<ul>
+<li><a href="https://github.com/BlindingDark/rime-easy-en">rime-easy-en</a></li>
+<li><a href="https://github.com/tumuyan/rime-melt">rime-melt</a></li>
+</ul>
+<p>配置原理相同，都是在主的输入法当中添加依赖即可，不过 rime-easy-en的词库要强大一些</p>
+<h4 id="词库同步">词库同步</h4>
+<p><a href="https://github.com/KyleBing/rime-wubi86-jidian/wiki/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87-iCloud-%E5%AE%9E%E7%8E%B0%E8%AF%8D%E5%BA%93%E5%A4%9A%E7%AB%AF%E5%90%8C%E6%AD%A5%EF%BC%8CWindows%E3%80%81iOS%E3%80%81macOS">https://github.com/KyleBing/rime-wubi86-jidian/wiki/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87-iCloud-%E5%AE%9E%E7%8E%B0%E8%AF%8D%E5%BA%93%E5%A4%9A%E7%AB%AF%E5%90%8C%E6%AD%A5%EF%BC%8CWindows%E3%80%81iOS%E3%80%81macOS</a></p>
+<h3 id="一些大佬们的参考">一些大佬们的参考</h3>
+<ul>
+<li><a href="https://www.hawu.me/others/2666">https://www.hawu.me/others/2666</a></li>
+<li>如果你觉得麻烦，可以使用这个 <a href="https://www.mintimate.cc/zh/">oh-my-rime</a></li>
+<li>rime的英文配置 <a href="https://dvel.me/posts/make-rime-en-better/">优化Rime英文输入体验</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>pengganyu </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://xibolun.github.io/post/tools/%E8%BE%93%E5%85%A5%E6%B3%95/>https://xibolun.github.io/post/tools/%E8%BE%93%E5%85%A5%E6%B3%95/</span>
+            </p>
+            
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://xibolun.github.io/tags/input-method/">
+                    #input method</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://xibolun.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xibolun.github.io/post/sre/prometheus%E5%8F%96%E6%B6%88go%E6%9C%AC%E8%BA%AB%E7%9A%84metrics/" class="prev" rel="prev" title="Go Prometheus取消go相关的metrics"><i class="iconfont icon-left"></i>&nbsp;Go Prometheus取消go相关的metrics</a>
+        
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+                <div id="utteranc-container">
+    <script src='https://utteranc.es/client.js'
+        repo='xibolun/xibolun.github.io'
+        issue-term='title'
+        theme='github-light'
+        crossorigin='anonymous'
+        async>
+    </script>
+</div>
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2016 - 2024</span>
+    
+    <span class="with-love">
+      <i class="iconfont icon-love"></i>
+    </span>
+    
+    <span class="author" itemprop="copyrightHolder"
+      ><a href="https://xibolun.github.io">pengganyu</a> |
+    </span>
+     
+
+    <span
+      >Powered by
+      <a href="https://gohugo.io/" target="_blank" rel="external nofollow"
+        >Hugo</a
+      >
+      
+      
+      <span id="busuanzi_container_site_pv">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span>
+      <span id="busuanzi_container_site_uv">
+        本站访客数<span id="busuanzi_value_site_uv"></span>人次
+      </span></span
+    >
+  </div>
+</footer>
+
+
+
+
+
+
+<script defer src="/js/vendor_main.min.js"></script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+
+
+        </div>
+    </body>
+</html>

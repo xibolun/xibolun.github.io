@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sre on Peng ganyu blog</title>
+    <link>https://xibolun.github.io/categories/sre/</link>
+    <description>Recent content in sre on Peng ganyu blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 16 Aug 2024 11:29:53 +0800</lastBuildDate><atom:link href="https://xibolun.github.io/categories/sre/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Prometheus取消go相关的metrics</title>
+      <link>https://xibolun.github.io/post/sre/prometheus%E5%8F%96%E6%B6%88go%E6%9C%AC%E8%BA%AB%E7%9A%84metrics/</link>
+      <pubDate>Fri, 16 Aug 2024 11:29:53 +0800</pubDate>
+      
+      <guid>https://xibolun.github.io/post/sre/prometheus%E5%8F%96%E6%B6%88go%E6%9C%AC%E8%BA%AB%E7%9A%84metrics/</guid>
+      <description>Go Prometheus取消go相关的metrics 取消go 采集器的注册即可 prometheus.Unregister(collectors.NewGoCollector())</description>
+    </item>
+    
+  </channel>
+</rss>
